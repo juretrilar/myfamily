@@ -1,0 +1,139 @@
+html, body {
+    font-family: 'Roboto';
+    font-weight: 300!important;
+    margin: 0;
+    padding: 0;
+    background-color: lightgray;
+}
+
+.mdl-header .circle-container {
+    width: 48px;
+    height: 48px;
+    border-radius: 32px;
+    margin: 0 10px 0 0;
+}
+
+.circle-container-main{
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+    margin: 0 10px 0 0;
+}
+
+.mdl-layout__header {
+    z-index: unset;
+}
+
+.mdl-layout__header-row {
+    padding-right: 0px!important;
+}
+
+.mdl-menu {
+    overflow: visible;
+}
+
+.mdl-layout__header-row h6 {
+    margin-bottom: 50px;
+}
+
+.mdl-layout__header-row button {
+    margin-bottom: 25px;
+}
+
+.text-main {
+    margin-top: -50px;
+    flex-shrink: 0;
+    z-index: 3;
+}
+
+.text-container {
+    max-width: 1600px;
+    width: calc(100% - 16px);
+    margin: 0 auto;
+}
+
+.text-content {
+    border-radius: 2px;
+    padding: 0px 16px;
+    background-color: blue;
+}
+
+.mdl-card__title > h2 {
+    width: 100%;
+}
+
+.text-layout .is-small-screen .text-content {
+    padding: 0px 16px;
+}
+
+.mdl-layout__tab-bar-button {
+    background-color: white;
+}
+
+.mdl-layout.is-upgraded .mdl-layout__tab.is-active {
+    color:black!important;
+}
+
+.padding-zero  {
+    margin-top: 5px!important;
+    margin-bottom: 0;
+}
+
+
+.mdl-checkbox__focus-helper {
+    background-color: white;
+    border-radius: 0;
+}
+
+.mdl-chip {
+    height: 20px;
+    padding: 0 5px;
+    line-height: 16px;
+    font-size: unset;
+    margin-left: 5px;
+}
+
+.mdl-chip__text {
+    font-size: 10px;
+}
+
+.mdl-checkbox__box-outline {
+    border: none;
+    border-radius: 0;
+}
+
+
+.mdl-mini-footer {
+    align-items: center;
+    background-color: transparent;
+    box-sizing: border-box;
+}
+
+.mdl-mega-footer {
+    padding-left: 0px;
+}
+
+.mdl-mega-footer__bottom-section {
+    padding-left: 10px;
+}
+
+.not-active {
+    pointer-events: none;
+    cursor: default;
+}
+
+@media screen and (max-width: 1340px) and (min-device-width: 787px) {
+    .mdl-list__item--two-line {
+        height: 80px;
+    }
+}
+
+.mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-sub-title {
+    overflow: visible;
+    position: absolute;
+}
+
+.card-wide > .mdl-card__supporting-text {
+    height: 100%;
+}
+

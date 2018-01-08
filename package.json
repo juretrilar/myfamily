@@ -1,0 +1,23 @@
+{
+  "name": "ekosmart",
+  "version": "1.0.0",
+  "description": "test app",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "mongoose": "^4.13.7",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "vid9"
+  },
+  "author": "vid9",
+  "license": "ISC"
+}
