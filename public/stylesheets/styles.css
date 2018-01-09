@@ -47,7 +47,7 @@ html, body {
 }
 
 .text-container {
-    max-width: 1600px;
+    max-width: 2500px;
     width: calc(100% - 16px);
     margin: 0 auto;
 }
@@ -64,6 +64,13 @@ html, body {
 
 .text-layout .is-small-screen .text-content {
     padding: 0px 16px;
+}
+
+
+.mdl-layout__container.has-scrolling-header .mdl-layout--fixed-header .mdl-layout__content {
+    overflow-y: visible;
+    overflow-x: visible;
+    overflow: visible;
 }
 
 .mdl-layout__tab-bar-button {
@@ -135,5 +142,28 @@ html, body {
 
 .card-wide > .mdl-card__supporting-text {
     height: 100%;
+}
+
+
+/* NALOGE */
+
+.mdl-card-naloge {
+    margin-top: -50px;
+}
+
+.mdl-textfield {
+    width: 15%;
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+.mdl-card__supporting-text {
+    width: 97%;
+}
+
+@media screen and (max-width: 900px) {
+    .mdl-textfield {
+        width: 30%;
+    }
 }
 
