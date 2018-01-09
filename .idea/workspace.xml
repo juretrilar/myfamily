@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0385c574-b552-42e2-beda-6114b3d5017d" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/vidce.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/views/pages/cilji.ejs" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/views/pages/naloge.ejs" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
       <change beforePath="$PROJECT_DIR$/public/stylesheets/styles.css" afterPath="$PROJECT_DIR$/public/stylesheets/styles.css" />
       <change beforePath="$PROJECT_DIR$/views/pages/dashboard.ejs" afterPath="$PROJECT_DIR$/views/pages/dashboard.ejs" />
-      <change beforePath="$PROJECT_DIR$/views/pages/index.ejs" afterPath="$PROJECT_DIR$/views/pages/index.ejs" />
-      <change beforePath="$PROJECT_DIR$/views/partials/head.ejs" afterPath="$PROJECT_DIR$/views/partials/head.ejs" />
-      <change beforePath="$PROJECT_DIR$/views/partials/script.ejs" afterPath="$PROJECT_DIR$/views/partials/script.ejs" />
+      <change beforePath="$PROJECT_DIR$/views/pages/naloge.ejs" afterPath="$PROJECT_DIR$/views/pages/naloge.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -36,11 +28,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="naloge.ejs" pinned="false" current-in-tab="true">
+      <file leaf-file-name="naloge.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="6" column="86" lean-forward="false" selection-start-line="6" selection-start-column="86" selection-end-line="6" selection-end-column="86" />
+            <state relative-caret-position="-239">
+              <caret line="85" column="83" lean-forward="false" selection-start-line="85" selection-start-column="83" selection-end-line="85" selection-end-column="83" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
@@ -104,18 +96,20 @@
       <file leaf-file-name="dashboard.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/dashboard.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="10" column="107" lean-forward="false" selection-start-line="10" selection-start-column="107" selection-end-line="10" selection-end-column="107" />
-              <folding />
+            <state relative-caret-position="1974">
+              <caret line="163" column="6" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="163" selection-end-column="6" />
+              <folding>
+                <element signature="n#div#0;n#div#1;n#div#0;n#!!top" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="styles.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="790">
-              <caret line="163" column="33" lean-forward="false" selection-start-line="163" selection-start-column="33" selection-end-line="163" selection-end-column="33" />
+            <state relative-caret-position="601">
+              <caret line="177" column="28" lean-forward="false" selection-start-line="177" selection-start-column="28" selection-end-line="177" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -128,6 +122,7 @@
       <find>text-m</find>
       <find>sample</find>
       <find>is-small-screen</find>
+      <find>text-c</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -138,10 +133,10 @@
       <list>
         <option value="$PROJECT_DIR$/views/partials/script.ejs" />
         <option value="$PROJECT_DIR$/views/partials/head.ejs" />
-        <option value="$PROJECT_DIR$/views/pages/dashboard.ejs" />
         <option value="$PROJECT_DIR$/views/pages/index.ejs" />
-        <option value="$PROJECT_DIR$/public/stylesheets/styles.css" />
+        <option value="$PROJECT_DIR$/views/pages/dashboard.ejs" />
         <option value="$PROJECT_DIR$/views/pages/naloge.ejs" />
+        <option value="$PROJECT_DIR$/public/stylesheets/styles.css" />
       </list>
     </option>
   </component>
@@ -156,9 +151,9 @@
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="2735" />
-    <option name="y" value="-18" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1995" />
+    <option name="y" value="-31" />
     <option name="width" value="1918" />
     <option name="height" value="1028" />
   </component>
@@ -269,15 +264,15 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1515489329132</updated>
-      <workItem from="1515489330342" duration="8979000" />
+      <workItem from="1515489330342" duration="11991000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8979000" />
+    <option name="totallyTimeSpent" value="11991000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2391" y="-9" width="2018" height="1468" extended-state="7" />
+    <frame x="2391" y="-9" width="2018" height="1468" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -319,6 +314,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/footer.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="n#style#0;n#footer#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/partials/head.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
@@ -329,17 +334,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/dashboard.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="10" column="107" lean-forward="false" selection-start-line="10" selection-start-column="107" selection-end-line="10" selection-end-column="107" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/cilji.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="1974">
+          <caret line="163" column="6" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="163" selection-end-column="6" />
+          <folding>
+            <element signature="n#div#0;n#div#1;n#div#0;n#!!top" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -367,32 +366,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/footer.ejs">
+    <entry file="file://$PROJECT_DIR$/views/pages/cilji.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#footer#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="790">
-          <caret line="163" column="33" lean-forward="false" selection-start-line="163" selection-start-column="33" selection-end-line="163" selection-end-column="33" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="86" lean-forward="false" selection-start-line="6" selection-start-column="86" selection-end-line="6" selection-end-column="86" />
+        <state relative-caret-position="-239">
+          <caret line="85" column="83" lean-forward="false" selection-start-line="85" selection-start-column="83" selection-end-line="85" selection-end-column="83" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="601">
+          <caret line="177" column="28" lean-forward="false" selection-start-line="177" selection-start-column="28" selection-end-line="177" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>
