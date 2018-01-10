@@ -1,6 +1,6 @@
 html, body {
     font-family: 'Roboto';
-    font-weight: 300!important;
+    font-weight: 300;
     margin: 0;
     padding: 0;
     background-color: lightgray;
@@ -47,7 +47,7 @@ html, body {
 }
 
 .text-container {
-    max-width: 2500px;
+    max-width: 4000px;
     width: calc(100% - 16px);
     margin: 0;
 }
@@ -149,6 +149,18 @@ html, body {
 
 .mdl-card-naloge {
     margin-top: -50px;
+    overflow: visible;
+    width: 100%;
+}
+
+.mdl-card-naloge {
+    margin-top: -50px;
+    overflow: visible;
+    width: 100%;
+}
+
+.mdl-card-search {
+    width: 100%;
 }
 
 .mdl-textfield {
@@ -166,18 +178,38 @@ html, body {
         width: 30%;
     }
 }
-@media (max-width: 840px) and (min-width: 480px) {
-    .mdl-cell--3-col, .mdl-cell--3-col-tablet.mdl-cell--3-col-tablet {
-        width: calc(32.7% - 16px);
+
+@media screen and (max-width: 839px) {
+    .mdl-hide-small {
+        display: none!important;
     }
 }
 
-@media (max-width: 840px) {
-    .text-container {
-        max-width: 2500px;
-        width: calc(100% - 8px);
-        margin: 0;
+@media screen and (min-width: 840px) {
+    .mdl-cell.mdl-cell--3-col {
+        width: calc(27.777777777% - 16px);
     }
 }
+
+@media screen and (min-width: 1440px) {
+    .mdl-cell.mdl-cell--3-col {
+        width: calc(20.8333333325% - 16px);
+    }
+
+    .mdl-cell--hide-hd {
+        display: none!important;
+    }
+
+    .mdl-cell-show-hd {
+        display: block!important;
+    }
+}
+
+.mdl-chip-naloge {
+    float: right;
+    margin-top: 5px;"
+}
+
+
 
 
