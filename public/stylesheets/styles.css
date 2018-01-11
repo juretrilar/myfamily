@@ -28,6 +28,21 @@ html, body {
     padding-right: 0px!important;
 }
 
+.mdl-layout__tab-bar-button {
+    background-color: white;
+    width: 24px;
+}
+
+.mdl-layout__tab-bar-button.is-active {
+    color:black;
+}
+
+@media screen and (max-width: 840px){
+    .mdl-layout__tab-bar {
+        padding-left: 20px;
+    }
+}
+
 .mdl-menu {
     overflow: visible;
 }
@@ -73,25 +88,6 @@ html, body {
     overflow: visible;
 }
 
-.mdl-layout__tab-bar-button {
-    background-color: white;
-}
-
-.mdl-layout.is-upgraded .mdl-layout__tab.is-active {
-    color:black!important;
-}
-
-.padding-zero  {
-    margin-top: 5px!important;
-    margin-bottom: 0;
-}
-
-
-.mdl-checkbox__focus-helper {
-    background-color: white;
-    border-radius: 0;
-}
-
 .mdl-chip {
     height: 20px;
     padding: 0 5px;
@@ -103,12 +99,6 @@ html, body {
 .mdl-chip__text {
     font-size: 10px;
 }
-
-.mdl-checkbox__box-outline {
-    border: none;
-    border-radius: 0;
-}
-
 
 .mdl-mini-footer {
     align-items: center;
@@ -170,7 +160,7 @@ html, body {
 }
 
 .mdl-card__supporting-text {
-    width: 97%;
+    width: auto;
 }
 
 @media screen and (max-width: 900px) {
@@ -211,5 +201,34 @@ html, body {
 }
 
 
+/* CILJI */
 
+.table-cilj {
+    width: 100%
+}
 
+.padding-zero {
+    padding: 0!important;
+}
+
+/* CHECKBOXES */
+
+.mdl-checkbox .mdl-checkbox__focus-helper {
+    background-color: white;
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__focus-helper {
+    background-color: black;
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
+    border: 2px lightgrey;
+}
+
+.mdl-checkbox .mdl-checkbox__tick-outline {
+    background-color: lightgrey;
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
+    background-color: lightgrey;
+}
