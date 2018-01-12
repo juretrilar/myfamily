@@ -36,10 +36,14 @@ Uporabik lahko na teji strani dostopa do koledarja, kjer ima označene datume za
 
 ### Naloge
 
+Uporabnik lahko na teji strani išče po svojih nalogah, na voljo ima filtre po katerih lahko poišče nalogo z želenim parametrom. Pod iskalnim filtrom se mu nato izpišejo vse naloge, ki ustrezajo izbranim parametrom.
+
 TODO:
-Uporabnik lahko spreminja obstoječe in dodaja nove naloge.
+Uporabnik je z klikom na gumb dodaj novo nalogo preusmerjen na stran kjer lahko ustvari in doda novo nalogo.
 
 ### Cilji
+
+Uporabnik lahko na teji strani dostopa do vseh skupnih ciljev, ki jih ima družina.
 
 TODO:
 Uporabnik lahko spreminja in dodaja nove cilje.
