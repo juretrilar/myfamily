@@ -1,7 +1,7 @@
-var express = require('express');
-var esController = require('./controllers/esController');
+let express = require('express');
+let esController = require('./controllers/esController');
 
-var app = express();
+let app = express();
 
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));

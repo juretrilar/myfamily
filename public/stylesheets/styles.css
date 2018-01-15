@@ -6,16 +6,77 @@ html, body {
     background-color: lightgray;
 }
 
-.mdl-header .circle-container {
-    width: 48px;
-    height: 48px;
+.circle-container-main{
+    width: 32px;
+    height: 32px;
     border-radius: 32px;
     margin: 0 10px 0 0;
 }
 
-.circle-container-main{
-    width: 32px;
-    height: 32px;
+.text-main {
+    margin-top: -50px;
+    flex-shrink: 0;
+    z-index: 3;
+}
+
+.mdl-layout__container.has-scrolling-header .mdl-layout--fixed-header .mdl-layout__content {
+    overflow-y: visible;
+    overflow-x: visible;
+    overflow: visible;
+}
+
+.mdl-chip {
+    height: 20px;
+    padding: 0 5px;
+    line-height: 16px;
+    font-size: unset;
+    margin-left: 5px;
+}
+
+.mdl-chip__text {
+    font-size: 10px;
+}
+
+.mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-sub-title {
+    overflow: visible;
+    position: absolute;
+}
+
+.align-right {
+    float: right;;
+}
+
+.overflow-visible {
+    overflow: visible;
+}
+
+/* CHECKBOXES */
+
+.mdl-checkbox .mdl-checkbox__focus-helper {
+    background-color: white;
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__focus-helper {
+    background-color: black;
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
+    border: 2px lightgrey;
+}
+
+.mdl-checkbox .mdl-checkbox__tick-outline {
+    background-color: lightgrey;
+}
+
+.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
+    background-color: lightgrey;
+}
+
+/* HEADER */
+
+.mdl-header .circle-container {
+    width: 48px;
+    height: 48px;
     border-radius: 32px;
     margin: 0 10px 0 0;
 }
@@ -49,11 +110,9 @@ html, body {
     margin-bottom: 25px;
 }
 
-.text-main {
-    margin-top: -50px;
-    flex-shrink: 0;
-    z-index: 3;
-}
+/*           */
+
+/* DASHBOARD */
 
 .text-container {
     max-width: 4000px;
@@ -75,24 +134,17 @@ html, body {
     padding: 0px 16px;
 }
 
-
-.mdl-layout__container.has-scrolling-header .mdl-layout--fixed-header .mdl-layout__content {
-    overflow-y: visible;
-    overflow-x: visible;
-    overflow: visible;
+.section__text {
+    rgba(0,0,0,0)
 }
 
-.mdl-chip {
-    height: 20px;
-    padding: 0 5px;
-    line-height: 16px;
-    font-size: unset;
-    margin-left: 5px;
+.mdl-textfield__status {
+    position:relative;width: 70%;float: left;
 }
 
-.mdl-chip__text {
-    font-size: 10px;
-}
+/*        */
+
+/* FOOTER */
 
 .mdl-mini-footer {
     align-items: center;
@@ -108,20 +160,13 @@ html, body {
     padding-left: 10px;
 }
 
+/*
 .not-active {
     pointer-events: none;
     cursor: default;
-}
+} */
 
-.mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-sub-title {
-    overflow: visible;
-    position: absolute;
-}
-
-.card-wide > .mdl-card__supporting-text {
-    height: 100%;
-}
-
+/*        */
 
 /* NALOGE */
 
@@ -150,6 +195,36 @@ html, body {
 .mdl-card__supporting-text {
     width: auto;
 }
+
+.mdl-chip-naloge {
+    float: right;
+    margin-top: 5px;"
+}
+
+.naloge-title_type {
+    margin: 0;
+    width: 100%;
+}
+
+.padding-10 {
+    padding: 10px;
+}
+
+/*       */
+
+/* CILJI */
+
+.table-cilj {
+    width: 100%
+}
+
+.padding-zero {
+    padding: 0!important;
+}
+
+/*                   */
+
+/* RESPONSIVE DESIGN */
 
 @media screen and (max-width: 900px) {
     .mdl-textfield {
@@ -197,42 +272,4 @@ html, body {
     .mdl-textfield {
         width: 46%;
     }
-}
-
-.mdl-chip-naloge {
-    float: right;
-    margin-top: 5px;"
-}
-
-
-/* CILJI */
-
-.table-cilj {
-    width: 100%
-}
-
-.padding-zero {
-    padding: 0!important;
-}
-
-/* CHECKBOXES */
-
-.mdl-checkbox .mdl-checkbox__focus-helper {
-    background-color: white;
-}
-
-.mdl-checkbox.is-checked .mdl-checkbox__focus-helper {
-    background-color: black;
-}
-
-.mdl-checkbox.is-checked .mdl-checkbox__box-outline {
-    border: 2px lightgrey;
-}
-
-.mdl-checkbox .mdl-checkbox__tick-outline {
-    background-color: lightgrey;
-}
-
-.mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
-    background-color: lightgrey;
 }

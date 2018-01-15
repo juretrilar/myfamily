@@ -1,21 +1,21 @@
-var bodyParser = require('body-parser');
-var ejs = require('ejs');
-var mongoose = require('mongoose');
+let bodyParser = require('body-parser');
+let ejs = require('ejs');
+let mongoose = require('mongoose');
 
-/*mongoose.connect('mongodb://')
-var schema = new mongoose.Schema({
-    name: String,
-    description: String
-})
+/*mongoose.connect('mongodb:localhost/myfamily-db')
+var Schema = mongoose.Schema;
 
-var Cilji = mongoose.model('Cilji', schema);
-var itemOne = Cilji({name: 'test'},{description: 'test'}).save(function(err){
-    if(err) throw err;
-    consol.log('item saved');
-});
+userSchema.pre('save', function(next) {
+    var currentDate = new Date();
+    this.updated_at = currentDate;
+    if (!this.created_at)
+        this.created_at = currentDate;
+    next();
+}
+
 */
 
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 module.exports = function (app) {
 
