@@ -5,14 +5,14 @@
             <div class="mdl-card__title mdl-color--red-400">
                 <h2 class="mdl-card__title-text mdl-color-text--white">Skupni cilji družine</h2>
                 <div class="mdl-card__actions">
-                    <button id="dodajnalogo" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored" style="float: right">
+                    <button id="dodajcilj" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored align-right" onclick="dodajNovCilj()">
                         DODAJ NOV CILJ
                         <i class="material-icons">add</i>
                     </button>
                 </div>
             </div>
             <div class="mdl-card__supporting-text padding-zero">
-                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji">
                     <tbody>
                     <tr>
                         <td class="mdl-data-table__cell--non-numeric padding-zero">
@@ -82,10 +82,39 @@
                         </td>
                         <td>
                         </td>
-                        <td><i class="material-icons">mode_edit</i></td>
+                        <td></td>
                     </tr>
                     </tbody>
             </table>
+            <span for="table-cilji" class="mdl-tooltip mdl-cell--hide-desktop"><i class="material-icons">mode_edit</i></span>
+            <span for="table-cilji" class="mdl-tooltip mdl-tooltip--right mdl-cell--hide-tablet mdl-cell--hide-phone"><i class="material-icons">mode_edit</i></span>
+            <dialog id="dialog" class="mdl-dialog dialog-cilji" style="overflow: visible">
+                <h3 id="cilj-title" class="mdl-dialog__title">MDL Dialog</h3>
+                <div class="mdl-dialog__content">
+                    <form action="#" id="update_cilji">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input" type="text" id="imeCilja">
+                            <label class="mdl-textfield__label" for="imeCilja">Ime cilja</label>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input" type="text" id="opisCilja">
+                            <label class="mdl-textfield__label" for="opisCilja">Opis cilja</label>
+                        </div>
+                        <div id="ciljZacetek" class="mdl-textfield mdl-js-textfield textfield-modal is-dirty" style="display:inline-block;">
+                            <input class="mdl-textfield__input " type="text" id="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" value="Začetek">
+                            <div class="monthly monthly-picker" style="position: absolute; display: block;" id="zacetek"></div>
+                        </div>
+                        <div id="ciljKonec" class="mdl-textfield mdl-js-textfield textfield-modal is-dirty" style="display:inline-block;">
+                            <input class="mdl-textfield__input " type="text" id="targetKonec" title="Datum na katerega je bil cilj dosežen" value="Konec" >
+                            <div class="monthly monthly-picker" style="position: absolute; display: block;" id="konec"></div>
+                        </div>
+                    </form>
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button mdl-color--red-400">Zapri</button>
+                    <button id="ustvariCilj" type="button" class="mdl-button mdl-color--grey-400">Ustvari cilj</button>
+                </div>
+            </dialog>
             </div>
         </div>
     </div>

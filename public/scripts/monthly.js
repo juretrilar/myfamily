@@ -486,6 +486,7 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				} else {
 					// Otherwise, select the date ...
 					$(String(options.target)).val(formatDate(setYear, setMonth, whichDay));
+					console.log(setYear+" "+whichDay+" "+" "+setMonth);
 					// ... and then hide the calendar if it started that way
 					if(options.startHidden) {
 						$(parent).hide();

@@ -160,6 +160,10 @@ html, body {
     padding-left: 10px;
 }
 
+.monthly-picker {
+    transform: translate(0, -100%);
+}
+
 /*
 .not-active {
     pointer-events: none;
@@ -186,7 +190,7 @@ html, body {
     width: 100%;
 }
 
-.mdl-textfield {
+.textfield-search {
     width: 15%;
     margin-left: 4px;
     margin-right: 4px;
@@ -222,12 +226,31 @@ html, body {
     padding: 0!important;
 }
 
+.dialog-cilji {
+    position: fixed;
+    width: 40%;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.monthly-pop .monthly-header-title {
+    font-size: 1em;
+}
+
+.textfield-modal {
+    width: 90%;
+}
+
+.monthly {
+    max-width: 500px;
+}
+
 /*                   */
 
 /* RESPONSIVE DESIGN */
 
 @media screen and (max-width: 900px) {
-    .mdl-textfield {
+    .textfield-search {
         width: 30%;
     }
 }
@@ -239,6 +262,10 @@ html, body {
 
     .mdl-layout__tab-bar {
         padding-left: 20px;
+    }
+
+    .dialog-cilji {
+        width: 60%;
     }
 }
 
@@ -266,10 +293,18 @@ html, body {
     .mdl-cell--3-col, .mdl-cell--3-col-phone.mdl-cell--3-col-phone {
         width: 100%;
     }
+
+    .dialog-cilji {
+        width: 80%;
+    }
 }
 
 @media screen and (max-width: 372px) {
-    .mdl-textfield {
+    .textfield-search {
         width: 46%;
+    }
+
+    .dialog-cilji {
+        width: 100%;
     }
 }
