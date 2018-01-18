@@ -85,9 +85,9 @@
 <div class="text-container mdl-grid">
     <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
     <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
-        <div class="mdl-card mdl-card-search mdl-shadow--2dp">
+        <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 6;">
             <div class="mdl-card__title mdl-color--orange-300 padding-10">
-                <h7 class="naloge-title_type">
+                <div class="naloge-title_type">
                     <div class="mdl-card__subtitle-text mdl-color-text--black">Kategorija</div>
                     <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">
                         Skupni cilji družine
@@ -95,14 +95,53 @@
                             <span class="mdl-chip__text">+100 xp</span>
                         </span>
                     </div>
-                </h7>
+                </div>
+            </div>
+            <div class="mdl-card__supporting-text padding-zero overflow-visible">
+                <div class="mdl-list__item mdl-list__item--three-line padding-10">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--black">Letna družinska srečanja</span>
+                        <span class="mdl-list__item-text-body mdl-color-text--grey">Dobra volja in babičina kulinarika,Dobra volja in babičina kulinarika,Dobra volja in babičina kulinarika</span>
+                    </span>
+                </div>
+                <div class="mdl-list__item mdl-list__item--three-line padding-10">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--grey">Za:</span>
+                        <span class="mdl-list__item-text-body chip-no-margin" style="margin-top: 10px;">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">A</span>
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">B</span>
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span>
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span>
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">E</span>
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">F</span>
+                        </span>
+                    </span>
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--grey">Avtor:</span>
+                        <span class="mdl-list__item-text-body" style="margin-top: 10px;">
+                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span>
+                        </span>
+                    </span>
+                </div>
+                <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
+                <span>12/1/2018 12:00 - 18:00</span>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label  getmdl-select select-naloga">
+                    <input type="text" value="" class="mdl-textfield__input" id="naloga1" readonly>
+                    <input type="hidden" value="" name="naloga2">
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                    <label for="naloga1" class="mdl-textfield__label">Status naloge</label>
+                    <ul for="naloga1" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <li class="mdl-menu__item" data-val="DONE">Opravljeno</li>
+                        <li class="mdl-menu__item" data-val="TODO">Neopravljeno</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
-        <div class="mdl-card mdl-card-search mdl-shadow--2dp">
+        <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 5;">
             <div class="mdl-card__title mdl-color--orange-300 padding-10">
-                <h7 class="naloge-title_type">
+                <div class="naloge-title_type">
                     <div class="mdl-card__subtitle-text mdl-color-text--black">Kategorija</div>
                     <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">
                         Skupni cilji družine
@@ -110,14 +149,42 @@
                             <span class="mdl-chip__text">+100 xp</span>
                         </span>
                     </div>
-                </h7>
+                </div>
+            </div>
+            <div class="mdl-card__supporting-text padding-zero overflow-visible">
+                <div class="mdl-list__item mdl-list__item--three-line padding-10">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--black">Letna družinska srečanja</span>
+                        <span class="mdl-list__item-text-body mdl-color-text--grey">Dobra volja in babičina kulinarika,Dobra volja in babičina kulinarika,Dobra volja in babičina kulinarika</span>
+                    </span>
+                </div>
+                <div class="mdl-list__item mdl-list__item--two-line padding-10">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Za:</span>
+                    </span>
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Avtor:</span>
+                    </span>
+                </div>
+                <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
+                <span>12/1/2018 12:00 - 18:00</span>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label  getmdl-select select-naloga">
+                    <input type="text" value="" class="mdl-textfield__input" id="naloga2" readonly>
+                    <input type="hidden" value="" name="naloga2">
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                    <label for="naloga2" class="mdl-textfield__label">Status naloge</label>
+                    <ul for="naloga2" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <li class="mdl-menu__item" data-val="DONE">Opravljeno</li>
+                        <li class="mdl-menu__item" data-val="TODO">Neopravljeno</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
-        <div class="mdl-card mdl-card-search mdl-shadow--2dp">
+        <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 4;">
             <div class="mdl-card__title mdl-color--orange-300 padding-10">
-                <h7 class="naloge-title_type">
+                <div class="naloge-title_type">
                     <div class="mdl-card__subtitle-text mdl-color-text--black">Kategorija</div>
                     <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">
                         Skupni cilji družine
@@ -125,16 +192,44 @@
                             <span class="mdl-chip__text">+100 xp</span>
                         </span>
                     </div>
-                </h7>
+                </div>
+            </div>
+            <div class="mdl-card__supporting-text padding-zero overflow-visible">
+                <div class="mdl-list__item mdl-list__item--three-line padding-10">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--black">Letna družinska srečanja</span>
+                        <span class="mdl-list__item-text-body mdl-color-text--grey">Dobra volja in babičina kulinarika,Dobra volja in babičina kulinarika,Dobra volja in babičina kulinarika</span>
+                    </span>
+                </div>
+                <div class="mdl-list__item mdl-list__item--two-line padding-10">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Za:</span>
+                    </span>
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Avtor:</span>
+                    </span>
+                </div>
+                <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
+                <span>12/1/2018 12:00 - 18:00</span>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label  getmdl-select select-naloga">
+                    <input type="text" value="" class="mdl-textfield__input" id="naloga3" readonly>
+                    <input type="hidden" value="" name="naloga2">
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                    <label for="naloga3" class="mdl-textfield__label">Status naloge</label>
+                    <ul for="naloga3" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <li class="mdl-menu__item" data-val="DONE">Opravljeno</li>
+                        <li class="mdl-menu__item" data-val="TODO">Neopravljeno</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--1-col mdl-hide-small mdl-cell--hide-hd"></div>
     <div class="mdl-cell mdl-cell--1-col mdl-hide-small mdl-cell--hide-hd"></div>
     <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet">
-        <div class="mdl-card mdl-card-search mdl-shadow--2dp">
+        <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 3;">
             <div class="mdl-card__title mdl-color--orange-300 padding-10">
-                <h7 class="naloge-title_type">
+                <div class="naloge-title_type">
                     <div class="mdl-card__subtitle-text mdl-color-text--black">Kategorija</div>
                     <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">
                         Skupni cilji družine
@@ -142,10 +237,70 @@
                             <span class="mdl-chip__text">+100 xp</span>
                         </span>
                     </div>
-                </h7>
+                </div>
+            </div>
+            <div class="mdl-card__supporting-text padding-zero overflow-visible">
+                <div class="mdl-list__item mdl-list__item--three-line padding-10">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--black">Letna družinska srečanja</span>
+                        <span class="mdl-list__item-text-body mdl-color-text--grey">Dobra volja in babičina kulinarika,Dobra volja in babičina kulinarika,Dobra volja in babičina kulinarika</span>
+                    </span>
+                </div>
+                <div class="mdl-list__item mdl-list__item--two-line padding-10">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Za:</span>
+                    </span>
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Avtor:</span>
+                    </span>
+                </div>
+                <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
+                <span>12/1/2018 12:00 - 18:00</span>
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label  getmdl-select select-naloga">
+                    <input type="text" value="" class="mdl-textfield__input" id="naloga4" readonly>
+                    <input type="hidden" value="" name="naloga2">
+                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                    <label for="naloga4" class="mdl-textfield__label">Status naloge</label>
+                    <ul for="naloga4" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <li class="mdl-menu__item" data-val="DONE">Opravljeno</li>
+                        <li class="mdl-menu__item" data-val="TODO">Neopravljeno</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--1-col mdl-cell-show-hd" style="display: none;"></div>
     <div class="mdl-cell mdl-cell--1-col mdl-cell-show-hd" style="display: none;"></div>
 </div>
+<dialog id="dialogNaloge" class="mdl-dialog dialog-cilji" style="overflow: visible">
+    <h3 id="nalogetitle" class="mdl-dialog__title"></h3>
+    <div class="mdl-dialog__content">
+        <form action="#" id="update_naloge">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                <input class="mdl-textfield__input" type="text" id="imeNaloga">
+                <label class="mdl-textfield__label" for="imeNaloga">Ime naloge</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                <input class="mdl-textfield__input" type="text" id="opisNaloga">
+                <label class="mdl-textfield__label" for="opisNaloga">Opis naloge</label>
+            </div>
+            <div id="ciljZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
+                <input class="mdl-textfield__input " type="text" id="nalogaZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
+                <label class="mdl-textfield__label" for="nalogaZacetek">Začetek naloge</label>
+                <div class="monthly-cilji monthly-picker" style="position: absolute; display: block;" id="nZacetek"></div>
+            </div>
+            <div id="ciljKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
+                <input class="mdl-textfield__input " type="text" id="targetKonec" title="Datum na katerega je bil cilj dosežen" style="text-align: left;">
+                <label class="mdl-textfield__label" for="nalogaKonec">Konec naloge</label>
+                <div class="monthly-cilji monthly-picker" style="position: absolute; display: block;" id="nKonec"></div>
+            </div>
+        </form>
+    </div>
+    <div class="mdl-dialog__actions">
+        <button type="button" class="mdl-button mdl-color--red-400">Zapri</button>
+        <button id="ustvariCilj" type="button" class="mdl-button mdl-color--grey-400">Ustvari cilj</button>
+    </div>
+</dialog>
+
+
+

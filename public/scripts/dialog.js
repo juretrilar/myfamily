@@ -17,11 +17,16 @@ window.onload=function(){
             }(table.rows[i]);
         }
     } onRowClick("my-table-id", function (row){
-        console.log(row.getElementsByTagName("td")[3].lastElementChild.lastElementChild.innerHTML);
-        // naslov row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.firstElementChild.innerHTML;
-        //opis row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.lastElementChild.innerHTML;
-        // zacetek row.getElementsByTagName("td")[1].innerHTML
-        // konec row.getElementsByTagName("td")[2].innerHTML
+        posodobiCilj();
+        $('#imeCilja').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.firstElementChild.innerHTML);
+        $('#imeCilja').parent().addClass("is-dirty");
+        $('#opisCilja').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.lastElementChild.innerHTML);
+        $('#opisCilja').parent().addClass("is-dirty");
+        $('#targetZacetek').val(row.getElementsByTagName("td")[1].innerHTML);
+        $('#targetZacetek').parent().addClass("is-dirty");
+        $('#targetKonec').val(row.getElementsByTagName("td")[2].innerHTML);
+        $('#targetKonec').parent().addClass("is-dirty");
+
         //xp row.getElementsByTagName("td")[3].innerHTML
         //opravljeno row.getElementsByTagName("td")[4].innerHTML
     });
@@ -29,22 +34,32 @@ window.onload=function(){
         .addEventListener('click', function() {
             dialog.close();
         });
-    document.getElementById("targetZacetek").addEventListener('click', function() {
-        $('ciljZacetek').addClass("is-dirty");
+    $("#targetZacetek").click(function() {
+        $('#ciljZacetek').addClass("is-dirty");
     });
-    document.getElementById("targetKonec").addEventListener('click', function() {
-        $('ciljKonec').addClass("is-dirty");
+    $("#targetKonec").click(function() {
+        $('#ciljKonec').addClass("is-dirty");
     });
 }();
 
+function clearData() {
+    $('#imeCilja').val("");
+    $('#opisCilja').val("");
+    $('#targetZacetek').val("");
+    $('#targetKonec').val("");
+}
+
 function posodobiCilj() {
     dialog.showModal();
+    clearData();
     document.getElementById("cilj-title").innerHTML = "Uredi cilj";
     document.getElementById("ustvariCilj").innerHTML = "Posodobi";
+    console.log("posodabljam");
 }
 
 function dodajNovCilj() {
     dialog.showModal();
+    clearData();
     document.getElementById("cilj-title").innerHTML = "Dodaj nov cilj";
     document.getElementById("ustvariCilj").innerHTML = "Ustvari";
 }

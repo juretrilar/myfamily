@@ -50,6 +50,10 @@ html, body {
     overflow: visible;
 }
 
+.padding-10 {
+    padding: 10px;
+}
+
 /* CHECKBOXES */
 
 .mdl-checkbox .mdl-checkbox__focus-helper {
@@ -180,12 +184,6 @@ html, body {
     width: 100%;
 }
 
-.mdl-card-naloge {
-    margin-top: -50px;
-    overflow: visible;
-    width: 100%;
-}
-
 .mdl-card-search {
     width: 100%;
 }
@@ -210,8 +208,13 @@ html, body {
     width: 100%;
 }
 
-.padding-10 {
-    padding: 10px;
+.select-naloga {
+    margin: 10px;
+    width: 94%;
+}
+
+.chip-no-margin .mdl-chip__contact {
+    margin-right: -16px;
 }
 
 /*       */
@@ -241,7 +244,7 @@ html, body {
     width: 90%;
 }
 
-.monthly {
+.monthly-cilji {
     max-width: 500px;
 }
 
