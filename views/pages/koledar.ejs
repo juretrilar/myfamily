@@ -17,22 +17,3 @@
         </div>
     </div>
 </div>
-<script src="/scripts/jquery.js"></script>
-<script src="/scripts/monthly.js"></script>
-<script type="text/javascript">
-    $(window).load( function() {
-        $('#mycalendar').monthly({
-            mode: 'event',
-            dataType: 'json',
-            jsonUrl: '/data/events.json'
-        });
-        switch(window.location.protocol) {
-            case 'http:':
-            case 'https:':
-                // running on a server, should be good.
-                break;
-            case 'file:':
-                alert('Just a heads-up, events will not work when run locally.');
-        }
-    });
-</script>

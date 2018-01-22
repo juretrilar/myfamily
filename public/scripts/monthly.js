@@ -486,7 +486,13 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				} else {
 					// Otherwise, select the date ...
 					$(String(options.target)).val(formatDate(setYear, setMonth, whichDay));
-					console.log(setYear+" "+whichDay+" "+" "+setMonth);
+					//console.log(setYear+" "+whichDay+" "+" "+setMonth);
+                    if($("#targetZacetek").val().length != 0) {
+                        $('#dialogZacetek').addClass("is-dirty");
+                    }
+                    if($("#targetKonec").val().length != 0) {
+                        $('#dialogKonec').addClass("is-dirty");
+                    }
 					// ... and then hide the calendar if it started that way
 					if(options.startHidden) {
 						$(parent).hide();

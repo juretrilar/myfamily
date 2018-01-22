@@ -54,27 +54,50 @@ html, body {
     padding: 10px;
 }
 
+.mdl-dialog__actions {
+    position: fixed;
+    bottom: 3%;
+    right: 29%;
+    z-index: 1;
+}
+
+.mdl-dialog__title {
+    padding-top: 12px;
+    position: fixed;
+    z-index: 1;
+    background-color: white;
+}
+
 /* CHECKBOXES */
 
 .mdl-checkbox .mdl-checkbox__focus-helper {
     background-color: white;
+
 }
 
 .mdl-checkbox.is-checked .mdl-checkbox__focus-helper {
     background-color: black;
+    top: 4px;
+    height: 14px;
 }
 
 .mdl-checkbox.is-checked .mdl-checkbox__box-outline {
     border: 2px lightgrey;
 }
 
+.mdl-checkbox .mdl-checkbox__box-outline {
+    border: 2px black;
+}
+
 .mdl-checkbox .mdl-checkbox__tick-outline {
     background-color: lightgrey;
+
 }
 
 .mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
     background-color: lightgrey;
 }
+
 
 /* HEADER */
 
@@ -165,7 +188,8 @@ html, body {
 }
 
 .monthly-picker {
-    transform: translate(0, -100%);
+    transform: translate(0, 0);
+    z-index: 3;
 }
 
 /*
@@ -217,6 +241,15 @@ html, body {
     margin-right: -16px;
 }
 
+.mdl-typography--subhead {
+    color: rgba(0,0,0,.26);
+    font-weight: 300;
+}
+
+.mdl-list__item--no-padding {
+    padding: 0 10px 0 10px;
+}
+
 /*       */
 
 /* CILJI */
@@ -232,8 +265,16 @@ html, body {
 .dialog-cilji {
     position: fixed;
     width: 40%;
-    top: 50%;
-    transform: translate(0, -50%);
+    height: auto;
+    max-height: 90%;
+    overflow: scroll;
+}
+
+.dialog-sub {
+    color: rgb(63,81,181);
+    font-size: 12px;
+    top: 4px;
+    visibility: visible;
 }
 
 .monthly-pop .monthly-header-title {
@@ -241,7 +282,7 @@ html, body {
 }
 
 .textfield-modal {
-    width: 90%;
+    width: 100%;
 }
 
 .monthly-cilji {
@@ -311,3 +352,4 @@ html, body {
         width: 100%;
     }
 }
+
