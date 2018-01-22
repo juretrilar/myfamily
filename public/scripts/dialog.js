@@ -1,14 +1,12 @@
-window.onload=function(){
+window.onload = function() {
     'use strict';
     let dialog = document.querySelector('dialog');
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
     }
-
     function onRowClick(tableId, callback) {
         let table = document.getElementById("table-cilji"),
-            rows = table.getElementsByTagName("TR"),
-            i;
+            rows = table.getElementsByTagName("TR"),i;
         for (i = 0; i < rows.length; i++) {
             table.rows[i].onclick = function (row) {
                 return function () {
@@ -18,14 +16,14 @@ window.onload=function(){
         }
     } onRowClick("my-table-id", function (row){
         posodobiCilj();
-        $('#imeCilja').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.firstElementChild.innerHTML);
-        $('#imeCilja').parent().addClass("is-dirty");
-        $('#opisCilja').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.lastElementChild.innerHTML);
-        $('#opisCilja').parent().addClass("is-dirty");
-        $('#targetZacetek').val(row.getElementsByTagName("td")[1].innerHTML);
-        $('#targetZacetek').parent().addClass("is-dirty");
-        $('#targetKonec').val(row.getElementsByTagName("td")[2].innerHTML);
-        $('#targetKonec').parent().addClass("is-dirty");
+        $('#imeDialog').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.firstElementChild.innerHTML)
+            .parent().addClass("is-dirty");
+        $('#opisDialog').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.lastElementChild.innerHTML)
+            .parent().addClass("is-dirty");
+        $('#targetZacetek').val(row.getElementsByTagName("td")[1].innerHTML)
+            .parent().addClass("is-dirty");
+        $('#targetKonec').val(row.getElementsByTagName("td")[2].innerHTML)
+            .parent().addClass("is-dirty");
 
         //xp row.getElementsByTagName("td")[3].innerHTML
         //opravljeno row.getElementsByTagName("td")[4].innerHTML
@@ -34,37 +32,82 @@ window.onload=function(){
         .addEventListener('click', function() {
             dialog.close();
         });
-    $("#targetZacetek").click(function() {
-        $('#ciljZacetek').addClass("is-dirty");
-    });
-    $("#targetKonec").click(function() {
-        $('#ciljKonec').addClass("is-dirty");
-    });
-}();
+    /*
+    $('.checkbox-modal input:checkbox,.label-modal').on('click', function(e) {
+        console.log("checkbox");
+        e.stopImmediatePropagation();
+        var element = (e.currentTarget.htmlFor !== undefined) ? e.currentTarget.htmlFor : e.currentTarget;
+        var checked = (element.checked) ? false : true;
+        element.checked = (checked) ? false : checked.toString();
+    }); */
+    //for (let i=0; i < numNaloge;i++) {}
+};
 
 function clearData() {
-    $('#imeCilja').val("");
-    $('#opisCilja').val("");
+    $('#imeDialog').val("");
+    $('#opisDialog').val("");
     $('#targetZacetek').val("");
     $('#targetKonec').val("");
+    $('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
+    $('#targetKonec').parent().removeClass("is-dirty");
+    $('#targetZacetek').parent().removeClass("is-dirty");
+    $('#opisDialog').parent().removeClass("is-dirty");
+    $('#imeDialog').parent().removeClass("is-dirty");
+}
+
+function fillNaloge() {
+    $('#iDialog').html("Ime naloge");
+    $('#oDialog').html("Opis naloge");
+    $('#tZacetek').html("Začetek naloge");
+    $('#tKonec').html("Konec naloge");
+    $('#dialogKategorija').attr('style',"display: block!important");
+    $('#claniNaloge').attr('style',"display: block!important");
+    $('#dialogCilj').attr('style',"display: block!important");
+}
+
+function fillCilji() {
+    $('#iDialog').html("Ime cilja");
+    $('#oDialog').html("Opis cilja");
+    $('#tZacetek').html("Začetek cilja");
+    $('#tKonec').html("Konec cilja");
+    $('#dialogKategorija').attr('style',"display: none!important");
+    $('#claniNaloge').attr('style',"display: none!important");
+    $('#dialogCilj').attr('style',"display: none!important");
 }
 
 function posodobiCilj() {
-    dialog.showModal();
     clearData();
-    document.getElementById("cilj-title").innerHTML = "Uredi cilj";
-    document.getElementById("ustvariCilj").innerHTML = "Posodobi";
-    console.log("posodabljam");
+    fillCilji();
+    document.getElementById("dialog-title").innerHTML = "Uredi cilj";
+    document.getElementById("ustvari").innerHTML = "Posodobi";
+    dialog.showModal();
+}
+
+function posodobiNalogo() {
+    clearData();
+    fillNaloge();
+    document.getElementById("dialog-title").innerHTML = "Uredi nalogo";
+    document.getElementById("ustvari").innerHTML = "Posodobi";
+    dialog.showModal();
 }
 
 function dodajNovCilj() {
-    dialog.showModal();
     clearData();
-    document.getElementById("cilj-title").innerHTML = "Dodaj nov cilj";
-    document.getElementById("ustvariCilj").innerHTML = "Ustvari";
+    fillCilji();
+    document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
+    document.getElementById("ustvari").innerHTML = "Ustvari";
+    dialog.showModal();
 }
 
-$('#zacetek').monthly({
+function dodajNovoNalogo() {
+    clearData();
+    fillNaloge();
+    document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
+    document.getElementById("ustvari").innerHTML = "Ustvari";
+    dialog.showModal();
+}
+
+$('#zacetekDialog').monthly({
     mode: 'picker',
     target: '#targetZacetek',
     startHidden: true,
@@ -73,7 +116,7 @@ $('#zacetek').monthly({
     disablePast: false
 });
 
-$('#konec').monthly({
+$('#konecDialog').monthly({
     mode: 'picker',
     target: '#targetKonec', // The element that will have its value set to the date you picked
     startHidden: true, // Set to true if you want monthly to appear on click
