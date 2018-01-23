@@ -1,6 +1,6 @@
 let mongoose = require("mongoose");
 
-let DB_url = "mongodb://localhost/myfamily-db";
+let DB_url = "mongodb://localhost/myfamily";
 
 if(process.env.NODE_ENV === "production"){
   DB_url = process.env.MLAB_URI;

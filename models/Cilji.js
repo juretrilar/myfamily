@@ -3,12 +3,12 @@ let mongoose = require("mongoose");
 let ciljiSchema = new mongoose.Schema({
     _id : {type : mongoose.Schema.Types.ObjectId, required : true},
     ime: { type:String, required: true, unique: true},
-    opis: String,
-    zacetek: Date,
-    konec: Date,
-    xp: Number,
-    vezane_naloge: [{type : mongoose.Schema.Types.ObjectId, ref : "Naloge"}],
-    vezani_uporabnik: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
+    opis: { type:String, required: true},
+    zacetek: { type:Date, default: Date.now },
+    konec: { type:Date },
+    xp: {Number},
+    vezane_naloge: [mongoose.Schema.Types.ObjectId],
+    vezani_uporabnik: [mongoose.Schema.Types.ObjectId],
     status: Boolean
 });
 

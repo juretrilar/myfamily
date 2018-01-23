@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-let User = mongoose.model("User");
+let User = mongoose.model("Uporabnik");
 let ObjectId = mongoose.Types.ObjectId;
 
 function vrniNapako(res, err){

@@ -32,6 +32,40 @@ window.onload = function() {
         .addEventListener('click', function() {
             dialog.close();
         });
+    function onCardClick(cardId, callback) {
+        let parent = document.getElementById("nalogeGrid"),
+            card = parent.getElementsByClassName("mdl-card"),i;
+        for (i = 0; i < card.length; i++) {
+            card[i].onclick = function (card) {
+                return function () {
+                    callback(card, event);
+                };
+            }(card[i]);
+        }
+    } onCardClick("my-parent-id", function (card, event){
+        if ($(event.target).hasClass("mdl-menu__item")) {
+            // vstavi spremembo v bazo
+            return;
+        }
+        posodobiNalogo();
+        /* Zaenkrat še ne dela
+        $('#imeDialog').val("<%= card.ime %>")
+            .parent().addClass("is-dirty");
+        $('#opisDialog').val("<%= card.opis %>")
+            .parent().addClass("is-dirty");
+        $('#targetZacetek').val("<%= card.zacetek %>")
+            .parent().addClass("is-dirty");
+        $('#targetKonec').val("<%= card.konec %>")
+            .parent().addClass("is-dirty");
+        $('#vezanCilj').val("<%= card.konec %>")
+            .parent().addClass("is-dirty");
+        $('#kategorija').val("<%= card.konec %>")
+            .parent().addClass("is-dirty");
+
+        /* for zanka, ki v primeru, da je vrednost 1 označi osebo, sicer jo pusti neoznačeno */
+
+    });
+
     /*
     $('.checkbox-modal input:checkbox,.label-modal').on('click', function(e) {
         console.log("checkbox");
@@ -81,6 +115,7 @@ function posodobiCilj() {
     document.getElementById("dialog-title").innerHTML = "Uredi cilj";
     document.getElementById("ustvari").innerHTML = "Posodobi";
     dialog.showModal();
+
 }
 
 function posodobiNalogo() {
@@ -89,6 +124,7 @@ function posodobiNalogo() {
     document.getElementById("dialog-title").innerHTML = "Uredi nalogo";
     document.getElementById("ustvari").innerHTML = "Posodobi";
     dialog.showModal();
+    $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
 }
 
 function dodajNovCilj() {
@@ -105,6 +141,8 @@ function dodajNovoNalogo() {
     document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
     document.getElementById("ustvari").innerHTML = "Ustvari";
     dialog.showModal();
+    $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
+
 }
 
 $('#zacetekDialog').monthly({

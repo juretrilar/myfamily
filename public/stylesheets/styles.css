@@ -54,11 +54,29 @@ html, body {
     padding: 10px;
 }
 
+/*        */
+
+/* DIALOG */
+
 .mdl-dialog__actions {
-    position: fixed;
-    bottom: 3%;
-    right: 29%;
     z-index: 1;
+    background-color: white;
+    position: fixed;
+    right: 5px;
+    bottom: 5px;
+    transform: translateX(0);
+    /*
+    position: fixed;
+    bottom: 3.5%;
+    right: 29.5%;
+    z-index: 1;
+    */
+}
+
+.dialog-content-div {
+    position: relative;
+    width: 100%;
+    overflow-y: auto;
 }
 
 .mdl-dialog__title {
@@ -66,7 +84,42 @@ html, body {
     position: fixed;
     z-index: 1;
     background-color: white;
+    text-align: center;
 }
+
+.dialog-main {
+    position: fixed;
+    width: 40%;
+    height: auto;
+    max-height: 90%;
+    transform: translateZ(0);
+}
+
+.dialog-sub {
+    color: rgb(63,81,181);
+    font-size: 16px;
+    top: 4px;
+    visibility: visible;
+}
+
+.monthly-pop .monthly-header-title {
+    font-size: 1em;
+}
+
+.textfield-modal {
+    width: 100%;
+}
+
+.monthly-dialog {
+    max-width: 500px;
+}
+
+.monthly-picker {
+    transform: translate(0, 0);
+    z-index: 3;
+}
+
+/*            */
 
 /* CHECKBOXES */
 
@@ -187,17 +240,6 @@ html, body {
     padding-left: 10px;
 }
 
-.monthly-picker {
-    transform: translate(0, 0);
-    z-index: 3;
-}
-
-/*
-.not-active {
-    pointer-events: none;
-    cursor: default;
-} */
-
 /*        */
 
 /* NALOGE */
@@ -262,33 +304,6 @@ html, body {
     padding: 0!important;
 }
 
-.dialog-cilji {
-    position: fixed;
-    width: 40%;
-    height: auto;
-    max-height: 90%;
-    overflow: scroll;
-}
-
-.dialog-sub {
-    color: rgb(63,81,181);
-    font-size: 12px;
-    top: 4px;
-    visibility: visible;
-}
-
-.monthly-pop .monthly-header-title {
-    font-size: 1em;
-}
-
-.textfield-modal {
-    width: 100%;
-}
-
-.monthly-cilji {
-    max-width: 500px;
-}
-
 /*                   */
 
 /* RESPONSIVE DESIGN */
@@ -308,7 +323,7 @@ html, body {
         padding-left: 20px;
     }
 
-    .dialog-cilji {
+    .dialog-main {
         width: 60%;
     }
 }
@@ -338,7 +353,7 @@ html, body {
         width: 100%;
     }
 
-    .dialog-cilji {
+    .dialog-main {
         width: 80%;
     }
 }
@@ -348,8 +363,7 @@ html, body {
         width: 46%;
     }
 
-    .dialog-cilji {
+    .dialog-main {
         width: 100%;
     }
 }
-
