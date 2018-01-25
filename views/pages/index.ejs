@@ -2,112 +2,113 @@
 <html lang="en">
 <%- include('../partials/head') -%>
 <body>
-<div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header">
-    <%- include('../partials/nav') -%>
-    <main class="mdl-layout__content">
-        <section id="dashboard" class="mdl-layout__tab-panel is-active">
-            <%- include('../pages/dashboard') -%>
-        </section>
-        <section id="koledar" class="mdl-layout__tab-panel">
-            <%- include('../pages/koledar') -%>
-        </section>
-        <section id="naloge" class="mdl-layout__tab-panel">
-            <%- include('../pages/naloge') -%>
-        </section>
-        <section id="cilj" class="mdl-layout__tab-panel">
-            <%- include('../pages/cilji') -%>
-        </section>
-        <%- include('../partials/footer') -%>
-    </main>
-</div>
-<dialog id="dialog" class="mdl-dialog dialog-main">
-    <div class="dialog-content-div" id="dialog-div">
-        <h3 id="dialog-title" class="mdl-dialog__title"></h3>
-        <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;">
-            <form action="#" id="update_dialog">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                    <input class="mdl-textfield__input" type="text" id="imeDialog">
-                    <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                    <input class="mdl-textfield__input" type="text" id="opisDialog">
-                    <label class="mdl-textfield__label" for="opisDialog" id="oDialog"> </label>
-                </div>
-                <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
-                    <input class="mdl-textfield__input " type="text" id="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
-                    <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"> </label>
-                    <div class="monthly-dialog monthly-picker" style="position: absolute; display: block;" id="zacetekDialog"></div>
-                </div>
-                <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
-                    <input class="mdl-textfield__input " type="text" id="targetKonec" title="Izberite dan, ko je bil cilj končan" style="text-align: left;">
-                    <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
-                    <div class="monthly-dialog monthly-picker" style="position: absolute; display: block;" id="konecDialog"></div>
-                </div>
-                <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
-                    <input type="text" value="" class="mdl-textfield__input" id="vezanCilj" readonly>
-                    <input type="hidden" value="" name="sampleCilj">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
-                    <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="DEU">Germany</li>
-                        <li class="mdl-menu__item" data-val="BLR">Belarus</li>
-                        <li class="mdl-menu__item" data-val="RUS">Russia</li>
-                    </ul>
-                </div>
-                <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
-                    <input type="text" value="" class="mdl-textfield__input" id="kategorija" readonly>
-                    <input type="hidden" value="" name="sampleKategorija">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
-                    <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="DEU">Germany</li>
-                        <li class="mdl-menu__item" data-val="BLR">Belarus</li>
-                        <li class="mdl-menu__item" data-val="RUS">Russia</li>
-                    </ul>
-                </div>
-                <div id="claniNaloge" hidden>
-                    <h4 class="mdl-typography--subhead dialog-sub" style="margin: 0;">Člani naloge</h4>
-                    <ul class="mdl-list" style="margin: 0;" id="listClani">
-                        <li class="mdl-list__item mdl-list__item--no-padding">
-                            <span class="mdl-list__item-primary-content">
-                            <i class="material-icons mdl-list__item-avatar">person</i>Bryan Cranston
-                            </span>
-                            <span class="mdl-list__item-secondary-action">
-                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person1">
-                                    <input type="checkbox" id="person1" class="mdl-checkbox__input checkbox-modal"/>
-                                </label>
-                            </span>
-                        </li>
-                        <li class="mdl-list__item mdl-list__item--no-padding">
-                            <span class="mdl-list__item-primary-content">
-                            <i class="material-icons mdl-list__item-avatar">person</i>Aaron Paul
-                            </span>
-                            <span class="mdl-list__item-secondary-action">
-                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person2">
-                                    <input type="checkbox" id="person2" class="mdl-checkbox__input checkbox-modal"/>
-                                </label>
-                            </span>
-                        </li>
-                        <li class="mdl-list__item mdl-list__item--no-padding">
-                            <span class="mdl-list__item-primary-content">
-                            <i class="material-icons mdl-list__item-avatar">person</i>Bob Odenkirk
-                            </span>
-                            <span class="mdl-list__item-secondary-action">
-                                <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person3">
-                                    <input type="checkbox" id="person3" class="mdl-checkbox__input checkbox-modal"/>
-                                </label>
-                            </span>
-                        </li>
-                    </ul>
-                </div>
-            </form>
-        </div>
-        <div class="mdl-dialog__actions">
-            <button type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
-            <button id="ustvari" type="button" class="mdl-button mdl-color--grey-400" ></button>
-        </div>
+    <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <%- include('../partials/nav') -%>
+        <main class="mdl-layout__content">
+            <section id="dashboard" class="mdl-layout__tab-panel is-active">
+                <%- include('../pages/dashboard') -%>
+            </section>
+            <section id="koledar" class="mdl-layout__tab-panel">
+                <%- include('../pages/koledar') -%>
+            </section>
+            <section id="naloge" class="mdl-layout__tab-panel">
+                <%- include('../pages/naloge') -%>
+            </section>
+            <section id="cilj" class="mdl-layout__tab-panel">
+                <%- include('../pages/cilji') -%>
+            </section>
+            <%- include('../partials/footer') -%>
+        </main>
     </div>
-</dialog>
-<%- include('../partials/script') -%>
+    <dialog id="dialog" class="mdl-dialog dialog-main">
+        <div class="dialog-content-div" id="dialog-div">
+            <h3 id="dialog-title" class="mdl-dialog__title"></h3>
+            <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
+                <form action="#" id="update_dialog">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                        <input class="mdl-textfield__input" type="text" id="imeDialog">
+                        <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                        <input class="mdl-textfield__input" type="text" id="opisDialog">
+                        <label class="mdl-textfield__label" for="opisDialog" id="oDialog"> </label>
+                    </div>
+                    <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
+                        <input class="mdl-textfield__input " type="text" id="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
+                        <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"> </label>
+                        <div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>
+                    </div>
+                    <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
+                        <input class="mdl-textfield__input " type="text" id="targetKonec" title="Izberite dan, ko je bil cilj končan" style="text-align: left;">
+                        <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
+                        <div class="monthly-dialog monthly-picker" style="position: absolute; display: block;" id="konecDialog"></div>
+                    </div>
+                    <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
+                        <input type="text" value="" class="mdl-textfield__input" id="vezanCilj" readonly>
+                        <input type="hidden" value="" name="sampleCilj">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
+                        <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <li class="mdl-menu__item" data-val="DEU">Germany</li>
+                            <li class="mdl-menu__item" data-val="BLR">Belarus</li>
+                            <li class="mdl-menu__item" data-val="RUS">Russia</li>
+                        </ul>
+                    </div>
+                    <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
+                        <input type="text" value="" class="mdl-textfield__input" id="kategorija" readonly>
+                        <input type="hidden" value="" name="sampleKategorija">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
+                        <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <li class="mdl-menu__item" data-val="DEU">Germany</li>
+                            <li class="mdl-menu__item" data-val="BLR">Belarus</li>
+                            <li class="mdl-menu__item" data-val="RUS">Russia</li>
+                        </ul>
+                    </div>
+                    <div id="claniNaloge" hidden>
+                        <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
+                        <ul class="mdl-list" style="margin: 0;" id="listClani">
+                            <li class="mdl-list__item mdl-list__item--no-padding">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-avatar">person</i>Bryan Cranston
+                                </span>
+                                <span class="mdl-list__item-secondary-action">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person1">
+                                        <input type="checkbox" id="person1" class="mdl-checkbox__input checkbox-modal"/>
+                                    </label>
+                                </span>
+                            </li>
+                            <li class="mdl-list__item mdl-list__item--no-padding">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-avatar">person</i>Aaron Paul
+                                </span>
+                                <span class="mdl-list__item-secondary-action">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person2">
+                                        <input type="checkbox" id="person2" class="mdl-checkbox__input checkbox-modal"/>
+                                    </label>
+                                </span>
+                            </li>
+                            <li class="mdl-list__item mdl-list__item--no-padding">
+                                <span class="mdl-list__item-primary-content">
+                                <i class="material-icons mdl-list__item-avatar">person</i>Bob Odenkirk
+                                </span>
+                                <span class="mdl-list__item-secondary-action">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person3">
+                                        <input type="checkbox" id="person3" class="mdl-checkbox__input checkbox-modal"/>
+                                    </label>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+            <div class="mdl-dialog__actions">
+                <button type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
+                <button id="ustvari" type="button" class="mdl-button mdl-color--grey-400" ></button>
+            </div>
+        </div>
+    </dialog>
+    <%- include('../partials/script') -%>
+    <%- include('../partials/scriptLogged') -%>
 </body>
 </html>

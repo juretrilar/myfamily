@@ -1,10 +1,11 @@
 let mongoose = require('mongoose');
+
 let Uporabnik = mongoose.model("Uporabnik");
-let Druzina = mongoose.model("Druzina");
 let Cilji = mongoose.model("Cilji");
 let Naloge = mongoose.model("Naloge");
-let ObjectId = mongoose.Types.ObjectId;
+let Druzina = mongoose.model("Druzina");
 
+let ObjectId = mongoose.Types.ObjectId;
 let bodyParser = require('body-parser');
 let ejs = require('ejs');
 
@@ -18,6 +19,7 @@ function vrniNapako(res, err){
 
 //** GET /
 module.exports.naslovnaStran = function (req, res, next) {
+    /*
     if(!req.session.trenutniUporabnik){
         res.redirect("/prijava");
     } else {
@@ -27,13 +29,26 @@ module.exports.naslovnaStran = function (req, res, next) {
         } else {
             res.render("index", podatki);
         }
+    } */
+    let isLoggedIn = false;
+    if(isLoggedIn === true) {
+        res.render('pages/index', {
+            person: 'Alenka',
+            isLoggedIn: true
+        });
+    } else {
+        res.render('pages/prijava', {
+            isLoggedIn: false
+        });
     }
+
 };
 
 
 
 //** POST /priava
 module.exports.prijaviUporabnika = function(req, res, next){
+    /*
     let email = req.body.email;
     let geslo = req.body.pwd;
     Uporabnik.find(function(err, data){
@@ -72,6 +87,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
             }
         }
     });
+    */
 };
 
 //** GET /registracija
@@ -99,7 +115,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
     });
 };
 
-
+/*
 module.exports = function (app) {
 
     app.get('/', function (req, res) {
@@ -117,4 +133,4 @@ module.exports = function (app) {
         dodajUporabnika(req,res);
     });
 
-};
+}; */

@@ -1,6 +1,7 @@
 let mongoose = require("mongoose");
+let express = require('express');
 
-let DB_url = "mongodb://localhost/myfamily";
+let DB_url = "mongodb://localhost/myfamily-test";
 
 if(process.env.NODE_ENV === "production"){
   DB_url = process.env.MLAB_URI;
@@ -47,6 +48,6 @@ process.on('SIGTERM', function() {
 });
 
 require("./Uporabnik");
-require("./Druzina");
 require("./Cilji");
 require("./Naloge");
+require("./Druzina");

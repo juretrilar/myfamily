@@ -1,18 +1,18 @@
 let router = require('express').Router();
-let requestHandler = require('./controllers/esController.js');
+let requestHandler = require('../controllers/esController');
 
 router.get('/', requestHandler.naslovnaStran);
 
-router.get('/prijava', requestHandler.prijavaStran);
+//outer.get('/prijava', requestHandler.prijavaStran);
 
-router.post('/prijava', requestHandler.prijaviuporabnika);
-
+router.post('/prijava', requestHandler.prijaviUporabnika);
+/*
 router.get('/odjava', requestHandler.odjaviUporabnika);
 
 router.get('/registracija', requestHandler.registracijaStran);
-
+*/
 router.post('/registracija', requestHandler.ustvariUporabnika);
-
+/*
 router.get('/uredi_nalogo', requestHandler.urediNalogo);
 
 router.post('/ustvari_nalogo', requestHandler.ustvariNalogo);
@@ -34,7 +34,6 @@ router.post("/db/izbrisi", krmilnikNavigacija.izbrisiPodatke);
 router.get("/db/test", krmilnikNavigacija.testirajBazo);
 
 router.post("/db/dodaj", krmilnikNavigacija.dodajPodatek);
-
-
+*/
 
 module.exports = router;

@@ -13,4 +13,4 @@ let uporabnikSchema = new mongoose.Schema({
     last_login: Date
 });
 
-mongoose.model('Uporabnik', uporabnikSchema, 'Uporabnik');
+let Uporabnik = mongoose.model('Uporabnik', uporabnikSchema, 'Uporabnik');

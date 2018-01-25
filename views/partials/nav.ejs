@@ -3,7 +3,9 @@
         <div class="circle-container mdl-color--primary "></div>
         <h3 class="mdl-color-text--grey mdl-typography--font-light">My</h3>
         <h3 class="mdl-color-text--black mdl-typography--font-light">Family</h3>
+        <%if (isLoggedIn) { %>
         <div class="mdl-layout-spacer"></div>
+
         <h6 class="mdl-color-text--grey mdl-typography--font-light">Živjo,&nbsp</h6>
         <h6 class="mdl-color-text--black mdl-typography--font-light"><%= person %></h6>
         <button id="demo-menu-lower-right"
@@ -17,8 +19,11 @@
             <li disabled class="mdl-menu__item">Administratorski način</li>
             <li class="mdl-menu__item">Yet Another Action</li>
         </ul>
+        <% } %>
     </div>
+    <%if (isLoggedIn) { %>
     <div class="mdl-layout-spacer"></div>
+
     <button id="demo-menu-lower-right"
             class="mdl-button mdl-js-button mdl-button--icon mdl-button--primary mdl-cell--hide-desktop mdl-cell--hide-tablet">
         <i class="material-icons">more_vert</i>
@@ -29,5 +34,6 @@
         <a href="#naloge" class="mdl-layout__tab mdl-color-text--grey">Naloge</a>
         <a href="#cilj" class="mdl-layout__tab mdl-color-text--grey">Cilji</a>
     </div>
+    <% } %>
     <div class="mdl-layout__header-row"></div>
 </header>

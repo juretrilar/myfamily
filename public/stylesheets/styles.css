@@ -62,7 +62,7 @@ html, body {
     z-index: 1;
     background-color: white;
     position: fixed;
-    right: 5px;
+    right: 30px;
     bottom: 5px;
     transform: translateX(0);
     /*
@@ -96,10 +96,11 @@ html, body {
 }
 
 .dialog-sub {
-    color: rgb(63,81,181);
-    font-size: 16px;
+    color: rgb(63,81,181)!important;
+    font-size: 12px;
     top: 4px;
     visibility: visible;
+    margin: 0;
 }
 
 .monthly-pop .monthly-header-title {
@@ -117,6 +118,8 @@ html, body {
 .monthly-picker {
     transform: translate(0, 0);
     z-index: 3;
+    position: absolute;
+    overflow: auto;
 }
 
 /*            */
@@ -366,4 +369,24 @@ html, body {
     .dialog-main {
         width: 100%;
     }
+}
+
+/*         */
+
+/* PRIJAVA */
+
+.util-center {
+    margin: auto;
+}
+
+.util-max-512px {
+    max-width: 512px;
+}
+
+.util-spacing-h--40px {
+    margin-top: 40px;
+    margin-bottom: 40px
+}
+.util-no-decoration {
+    text-decoration: none;
 }

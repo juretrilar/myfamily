@@ -115,6 +115,7 @@ function posodobiCilj() {
     document.getElementById("dialog-title").innerHTML = "Uredi cilj";
     document.getElementById("ustvari").innerHTML = "Posodobi";
     dialog.showModal();
+    $("#dialog-div").attr('style', 'height: auto');
 
 }
 
@@ -133,6 +134,7 @@ function dodajNovCilj() {
     document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
     document.getElementById("ustvari").innerHTML = "Ustvari";
     dialog.showModal();
+    $("#dialog-div").attr('style', 'height: auto');
 }
 
 function dodajNovoNalogo() {
