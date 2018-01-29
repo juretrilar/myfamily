@@ -2,35 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0385c574-b552-42e2-beda-6114b3d5017d" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/views/pages/prijava.ejs" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/views/partials/scriptLogged.ejs" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/public/scripts/prijava.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/views/pages/error.ejs" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
       <change beforePath="$PROJECT_DIR$/controllers/esController.js" afterPath="$PROJECT_DIR$/controllers/esController.js" />
-      <change beforePath="$PROJECT_DIR$/models/Cilji.js" afterPath="$PROJECT_DIR$/models/Cilji.js" />
-      <change beforePath="$PROJECT_DIR$/models/Uporabnik.js" afterPath="$PROJECT_DIR$/models/Uporabnik.js" />
-      <change beforePath="$PROJECT_DIR$/models/db.js" afterPath="$PROJECT_DIR$/models/db.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/.eslintrc" afterPath="$PROJECT_DIR$/node_modules/debug/.eslintrc" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/.travis.yml" afterPath="$PROJECT_DIR$/node_modules/debug/.travis.yml" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/CHANGELOG.md" afterPath="$PROJECT_DIR$/node_modules/debug/CHANGELOG.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/Makefile" afterPath="$PROJECT_DIR$/node_modules/debug/Makefile" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/README.md" afterPath="$PROJECT_DIR$/node_modules/debug/README.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/component.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/package.json" afterPath="$PROJECT_DIR$/node_modules/debug/package.json" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/src/browser.js" afterPath="$PROJECT_DIR$/node_modules/debug/src/browser.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/src/debug.js" afterPath="$PROJECT_DIR$/node_modules/debug/src/debug.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/src/index.js" afterPath="$PROJECT_DIR$/node_modules/debug/src/index.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/src/inspector-log.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/debug/src/node.js" afterPath="$PROJECT_DIR$/node_modules/debug/src/node.js" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change beforePath="$PROJECT_DIR$/public/scripts/dialog.js" afterPath="$PROJECT_DIR$/public/scripts/dialog.js" />
       <change beforePath="$PROJECT_DIR$/public/stylesheets/styles.css" afterPath="$PROJECT_DIR$/public/stylesheets/styles.css" />
       <change beforePath="$PROJECT_DIR$/routes/routes.js" afterPath="$PROJECT_DIR$/routes/routes.js" />
       <change beforePath="$PROJECT_DIR$/views/pages/index.ejs" afterPath="$PROJECT_DIR$/views/pages/index.ejs" />
-      <change beforePath="$PROJECT_DIR$/views/pages/naloge.ejs" afterPath="$PROJECT_DIR$/views/pages/naloge.ejs" />
+      <change beforePath="$PROJECT_DIR$/views/pages/prijava.ejs" afterPath="$PROJECT_DIR$/views/pages/prijava.ejs" />
       <change beforePath="$PROJECT_DIR$/views/partials/nav.ejs" afterPath="$PROJECT_DIR$/views/partials/nav.ejs" />
-      <change beforePath="$PROJECT_DIR$/views/partials/script.ejs" afterPath="$PROJECT_DIR$/views/partials/script.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -44,11 +25,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="esController.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="esController.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/controllers/esController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="338">
-              <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
+            <state relative-caret-position="-78">
+              <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="error.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/pages/error.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="156">
+              <caret line="6" column="29" lean-forward="false" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -57,8 +48,18 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
+            <state relative-caret-position="148">
+              <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/routes/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="364">
+              <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -67,28 +68,8 @@
       <file leaf-file-name="naloge.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="87" column="30" lean-forward="true" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Uporabnik.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Uporabnik.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="prijava.ejs" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/views/pages/prijava.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="816">
-              <caret line="88" column="112" lean-forward="true" selection-start-line="88" selection-start-column="112" selection-end-line="88" selection-end-column="112" />
+            <state relative-caret-position="2262">
+              <caret line="87" column="30" lean-forward="false" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -97,28 +78,30 @@
       <file leaf-file-name="nav.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/partials/nav.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="26">
-              <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
+            <state relative-caret-position="208">
+              <caret line="8" column="84" lean-forward="true" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="script.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/partials/script.ejs">
+      <file leaf-file-name="prijava.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/pages/prijava.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="52">
-              <caret line="2" column="59" lean-forward="false" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
-              <folding />
+            <state relative-caret-position="1144">
+              <caret line="44" column="120" lean-forward="true" selection-start-line="44" selection-start-column="110" selection-end-line="44" selection-end-column="122" />
+              <folding>
+                <element signature="n#style#0;n#div#1;n#div#0;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scriptLogged.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/partials/scriptLogged.ejs">
+      <file leaf-file-name="prijava.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/scripts/prijava.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="4" column="42" lean-forward="false" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+            <state relative-caret-position="260">
+              <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -127,18 +110,18 @@
       <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="109" selection-end-column="13" />
+            <state relative-caret-position="418">
+              <caret line="72" column="62" lean-forward="false" selection-start-line="72" selection-start-column="62" selection-end-line="72" selection-end-column="62" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
+      <file leaf-file-name="head.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/partials/head.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1172">
-              <caret line="391" column="1" lean-forward="false" selection-start-line="391" selection-start-column="1" selection-end-line="391" selection-end-column="1" />
+            <state relative-caret-position="260">
+              <caret line="10" column="54" lean-forward="true" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
               <folding />
             </state>
           </provider>
@@ -149,8 +132,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="HTML File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -218,19 +201,21 @@
         <option value="$PROJECT_DIR$/models/Cilji.js" />
         <option value="$PROJECT_DIR$/models/Naloge.js" />
         <option value="$PROJECT_DIR$/models/Druzina.js" />
-        <option value="$PROJECT_DIR$/routes/routes.js" />
         <option value="$PROJECT_DIR$/public/scripts/dialog.js" />
-        <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/models/Uporabnik.js" />
         <option value="$PROJECT_DIR$/views/pages/prijava.html" />
         <option value="$PROJECT_DIR$/views/partials/scriptLogged.ejs" />
         <option value="$PROJECT_DIR$/views/partials/script.ejs" />
-        <option value="$PROJECT_DIR$/views/partials/nav.ejs" />
         <option value="$PROJECT_DIR$/views/pages/naloge.ejs" />
-        <option value="$PROJECT_DIR$/views/pages/index.ejs" />
         <option value="$PROJECT_DIR$/public/stylesheets/styles.css" />
-        <option value="$PROJECT_DIR$/controllers/esController.js" />
         <option value="$PROJECT_DIR$/views/pages/prijava.ejs" />
+        <option value="$PROJECT_DIR$/views/pages/error.ejs" />
+        <option value="$PROJECT_DIR$/public/scripts/prijava.js" />
+        <option value="$PROJECT_DIR$/app.js" />
+        <option value="$PROJECT_DIR$/routes/routes.js" />
+        <option value="$PROJECT_DIR$/views/partials/nav.ejs" />
+        <option value="$PROJECT_DIR$/views/pages/index.ejs" />
+        <option value="$PROJECT_DIR$/controllers/esController.js" />
       </list>
     </option>
   </component>
@@ -288,6 +273,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -298,7 +284,17 @@
             <path>
               <item name="myfamily" type="b2602c69:ProjectViewProjectNode" />
               <item name="myfamily" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myfamily" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myfamily" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myfamily" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myfamily" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="myfamily" type="b2602c69:ProjectViewProjectNode" />
@@ -326,7 +322,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="Scratches" />
     </panes>
   </component>
@@ -383,12 +378,13 @@
       <workItem from="1516606889784" duration="21869000" />
       <workItem from="1516692546096" duration="20884000" />
       <workItem from="1516779520198" duration="12484000" />
-      <workItem from="1516867693927" duration="4764000" />
+      <workItem from="1516867693927" duration="4850000" />
+      <workItem from="1517212103911" duration="19239000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="186353000" />
+    <option name="totallyTimeSpent" value="205678000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="2391" y="-9" width="2018" height="1468" extended-state="6" />
@@ -425,28 +421,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/views/partials/nav.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" column="100" lean-forward="false" selection-start-line="6" selection-start-column="95" selection-end-line="6" selection-end-column="100" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1785">
-          <caret line="85" column="83" lean-forward="false" selection-start-line="85" selection-start-column="83" selection-end-line="85" selection-end-column="83" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/script.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="44" lean-forward="true" selection-start-line="3" selection-start-column="44" selection-end-line="3" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -513,13 +487,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/dashboard.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="87" lean-forward="false" selection-start-line="3" selection-start-column="87" selection-end-line="3" selection-end-column="87" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Downloads/sp-streznik/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -538,13 +505,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
           <caret line="13540" column="4" lean-forward="false" selection-start-line="13540" selection-start-column="4" selection-end-line="13540" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/head.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="10" column="59" lean-forward="false" selection-start-line="10" selection-start-column="59" selection-end-line="10" selection-end-column="59" />
         </state>
       </provider>
     </entry>
@@ -661,13 +621,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/routes.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/prijava.html" />
     <entry file="file://$PROJECT_DIR$/models/Naloge.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -691,42 +644,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/nav.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="1" column="37" lean-forward="false" selection-start-line="1" selection-start-column="37" selection-end-line="1" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1172">
-          <caret line="391" column="1" lean-forward="false" selection-start-line="391" selection-start-column="1" selection-end-line="391" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/esController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="338">
-          <caret line="32" column="26" lean-forward="false" selection-start-line="32" selection-start-column="26" selection-end-line="32" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/public/scripts/dialog.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="26">
           <caret line="117" column="51" lean-forward="false" selection-start-line="117" selection-start-column="51" selection-end-line="117" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="22" column="22" lean-forward="true" selection-start-line="22" selection-start-column="22" selection-end-line="22" selection-end-column="22" />
           <folding />
         </state>
       </provider>
@@ -739,34 +660,118 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/dashboard.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="624">
+          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="67" selection-end-column="82" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#1;n#div#0;n#!!top" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1692">
+          <caret line="388" column="0" lean-forward="false" selection-start-line="388" selection-start-column="0" selection-end-line="388" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/sp-streznik/app_server/routes/usmerjevalnikUporabniki.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="8" column="0" lean-forward="true" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/partials/script.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
-          <caret line="2" column="59" lean-forward="false" selection-start-line="2" selection-start-column="59" selection-end-line="2" selection-end-column="59" />
+          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/prijava.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" column="0" lean-forward="false" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="87" column="30" lean-forward="true" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
+        <state relative-caret-position="2262">
+          <caret line="87" column="30" lean-forward="false" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
+    <entry file="file://$PROJECT_DIR$/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="109" selection-end-column="13" />
+        <state relative-caret-position="364">
+          <caret line="14" column="16" lean-forward="false" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="148">
+          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/error.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="29" lean-forward="false" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/prijava.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="816">
-          <caret line="88" column="112" lean-forward="true" selection-start-line="88" selection-start-column="112" selection-end-line="88" selection-end-column="112" />
+        <state relative-caret-position="1144">
+          <caret line="44" column="120" lean-forward="true" selection-start-line="44" selection-start-column="110" selection-end-line="44" selection-end-column="122" />
+          <folding>
+            <element signature="n#style#0;n#div#1;n#div#0;n#main#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/head.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" column="54" lean-forward="true" selection-start-line="10" selection-start-column="54" selection-end-line="10" selection-end-column="54" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/nav.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="8" column="84" lean-forward="true" selection-start-line="8" selection-start-column="84" selection-end-line="8" selection-end-column="84" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="418">
+          <caret line="72" column="62" lean-forward="false" selection-start-line="72" selection-start-column="62" selection-end-line="72" selection-end-column="62" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/esController.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-78">
+          <caret line="15" column="1" lean-forward="true" selection-start-line="15" selection-start-column="1" selection-end-line="15" selection-end-column="1" />
           <folding />
         </state>
       </provider>

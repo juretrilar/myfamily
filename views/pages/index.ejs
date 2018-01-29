@@ -36,6 +36,8 @@
                     <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
                         <input class="mdl-textfield__input " type="text" id="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
                         <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"> </label>
+                        <input id="time" type="time">
+                        <label class="mdl-textfield__label" for="time" id="ttime"></label>
                         <div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>
                     </div>
                     <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
@@ -68,36 +70,18 @@
                     <div id="claniNaloge" hidden>
                         <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
                         <ul class="mdl-list" style="margin: 0;" id="listClani">
+                            <% for (var i = 0; i < data.length; i++) { %>
                             <li class="mdl-list__item mdl-list__item--no-padding">
                                 <span class="mdl-list__item-primary-content">
-                                <i class="material-icons mdl-list__item-avatar">person</i>Bryan Cranston
+                                <i class="material-icons mdl-list__item-avatar">person</i><%= data[i].ime %>
                                 </span>
                                 <span class="mdl-list__item-secondary-action">
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person1">
-                                        <input type="checkbox" id="person1" class="mdl-checkbox__input checkbox-modal"/>
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person_<%= i %>">
+                                        <input type="checkbox" id="person_<%= i %>" class="mdl-checkbox__input checkbox-modal" value="<%= data[i].id %>"/>
                                     </label>
                                 </span>
                             </li>
-                            <li class="mdl-list__item mdl-list__item--no-padding">
-                                <span class="mdl-list__item-primary-content">
-                                <i class="material-icons mdl-list__item-avatar">person</i>Aaron Paul
-                                </span>
-                                <span class="mdl-list__item-secondary-action">
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person2">
-                                        <input type="checkbox" id="person2" class="mdl-checkbox__input checkbox-modal"/>
-                                    </label>
-                                </span>
-                            </li>
-                            <li class="mdl-list__item mdl-list__item--no-padding">
-                                <span class="mdl-list__item-primary-content">
-                                <i class="material-icons mdl-list__item-avatar">person</i>Bob Odenkirk
-                                </span>
-                                <span class="mdl-list__item-secondary-action">
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person3">
-                                        <input type="checkbox" id="person3" class="mdl-checkbox__input checkbox-modal"/>
-                                    </label>
-                                </span>
-                            </li>
+                            <% } %>
                         </ul>
                     </div>
                 </form>

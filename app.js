@@ -16,15 +16,17 @@ fs.readdirSync(models)
     .filter(file => ~file.search(/^[^\.].*\.js$/))
     .forEach(file => require(join(models, file)));
 
+
 let routes = require('./routes/routes');
 
 let app = express();
 
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 //demo seja
 uporabnik_seja = {
-    uporabniskoIme : "Uporabnik1234",
+    email : "test@test.si",
     id : 4,
     admin : true
 };
@@ -35,9 +37,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', routes);
-
-
 app.use(session({
     secret : "THISISASECRETSTRING",
     saveUninitialized : true,
@@ -49,6 +48,8 @@ app.use(session({
         maxAge : 3600000
     }
 }));
+
+app.use('/', routes);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -64,23 +65,13 @@ app.use(function(err, req, res, next) {
     res.locals.error = req.app.get('env') === 'development' ? err : {};
 
     // render the error page
+    console.log(err.message);
     res.status(err.status || 500);
-    res.render('error');
+    res.render('pages/error');
 });
 
 //esController(app);
 
 app.listen(3000);
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = app;

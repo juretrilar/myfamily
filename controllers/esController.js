@@ -12,57 +12,48 @@ let ejs = require('ejs');
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 function vrniNapako(res, err){
-    res.render("error", {message : "Napaka pri poizvedbi /db", error : {status : 500, stack : err}});
+    res.render("pages/error", {message : "Napaka pri poizvedbi /db", error : {status : 500, stack : err}});
 }
-
-///mongoose.connect('mongodb://localhost/myfamily');
 
 //** GET /
 module.exports.naslovnaStran = function (req, res, next) {
-    /*
-    if(!req.session.trenutniUporabnik){
-        res.redirect("/prijava");
-    } else {
-        let podatki = {uporabnik : req.session.trenutniUporabnik};
-        if(req.session.trenutniUporabnik.vloga == "admin"){
 
-        } else {
-            res.render("index", podatki);
-        }
-    } */
-    let isLoggedIn = false;
-    if(isLoggedIn === true) {
-        res.render('pages/index', {
-            person: 'Alenka',
-            isLoggedIn: true
-        });
-    } else {
+    if(!req.session.trenutniUporabnik) {
         res.render('pages/prijava', {
             isLoggedIn: false
         });
+    } else {
+        Uporabnik.find().then(uporabniki => {
+            console.log(uporabniki);
+            res.render("pages/index", {data : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, isLoggedIn : true});
+        }).catch(err => {
+            vrniNapako(res, err);
+        });
     }
-
 };
-
-
 
 //** POST /priava
 module.exports.prijaviUporabnika = function(req, res, next){
-    /*
+    let session = req.session;
     let email = req.body.email;
-    let geslo = req.body.pwd;
+    let geslo = req.body.password;
     Uporabnik.find(function(err, data){
         if(err) {
             console.log(err);
-            res.send("Napaka!");
+            res.render('pages/prijava', {
+                isLoggedIn: false,
+                lengthFamily: 0,
+                uporabnik: ""
+            });
         }
         else {
             req.session.trenutniUporabnik = null;
             for(i in data){
                 //ce se email in geslo ujemata
                 if(data[i].email === email && data[i].geslo === geslo){
+                    console.log("here we are");
                     //shrani podatke v sejo
-                    req.session.trenutniUporabnik = {
+                    session.trenutniUporabnik = {
                         email : data[i].email,
                         ime : data[i].ime,
                         telefon : data[i].telefon,
@@ -73,46 +64,71 @@ module.exports.prijaviUporabnika = function(req, res, next){
                         last_login : data[i].last_login,
                         slika : data[i].slika
                     };
-                    //posodobi zadnjo prijavo
                     Uporabnik.findByIdAndUpdate(req.session.trenutniUporabnik.id, {zadnjaPrijava : new Date()}).catch(err => {
                         vrniNapako(res, err);
                     });
                     break;
                 }
             }
-            if(req.session.trenutniUporabnik){
-                res.redirect("/");
+            if(session.trenutniUporabnik){
+                Uporabnik.find().then(uporabniki => {
+                    console.log(uporabniki);
+                    res.render("pages/index", {data : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, isLoggedIn : true});
+                }).catch(err => {
+                    vrniNapako(res, err);
+                });
             } else {
-                res.render("prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!"});
+                res.render("pages/prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!", isLoggedIn: false});
             }
         }
     });
-    */
 };
-
-//** GET /registracija
-
 
 //** POST /registracija
 module.exports.ustvariUporabnika = function(req, res, next) {
+    console.log(req.body);
+    let family = ustvariKljuc();
+    if(req.body.family) family=req.body.family;
     let noviUporabnik = {
         _id : new ObjectId(),
-        ime: "ime priimek",
+        ime: req.body.name_surname,
         druzina:  new ObjectId(),
-        uporabnisko_ime: "uporabnisko_ime",
-        geslo: "geslo",
-        email: "test@test.si",
-        telefon: "123456789",
+        geslo: req.body.password,
+        email: req.body.email,
+        telefon: req.body.phone,
         admin: true,
         slika: "staticna_pot_na_slike",
         created_at: Date.now(),
         updated_at: Date.now()
     };
     Uporabnik.create(noviUporabnik).then(data => {
-        res.redirect("/uporabniki");
+        console.log("CREATED USER");
+        res.render('pages/prijava',{
+            isLoggedIn: false
+        });
     }).catch(err => {
         vrniNapako(res, err);
     });
+};
+
+//** POST /ustvari_nalogo
+module.exports.ustvariNalogo = function(req, res, next) {
+    let novaNaloga = {
+        _id : new ObjectId(),
+        ime: req.body.imeDialog,
+        opis: req.body.opisDialog,
+        kategorija: req.body.kategorija,
+        zacetek: req.body.targetZacetek,
+        konec: req.body.targetKonec,
+        xp: 100,
+        vezan_cilj: poisciCilj(),
+        vezani_uporabniki: "",
+        avtor: req.session.id,
+        opravljen: res.body.opravljen
+    };
+    if(req.body.targetZacetek) {
+        novaNaloga.zacetek = req.body.targetZacetek;
+    }
 };
 
 /*
@@ -134,3 +150,11 @@ module.exports = function (app) {
     });
 
 }; */
+
+function ustvariKljuc() {
+    return 121;
+}
+
+function poisciCilj() {
+    return new ObjectId();
+}
