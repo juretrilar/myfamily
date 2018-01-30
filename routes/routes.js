@@ -19,7 +19,9 @@ router.get('/uredi_cilj', requestHandler.urediCilj);
 router.post('/ustvari_cilj', requestHandler.ustvariCilj);
 
 router.get('/koledar', requestHandler.napolniKoledar);
-
+*/
+router.get('/odjava', requestHandler.odjava);
+/*
 // BAZA
 
 router.get("/db", krmilnikNavigacija.upravljajZBazo);

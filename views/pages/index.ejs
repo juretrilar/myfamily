@@ -23,25 +23,25 @@
     <dialog id="dialog" class="mdl-dialog dialog-main">
         <div class="dialog-content-div" id="dialog-div">
             <h3 id="dialog-title" class="mdl-dialog__title"></h3>
-            <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
-                <form action="#" id="update_dialog">
+            <form action="/ustvari_nalogo" method="POST"  id="update_dialog">
+                <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                        <input class="mdl-textfield__input" type="text" id="imeDialog">
+                        <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog">
                         <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                        <input class="mdl-textfield__input" type="text" id="opisDialog">
-                        <label class="mdl-textfield__label" for="opisDialog" id="oDialog"> </label>
+                        <input class="mdl-textfield__input" type="text" id="opisDialog" name="opisDialog">
+                        <label class="mdl-textfield__label" for="opisDialtZacetekog" id="oDialog"> </label>
                     </div>
                     <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
-                        <input class="mdl-textfield__input " type="text" id="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
-                        <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"> </label>
+                        <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
+                        <label class="mdl-textfield__label" for="targetZacetek" id=""> </label>
                         <input id="time" type="time">
                         <label class="mdl-textfield__label" for="time" id="ttime"></label>
                         <div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>
                     </div>
                     <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
-                        <input class="mdl-textfield__input " type="text" id="targetKonec" title="Izberite dan, ko je bil cilj končan" style="text-align: left;">
+                        <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" style="text-align: left;">
                         <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
                         <div class="monthly-dialog monthly-picker" style="position: absolute; display: block;" id="konecDialog"></div>
                     </div>
@@ -51,9 +51,9 @@
                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                         <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
                         <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item" data-val="DEU">Germany</li>
-                            <li class="mdl-menu__item" data-val="BLR">Belarus</li>
-                            <li class="mdl-menu__item" data-val="RUS">Russia</li>
+                            <% for (var i = 0; i < cilji.length; i++) { %>
+                            <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
+                            <% } %>
                         </ul>
                     </div>
                     <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
@@ -70,26 +70,26 @@
                     <div id="claniNaloge" hidden>
                         <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
                         <ul class="mdl-list" style="margin: 0;" id="listClani">
-                            <% for (var i = 0; i < data.length; i++) { %>
+                            <% for (var i = 0; i < uporabniki.length; i++) { %>
                             <li class="mdl-list__item mdl-list__item--no-padding">
                                 <span class="mdl-list__item-primary-content">
-                                <i class="material-icons mdl-list__item-avatar">person</i><%= data[i].ime %>
+                                <i class="material-icons mdl-list__item-avatar">person</i><%= uporabniki[i].ime %>
                                 </span>
                                 <span class="mdl-list__item-secondary-action">
                                     <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person_<%= i %>">
-                                        <input type="checkbox" id="person_<%= i %>" class="mdl-checkbox__input checkbox-modal" value="<%= data[i].id %>"/>
+                                        <input type="checkbox" id="person_<%= i %>" name="person_<%= i %>" class="mdl-checkbox__input checkbox-modal" value="<%= uporabniki[i].id %>"/>
                                     </label>
                                 </span>
                             </li>
                             <% } %>
                         </ul>
                     </div>
-                </form>
-            </div>
-            <div class="mdl-dialog__actions">
-                <button type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
-                <button id="ustvari" type="button" class="mdl-button mdl-color--grey-400" ></button>
-            </div>
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
+                    <button id="ustvari" type="submit" value="submit" class="mdl-button mdl-color--grey-400"></button>
+                </div>
+            </form>
         </div>
     </dialog>
     <%- include('../partials/script') -%>

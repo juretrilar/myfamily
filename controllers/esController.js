@@ -10,6 +10,7 @@ let bodyParser = require('body-parser');
 let ejs = require('ejs');
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
+let users;
 
 function vrniNapako(res, err){
     res.render("pages/error", {message : "Napaka pri poizvedbi /db", error : {status : 500, stack : err}});
@@ -24,8 +25,12 @@ module.exports.naslovnaStran = function (req, res, next) {
         });
     } else {
         Uporabnik.find().then(uporabniki => {
-            console.log(uporabniki);
-            res.render("pages/index", {data : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, isLoggedIn : true});
+            Cilji.find().then(cilji => {
+                users = uporabniki.ime;
+                res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, isLoggedIn : true});
+            }).catch(err => {
+                vrniNapako(res, err);
+            });
         }).catch(err => {
             vrniNapako(res, err);
         });
@@ -37,32 +42,33 @@ module.exports.prijaviUporabnika = function(req, res, next){
     let session = req.session;
     let email = req.body.email;
     let geslo = req.body.password;
-    Uporabnik.find(function(err, data){
+    Uporabnik.find(function(err, uporabniki){
         if(err) {
             console.log(err);
             res.render('pages/prijava', {
                 isLoggedIn: false,
-                lengthFamily: 0,
-                uporabnik: ""
+                uporabniki: 0,
+                uporabnik: "",
+                error: "Napačen e-poštni naslov ali geslo."
             });
         }
         else {
             req.session.trenutniUporabnik = null;
-            for(i in data){
+            for(i in uporabniki){
                 //ce se email in geslo ujemata
-                if(data[i].email === email && data[i].geslo === geslo){
+                if(uporabniki[i].email === email && uporabniki[i].geslo === geslo){
                     console.log("here we are");
                     //shrani podatke v sejo
                     session.trenutniUporabnik = {
-                        email : data[i].email,
-                        ime : data[i].ime,
-                        telefon : data[i].telefon,
-                        id : data[i]._id,
-                        druzina : data[i].druzina,
-                        admin : data[i].admin,
-                        odsotnosti : data[i].odsotnosti,
-                        last_login : data[i].last_login,
-                        slika : data[i].slika
+                        email : uporabniki[i].email,
+                        ime : uporabniki[i].ime,
+                        telefon : uporabniki[i].telefon,
+                        id : uporabniki[i]._id,
+                        druzina : uporabniki[i].druzina,
+                        admin : uporabniki[i].admin,
+                        odsotnosti : uporabniki[i].odsotnosti,
+                        last_login : uporabniki[i].last_login,
+                        slika : uporabniki[i].slika
                     };
                     Uporabnik.findByIdAndUpdate(req.session.trenutniUporabnik.id, {zadnjaPrijava : new Date()}).catch(err => {
                         vrniNapako(res, err);
@@ -72,8 +78,11 @@ module.exports.prijaviUporabnika = function(req, res, next){
             }
             if(session.trenutniUporabnik){
                 Uporabnik.find().then(uporabniki => {
-                    console.log(uporabniki);
-                    res.render("pages/index", {data : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, isLoggedIn : true});
+                    Cilji.find().then(cilji => {
+                        res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, isLoggedIn : true});
+                    }).catch(err => {
+                        vrniNapako(res, err);
+                    });
                 }).catch(err => {
                     vrniNapako(res, err);
                 });
@@ -103,9 +112,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
     };
     Uporabnik.create(noviUporabnik).then(data => {
         console.log("CREATED USER");
-        res.render('pages/prijava',{
-            isLoggedIn: false
-        });
+        res.redirect('/');
     }).catch(err => {
         vrniNapako(res, err);
     });
@@ -117,18 +124,48 @@ module.exports.ustvariNalogo = function(req, res, next) {
         _id : new ObjectId(),
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
-        kategorija: req.body.kategorija,
+        kategorija: req.body.sampleKategorija,
         zacetek: req.body.targetZacetek,
         konec: req.body.targetKonec,
         xp: 100,
-        vezan_cilj: poisciCilj(),
-        vezani_uporabniki: "",
-        avtor: req.session.id,
-        opravljen: res.body.opravljen
+        vezan_cilj: req.body.sampleCilj,
+        vezani_uporabniki: [],
+        avtor: ObjectId(req.session.trenutniUporabnik.id),
+        status: false
     };
     if(req.body.targetZacetek) {
         novaNaloga.zacetek = req.body.targetZacetek;
     }
+    let j = 0;
+    console.log(req.body.person_0);
+    for(i=0;i<users.length;i++) {
+        if(req.body.person_+i) {
+            vezani_uporabniki[j] = ObjectId(req.body.person_+i.val);
+            j++;
+        }
+
+    }
+    Naloge.create(novaNaloga).then(data => {
+        console.log("CREATED Naloga");
+        Uporabnik.find().then(uporabniki => {
+            Cilji.find().then(cilji => {
+                res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, isLoggedIn : true});
+            }).catch(err => {
+                vrniNapako(res, err);
+            });
+        }).catch(err => {
+            vrniNapako(res, err);
+        });
+    }).catch(err => {
+        vrniNapako(res, err);
+    });
+};
+
+//** GET /odjava
+
+module.exports.odjava = function (req, res, next) {
+    req.session.destroy();
+    res.redirect('/');
 };
 
 /*
