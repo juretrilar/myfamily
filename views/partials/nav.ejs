@@ -3,7 +3,7 @@
         <div class="circle-container mdl-color--primary "></div>
         <h3 class="mdl-color-text--grey mdl-typography--font-light">My</h3>
         <h3 class="mdl-color-text--black mdl-typography--font-light">Family</h3>
-        <%if (isLoggedIn) { %>
+        <%if (uporabnik) { %>
         <div class="mdl-layout-spacer"></div>
 
         <h6 class="mdl-color-text--grey mdl-typography--font-light">Živjo,&nbsp</h6>
@@ -21,7 +21,7 @@
         </ul>
         <% } %>
     </div>
-    <%if (isLoggedIn) { %>
+    <%if (uporabnik) { %>
     <div class="mdl-layout-spacer"></div>
 
     <button id="demo-menu-lower-right"

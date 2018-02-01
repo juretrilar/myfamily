@@ -10,7 +10,8 @@ let bodyParser = require('body-parser');
 let ejs = require('ejs');
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
-let users;
+
+let currentTab = 0;
 
 function vrniNapako(res, err){
     res.render("pages/error", {message : "Napaka pri poizvedbi /db", error : {status : 500, stack : err}});
@@ -21,13 +22,14 @@ module.exports.naslovnaStran = function (req, res, next) {
 
     if(!req.session.trenutniUporabnik) {
         res.render('pages/prijava', {
-            isLoggedIn: false
+            uporabnik: ""
         });
     } else {
         Uporabnik.find().then(uporabniki => {
             Cilji.find().then(cilji => {
-                users = uporabniki.ime;
-                res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, isLoggedIn : true});
+                console.log(currentTab);
+                res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab});
+                currentTab = 0;
             }).catch(err => {
                 vrniNapako(res, err);
             });
@@ -79,7 +81,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
             if(session.trenutniUporabnik){
                 Uporabnik.find().then(uporabniki => {
                     Cilji.find().then(cilji => {
-                        res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, isLoggedIn : true});
+                        res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : 0});
                     }).catch(err => {
                         vrniNapako(res, err);
                     });
@@ -87,11 +89,30 @@ module.exports.prijaviUporabnika = function(req, res, next){
                     vrniNapako(res, err);
                 });
             } else {
-                res.render("pages/prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!", isLoggedIn: false});
+                res.render("pages/prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!", uporabnik : ""});
             }
         }
     });
 };
+
+/** GET /naloge
+ module.exports.Naloge = function (req, res, next) {
+    if(!req.session.trenutniUporabnik) {
+        res.render('pages/prijava', {
+            isLoggedIn: false
+        });
+    } else {
+        Uporabnik.find().then(uporabniki => {
+            Cilji.find().then(cilji => {
+                res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : 2});
+            }).catch(err => {
+                vrniNapako(res, err);
+            });
+        }).catch(err => {
+            vrniNapako(res, err);
+        });
+    }
+}; */
 
 //** POST /registracija
 module.exports.ustvariUporabnika = function(req, res, next) {
@@ -120,6 +141,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
 
 //** POST /ustvari_nalogo
 module.exports.ustvariNalogo = function(req, res, next) {
+    currentTab = 2;
     let novaNaloga = {
         _id : new ObjectId(),
         ime: req.body.imeDialog,
@@ -129,33 +151,39 @@ module.exports.ustvariNalogo = function(req, res, next) {
         konec: req.body.targetKonec,
         xp: 100,
         vezan_cilj: req.body.sampleCilj,
+        vezani_uporabniki: req.body.person,
+        avtor: ObjectId(req.session.trenutniUporabnik.id),
+        status: false
+    };
+    if(req.body.targetZacetek === "") {
+        novaNaloga.zacetek = req.body.targetZacetek;
+    }
+    Naloge.create(novaNaloga).then(data => {
+    }).catch(err => {
+        vrniNapako(res, err);
+    });
+};
+
+//** POST /ustvari_cilj
+module.exports.ustvariCilj = function(req, res, next) {
+    currentTab = 3;
+    let novCilj = {
+        _id : new ObjectId(),
+        ime: req.body.imeDialog,
+        opis: req.body.opisDialog,
+        zacetek: req.body.targetZacetek,
+        konec: req.body.targetKonec,
+        vezane_naloge: [],//req.body.person,
         vezani_uporabniki: [],
         avtor: ObjectId(req.session.trenutniUporabnik.id),
         status: false
     };
-    if(req.body.targetZacetek) {
-        novaNaloga.zacetek = req.body.targetZacetek;
+    console.log(novCilj);
+    if(req.body.targetZacetek === "") {
+        novCilj.zacetek = req.body.targetZacetek;
     }
-    let j = 0;
-    console.log(req.body.person_0);
-    for(i=0;i<users.length;i++) {
-        if(req.body.person_+i) {
-            vezani_uporabniki[j] = ObjectId(req.body.person_+i.val);
-            j++;
-        }
-
-    }
-    Naloge.create(novaNaloga).then(data => {
-        console.log("CREATED Naloga");
-        Uporabnik.find().then(uporabniki => {
-            Cilji.find().then(cilji => {
-                res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, isLoggedIn : true});
-            }).catch(err => {
-                vrniNapako(res, err);
-            });
-        }).catch(err => {
-            vrniNapako(res, err);
-        });
+    Cilji.create(novCilj).then(data => {
+        res.redirect('/');
     }).catch(err => {
         vrniNapako(res, err);
     });

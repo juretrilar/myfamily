@@ -8,7 +8,7 @@ let ciljiSchema = new mongoose.Schema({
     konec: { type:Date },
     xp: {Number},
     vezane_naloge: [{type: mongoose.Schema.Types.ObjectId, ref : "Naloge"}],
-    vezani_uporabnik: [{type: mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
+    vezani_uporabniki: [{type: mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
     status: Boolean
 });
 

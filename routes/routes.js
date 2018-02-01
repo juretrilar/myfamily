@@ -10,14 +10,15 @@ router.get('/odjava', requestHandler.odjaviUporabnika);
 
 router.post('/registracija', requestHandler.ustvariUporabnika);
 /*
-router.get('/uredi_nalogo', requestHandler.urediNalogo);
+router.get('/naloge', requestHandler.Naloge);
 */
 router.post('/ustvari_nalogo', requestHandler.ustvariNalogo);
+
 /*
 router.get('/uredi_cilj', requestHandler.urediCilj);
-
+*/
 router.post('/ustvari_cilj', requestHandler.ustvariCilj);
-
+/*
 router.get('/koledar', requestHandler.napolniKoledar);
 */
 router.get('/odjava', requestHandler.odjava);

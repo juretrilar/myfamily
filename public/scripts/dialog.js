@@ -61,20 +61,8 @@ window.onload = function() {
             .parent().addClass("is-dirty");
         $('#kategorija').val("<%= card.konec %>")
             .parent().addClass("is-dirty");
-
-        /* for zanka, ki v primeru, da je vrednost 1 označi osebo, sicer jo pusti neoznačeno */
-
+         */
     });
-
-    /*
-    $('.checkbox-modal input:checkbox,.label-modal').on('click', function(e) {
-        console.log("checkbox");
-        e.stopImmediatePropagation();
-        var element = (e.currentTarget.htmlFor !== undefined) ? e.currentTarget.htmlFor : e.currentTarget;
-        var checked = (element.checked) ? false : true;
-        element.checked = (checked) ? false : checked.toString();
-    }); */
-    //for (let i=0; i < numNaloge;i++) {}
 };
 
 function clearData() {
@@ -82,7 +70,7 @@ function clearData() {
     $('#opisDialog').val("");
     $('#targetZacetek').val("");
     $('#targetKonec').val("");
-    $('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
+    //$('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
     $('#targetKonec').parent().removeClass("is-dirty");
     $('#targetZacetek').parent().removeClass("is-dirty");
     $('#opisDialog').parent().removeClass("is-dirty");
@@ -97,6 +85,8 @@ function fillNaloge() {
     $('#dialogKategorija').attr('style',"display: block!important");
     $('#claniNaloge').attr('style',"display: block!important");
     $('#dialogCilj').attr('style',"display: block!important");
+    $('#update_dialog').attr('action',"/ustvari_nalogo");
+
 }
 
 function fillCilji() {
@@ -107,6 +97,7 @@ function fillCilji() {
     $('#dialogKategorija').attr('style',"display: none!important");
     $('#claniNaloge').attr('style',"display: none!important");
     $('#dialogCilj').attr('style',"display: none!important");
+    $('#update_dialog').attr('action',"/ustvari_cilj");
 }
 
 function posodobiCilj() {
@@ -164,3 +155,7 @@ $('#konecDialog').monthly({
     stylePast: true, // Add a style to days in the past
     disablePast: false // Disable clicking days in the past
 });
+
+function getPathFromUrl(url) {
+    return url.split("/")[0];
+}

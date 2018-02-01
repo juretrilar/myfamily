@@ -5,16 +5,16 @@
     <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <%- include('../partials/nav') -%>
         <main class="mdl-layout__content">
-            <section id="dashboard" class="mdl-layout__tab-panel is-active">
+            <section id="dashboard" class="mdl-layout__tab-panel <% if(tab == 0) { %> is-active <% } %>">
                 <%- include('../pages/dashboard') -%>
             </section>
-            <section id="koledar" class="mdl-layout__tab-panel">
+            <section id="koledar" class="mdl-layout__tab-panel <% if(tab == 1) { %> is-active <% } %>">
                 <%- include('../pages/koledar') -%>
             </section>
-            <section id="naloge" class="mdl-layout__tab-panel">
+            <section id="naloge" class="mdl-layout__tab-panel <% if(tab == 2) { %> is-active <% } %>">
                 <%- include('../pages/naloge') -%>
             </section>
-            <section id="cilj" class="mdl-layout__tab-panel">
+            <section id="cilj" class="mdl-layout__tab-panel <% if(tab == 3) { %> is-active <% } %>">
                 <%- include('../pages/cilji') -%>
             </section>
             <%- include('../partials/footer') -%>
@@ -23,7 +23,7 @@
     <dialog id="dialog" class="mdl-dialog dialog-main">
         <div class="dialog-content-div" id="dialog-div">
             <h3 id="dialog-title" class="mdl-dialog__title"></h3>
-            <form action="/ustvari_nalogo" method="POST"  id="update_dialog">
+            <form action="" method="POST" id="update_dialog">
                 <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                         <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog">
@@ -76,8 +76,8 @@
                                 <i class="material-icons mdl-list__item-avatar">person</i><%= uporabniki[i].ime %>
                                 </span>
                                 <span class="mdl-list__item-secondary-action">
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person_<%= i %>">
-                                        <input type="checkbox" id="person_<%= i %>" name="person_<%= i %>" class="mdl-checkbox__input checkbox-modal" value="<%= uporabniki[i].id %>"/>
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person<%= i %>">
+                                        <input type="checkbox" id="person<%= i %>" name="person" value="<%= uporabniki[i].id %>" class="mdl-checkbox__input checkbox-modal"/>
                                     </label>
                                 </span>
                             </li>
@@ -87,7 +87,7 @@
                 </div>
                 <div class="mdl-dialog__actions">
                     <button type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
-                    <button id="ustvari" type="submit" value="submit" class="mdl-button mdl-color--grey-400"></button>
+                    <button id="ustvari" type="submit" value="submit" class="mdl-button mdl-color--grey-400" ></button>
                 </div>
             </form>
         </div>
