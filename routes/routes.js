@@ -4,16 +4,12 @@ let requestHandler = require('../controllers/esController');
 router.get('/', requestHandler.naslovnaStran);
 
 router.post('/prijava', requestHandler.prijaviUporabnika);
-/*
-router.get('/odjava', requestHandler.odjaviUporabnika);
-*/
 
 router.post('/registracija', requestHandler.ustvariUporabnika);
-/*
-router.get('/naloge', requestHandler.Naloge);
-*/
+
 router.post('/ustvari_nalogo', requestHandler.ustvariNalogo);
 
+router.post('/prikazi_naloge', requestHandler.prikaziNaloge);
 /*
 router.get('/uredi_cilj', requestHandler.urediCilj);
 */

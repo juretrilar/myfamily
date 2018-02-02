@@ -4,10 +4,14 @@ let Uporabnik = mongoose.model("Uporabnik");
 let Cilji = mongoose.model("Cilji");
 let Naloge = mongoose.model("Naloge");
 let Druzina = mongoose.model("Druzina");
+let Kategorija = mongoose.model("Kategroija");
 
+let express = require('express');
+let async = require('async');
 let ObjectId = mongoose.Types.ObjectId;
 let bodyParser = require('body-parser');
 let ejs = require('ejs');
+
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -27,9 +31,13 @@ module.exports.naslovnaStran = function (req, res, next) {
     } else {
         Uporabnik.find().then(uporabniki => {
             Cilji.find().then(cilji => {
-                console.log(currentTab);
-                res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab});
-                currentTab = 0;
+                Kategorija.find().then(kategorija => {
+                    console.log(currentTab);
+                    res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija, naloge: ""});
+                    currentTab = 0;
+                }).catch(err => {
+                    vrniNapako(res, err);
+                });
             }).catch(err => {
                 vrniNapako(res, err);
             });
@@ -81,7 +89,13 @@ module.exports.prijaviUporabnika = function(req, res, next){
             if(session.trenutniUporabnik){
                 Uporabnik.find().then(uporabniki => {
                     Cilji.find().then(cilji => {
-                        res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : 0});
+                        Kategorija.find().then(kategorija => {
+                            console.log(currentTab);
+                            res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija, naloge: ""});
+                            currentTab = 0;
+                        }).catch(err => {
+                            vrniNapako(res, err);
+                        });
                     }).catch(err => {
                         vrniNapako(res, err);
                     });
@@ -94,25 +108,6 @@ module.exports.prijaviUporabnika = function(req, res, next){
         }
     });
 };
-
-/** GET /naloge
- module.exports.Naloge = function (req, res, next) {
-    if(!req.session.trenutniUporabnik) {
-        res.render('pages/prijava', {
-            isLoggedIn: false
-        });
-    } else {
-        Uporabnik.find().then(uporabniki => {
-            Cilji.find().then(cilji => {
-                res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : 2});
-            }).catch(err => {
-                vrniNapako(res, err);
-            });
-        }).catch(err => {
-            vrniNapako(res, err);
-        });
-    }
-}; */
 
 //** POST /registracija
 module.exports.ustvariUporabnika = function(req, res, next) {
@@ -137,6 +132,48 @@ module.exports.ustvariUporabnika = function(req, res, next) {
     }).catch(err => {
         vrniNapako(res, err);
     });
+};
+
+//** POST /prikazi_naloge
+module.exports.prikaziNaloge = function(req, res, next) {
+    currentTab = 2;
+    console.log("prislo do sem");
+    //({avtor: req.avtor, kategorija : req.kategorija, status : req.status, cilj: req.cilj, vezani_uporabniki: req.oseba}.then(naloge => {
+    let where_search = {
+        '$or' : [
+            {'avtor' : req.avtor},
+            {'kategorija' : req.kategorija},
+            {'status' : req.status},
+            {'cilj' : req.cilj},
+            {'oseba' : req.oseba},
+        ]
+    };
+    async.parallel([
+        function(callback) {
+            Naloge.find( where_search, {
+            }, function(err, docs){
+                if (err) throw err;
+                console.log(docs);
+                all_items = docs;
+                console.log(all_items);
+                callback();
+            });
+        },
+        function(callback) {
+            Naloge.count(where_search, function(err, doc_count){
+                if (err) throw err;
+                count = doc_count;
+                console.log(count);
+                callback();
+            });
+        }
+        ], function(err) {
+            let response = {
+                'naloge': all_items,
+            };
+            res.send(response);
+    });
+    //Naloge.find({avtor: req.avtor, kategorija : req.kategorija, status : req.status, cilj: req.cilj, vezani_uporabniki: req.oseba}.then(naloge => {
 };
 
 //** POST /ustvari_nalogo
