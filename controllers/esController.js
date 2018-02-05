@@ -23,7 +23,6 @@ function vrniNapako(res, err){
 
 //** GET /
 module.exports.naslovnaStran = function (req, res, next) {
-
     if(!req.session.trenutniUporabnik) {
         res.render('pages/prijava', {
             uporabnik: ""
@@ -33,7 +32,7 @@ module.exports.naslovnaStran = function (req, res, next) {
             Cilji.find().then(cilji => {
                 Kategorija.find().then(kategorija => {
                     console.log(currentTab);
-                    res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija, naloge: ""});
+                    res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija});
                     currentTab = 0;
                 }).catch(err => {
                     vrniNapako(res, err);
@@ -91,7 +90,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
                     Cilji.find().then(cilji => {
                         Kategorija.find().then(kategorija => {
                             console.log(currentTab);
-                            res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija, naloge: ""});
+                            res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija});
                             currentTab = 0;
                         }).catch(err => {
                             vrniNapako(res, err);
@@ -137,25 +136,24 @@ module.exports.ustvariUporabnika = function(req, res, next) {
 //** POST /prikazi_naloge
 module.exports.prikaziNaloge = function(req, res, next) {
     currentTab = 2;
-    console.log("prislo do sem");
-    //({avtor: req.avtor, kategorija : req.kategorija, status : req.status, cilj: req.cilj, vezani_uporabniki: req.oseba}.then(naloge => {
-    let where_search = {
-        '$or' : [
-            {'avtor' : req.avtor},
-            {'kategorija' : req.kategorija},
-            {'status' : req.status},
-            {'cilj' : req.cilj},
-            {'oseba' : req.oseba},
-        ]
-    };
+    let where_search = {};
+    if (req.body.avtor) where_search.avtor =  req.body.avtor;
+    if (req.body.kategorija) where_search.kategorija = req.body.kategorija;
+    if (req.body.status) where_search.status = (req.body.status == 'true');
+    if (req.body.cilj) where_search.cilj = req.body.cilj;
+    if (req.body.oseba) where_search.vezani_uporabniki = req.body.oseba;
+
+    //if (req.oseba!="") where_search = {'oseba' : req.oseba};
+    console.log(where_search);
+
     async.parallel([
         function(callback) {
             Naloge.find( where_search, {
             }, function(err, docs){
                 if (err) throw err;
-                console.log(docs);
+                //console.log(docs);
                 all_items = docs;
-                console.log(all_items);
+                //console.log(all_items);
                 callback();
             });
         },
@@ -168,12 +166,8 @@ module.exports.prikaziNaloge = function(req, res, next) {
             });
         }
         ], function(err) {
-            let response = {
-                'naloge': all_items,
-            };
-            res.send(response);
+            res.render("pages/nalogequery", {naloge: all_items});
     });
-    //Naloge.find({avtor: req.avtor, kategorija : req.kategorija, status : req.status, cilj: req.cilj, vezani_uporabniki: req.oseba}.then(naloge => {
 };
 
 //** POST /ustvari_nalogo
@@ -192,10 +186,9 @@ module.exports.ustvariNalogo = function(req, res, next) {
         avtor: ObjectId(req.session.trenutniUporabnik.id),
         status: false
     };
-    if(req.body.targetZacetek === "") {
-        novaNaloga.zacetek = req.body.targetZacetek;
-    }
+    if(req.body.targetZacetek == "") novaNaloga.zacetek = dateNow();
     Naloge.create(novaNaloga).then(data => {
+        res.redirect('/')
     }).catch(err => {
         vrniNapako(res, err);
     });
@@ -216,9 +209,7 @@ module.exports.ustvariCilj = function(req, res, next) {
         status: false
     };
     console.log(novCilj);
-    if(req.body.targetZacetek === "") {
-        novCilj.zacetek = req.body.targetZacetek;
-    }
+    if(req.body.targetZacetek == "") novCilj.zacetek = dateNow();
     Cilji.create(novCilj).then(data => {
         res.redirect('/');
     }).catch(err => {
@@ -252,6 +243,17 @@ module.exports = function (app) {
     });
 
 }; */
+
+function dateNow() {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth()+1;
+    let yyyy = today.getFullYear();
+    if(dd<10)dd = '0'+dd;
+    if(mm<10)mm = '0'+mm;
+    today = yyyy + '-' + mm + '-' + dd ;
+    return today;
+}
 
 function ustvariKljuc() {
     return 121;

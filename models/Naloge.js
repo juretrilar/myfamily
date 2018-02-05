@@ -4,14 +4,14 @@ let nalogeSchema = new mongoose.Schema({
     _id : {type : mongoose.Schema.Types.ObjectId, required : true},
     ime: { type:String, unique: true},
     opis: String,
-    kategorija: String,
+    kategorija: {type : mongoose.Schema.Types.ObjectId, ref : "Kategorija"},
     zacetek: Date,
     konec: Date,
     xp: Number,
     vezan_cilj : {type : mongoose.Schema.Types.ObjectId, ref : "Cilji"},
-    vezani_uporabniki: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
     avtor: {type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"},
-    opravljen: Boolean
+    status: Boolean,
+    vezani_uporabniki: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}]
 });
 
 mongoose.model('Naloge', nalogeSchema, 'Naloge');

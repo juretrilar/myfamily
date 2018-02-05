@@ -62,9 +62,9 @@
                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                         <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
                         <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item" data-val="DEU">Germany</li>
-                            <li class="mdl-menu__item" data-val="BLR">Belarus</li>
-                            <li class="mdl-menu__item" data-val="RUS">Russia</li>
+                            <% for (var i = 0; i < cilji.length; i++) { %>
+                            <li class="mdl-menu__item" data-val="<%= kategorija[i].id %>"><%= kategorija[i].ime %></li>
+                            <% } %>
                         </ul>
                     </div>
                     <div id="claniNaloge" hidden>
