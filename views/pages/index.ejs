@@ -36,8 +36,8 @@
                     <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
                         <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
                         <label class="mdl-textfield__label" for="targetZacetek" id=""> </label>
-                        <input id="time" type="time">
-                        <label class="mdl-textfield__label" for="time" id="ttime"></label>
+                       <!-- <input id="time" type="time">
+                        <label class="mdl-textfield__label" for="time" id="ttime"></label>-->
                         <div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>
                     </div>
                     <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
@@ -61,10 +61,20 @@
                         <input type="hidden" value="" name="sampleKategorija">
                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                         <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
-                        <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <% for (var i = 0; i < cilji.length; i++) { %>
+                        <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-kategorija" data-selected="true">
+                            <% for (var i = 0; i < kategorija.length; i++) { %>
                             <li class="mdl-menu__item" data-val="<%= kategorija[i].id %>"><%= kategorija[i].ime %></li>
                             <% } %>
+                        </ul>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
+                        <input type="text" value="" class="mdl-textfield__input" id="statusNaloge" readonly>
+                        <input type="hidden" value="" name="status">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="statusNaloge" class="mdl-textfield__label">Status naloge</label>
+                        <ul for="statusNaloge" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <li class="mdl-menu__item" data-val="true">Opravljeno</li>
+                            <li class="mdl-menu__item" data-val="false">Neopravljeno</li>
                         </ul>
                     </div>
                     <div id="claniNaloge" hidden>

@@ -32,6 +32,7 @@ window.onload = function() {
         .addEventListener('click', function() {
             dialog.close();
         });
+    /*
     function onCardClick(cardId, callback) {
         let parent = document.getElementById("nalogeGrid"),
             card = parent.getElementsByClassName("mdl-card"),i;
@@ -61,8 +62,8 @@ window.onload = function() {
             .parent().addClass("is-dirty");
         $('#kategorija').val("<%= card.konec %>")
             .parent().addClass("is-dirty");
-         */
-    });
+
+    });*/
 };
 
 function clearData() {

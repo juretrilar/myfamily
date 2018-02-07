@@ -11,6 +11,11 @@ let async = require('async');
 let ObjectId = mongoose.Types.ObjectId;
 let bodyParser = require('body-parser');
 let ejs = require('ejs');
+let moment = require('moment');
+let fs = require('fs');
+let mkdirp = require('mkdirp');
+
+let color = {"5a78505d19ac7744c8175d18": "#ff9933", "5a785125e7c9722aa0e1e8ac": "#0099ff", "5a785157425a883c30b08b7a": "#33cc33", "5a785178900a3b278c196667": "#ff00ff"};
 
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -32,7 +37,7 @@ module.exports.naslovnaStran = function (req, res, next) {
             Cilji.find().then(cilji => {
                 Kategorija.find().then(kategorija => {
                     console.log(currentTab);
-                    res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija});
+                    res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija, id : req.session.trenutniUporabnik.id});
                     currentTab = 0;
                 }).catch(err => {
                     vrniNapako(res, err);
@@ -86,11 +91,50 @@ module.exports.prijaviUporabnika = function(req, res, next){
                 }
             }
             if(session.trenutniUporabnik){
+                let where_search = {vezani_uporabniki : session.trenutniUporabnik.id};
                 Uporabnik.find().then(uporabniki => {
                     Cilji.find().then(cilji => {
+                        Naloge.find(where_search).then(docs => {
+                            let j=0;
+                            let obj = {
+                                monthly: []
+                            };
+                            for (i = 0; i < docs.length; i++) {
+                                j = i;
+                                obj.monthly.push({
+                                    id: docs[i].id,
+                                    name: docs[i].ime,
+                                    startdate: moment(docs[i].zacetek).format('YYYY-MM-DD'),
+                                    enddate: moment(docs[i].konec).format('YYYY-MM-DD'),
+                                    starttime: "15:00",
+                                    endtime: "18:00",
+                                    color: color[docs[i].kategorija],
+                                    url: ""
+                                });
+                            }
+                            /*
+                            for (i = 0; i < cilji.length; i++) {
+                                if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
+                                    j++;
+                                    obj.monthly.push({
+                                        id: cilji[i].id,
+                                        name: cilji[i].name,
+                                        startdate: moment(cilji[i].zacetek).format('YYYY-MM-DD'),
+                                        enddate: moment(cilji[i].konec).format('YYYY-MM-DD'),
+                                        starttime: "",
+                                        endtime: "",
+                                        color: "#EF44EF",
+                                        url: ""
+                                    });
+                                }
+                            }*/
+                            posodobiJson(obj, session);
+                        }).catch(err => {
+                            vrniNapako(res, err);
+                        });
                         Kategorija.find().then(kategorija => {
                             console.log(currentTab);
-                            res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija});
+                            res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija, id : req.session.trenutniUporabnik.id});
                             currentTab = 0;
                         }).catch(err => {
                             vrniNapako(res, err);
@@ -165,8 +209,11 @@ module.exports.prikaziNaloge = function(req, res, next) {
                 callback();
             });
         }
-        ], function(err) {
-            res.render("pages/nalogequery", {naloge: all_items});
+        ], function done(err) {
+        if (err) {
+            vrniNapako(res, err);
+        }
+        res.render("pages/nalogequery", {naloge: all_items, moment : moment});
     });
 };
 
@@ -261,4 +308,14 @@ function ustvariKljuc() {
 
 function poisciCilj() {
     return new ObjectId();
+}
+
+function posodobiJson(obj, session) {
+    let json = JSON.stringify(obj);
+    mkdirp('public/' + session.trenutniUporabnik.id + '/data', function (err) {
+        if (err) throw err;
+        fs.writeFile('public/' + session.trenutniUporabnik.id + '/data/events.json', json, 'utf8', function (err) {
+            if (err) throw err;
+        });
+    });
 }

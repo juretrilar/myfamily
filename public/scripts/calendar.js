@@ -1,8 +1,8 @@
 $(window).load( function() {
-    $('#mycalendar').monthly({
+     $('#mycalendar').monthly({
         mode: 'event',
         dataType: 'json',
-        jsonUrl: '/data/events.json'
+        jsonUrl: id+"/data/events.json"
     });
     switch(window.location.protocol) {
         case 'http:':

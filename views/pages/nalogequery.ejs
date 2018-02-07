@@ -43,17 +43,14 @@
                     </span>
                 </div>
                 <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
-                <span>12/1/2018 12:00 - 18:00</span>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select select-naloga">
-                    <input type="text" value="" class="mdl-textfield__input" id="naloga<%= i %>" readonly>
-                    <input type="hidden" value="<%= naloge[i].status %>" name="naloga">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="naloga<%= i %>" class="mdl-textfield__label">Status naloge</label>
-                    <ul for="naloga<%= i %>" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="DONE">Opravljeno</li>
-                        <li class="mdl-menu__item" data-val="TODO">Neopravljeno</li>
-                    </ul>
-                </div>
+                <% if (naloge[i].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Od <%= moment(naloge[i].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
+                <% if (naloge[i].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">do <%= moment(naloge[i].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
+                <% if (!naloge[i].zacetek && !naloge[i].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Datum za to nalogo ni definiran.</span><% } %>
+            </div>
+            <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
+                Status naloge:
+                <% if (naloge[i].status) { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Opravljena</span>
+                <% } else { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Neopravljena</span><% } %>
             </div>
         </div>
     </div>
@@ -86,17 +83,14 @@
                     </span>
                 </div>
                 <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
-                <span>12/1/2018 12:00 - 18:00</span>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label  getmdl-select select-naloga">
-                    <input type="text" value="" class="mdl-textfield__input" id="naloga<%= i+1 %>" readonly>
-                    <input type="hidden" value="<%= naloge[i+1].status %>" name="naloga">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="naloga<%= i+1 %>" class="mdl-textfield__label">Status naloge</label>
-                    <ul for="naloga<%= i+1 %>" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="DONE" >Opravljeno</li>
-                        <li class="mdl-menu__item" data-val="TODO">Neopravljeno</li>
-                    </ul>
-                </div>
+                <% if (naloge[i+1].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Od <%= moment(naloge[i+1].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
+                <% if (naloge[i+1].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">do <%= moment(naloge[i+1].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
+                <% if (!naloge[i+1].zacetek && !naloge[i+1].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Datum za to nalogo ni definiran.</span><% } %>
+            </div>
+            <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
+                Status naloge:
+                <% if (naloge[i+1].status) { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Opravljena</span>
+                <% } else { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Neopravljena</span><% } %>
             </div>
         </div>
     </div>
@@ -130,17 +124,14 @@
                         </span>
                     </div>
                     <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
-                    <span>12/1/2018 12:00 - 18:00</span>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select select-naloga">
-                        <input type="text" value="" class="mdl-textfield__input" id="naloga<%= i+2 %>" readonly>
-                        <input type="hidden" value="<%= naloge[i+2].status %>" name="naloga">
-                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                        <label for="naloga<%= i+2 %>" class="mdl-textfield__label">Status naloge</label>
-                        <ul for="naloga<%= i+2 %>" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                            <li class="mdl-menu__item" data-val="DONE">Opravljeno</li>
-                            <li class="mdl-menu__item" data-val="TODO">Neopravljeno</li>
-                        </ul>
-                    </div>
+                    <% if (naloge[i+2].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Od <%= moment(naloge[i+2].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
+                    <% if (naloge[i+2].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">do <%= moment(naloge[i+2].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
+                    <% if (!naloge[i+2].zacetek && !naloge[i+2].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Datum za to nalogo ni definiran.</span><% } %>
+                </div>
+                <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
+                    Status naloge:
+                    <% if (naloge[i+2].status) { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Opravljena</span>
+                    <% } else { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Neopravljena</span><% } %>
                 </div>
             </div>
         </div>
@@ -176,17 +167,14 @@
                     </span>
                 </div>
                 <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
-                <span>12/1/2018 12:00 - 18:00</span>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label  getmdl-select select-naloga">
-                    <input type="text" value="" class="mdl-textfield__input" id="naloga<%= i+3 %>" readonly>
-                    <input type="hidden" value="<%= naloge[i+3].status %>" name="naloga">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="naloga<%= i+3 %>" class="mdl-textfield__label">Status naloge</label>
-                    <ul for="naloga<%= i+3 %>" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="DONE">Opravljeno</li>
-                        <li class="mdl-menu__item" data-val="TODO">Neopravljeno</li>
-                    </ul>
-                </div>
+                <% if (naloge[i+3].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Od <%= moment(naloge[i+3].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
+                <% if (naloge[i+3].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">do <%= moment(naloge[i+3].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
+                <% if (!naloge[i+3].zacetek && !naloge[i+3].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Datum za to nalogo ni definiran.</span><% } %>
+            </div>
+            <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
+                Status naloge:
+                <% if (naloge[i+3].status) { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Opravljena</span>
+                <% } else { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Neopravljena</span><% } %>
             </div>
         </div>
     </div>

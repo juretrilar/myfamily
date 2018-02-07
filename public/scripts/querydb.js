@@ -38,8 +38,6 @@ jQuery(function($) {
             action: '/prikazi_naloge',
             data: JSON.parse(JSON.stringify(post_data))
         }; */
-        console.log(post_data);
-
         $.ajax({
             url: '/prikazi_naloge',
             type: 'POST',
@@ -48,6 +46,39 @@ jQuery(function($) {
             success: function (response) {
                 $('#nalogeGrid').html(response);
                 updateItems();
+                function onCardClick(cardId, callback) {
+                    let parent = document.getElementById("nalogeGrid"),
+                        card = parent.getElementsByClassName("mdl-card"),i;
+                    for (i = 0; i < card.length; i++) {
+                        card[i].onclick = function (card) {
+                            return function () {
+                                callback(card, event);
+                            };
+                        }(card[i]);
+                    }
+                } onCardClick("nalogeGrid", function (card, event) {
+                    posodobiNalogo();
+                    //
+                    let kat = card.getElementsByClassName("mdl-card__subtitle-text")[0].innerHTML;
+                    $('#imeDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].previousElementSibling.innerHTML)
+                        .parent().addClass("is-dirty");
+                    $('#opisDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].innerHTML)
+                        .parent().addClass("is-dirty");
+                    $('#targetZacetek').val("<%= card.zacetek %>")
+                        .parent().addClass("is-dirty");
+                    $('#targetKonec').val("<%= card.konec %>")
+                        .parent().addClass("is-dirty");
+                    $('#vezanCilj').val("<%= card.konec %>")
+                        .parent().addClass("is-dirty");
+                    $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val="+kat+"]").get(0).textContent.trim();
+                    $("input[name='sampleKategorija']").val(kat)
+                        .parent().addClass("is-dirty");
+                });
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(xhr.responseText);
+                alert(thrownError)
             }
         });
         console.log("updating items");
@@ -57,7 +88,7 @@ jQuery(function($) {
     $("#reset").click(function() {
         //document.getElementById("searchFilter").reset();
         console.log("form reseted");
-        getmdlSelect.init(".getmdl-select");
+        getmdlSelect.init(".mdl-filter");
         $( ".selected" ).removeClass("selected");
         $("input[name='osebaSearch']").val("").parent().removeClass("is-dirty");
         $('#statusSearch').val("").parent().removeClass("is-dirty");
