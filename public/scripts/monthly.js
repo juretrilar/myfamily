@@ -455,6 +455,7 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				$(parent + " .monthly-event-list").hide();
 			}, 250);
 			event.preventDefault();
+            $("#NalogaPopUp").css("display", "none");
 		});
 
 		// Click A Day
@@ -504,13 +505,24 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 
 		// Clicking an event within the list
 		$(document.body).on("click", parent + " .listed-event", function (event) {
-			var href = $(this).attr("href");
-			// If there isn't a link, don't go anywhere
-			if(!href) {
-				event.preventDefault();
-			}
+			let href = $(this).attr("href");
+            if(href) {
+                $.ajax({
+                    type: "GET",
+                    url: href,
+                    success: function (response) {
+                        //$('#nalogeGrid').html(response);
+                        $("#NalogaPopUp").html(response).css("display", "inline-flex");
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert(xhr.status);
+                        alert(xhr.responseText);
+                        alert(thrownError)
+                    }
+                });
+            }
+            event.preventDefault();
 		});
-
 	}
 	});
 }(jQuery));

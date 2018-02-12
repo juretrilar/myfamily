@@ -1,3 +1,12 @@
+#NalogaPopUp {
+	width: 336px;
+	height: 315px;
+	position: relative;
+	z-index: 15;
+	left: 50%;
+	transform: translate(-50%, -150%);
+	display: none;
+}
 
 /* Overall wrapper */
 .monthly {
@@ -431,6 +440,14 @@ establish the rules based on the calendar element width rather than the device w
 	}
 }
 
+@media screen and (max-width: 600px) {
+	#NalogaPopUp {
+		left: 0;
+		transform: none;
+		margin-left: calc((100% - 358px)/2);
+	}
+}
+
 /* Small screen */
 @media screen and (max-width: 375px) {
 	.monthly-header-title {
@@ -444,8 +461,23 @@ establish the rules based on the calendar element width rather than the device w
 	.monthly-event-list {
 		top: 2.5em;
 	}
+	#NalogaPopUp {
+		left: 0;
+		width: calc(100% - 16px);
+		transform: none;
+		margin-left: 8px;
+	}
 
 }
+
+@media screen and (min-width: 1440px) {
+	#NalogaPopUp {
+		transform: translate(-50%, -200%);
+	}
+}
+
+
+
 
 .dt2017-12-24 { background-color: #F0FFF0; }
 .dt2017-12-24 .monthly-day-number:after { content: '\1F384 Božič'; margin: 5px;}
@@ -454,3 +486,4 @@ establish the rules based on the calendar element width rather than the device w
 	opacity: 0.5;
 	background-color: black;
 }
+

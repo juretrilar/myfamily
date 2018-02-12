@@ -1,6 +1,9 @@
 jQuery(function($) {
+    let pageWidth = $(document).width();
+
+
     let items;
-    let perPage = 8;
+    let perPage = 12;
 
     let $paginator = $("#pagination");
     $paginator.pagination({
@@ -15,6 +18,13 @@ jQuery(function($) {
     });
 
     function updateItems() {
+        if(pageWidth > 1339) {
+            $("div[name='nal2']").removeClass("paginate");
+            $("div[name='nal4']").addClass("paginate");
+        } else {
+            $("div[name='nal2']").addClass("paginate");
+            $("div[name='nal4']").removeClass("paginate");
+        }
         items = $(".paginate");
         $paginator.pagination("updateItems", items.length);
         let page = Math.min(

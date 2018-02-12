@@ -6,6 +6,10 @@ html, body {
     background-color: lightgray;
 }
 
+.hide-element {
+    display: none;
+}
+
 .circle-container-main{
     width: 32px;
     height: 32px;
@@ -56,6 +60,10 @@ html, body {
 
 .padding-10 {
     padding: 10px;
+}
+
+.dynamic {
+    display: inline-table;
 }
 
 /*        */
@@ -390,3 +398,12 @@ html, body {
 .util-no-decoration {
     text-decoration: none;
 }
+
+
+/* HD RESPONSIVE */
+@media (min-width: 1440px) {
+    .mdl-cell--3-hd {
+        width: calc(20.8333333325% - 16px)!important;
+    }
+}
+

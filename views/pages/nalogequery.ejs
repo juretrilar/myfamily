@@ -1,10 +1,8 @@
-<% for (var i = 0; i < naloge.length; i+=4) { %>
-    <% if (i < 1) { %>
-        <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-    <% } else { %>
-        <div class="mdl-cell mdl-cell--1-col mdl-cell-show-hd" style="display: none;"></div>
+<% for (var i = 0; i < naloge.length; i++) { %>
+    <% if (i ==  0 ) { %>
+        <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone paginate"></div>
     <% } %>
-        <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet paginate" id="card<%= i %>">
+    <div class="mdl-cell mdl-cell--3-hd mdl-cell--5-col-desktop mdl-cell--4-col-tablet paginate" id="card<%= i %>">
         <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 6;" >
             <div class="mdl-card__title mdl-color--orange-300 padding-10">
                 <div class="naloge-title_type">
@@ -18,29 +16,29 @@
             </div>
             <div class="mdl-card__supporting-text padding-zero overflow-visible">
                 <div class="mdl-list__item mdl-list__item--three-line padding-10">
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--black"><%= naloge[i].ime %></span>
-                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[i].opis %></span>
-                    </span>
+                            <span class="mdl-list__item-primary-content">
+                                <span class="mdl-color-text--black"><%= naloge[i].ime %></span>
+                                <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[i].opis %></span>
+                            </span>
                 </div>
                 <div class="mdl-list__item mdl-list__item--three-line padding-10">
+                            <span class="mdl-list__item-primary-content">
+                                <span class="mdl-color-text--grey">Za:</span>
+                                <span class="mdl-list__item-text-body chip-no-margin" style="margin-top: 10px;">
+                                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">A</span>
+                                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">B</span>
+                                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span>
+                                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span>
+                                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">E</span>
+                                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">F</span>
+                                </span>
+                            </span>
                     <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--grey">Za:</span>
-                        <span class="mdl-list__item-text-body chip-no-margin" style="margin-top: 10px;">
-                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">A</span>
-                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">B</span>
-                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span>
-                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span>
-                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">E</span>
-                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">F</span>
-                        </span>
-                    </span>
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--grey">Avtor:</span>
-                        <span class="mdl-list__item-text-body" style="margin-top: 10px;">
-                            <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span>
-                        </span>
-                    </span>
+                                <span class="mdl-color-text--grey">Avtor:</span>
+                                <span class="mdl-list__item-text-body" style="margin-top: 10px;">
+                                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span>
+                                </span>
+                            </span>
                 </div>
                 <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
                 <% if (naloge[i].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Od <%= moment(naloge[i].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
@@ -54,131 +52,12 @@
             </div>
         </div>
     </div>
-    <% if (naloge.length > (i+1)) { %>
-        <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet paginate" id="card<%= i+1 %>">
-        <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 5;" >
-            <div class="mdl-card__title mdl-color--orange-300 padding-10">
-                <div class="naloge-title_type">
-                    <div class="mdl-card__subtitle-text mdl-color-text--black"><%= naloge[i+1].kategorija %></div>
-                    <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">Skupni cilji družine
-                        <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge">
-                            <span class="mdl-chip__text">+<%= naloge[i+1].xp %> xp</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="mdl-card__supporting-text padding-zero overflow-visible">
-                <div class="mdl-list__item mdl-list__item--three-line padding-10">
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--black"><%= naloge[i+1].ime %></span>
-                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[i+1].opis %></span>
-                    </span>
-                </div>
-                <div class="mdl-list__item mdl-list__item--two-line padding-10">
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Za:</span>
-                    </span>
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Avtor:</span>
-                    </span>
-                </div>
-                <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
-                <% if (naloge[i+1].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Od <%= moment(naloge[i+1].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
-                <% if (naloge[i+1].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">do <%= moment(naloge[i+1].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
-                <% if (!naloge[i+1].zacetek && !naloge[i+1].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Datum za to nalogo ni definiran.</span><% } %>
-            </div>
-            <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
-                Status naloge:
-                <% if (naloge[i+1].status) { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Opravljena</span>
-                <% } else { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Neopravljena</span><% } %>
-            </div>
-        </div>
-    </div>
+    <% if ((i+1)%4 == 0 || (i+1)%2 == 0) { %>
+        <div class="mdl-cell mdl-cell--1-col mdl-hide-small mdl-cell--hide-hd" name="nal2"></div>
+        <div class="mdl-cell mdl-cell--1-col mdl-hide-small mdl-cell--hide-hd" name="nal2"></div>
     <% } %>
-    <% if (naloge.length > (i+2)) { %>
-        <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet paginate" id="card<%= i+2 %>">
-            <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 4;" >
-                <div class="mdl-card__title mdl-color--orange-300 padding-10">
-                    <div class="naloge-title_type">
-                        <div class="mdl-card__subtitle-text mdl-color-text--black"><%= naloge[i+2].kategorija %></div>
-                        <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">Skupni cilji družine
-                            <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge">
-                                <span class="mdl-chip__text">+<%= naloge[i+2].xp %> xp</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-                <div class="mdl-card__supporting-text padding-zero overflow-visible">
-                    <div class="mdl-list__item mdl-list__item--three-line padding-10">
-                        <span class="mdl-list__item-primary-content">
-                            <span class="mdl-color-text--black"><%= naloge[i+2].ime %></span>
-                            <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[i+2].opis %></span>
-                        </span>
-                    </div>
-                    <div class="mdl-list__item mdl-list__item--two-line padding-10">
-                        <span class="mdl-list__item-primary-content">
-                            <span class="mdl-list__item-sub-title mdl-color-text--grey">Za:</span>
-                        </span>
-                        <span class="mdl-list__item-primary-content">
-                            <span class="mdl-list__item-sub-title mdl-color-text--grey">Avtor:</span>
-                        </span>
-                    </div>
-                    <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
-                    <% if (naloge[i+2].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Od <%= moment(naloge[i+2].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
-                    <% if (naloge[i+2].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">do <%= moment(naloge[i+2].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
-                    <% if (!naloge[i+2].zacetek && !naloge[i+2].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Datum za to nalogo ni definiran.</span><% } %>
-                </div>
-                <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
-                    Status naloge:
-                    <% if (naloge[i+2].status) { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Opravljena</span>
-                    <% } else { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Neopravljena</span><% } %>
-                </div>
-            </div>
-        </div>
-        <div class="mdl-cell mdl-cell--1-col mdl-hide-small mdl-cell--hide-hd"></div>
-        <div class="mdl-cell mdl-cell--1-col mdl-hide-small mdl-cell--hide-hd"></div>
-    <% } %>
-    <% if (naloge.length > (i+3)) { %>
-        <div class="mdl-cell mdl-cell--3-col mdl-cell--4-col-tablet paginate" id="card<%= i+3 %>">
-        <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 3;">
-            <div class="mdl-card__title mdl-color--orange-300 padding-10">
-                <div class="naloge-title_type">
-                    <div class="mdl-card__subtitle-text mdl-color-text--black"><%= naloge[i+3].kategorija %></div>
-                    <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">Skupni cilji družine
-                        <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge">
-                            <span class="mdl-chip__text">+<%= naloge[i+3].xp %> xp</span>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="mdl-card__supporting-text padding-zero overflow-visible">
-                <div class="mdl-list__item mdl-list__item--three-line padding-10">
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--black"><%= naloge[i+3].ime %></span>
-                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[i+3].opis %></span>
-                    </span>
-                </div>
-                <div class="mdl-list__item mdl-list__item--two-line padding-10">
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Za:</span>
-                    </span>
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-list__item-sub-title mdl-color-text--grey">Avtor:</span>
-                    </span>
-                </div>
-                <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
-                <% if (naloge[i+3].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Od <%= moment(naloge[i+3].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
-                <% if (naloge[i+3].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">do <%= moment(naloge[i+3].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
-                <% if (!naloge[i+3].zacetek && !naloge[i+3].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey">Datum za to nalogo ni definiran.</span><% } %>
-            </div>
-            <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
-                Status naloge:
-                <% if (naloge[i+3].status) { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Opravljena</span>
-                <% } else { %><span name="status" class="mdl-list__item-sub-title mdl-color-text--grey">Neopravljena</span><% } %>
-            </div>
-        </div>
-    </div>
-        <div class="mdl-cell mdl-cell--1-col mdl-cell-show-hd" style="display: none;"></div>
-        <!--<div class="mdl-cell mdl-cell--1-col mdl-cell-show-hd" style="display: none;"></div>-->
+    <% if ((i+1)%4 == 0) { %>
+        <div <div class="mdl-cell mdl-cell--1-col mdl-cell-show-hd hide-element" name="nal4"></div>
+        <div <div class="mdl-cell mdl-cell--1-col mdl-cell-show-hd hide-element" name="nal4"></div>
     <% } %>
 <% } %>

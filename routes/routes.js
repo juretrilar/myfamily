@@ -11,12 +11,12 @@ router.post('/ustvari_nalogo', requestHandler.ustvariNalogo);
 
 router.post('/prikazi_naloge', requestHandler.prikaziNaloge);
 /*
-router.get('/uredi_cilj', requestHandler.urediCilj);
+router.get('/uredi_cilj', requestHandler.urersdiCilj);
 */
 router.post('/ustvari_cilj', requestHandler.ustvariCilj);
-/*
-router.get('/koledar', requestHandler.napolniKoledar);
-*/
+
+router.get('/koledar/:koledarId', requestHandler.prikaziKoledar);
+
 router.get('/odjava', requestHandler.odjava);
 /*
 // BAZA
