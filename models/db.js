@@ -1,7 +1,7 @@
 let mongoose = require("mongoose");
 let express = require('express');
 
-let DB_url = "mongodb://localhost/myfamily-test";
+let DB_url = process.env.MONGODB_URI;//"mongodb://localhost/myfamily-test";
 
 if(process.env.NODE_ENV === "production"){
   DB_url = process.env.MONGODB_URI;
