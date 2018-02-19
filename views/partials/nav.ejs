@@ -1,19 +1,18 @@
 <header class="mdl-grid mdl-layout__header mdl-layout__header--scroll mdl-color--white">
     <div class="mdl-layout__header-row mdl-cell--hide-phone">
-        <div class="circle-container mdl-color--primary "></div>
+        <div class="circle-container mdl-color--primary"></div>
         <h3 class="mdl-color-text--grey mdl-typography--font-light">My</h3>
         <h3 class="mdl-color-text--black mdl-typography--font-light">Family</h3>
         <%if (uporabnik) { %>
         <div class="mdl-layout-spacer"></div>
-
         <h6 class="mdl-color-text--grey mdl-typography--font-light">Živjo,&nbsp</h6>
         <h6 class="mdl-color-text--black mdl-typography--font-light"><%= uporabnik %></h6>
-        <button id="demo-menu-lower-right"
+        <button id="menu-lower-right"
                 class="mdl-button mdl-js-button mdl-button--icon mdl-button--primary">
             <i class="material-icons">more_vert</i>
         </button>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-            for="demo-menu-lower-right">
+            for="menu-lower-right">
             <li class="mdl-menu__item">Dodaj novo nalogo</li>
             <li class="mdl-menu__item">Dodaj nov cilj</li>
             <li disabled class="mdl-menu__item">Administratorski način</li>
@@ -23,11 +22,16 @@
     </div>
     <%if (uporabnik) { %>
     <div class="mdl-layout-spacer"></div>
-
-    <button id="demo-menu-lower-right"
-            class="mdl-button mdl-js-button mdl-button--icon mdl-button--primary mdl-cell--hide-desktop mdl-cell--hide-tablet">
+    <button id="menu-lower-right-mobile" class="mdl-button mdl-js-button mdl-button--icon mdl-button--primary mdl-cell--hide-desktop mdl-cell--hide-tablet">
         <i class="material-icons">more_vert</i>
     </button>
+    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+        for="menu-lower-right-mobile">
+        <li class="mdl-menu__item">Dodaj novo nalogo</li>
+        <li class="mdl-menu__item">Dodaj nov cilj</li>
+        <li disabled class="mdl-menu__item">Administratorski način</li>
+        <li onclick="location.href='/odjava'" class="mdl-menu__item">Odjava</li>
+    </ul>
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--white">
         <a href="#dashboard" class="mdl-layout__tab is-active mdl-color-text--grey">Dashboard</a>
         <a href="#koledar" class="mdl-layout__tab mdl-color-text--grey">Koledar</a>

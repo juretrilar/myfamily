@@ -513,6 +513,7 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                     success: function (response) {
                         //$('#nalogeGrid').html(response);
                         $("#NalogaPopUp").html(response).css("display", "inline-flex");
+
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(xhr.status);

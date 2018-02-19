@@ -5,54 +5,25 @@
             <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text mdl-color-text--white">Opomniki</h2>
             </div>
-            <div class="mdl-card__supporting-text">
-                <ul class=" mdl-list">
+            <div class="mdl-card__supporting-text padding-zero">
+                <ul class=" mdl-list margin-zero padding-zero">
+                    <% for(event in opomniki) { %>
                     <li class="mdl-list__item mdl-list__item--two-line">
                         <div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>
                         <span class="mdl-list__item-primary-content">
-                                    <span class="mdl-color-text--white ">Odpelji otroke in babico na predstavo</span>
-                                    <span class="mdl-chip mdl-color--orange mdl-color-text--white">
-                                        <span class="mdl-chip__text">+100 xp</span>
-                                    </span>
-                                    <span class="mdl-list__item-sub-title">Dedek Janez</span>
-                                </span>
+                            <span class="mdl-color-text--white "><%= event.ime %></span>
+                            <span class="mdl-chip mdl-color--orange mdl-color-text--white">
+                                <span class="mdl-chip__text">+100 xp</span>
+                            </span>
+                            <span class="mdl-list__item-sub-title"><%= event.avtor %></span>
+                        </span>
                         <span class="mdl-list__item-secondary-content">
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-1">
-                                        <input type="checkbox" id="checkbox-1" class="mdl-checkbox__input" checked="checked"/>
-                                    </label>
-                                </span>
-                    </li>
-                    <li class="mdl-list__item mdl-list__item--two-line">
-                        <div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>
-                        <span class="mdl-list__item-primary-content">
-                                          <span class="mdl-color-text--white">Košnja trave</span>
-                                          <span class="mdl-chip mdl-color--orange mdl-color-text--white">
-                                               <span class="mdl-chip__text">+100 xp</span>
-                                           </span>
-                                          <span class="mdl-list__item-sub-title">Sin Jan</span>
-                                      </span>
-                        <span class="mdl-list__item-secondary-content">
-                                   <label class="mdl-icon-toggle mdl-js-icon-toggle mdl-js-ripple-effect" for="icon-toggle-1">
-                                       <input type="checkbox" id="icon-toggle-1" class="mdl-icon-toggle__input" checked="checked"/>
-                                       <i class="mdl-icon-toggle__label material-icons mdl-color-text--white">refresh</i>
-                                   </label>
-                                </span>
-                    </li>
-                    <li class="mdl-list__item mdl-list__item--two-line">
-                        <div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>
-                        <span class="mdl-list__item-primary-content">
-                                    <span class="mdl-color-text--white">Napolni hladilnik</span>
-                                    <span class="mdl-chip mdl-color--orange mdl-color-text--white">
-                                        <span class="mdl-chip__text">+100 xp</span>
-                                    </span>
-                                <span class="mdl-list__item-sub-title">Mami Alenka</span>
-                                       </span>
-                        <span class="mdl-list__item-secondary-content">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-3">
-                                <input type="checkbox" class="mdl-checkbox__input" id="checkbox-3" checked="checked" />
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="<%= event.ime %>">
+                                <input type="checkbox" id="<%= event.ime %>" name="checkbox" class="mdl-checkbox__input" checked="checked"/>
                             </label>
                         </span>
                     </li>
+                    <% } %>
                 </ul>
             </div>
         </div>

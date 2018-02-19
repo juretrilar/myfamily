@@ -113,6 +113,7 @@ html, body {
     top: 4px;
     visibility: visible;
     margin: 0;
+    font-weight: 400;
 }
 
 .monthly-pop .monthly-header-title {
@@ -377,9 +378,11 @@ html, body {
     .textfield-search {
         width: 46%;
     }
-
     .dialog-main {
         width: 100%;
+    }
+    .mdl-list__item--two-line {
+        height: 92px;
     }
 }
 
@@ -397,6 +400,24 @@ html, body {
 
 .util-no-decoration {
     text-decoration: none;
+}
+
+#avatars{
+    width: 100%;
+}
+
+.avatars > input + img{
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.avatars > img{
+    width: 56px;
+    height: 56px;
+}
+
+.avatars > input:checked + img{
+    border: 2px solid black;
 }
 
 

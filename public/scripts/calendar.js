@@ -13,3 +13,7 @@ $(window).load( function() {
             alert('Just a heads-up, events will not work when run locally.');
     }
 });
+
+function zapriNalogo() {
+    $("#NalogaPopUp").css("display", "none");
+}

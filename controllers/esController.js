@@ -33,17 +33,21 @@ module.exports.naslovnaStran = function (req, res, next) {
             uporabnik: ""
         });
     } else {
+        let opomnik = [];
         let session = req.session;
         let where_search = {vezani_uporabniki : session.trenutniUporabnik.id};
         Uporabnik.find().then(uporabniki => {
             Cilji.find().then(cilji => {
                 Naloge.find(where_search).then(docs => {
-                    let j=0;
+                    let j=0,o=0;
                     let obj = {
                         monthly: []
                     };
                     for (i = 0; i < docs.length; i++) {
                         j = i;
+                        let zac = moment(docs[i].zacetek).format('DD/MM/YYYY');
+                        let kon = moment(docs[i].konec).format('DD/MM/YYYY');
+                        let now = moment(Date.now()).format('DD/MM/YYYY');
                         obj.monthly.push({
                             id: docs[i].id,
                             name: docs[i].ime,
@@ -52,9 +56,27 @@ module.exports.naslovnaStran = function (req, res, next) {
                             starttime: "15:00",
                             endtime: "18:00",
                             color: color[docs[i].kategorija],
-                            url: "/koledar/"+docs[i].id
+                            url: "/koledar/" + docs[i].id
                         });
+                        if (dateCheck(zac, kon, now)) {
+                            opomnik.push({
+                                ime: docs[i].ime,
+                                xp: docs[i].xp,
+                                avtor: docs[i].avtor,
+                                status: docs[i].status
+                            });
+                            console.log("vmes");
+                        } else if (zac == now) {
+                            opomnik.push({
+                                ime: docs[i].ime,
+                                xp: docs[i].xp,
+                                avtor: docs[i].avtor,
+                                status: docs[i].status
+                            });
+                            console.log("enak");
+                        }
                     }
+
                     /*
                     for (i = 0; i < cilji.length; i++) {
                         if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
@@ -77,7 +99,7 @@ module.exports.naslovnaStran = function (req, res, next) {
                 });
                 Kategorija.find().then(kategorija => {
                     console.log(currentTab);
-                    res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija, id : req.session.trenutniUporabnik.id});
+                    res.render("pages/index", {uporabniki : uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : cilji, tab : currentTab, kategorija : kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik});
                     currentTab = 0;
                 }).catch(err => {
                     vrniNapako(res, err);
@@ -311,4 +333,17 @@ function posodobiJson(obj, session) {
             if (err) throw err;
         });
     });
+}
+
+function dateCheck(from,to,check) {
+    let fDate,lDate,cDate;
+    console.log(from,to,check);
+    fDate = Date.parse(from);
+    lDate = Date.parse(to);
+    cDate = Date.parse(check);
+    console.log(fDate,lDate,cDate);
+    if((cDate <= lDate && cDate >= fDate)) {
+        return true;
+    }
+    return false;
 }
