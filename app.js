@@ -73,6 +73,6 @@ app.use(function(err, req, res, next) {
 
 //esController(app);
 
-app.listen(3000);
+//app.listen(3000);
 
 module.exports = app;
