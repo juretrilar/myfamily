@@ -1,16 +1,16 @@
 let mongoose = require("mongoose");
 let express = require('express');
 
-let DB_url = "mongodb://localhost/myfamily-test";
+let MONGODB_URI = "mongodb://localhost/myfamily-test";
 
 if(process.env.NODE_ENV === "production"){
-  DB_url = process.env.MLAB_URI;
+  MONGODB_URI = process.env.MLAB_URI;
 }
 
-mongoose.connect(DB_url, { useMongoClient : true });
+mongoose.connect(MONGODB_URI, { useMongoClient : true });
 
 mongoose.connection.on('connected', function() {
-  console.log('Mongoose je povezan na ' + DB_url);
+  console.log('Mongoose je povezan na ' + MONGODB_URI);
 });
 mongoose.connection.on('error', function(err) {
   console.log('Mongoose napaka pri povezavi: ' + err);
