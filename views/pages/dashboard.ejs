@@ -7,19 +7,19 @@
             </div>
             <div class="mdl-card__supporting-text padding-zero">
                 <ul class=" mdl-list margin-zero padding-zero">
-                    <% for(event in opomniki) { %>
+                    <% for(let i=0;i<opomniki.length;i++) { %>
                     <li class="mdl-list__item mdl-list__item--two-line">
                         <div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>
                         <span class="mdl-list__item-primary-content">
-                            <span class="mdl-color-text--white "><%= event.ime %></span>
+                            <span class="mdl-color-text--white "><%= opomniki[i].ime %></span>
                             <span class="mdl-chip mdl-color--orange mdl-color-text--white">
                                 <span class="mdl-chip__text">+100 xp</span>
                             </span>
-                            <span class="mdl-list__item-sub-title"><%= event.avtor %></span>
+                            <span class="mdl-list__item-sub-title"><%= opomniki[i].avtor %></span>
                         </span>
                         <span class="mdl-list__item-secondary-content">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="<%= event.ime %>">
-                                <input type="checkbox" id="<%= event.ime %>" name="checkbox" class="mdl-checkbox__input" checked="checked"/>
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="opomnik<%= i %>">
+                                <input type="checkbox" id="opomnik<%= i %>" name="checkbox" class="mdl-checkbox__input" <% if (opomniki[i].status == true) { %>checked="checked" <% } %>/>
                             </label>
                         </span>
                     </li>
@@ -62,44 +62,21 @@
                 </button>
             </div>
         </div>
-        <ul class=" mdl-list" id="cilji">
+        <ul class=" mdl-list" id="skupniCilji">
+            <% for(let i=0;i<skupniCilji.length;i++) { %>
             <li class="mdl-list__item mdl-list__item--two-line">
                 <div class="circle-container-main mdl-color--grey"></div>
                 <span class="mdl-list__item-primary-content">
-                            <span class="mdl-color-text--black">Družinske počitnice</span>
-                            <span class="mdl-list__item-sub-title mdl-color-text--grey">Odplujemo v juliju</span>
-                        </span>
+                    <span class="mdl-color-text--black"><%= skupniCilji[i].ime %></span>
+                    <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= skupniCilji[i].opis %></span>
+                </span>
                 <span class="mdl-list__item-secondary-content">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-4">
-                                <input type="checkbox" id="checkbox-4" class="mdl-checkbox__input" checked="checked"/>
-                            </label>
-                        </span>
-            </li>
-            <li class="mdl-list__item mdl-list__item--two-line">
-                <div class="circle-container-main mdl-color--grey"></div>
-                <span class="mdl-list__item-primary-content">
-                           <span class="mdl-color-text--black">Letna družinska srečanja</span>
-                           <span class="mdl-list__item-sub-title mdl-color-text--grey">Dobra volja in babičina kulinarika</span>
-                       </span>
-                <span class="mdl-list__item-secondary-content">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-5">
-                                <input type="checkbox" id="checkbox-5" class="mdl-checkbox__input" checked="checked"/>
-                            </label>
-                        </span>
+                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupniCilji<%= i %>">
+                        <input type="checkbox" id="skupniCilji<%= i %>" class="mdl-checkbox__input" <% if (skupniCilji[i].status == true) { %>checked="checked" <% } %>/>
+                    </label>
                 </span>
             </li>
-            <li class="mdl-list__item mdl-list__item--two-line">
-                <div class="circle-container-main mdl-color--grey"></div>
-                <span class="mdl-list__item-primary-content">
-                            <span class="mdl-color-text--black">Več fizične aktivnosti</span>
-                            <span class="mdl-list__item-sub-title mdl-color-text--grey">Če se skupaj potrudimo, nam bo uspelo</span>
-                        </span>
-                <span class="mdl-list__item-secondary-content">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect " for="checkbox-6">
-                                <input type="checkbox" class="mdl-checkbox__input" id="checkbox-6" checked="checked"/>
-                            </label>
-                        </span>
-            </li>
+            <% } %>
         </ul>
     </div>
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet">

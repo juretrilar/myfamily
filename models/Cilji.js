@@ -9,6 +9,7 @@ let ciljiSchema = new mongoose.Schema({
     xp: {Number},
     vezane_naloge: [{type: mongoose.Schema.Types.ObjectId, ref : "Naloge"}],
     vezani_uporabniki: [{type: mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
+    skupni_cilj: Boolean,
     status: Boolean
 });
 

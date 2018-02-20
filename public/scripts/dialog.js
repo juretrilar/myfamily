@@ -93,7 +93,7 @@ function fillNaloge() {
 function fillCilji() {
     $('#iDialog').html("Ime cilja");
     $('#oDialog').html("Opis cilja");
-    $('#tZacetek').html("Začetek cilja");
+    $('#tZacetek').html("Zacetek cilja");
     $('#tKonec').html("Konec cilja");
     $('#dialogKategorija').attr('style',"display: none!important");
     $('#claniNaloge').attr('style',"display: none!important");

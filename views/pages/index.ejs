@@ -35,10 +35,11 @@
                     </div>
                     <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
                         <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
-                        <label class="mdl-textfield__label" for="targetZacetek" id=""> </label>
+                        <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"></label>
+                        <div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>
                        <!-- <input id="time" type="time">
                         <label class="mdl-textfield__label" for="time" id="ttime"></label>-->
-                        <div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>
+
                     </div>
                     <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
                         <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" style="text-align: left;">
@@ -76,6 +77,12 @@
                             <li class="mdl-menu__item" data-val="true">Opravljeno</li>
                             <li class="mdl-menu__item" data-val="false">Neopravljeno</li>
                         </ul>
+                    </div>
+                    <div id="ciljiVsi">
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1324">
+                            <input type="checkbox" id="checkbox-1324" class="mdl-checkbox__input" checked>
+                            <span class="mdl-checkbox__label">Dodaj cilj med skupne cilje družine</span>
+                        </label>
                     </div>
                     <div id="claniNaloge" hidden>
                         <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
