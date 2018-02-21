@@ -92,11 +92,12 @@ html, body {
 }
 
 .mdl-dialog__title {
-    padding-top: 12px;
     position: fixed;
     z-index: 1;
     background-color: white;
     text-align: center;
+    width: calc(100% - 28px);
+    padding: 0;
 }
 
 .dialog-main {
@@ -298,6 +299,9 @@ html, body {
 .chip-no-margin .mdl-chip__contact {
     margin-right: -16px;
 }
+.chip-no-margin {
+    margin-top: 10px;
+}
 
 .mdl-typography--subhead {
     color: rgba(0,0,0,.26);
@@ -306,6 +310,11 @@ html, body {
 
 .mdl-list__item--no-padding {
     padding: 0 10px 0 10px;
+}
+
+.author-chip {
+    width: 64px;
+    height: 64px;
 }
 
 /*       */

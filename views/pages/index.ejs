@@ -36,7 +36,7 @@
                     <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
                         <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
                         <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"></label>
-                        <div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>
+                        <!--<div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>-->
                        <!-- <input id="time" type="time">
                         <label class="mdl-textfield__label" for="time" id="ttime"></label>-->
 
@@ -44,14 +44,14 @@
                     <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
                         <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" style="text-align: left;">
                         <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
-                        <div class="monthly-dialog monthly-picker" style="position: absolute; display: block;" id="konecDialog"></div>
+                        <!--<div class="monthly-dialog monthly-picker" style="position: absolute; display: block;" id="konecDialog"></div>-->
                     </div>
                     <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
                         <input type="text" value="" class="mdl-textfield__input" id="vezanCilj" readonly>
                         <input type="hidden" value="" name="sampleCilj">
                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                         <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
-                        <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                        <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-cilj">
                             <% for (var i = 0; i < cilji.length; i++) { %>
                             <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
                             <% } %>
@@ -79,14 +79,22 @@
                         </ul>
                     </div>
                     <div id="ciljiVsi">
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1324">
-                            <input type="checkbox" id="checkbox-1324" class="mdl-checkbox__input" checked>
-                            <span class="mdl-checkbox__label">Dodaj cilj med skupne cilje družine</span>
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
+                            <input type="checkbox" id="skupnaNaloga" class="mdl-checkbox__input">
+                            <span class="mdl-checkbox__label" id="vsiCiljiLabel">Dodaj cilj med skupne cilje družine</span>
                         </label>
                     </div>
-                    <div id="claniNaloge" hidden>
+                    <div id="claniNaloge">
                         <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
                         <ul class="mdl-list" style="margin: 0;" id="listClani">
+                            <li class="mdl-list__item mdl-list__item--no-padding">
+                                <span class="mdl-list__item-primary-content">Označi/odznači vse člane družine</span>
+                                <span class="mdl-list__item-secondary-action">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="checkboxVsi">
+                                        <input type="checkbox" id="checkboxVsi" name="person" class="mdl-checkbox__input checkbox-modal"/>
+                                    </label>
+                                </span>
+                            </li>
                             <% for (var i = 0; i < uporabniki.length; i++) { %>
                             <li class="mdl-list__item mdl-list__item--no-padding">
                                 <span class="mdl-list__item-primary-content">

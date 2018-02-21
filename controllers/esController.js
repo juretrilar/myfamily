@@ -224,14 +224,25 @@ module.exports.prikaziNaloge = function(req, res, next) {
         }
     }
     console.log(where_search);
-    Naloge.find( where_search, {
-    }, function(err, docs){
-        if (err) throw err;
-        all_items = docs;
-        res.render("pages/nalogequery", {naloge: all_items, moment : moment});
-    }).catch(err => {
-        vrniNapako(res, err);
-    });
+    async.parallel({
+            docs: function (cb) { Naloge.find(where_search).exec(cb);},
+            kategorija: function (cb) { Kategorija.find().exec(cb); },
+            uporabnik: function (cb) { Uporabnik.find().select("slika ime").exec(cb); },
+        },
+        function(err, results) {
+            if (err) {
+                vrniNapako(err,res);
+            }
+            let kat = {},usr = {};
+            for(let i=0;i<results.kategorija.length;i++) {
+                kat[results.kategorija[i].id] = results.kategorija[i].ime;
+            }
+            for(let i=0;i<results.uporabnik.length;i++) {
+                usr[results.uporabnik[i].id] = [results.uporabnik[i].slika, results.uporabnik[i].id, results.uporabnik[i].ime];
+            }
+            console.log(usr);
+            res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr});
+        });
 };
 
 //** POST /ustvari_nalogo

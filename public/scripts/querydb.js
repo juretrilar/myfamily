@@ -69,19 +69,23 @@ jQuery(function($) {
                 } onCardClick("nalogeGrid", function (card, event) {
                     posodobiNalogo();
                     //
-                    let kat = card.getElementsByClassName("mdl-card__subtitle-text")[0].innerHTML;
                     $('#imeDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].previousElementSibling.innerHTML)
                         .parent().addClass("is-dirty");
                     $('#opisDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].innerHTML)
                         .parent().addClass("is-dirty");
-                    $('#targetZacetek').val("<%= card.zacetek %>")
+                    $('#targetZacetek').val("1/1/2018")
                         .parent().addClass("is-dirty");
-                    $('#targetKonec').val("<%= card.konec %>")
+                    $('#targetKonec').val("1/1/2018")
                         .parent().addClass("is-dirty");
                     $('#vezanCilj').val("<%= card.konec %>")
                         .parent().addClass("is-dirty");
+                    let kat = card.getElementsByClassName("kategorijaNaloga")[0].value;
                     $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val="+kat+"]").get(0).textContent.trim();
                     $("input[name='sampleKategorija']").val(kat)
+                        .parent().addClass("is-dirty");
+                    let cl = card.getElementsByClassName("ciljNaloga")[0].value;
+                    $('#vezanCilj').get(0).placeholder = $(".list-cilj").find("[data-val="+cl+"]").get(0).textContent.trim();
+                    $("input[name='sampleCilj']").val(cl)
                         .parent().addClass("is-dirty");
                 });
             },

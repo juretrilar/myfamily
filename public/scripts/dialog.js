@@ -28,10 +28,33 @@ window.onload = function() {
         //xp row.getElementsByTagName("td")[3].innerHTML
         //opravljeno row.getElementsByTagName("td")[4].innerHTML
     });
+
     dialog.querySelector('button:not([disabled])')
         .addEventListener('click', function() {
             dialog.close();
         });
+
+    let personGroup = $('input[name=person]');
+    $("#checkboxVsi").on( "click", function() {
+        if ($(this).is(':checked')) {
+            personGroup.parent().each(function (index, element) {
+                element.MaterialCheckbox.check();
+            });
+        } else {
+            personGroup.parent().each(function (index, element) {
+                element.MaterialCheckbox.uncheck();
+            });
+        }
+    });
+    $(document).on('change', 'input[name=person]', function(e) {
+        if($("#checkboxVsi").is(':checked') && $('input[name=person]:checked').length < personGroup.length) {
+            $("#checkboxVsi").parent()[0].MaterialCheckbox.uncheck();
+        } else if(!$("#checkboxVsi").is(':checked') && $('input[name=person]:checked').length === personGroup.length-1) {
+            $("#checkboxVsi").parent()[0].MaterialCheckbox.check();
+        }
+        //DO YOUR THANG
+    });
+
     /*
     function onCardClick(cardId, callback) {
         let parent = document.getElementById("nalogeGrid"),
@@ -64,6 +87,25 @@ window.onload = function() {
             .parent().addClass("is-dirty");
 
     });*/
+    let z = new mdDateTimePicker.default({
+        type: 'date',
+        init: moment('2016-03-3', 'YYYY-MM-DD'),
+        orientation: 'PORTRAIT'
+    });
+    let elementZ = document.getElementById('dialogZacetek');
+    elementZ.addEventListener('click', function() {
+        z.toggle();
+        $("#mddtp-picker__date").attr('style',"z-index: 100");
+    });
+    let k = new mdDateTimePicker.default({
+        type: 'date',
+        init: moment('2016-03-3', 'YYYY-MM-DD'),
+        orientation: 'PORTRAIT'
+    });
+    let elementK = document.getElementById('dialogKonec');
+    elementK.addEventListener('click', function() {
+        k.toggle();
+    });
 };
 
 function clearData() {
@@ -83,6 +125,7 @@ function fillNaloge() {
     $('#oDialog').html("Opis naloge");
     $('#tZacetek').html("Začetek naloge");
     $('#tKonec').html("Konec naloge");
+    $('#ciljiVsi').attr('style',"display: none!important");
     $('#dialogKategorija').attr('style',"display: block!important");
     $('#claniNaloge').attr('style',"display: block!important");
     $('#dialogCilj').attr('style',"display: block!important");
@@ -95,6 +138,7 @@ function fillCilji() {
     $('#oDialog').html("Opis cilja");
     $('#tZacetek').html("Zacetek cilja");
     $('#tKonec').html("Konec cilja");
+    $('#ciljiVsi').attr('style',"display: block!important");
     $('#dialogKategorija').attr('style',"display: none!important");
     $('#claniNaloge').attr('style',"display: none!important");
     $('#dialogCilj').attr('style',"display: none!important");
@@ -138,7 +182,7 @@ function dodajNovoNalogo() {
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
 
 }
-
+/*
 $('#zacetekDialog').monthly({
     mode: 'picker',
     target: '#targetZacetek',
@@ -155,8 +199,4 @@ $('#konecDialog').monthly({
     showTrigger: '#targetKonec', // Element that you click to make it appear
     stylePast: true, // Add a style to days in the past
     disablePast: false // Disable clicking days in the past
-});
-
-function getPathFromUrl(url) {
-    return url.split("/")[0];
-}
+}); */
