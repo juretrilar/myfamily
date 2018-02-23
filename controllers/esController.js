@@ -14,6 +14,7 @@ let ejs = require('ejs');
 let moment = require('moment');
 let fs = require('fs');
 let mkdirp = require('mkdirp');
+let validator = require('validator');
 
 let color = {"5a78505d19ac7744c8175d18": "#ff9933", "5a785125e7c9722aa0e1e8ac": "#0099ff", "5a785157425a883c30b08b7a": "#33cc33", "5a785178900a3b278c196667": "#ff00ff"};
 
@@ -248,16 +249,35 @@ module.exports.prikaziNaloge = function(req, res, next) {
 //** POST /ustvari_nalogo
 module.exports.ustvariNalogo = function(req, res, next) {
     currentTab = 2;
+    let v_usr = [];
+    if(!validator.isAlphanumeric(req.body.imeDialog ,['sr-RS@latin'])) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki.");return;}
+    if(!validator.isAlphanumeric(req.body.opisDialog ,['sr-RS@latin'])) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki.");return;}
+    if(!validator.isMongoId(req.body.sampleKategorija)) {vrniNapako(res, "Za kategorijo so bili uporabljeni napačni znaki.");return;}
+    if(!validator.isInt("100", [{ min: 1, max: 100 }])) {vrniNapako(res, "Izbrana vrednost mora biti med 1 in 100 xp.");return;}
+    if(!validator.isMongoId(req.body.sampleCilj)) {vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki.");return;}
+    for(let i=0;i<req.body.person.length;i++) {
+        if(validator.isMongoId(req.body.person[i])) {
+            v_usr.push(req.body.person[i]);
+        }
+    }
+    let dateZacetek = validator.toDate(req.body.targetZacetek);
+    console.log(dateZacetek);
+    console.log(req.body.targetZacetek);
+    if(!dateZacetek) {vrniNapako(res, "Izbran datum začetka ni ustrezen.");return;}
+    let dateKonec = validator.toDate(req.body.targetKonec);
+    console.log(dateKonec);
+    console.log(req.body.targetKonec);
+    if(!dateKonec) {vrniNapako(res, "Izbran datum konca ni ustrezen.");return;}
     let novaNaloga = {
         _id : new ObjectId(),
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
         kategorija: req.body.sampleKategorija,
-        zacetek: req.body.targetZacetek,
-        konec: req.body.targetKonec,
+        zacetek: dateZacetek,
+        konec: dateKonec,
         xp: 100,
         vezan_cilj: req.body.sampleCilj,
-        vezani_uporabniki: req.body.person,
+        vezani_uporabniki: v_usr,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
         status: false
     };

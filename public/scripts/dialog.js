@@ -1,3 +1,4 @@
+let validation = 0;
 window.onload = function() {
     'use strict';
     let dialog = document.querySelector('dialog');
@@ -87,25 +88,27 @@ window.onload = function() {
             .parent().addClass("is-dirty");
 
     });*/
-    let z = new mdDateTimePicker.default({
+    let dz = new mdDateTimePicker.default({
         type: 'date',
-        init: moment('2016-03-3', 'YYYY-MM-DD'),
-        orientation: 'PORTRAIT'
+        past: moment().subtract(1, 'years'),
+        future: moment().add(1, 'years'),
     });
-    let elementZ = document.getElementById('dialogZacetek');
-    elementZ.addEventListener('click', function() {
-        z.toggle();
-        $("#mddtp-picker__date").attr('style',"z-index: 100");
+    let tz = new mdDateTimePicker.default({
+        type: 'time',
     });
-    let k = new mdDateTimePicker.default({
+    registerDateTimePicker("dialogZacetek", dz, "targetZacetek", "dateZacetek", tz);
+    let dk = new mdDateTimePicker.default({
         type: 'date',
-        init: moment('2016-03-3', 'YYYY-MM-DD'),
-        orientation: 'PORTRAIT'
+        past: moment().subtract(1, 'years'),
+        future: moment().add(1, 'years'),
     });
-    let elementK = document.getElementById('dialogKonec');
-    elementK.addEventListener('click', function() {
-        k.toggle();
+    let tk = new mdDateTimePicker.default({
+        type: 'time',
     });
+    registerDateTimePicker("dialogKonec", dk, "targetKonec", "dateKonec", tk);
+    dialog.appendChild(document.getElementById("mddtp-picker__time"));
+    dialog.appendChild(document.getElementById("mddtp-picker__date"));
+
 };
 
 function clearData() {
@@ -129,7 +132,8 @@ function fillNaloge() {
     $('#dialogKategorija').attr('style',"display: block!important");
     $('#claniNaloge').attr('style',"display: block!important");
     $('#dialogCilj').attr('style',"display: block!important");
-    $('#update_dialog').attr('action',"/ustvari_nalogo");
+    $('#update_dialog').attr('action',"/ustvari_nalogo").attr('onsubmit',"return validateNaloga()");
+
 
 }
 
@@ -142,7 +146,7 @@ function fillCilji() {
     $('#dialogKategorija').attr('style',"display: none!important");
     $('#claniNaloge').attr('style',"display: none!important");
     $('#dialogCilj').attr('style',"display: none!important");
-    $('#update_dialog').attr('action',"/ustvari_cilj");
+    $('#update_dialog').attr('action',"/ustvari_cilj").attr('onsubmit'," return validateCilj()");
 }
 
 function posodobiCilj() {
@@ -180,8 +184,71 @@ function dodajNovoNalogo() {
     document.getElementById("ustvari").innerHTML = "Ustvari";
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
-
 }
+
+function validateCilj() {
+    validation = 1;
+    validateNaloga();
+}
+
+function validateNaloga() {
+    if (document.forms["update_dialog"]["imeDialog"].value == "") {
+        alert("Ime naloge mora biti izpolnjeno.");
+        return false;
+    }
+    if (document.forms["update_dialog"]["opisDialog"].value == "") {
+        alert("Opis naloge mora biti izpolnjen.");
+        return false;
+    }
+    if (validation==0) {
+        if (document.forms["update_dialog"]["vezanCilj"].value == "") {
+            alert("Vezan cilj mora biti izbran.");
+            return false;
+        }
+        if (document.forms["update_dialog"]["kategorija"].value == "") {
+            alert("Kategorija mora biti izbrana.");
+            return false;
+        }
+    }
+    if (document.forms["update_dialog"]["statusNaloge"].value == "") {
+        alert("Status naloge mora biti izbran.");
+        return false;
+    }
+    validation = 0;
+}
+
+function registerDateTimePicker(elementId, picker, inputId, inputDateId, pickerTime) {
+    let element = document.getElementById(elementId);
+    let input = document.getElementById(inputId);
+    element.addEventListener('click', function(e) {
+        picker.trigger = element;
+        picker.toggle();
+    });
+    element.addEventListener('onOk', function(e) {
+        openTimePicker(elementId,pickerTime, inputId, picker.time);
+    });
+}
+
+function openTimePicker(elementId,picker, inputId, inputDateId, date) {
+    let element = document.getElementById(elementId);
+    let input = document.getElementById(inputId);
+    let hidden = document.getElementById(inputDateId);
+    picker.trigger = element;
+    picker.toggle();
+    element.addEventListener('onOk', function(e) {
+        hidden.value = date.format('DD.MM.YYYY') + " ob " + picker.time.format('HH:mm');
+        input.value = date.format('DD.MM.YYYY') + " ob " + picker.time.format('HH:mm');
+        input.parentNode.MaterialTextfield.checkDirty();
+    });
+    element.addEventListener('onCancel', function(e) {
+        hidden.value = date + " ob " + picker.time.format('HH:mm');
+        input.value = date;
+        input.parentNode.MaterialTextfield.checkDirty();
+    });
+}
+
+
+
 /*
 $('#zacetekDialog').monthly({
     mode: 'picker',

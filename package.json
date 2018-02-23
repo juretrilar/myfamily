@@ -21,7 +21,8 @@
     "mongoose": "^4.13.7",
     "morgan": "^1.9.0",
     "path": "^0.12.7",
-    "serve-favicon": "^2.4.5"
+    "serve-favicon": "^2.4.5",
+    "validator": "^9.4.1"
   },
   "devDependencies": {},
   "scripts": {

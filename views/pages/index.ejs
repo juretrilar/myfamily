@@ -23,7 +23,7 @@
     <dialog id="dialog" class="mdl-dialog dialog-main">
         <div class="dialog-content-div" id="dialog-div">
             <h3 id="dialog-title" class="mdl-dialog__title"></h3>
-            <form action="" method="POST" id="update_dialog">
+            <form action="" method="POST" id="update_dialog" onsubmit="">
                 <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                         <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog">
@@ -36,6 +36,7 @@
                     <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
                         <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" style="text-align: left;">
                         <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"></label>
+                        <input type="hidden" value="" name="dateZacetek" id="dateZacetek">
                         <!--<div class="monthly-dialog monthly-picker" id="zacetekDialog"></div>-->
                        <!-- <input id="time" type="time">
                         <label class="mdl-textfield__label" for="time" id="ttime"></label>-->
@@ -44,6 +45,7 @@
                     <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal" style="display:inline-block;">
                         <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" style="text-align: left;">
                         <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
+                        <input type="hidden" value="" name="dateKonec" id="dateKonec">
                         <!--<div class="monthly-dialog monthly-picker" style="position: absolute; display: block;" id="konecDialog"></div>-->
                     </div>
                     <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
@@ -59,7 +61,7 @@
                     </div>
                     <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
                         <input type="text" value="" class="mdl-textfield__input" id="kategorija" readonly>
-                        <input type="hidden" value="" name="sampleKategorija">
+                        <input type="hidden" value="" name="sampleKategorija" id="sampleKategorija">
                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                         <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
                         <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-kategorija" data-selected="true">
