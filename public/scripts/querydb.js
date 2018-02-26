@@ -1,30 +1,32 @@
 jQuery(function($) {
-    let pageWidth = $(document).width();
-
-
     let items;
-    let perPage = 12;
+    let perPage = 8;
 
     let $paginator = $("#pagination");
     $paginator.pagination({
         itemsOnPage: perPage,
         cssStyle: "light-theme",
         onPageClick: function(pageNumber) {
+            let pageWidth = $(document).width();
             var showFrom = perPage * (pageNumber - 1);
             var showTo = showFrom + perPage;
+            $(".naloge-center").attr('style',"display: none!important");
+            for(let i = showFrom;i<=showTo;i++) {
+                if (pageWidth > 1440) {
+                    $("#cellHa"+i).attr('style',"display: block!important");
+                    $("#cellHb"+i).attr('style',"display: block!important");
+                } else if (pageWidth > 840) {
+                    $("#cellPa"+i).attr('style',"display: block!important");
+                    $("#cellPb"+i).attr('style',"display: block!important");
+                }
+            }
+            console.log(pageWidth);
             items.hide()
                 .slice(showFrom, showTo).show();
         }
     });
 
     function updateItems() {
-        if(pageWidth > 1339) {
-            $("div[name='nal2']").removeClass("paginate");
-            $("div[name='nal4']").addClass("paginate");
-        } else {
-            $("div[name='nal2']").addClass("paginate");
-            $("div[name='nal4']").removeClass("paginate");
-        }
         items = $(".paginate");
         $paginator.pagination("updateItems", items.length);
         let page = Math.min(

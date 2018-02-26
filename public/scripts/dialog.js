@@ -193,12 +193,20 @@ function validateCilj() {
 
 function validateNaloga() {
     if (document.forms["update_dialog"]["imeDialog"].value == "") {
-        alert("Ime naloge mora biti izpolnjeno.");
+        $("#imeDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
     }
     if (document.forms["update_dialog"]["opisDialog"].value == "") {
-        alert("Opis naloge mora biti izpolnjen.");
+        $("#opisDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
+    }
+    let dZac = document.forms["update_dialog"]["dateZacetek"].value;
+    let dKon = document.forms["update_dialog"]["dateKonec"].value;
+    if (dZac != "") {
+        if (dKon != "" && dZac > dKon) {
+            $("#dateKonecErr").text("Datum konca mora biti po datumu začetka!").parent().addClass("is-invalid");
+            return false;
+        }
     }
     if (validation==0) {
         if (document.forms["update_dialog"]["vezanCilj"].value == "") {
@@ -219,51 +227,29 @@ function validateNaloga() {
 
 function registerDateTimePicker(elementId, picker, inputId, inputDateId, pickerTime) {
     let element = document.getElementById(elementId);
-    let input = document.getElementById(inputId);
     element.addEventListener('click', function(e) {
         picker.trigger = element;
         picker.toggle();
     });
     element.addEventListener('onOk', function(e) {
-        openTimePicker(elementId,pickerTime, inputId, picker.time);
+        openTimePicker(elementId,picker, inputId,inputDateId, pickerTime);
     });
 }
 
-function openTimePicker(elementId,picker, inputId, inputDateId, date) {
+function openTimePicker(elementId,picker, inputId, inputDateId, pickerTime) {
     let element = document.getElementById(elementId);
     let input = document.getElementById(inputId);
     let hidden = document.getElementById(inputDateId);
-    picker.trigger = element;
-    picker.toggle();
+    pickerTime.trigger = element;
+    pickerTime.toggle();
     element.addEventListener('onOk', function(e) {
-        hidden.value = date.format('DD.MM.YYYY') + " ob " + picker.time.format('HH:mm');
-        input.value = date.format('DD.MM.YYYY') + " ob " + picker.time.format('HH:mm');
+        hidden.value = picker.time.format('Y-MM-DD') + " " + pickerTime.time.format('HH:mm Z');
+        input.value = picker.time.format('DD-MM-Y') + " ob " + pickerTime.time.format('HH:mm');
         input.parentNode.MaterialTextfield.checkDirty();
     });
     element.addEventListener('onCancel', function(e) {
-        hidden.value = date + " ob " + picker.time.format('HH:mm');
-        input.value = date;
+        hidden.value = picker.time.format('Y-MM-DD')+ " " + new Date().toLocaleTimeString('sl-SI', {hour: "numeric", minute: "numeric", timeZoneName: "short"});
+        input.value = picker.time.format('DD-MM-Y');
         input.parentNode.MaterialTextfield.checkDirty();
     });
 }
-
-
-
-/*
-$('#zacetekDialog').monthly({
-    mode: 'picker',
-    target: '#targetZacetek',
-    startHidden: true,
-    showTrigger: '#targetZacetek',
-    stylePast: true,
-    disablePast: false
-});
-
-$('#konecDialog').monthly({
-    mode: 'picker',
-    target: '#targetKonec', // The element that will have its value set to the date you picked
-    startHidden: true, // Set to true if you want monthly to appear on click
-    showTrigger: '#targetKonec', // Element that you click to make it appear
-    stylePast: true, // Add a style to days in the past
-    disablePast: false // Disable clicking days in the past
-}); */

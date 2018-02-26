@@ -250,31 +250,34 @@ module.exports.prikaziNaloge = function(req, res, next) {
 module.exports.ustvariNalogo = function(req, res, next) {
     currentTab = 2;
     let v_usr = [];
-    if(!validator.isAlphanumeric(req.body.imeDialog ,['sr-RS@latin'])) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki.");return;}
-    if(!validator.isAlphanumeric(req.body.opisDialog ,['sr-RS@latin'])) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki.");return;}
-    if(!validator.isMongoId(req.body.sampleKategorija)) {vrniNapako(res, "Za kategorijo so bili uporabljeni napačni znaki.");return;}
-    if(!validator.isInt("100", [{ min: 1, max: 100 }])) {vrniNapako(res, "Izbrana vrednost mora biti med 1 in 100 xp.");return;}
-    if(!validator.isMongoId(req.body.sampleCilj)) {vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki.");return;}
+    if(!validator.matches(req.body.imeDialog ,/^[A-ZČĆŽŠĐ\s]+$/i)) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki. "+req.body.imeDialog);return;}
+    if(!validator.matches(req.body.opisDialog ,/^[A-ZČĆŽŠĐ\s]+$/i)) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki. "+req.body.opisDialog);return;}
+    if(!validator.isMongoId(req.body.sampleKategorija)) {vrniNapako(res, "Za kategorijo so bili uporabljeni napačni znaki. "+req.body.sampleKategorija);return;}
+    if(!validator.isInt(req.body.xpNaloge, [{ min: 1, max: 100 }])) {vrniNapako(res, "Izbrana vrednost mora biti med 1 in 100 xp.");return;}
+    if(!validator.isMongoId(req.body.sampleCilj)) {vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+req.body.sampleCilj);return;}
+    if(!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
+    if(!req.body.dateKonec) req.body.dateKonec = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
+    if(req.body.dateZacetek > req.body.dateKonec)  {vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. "+req.body.dateZacetek+" "+req.body.dateKone);return;}
     for(let i=0;i<req.body.person.length;i++) {
         if(validator.isMongoId(req.body.person[i])) {
             v_usr.push(req.body.person[i]);
         }
     }
-    let dateZacetek = validator.toDate(req.body.targetZacetek);
-    console.log(dateZacetek);
-    console.log(req.body.targetZacetek);
-    if(!dateZacetek) {vrniNapako(res, "Izbran datum začetka ni ustrezen.");return;}
-    let dateKonec = validator.toDate(req.body.targetKonec);
-    console.log(dateKonec);
-    console.log(req.body.targetKonec);
-    if(!dateKonec) {vrniNapako(res, "Izbran datum konca ni ustrezen.");return;}
+    let dZac = req.body.dateZacetek;
+    let dKon = req.body.dateKonec;
+    if (dZac != "") {
+        if (dKon != "" && dZac > dKon) {
+            vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+dZac+" "+dKon);
+            return;
+        }
+    }
     let novaNaloga = {
         _id : new ObjectId(),
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
         kategorija: req.body.sampleKategorija,
-        zacetek: dateZacetek,
-        konec: dateKonec,
+        zacetek: dZac,
+        konec: dKon,
         xp: 100,
         vezan_cilj: req.body.sampleCilj,
         vezani_uporabniki: v_usr,
@@ -292,19 +295,31 @@ module.exports.ustvariNalogo = function(req, res, next) {
 //** POST /ustvari_cilj
 module.exports.ustvariCilj = function(req, res, next) {
     currentTab = 3;
+    if(!validator.matches(req.body.imeDialog ,/^[A-ZČĆŽŠĐ\s]+$/i)) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki. "+req.body.imeDialog);return;}
+    if(!validator.matches(req.body.opisDialog ,/^[A-ZČĆŽŠĐ\s]+$/i)) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki. "+req.body.opisDialog);return;}
+    if(!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
+    if(!req.body.dateKonec) req.body.dateKonec = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
+    if(req.body.dateZacetek > req.body.dateKonec)  {vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. "+req.body.dateZacetek+" "+req.body.dateKone);return;}
+    let dZac = req.body.dateZacetek;
+    let dKon = req.body.dateKonec;
+    if (dZac != "") {
+        if (dKon != "" && dZac > dKon) {
+            vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+dZac+" "+dKon);
+            return;
+        }
+    }
     let novCilj = {
         _id : new ObjectId(),
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
-        zacetek: req.body.targetZacetek,
-        konec: req.body.targetKonec,
+        zacetek: dZac,
+        konec: dKon,
         vezane_naloge: [],//req.body.person,
-        vezani_uporabniki: [],
+        vezani_uporabniki: v_usr,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
         status: false
     };
     console.log(novCilj);
-    if(req.body.targetZacetek == "") novCilj.zacetek = dateNow();
     Cilji.create(novCilj).then(data => {
         res.redirect('/');
     }).catch(err => {
