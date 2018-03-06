@@ -21,35 +21,28 @@ Strani do katerih lahko uporabnik dostopa in na njih izvaja različne ukaze. Vse
 
 Prijavna stran. Na strani se najprej izriše okno za vpis, v primeru, da uporabnik še ni registriran pa lahko z klikom na registracijo odpre okno za registracijo. Z klikom na gumb registracija se uporabnik registrira in se mu odpre okno za prijavo.
 
+TODO: Generiranje ključev za družino in preverjanje le teh.
+
 
 ### Dashboard
 
 Osnovna stran, na njej lahko uporabnik vidi opomnike na dogodke za celotno družino. Prikazani so tudi vsi uporabniki, ki so del družine. Družinski člani lahko spremljajo fizično aktivnost družine in objavijo status, ki je viden vsem članom.
+Na dnu strani lahko uporabnik vidi skupne cilje družine in doda nov cilj.
 
-Na dnu strani lahko uporabnik vidi skupne cilje družine in doda nov cilj, ki mu je naključno predlagan iz predlog ciljev.
-
-Gumb dodaj med naloge doda nalogo med skupne naloge družine
-
-Gumb dodaj nov cilj odpre dialog kjer lahko uporabnik doda nov cilj.
+TODO: Graf fizične aktivnosti, izris družinskih članov.
 
 
 ### Koledar
 
-TODO:
-Uporabik lahko na teji strani dostopa do koledarja, kjer ima označene datume za cilje in naloge, ki jih morajo izpolniti člani družine. Dostopa lahko do dogodkov, ki so se že zgodili in do tistih, ki se še bojo.
-
-TODO:
-Uprabnik lahko ureja dogodke.
+Uporabik lahko na teji strani dostopa do koledarja, kjer ima označene datume za cilje in naloge, ki jih morajo izpolniti člani družine. 
+Ob kliku na posamezen dan se uporabniku odprejo vsi dogodki na tisti dan. Ob kliku na posamezeno nalogo pa lahko pogleda podrobnosti naloge.
 
 
 ### Naloge
 
-Uporabnik lahko na teji strani išče po svojih nalogah, na voljo ima filtre po katerih lahko poišče nalogo z želenim parametrom. Pod iskalnim filtrom se mu nato izpišejo vse naloge, ki ustrezajo izbranim parametrom.
+Uporabnik lahko na teji strani išče po svojih nalogah, na voljo ima filtre po katerih lahko poišče nalogo z želenim parametrom. Pod iskalnim filtrom se mu nato izpišejo vse naloge, ki ustrezajo izbranim parametrom. Uporabnik lahko uporabi poljubno število parametrov za iskanje. Če išče brez nastavljenih parametrov se mu prikažejo vse naloge.
 
 Uporabnik z klikom na gumb opre okno kjer lahko doda novo nalogo. Z klikom na točno določeno nalogo se mu ta naloga odpre in jo lahko spreminja.
-
-TODO:
-Filter.
 
 
 ### Cilji
