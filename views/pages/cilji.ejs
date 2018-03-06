@@ -16,78 +16,43 @@
                     <thead>
                     <tr>
                         <th style="text-align: left;">Opis cilja</th>
-                        <th style="text-align: center;">Začetek</th>
-                        <th style="text-align: center;">Konec</th>
-                        <th>Vrednost</th>
-                        <th>Status</th>
+                        <th style="text-align: center;">Udeleženci</th>
+                        <th style="text-align: center;" class="mdl-cell--hide-phone">Začetek</th>
+                        <th style="text-align: center;" class="mdl-cell--hide-phone">Konec</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <% for (var i = 0; i < cilji.length; i++) { %>
                     <tr>
                         <td class="mdl-data-table__cell--non-numeric padding-zero">
                             <div class="mdl-list__item mdl-list__item--two-line">
                                 <div class="circle-container-main mdl-color--grey"></div>
                                 <span class="mdl-list__item-primary-content">
-                                    <span class="mdl-color-text--black">Družinske počitnice</span>
-                                    <span class="mdl-list__item-sub-title mdl-color-text--grey">Odplujemo v juliju</span>
+                                    <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
+                                    <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= cilji[i].opis %></span>
                                 </span>
                             </div>
                         </td>
-                        <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;">1/1/2017
-                        </td>
-                        <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;">
-                        </td>
-                        <td>
-                            <span class="mdl-chip mdl-color--red-400 mdl-color-text--white">
-                                <span class="mdl-chip__text">+100 xp</span>
-                            </span>
-                        </td>
-                        <td>
-                            $2.90
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric padding-zero">
-                            <div class="mdl-list__item mdl-list__item--two-line">
-                                <div class="circle-container-main mdl-color--grey"></div>
-                                <span class="mdl-list__item-primary-content">
-                                    <span class="mdl-color-text--black">Letna družinska srečanja</span>
-                                    <span class="mdl-list__item-sub-title mdl-color-text--grey">Dobra volja in babičina kulinarika</span>
-                               </span>
+                        <td><!--
+
+
+                            <div class="mdl-tooltip clani-naloge" data-mdl-for="<%= i+"c"%>">
+                               <img src="https://www.gravatar.com/avatar/02f02fcd0e0adfd6f5d5d1d594a8953c?s=32&d=identicon&r=PG">
+                            </div>-->
+                            <input type="hidden" value="<%= cilji[i].vezani_uporabniki.length+3 %>" id="stUporabnikov">
+                            <div class="progress">
+                            <% for (var j = 0; j < 5; j++) { %>
+                                <span class="spanCilji" name="ciljiVezan">10</span>
+                            <% } %>
                             </div>
                         </td>
-                        <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;">1/1/2017
+                        <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                         </td>
-                        <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;">11/31/2017
+                        <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
                         </td>
-                        <td>
-                            <span class="mdl-chip mdl-color--red-400 mdl-color-text--white">
-                                <span class="mdl-chip__text">+100 xp</span>
-                            </span>
-                        </td>
-                        <td>
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect mdl-cilj" for="checkbox-c1" style="float: right">
-                                <input type="checkbox" class="mdl-checkbox__input" id="checkbox-c1" checked/>
-                            </label>
-                        </td>
+
                     </tr>
-                    <tr>
-                        <td class="mdl-data-table__cell--non-numeric padding-zero"> <div class="mdl-list__item mdl-list__item--two-line">
-                                <div class="circle-container-main mdl-color--grey"></div>
-                                <span class="mdl-list__item-primary-content">
-                                    <span class="mdl-color-text--black">Več fizične aktivnosti</span>
-                                    <span class="mdl-list__item-sub-title mdl-color-text--grey">Če se skupaj potrudimo, nam bo uspelo</span>
-                                </span>
-                            </div>
-                        </td>
-                        <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;">1/1/2017
-                        </td>
-                        <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;">11/31/2017
-                        </td>
-                        <td>
-                        </td>
-                        <td></td>
-                    </tr>
+                    <% } %>
                     </tbody>
             </table>
             <span for="table-cilji" class="mdl-tooltip mdl-cell--hide-desktop"><i class="material-icons">mode_edit</i></span>

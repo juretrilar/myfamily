@@ -21,9 +21,9 @@ window.onload = function() {
             .parent().addClass("is-dirty");
         $('#opisDialog').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.lastElementChild.innerHTML)
             .parent().addClass("is-dirty");
-        $('#targetZacetek').val(row.getElementsByTagName("td")[1].innerHTML)
+        $('#targetZacetek').val(row.getElementsByTagName("td")[2].innerHTML)
             .parent().addClass("is-dirty");
-        $('#targetKonec').val(row.getElementsByTagName("td")[2].innerHTML)
+        $('#targetKonec').val(row.getElementsByTagName("td")[3].innerHTML)
             .parent().addClass("is-dirty");
 
         //xp row.getElementsByTagName("td")[3].innerHTML

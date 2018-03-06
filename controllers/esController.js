@@ -104,15 +104,20 @@ module.exports.naslovnaStran = function (req, res) {
                 });
             },
             kategorija: function (cb) { Kategorija.find().exec(cb); },
-            sCilji: function (cb) { Cilji.find({skupni_cilj: true}).exec(cb); },
         }, function (err, result) {
             if (err) {
                 vrniNapako(err,res);
             }
+            let sCilji = [];
+            for (let i=0;i<result.cilji.length;i++) {
+                if(result.cilji[i].skupni_cilj == true) {
+                    sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp})
+                }
+            }
             posodobiJson(obj, session);
             console.log("aync");
             console.log(opomnik);
-            res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: result.sCilji});
+            res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment});
             currentTab = 0;
         });
     }
@@ -250,11 +255,7 @@ module.exports.prikaziNaloge = function(req, res, next) {
 module.exports.ustvariNalogo = function(req, res, next) {
     currentTab = 2;
     let v_usr = [];
-    if(!validator.matches(req.body.imeDialog ,/^[A-ZČĆŽŠĐ\s]+$/i)) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki. "+req.body.imeDialog);return;}
-    if(!validator.matches(req.body.opisDialog ,/^[A-ZČĆŽŠĐ\s]+$/i)) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki. "+req.body.opisDialog);return;}
-    if(!validator.isMongoId(req.body.sampleKategorija)) {vrniNapako(res, "Za kategorijo so bili uporabljeni napačni znaki. "+req.body.sampleKategorija);return;}
-    if(!validator.isInt(req.body.xpNaloge, [{ min: 1, max: 100 }])) {vrniNapako(res, "Izbrana vrednost mora biti med 1 in 100 xp.");return;}
-    if(!validator.isMongoId(req.body.sampleCilj)) {vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+req.body.sampleCilj);return;}
+    if(!validatenaloga(req)) return;
     if(!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
     if(!req.body.dateKonec) req.body.dateKonec = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
     if(req.body.dateZacetek > req.body.dateKonec)  {vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. "+req.body.dateZacetek+" "+req.body.dateKone);return;}
@@ -271,8 +272,8 @@ module.exports.ustvariNalogo = function(req, res, next) {
             return;
         }
     }
+    if(req.body.newDialog == true) {}
     let novaNaloga = {
-        _id : new ObjectId(),
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
         kategorija: req.body.sampleKategorija,
@@ -285,12 +286,24 @@ module.exports.ustvariNalogo = function(req, res, next) {
         status: false
     };
     if(req.body.targetZacetek == "") novaNaloga.zacetek = dateNow();
-    Naloge.create(novaNaloga).then(data => {
-        res.redirect('/')
-    }).catch(err => {
-        vrniNapako(res, err);
+    let conditions = { ime: req.body.imeDialog };
+    Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runValidators: true}, function (err, doc) { // callback
+        if (err) {
+            vrniNapako(res, err);
+        } else {
+            conditions = {vezani_uporabniki: {$ne: req.session.trenutniUporabnik.id}};
+            let update = {$addToSet: {vezani_uporabniki: v_usr}};
+            Cilji.findOneAndUpdate(conditions, update, function (err, doc) {});
+            conditions = {vezane_naloge: {$ne: novaNaloga._id}};
+            update = {$addToSet: {vezane_naloge: novaNaloga._id}};
+            Cilji.findOneAndUpdate(conditions, update, function (err, doc) {});
+            res.redirect('/')
+        }
     });
 };
+
+//** POST /posodobi_nalogo
+
 
 //** POST /ustvari_cilj
 module.exports.ustvariCilj = function(req, res, next) {
@@ -353,6 +366,15 @@ module.exports = function (app) {
     });
 
 }; */
+
+function validatenaloga(req) {
+    if(!validator.matches(req.body.imeDialog ,/^[A-ZČĆŽŠĐ0-9\s]+$/i)) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki. "+req.body.imeDialog);return false;}
+    if(!validator.matches(req.body.opisDialog ,/^[A-ZČĆŽŠĐ0-9\s]+$/i)) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki. "+req.body.opisDialog);return false;}
+    if(!validator.isMongoId(req.body.sampleKategorija)) {vrniNapako(res, "Za kategorijo so bili uporabljeni napačni znaki. "+req.body.sampleKategorija);return false;}
+    if(!validator.isInt(req.body.xpNaloge, [{ min: 1, max: 100 }])) {vrniNapako(res, "Izbrana vrednost mora biti med 1 in 100 xp.");return false;}
+    if(!validator.isMongoId(req.body.sampleCilj)) {vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+req.body.sampleCilj);return false;}
+    return true;
+}
 
 function dateNow() {
     let today = new Date();
