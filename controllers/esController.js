@@ -279,7 +279,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
         kategorija: req.body.sampleKategorija,
         zacetek: dZac,
         konec: dKon,
-        xp: 100,
+        xp: req.body.xp,
         vezan_cilj: req.body.sampleCilj,
         vezani_uporabniki: v_usr,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
@@ -292,7 +292,13 @@ module.exports.ustvariNalogo = function(req, res, next) {
             vrniNapako(res, err);
         } else {
             conditions = {vezani_uporabniki: {$ne: req.session.trenutniUporabnik.id}};
-            let update = {$addToSet: {vezani_uporabniki: v_usr}};
+            let currXp = req.body.xpNaloge;
+            if(req.body.newStatus==false && req.body.oldStatus==true) currXp = -currXp;
+            if(req.body.newDialog==true && req.body.newStatus==false) currXp = 0;
+            if(req.body.newDialog==false && req.body.newStatus==false) currXp = 0;
+            if(req.body.newStatus==true && req.body.oldStatus==true) currXp = 0;
+            let update = {$addToSet: {"vezani_uporabniki.usr": v_usr, },
+                $inc:{xp: currXp, "vezani_uporabniki.uXp": currXp}};
             Cilji.findOneAndUpdate(conditions, update, function (err, doc) {});
             conditions = {vezane_naloge: {$ne: novaNaloga._id}};
             update = {$addToSet: {vezane_naloge: novaNaloga._id}};

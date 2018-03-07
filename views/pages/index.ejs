@@ -24,7 +24,7 @@
         <div class="dialog-content-div" id="dialog-div">
             <h3 id="dialog-title" class="mdl-dialog__title"></h3>
             <form action="" method="POST" id="update_dialog" onsubmit="">
-                <input type="hidden" value="" name="newDialog" id="newDialog">
+                <input type="hidden" name="newDialog" id="newDialog">
                 <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                         <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog" maxlength="20"/>
@@ -39,18 +39,18 @@
                     <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                         <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
                         <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"></label>
-                        <input type="hidden" value="" name="dateZacetek" id="dateZacetek">
+                        <input type="hidden" name="dateZacetek" id="dateZacetek">
                         <span class="mdl-textfield__error">Zapis datuma je napačen.</span>
                     </div>
                     <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                         <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
                         <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
-                        <input type="hidden" value="" name="dateKonec" id="dateKonec">
+                        <input type="hidden" name="dateKonec" id="dateKonec">
                         <span class="mdl-textfield__error" id="dateKonecErr">Zapis datuma je napačen.</span>
                     </div>
                     <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
-                        <input type="text" value="" class="mdl-textfield__input" id="vezanCilj" readonly required/>
-                        <input type="hidden" value="" name="sampleCilj">
+                        <input type="text" class="mdl-textfield__input" id="vezanCilj" readonly required/>
+                        <input type="hidden" name="sampleCilj">
                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                         <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
                         <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-cilj">
@@ -60,8 +60,8 @@
                         </ul>
                     </div>
                     <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
-                        <input type="text" value="" class="mdl-textfield__input" id="kategorija" readonly required/>
-                        <input type="hidden" value="" name="sampleKategorija" id="sampleKategorija">
+                        <input type="text" class="mdl-textfield__input" id="kategorija" readonly required/>
+                        <input type="hidden" name="sampleKategorija" id="sampleKategorija">
                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                         <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
                         <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-kategorija" data-selected="true">
@@ -75,7 +75,8 @@
                             <div class="mdl-list__item-primary-content">
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
                                     <input type="text" value="" class="mdl-textfield__input" id="statusNaloge" readonly>
-                                    <input type="hidden" value="" name="status">
+                                    <input type="hidden" value="" name="newStatus">
+                                    <input type="hidden" value="false" name="oldStatus">
                                     <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                     <label for="statusNaloge" class="mdl-textfield__label">Status naloge</label>
                                     <ul for="statusNaloge" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
@@ -126,7 +127,7 @@
                     </div>
                 </div>
                 <div class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
+                    <button id="closeBtn" type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
                     <button id="ustvari" type="submit" value="submit" class="mdl-button mdl-color--grey-400" ></button>
                 </div>
             </form>

@@ -75,20 +75,56 @@ jQuery(function($) {
                         .parent().addClass("is-dirty");
                     $('#opisDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].innerHTML)
                         .parent().addClass("is-dirty");
-                    $('#targetZacetek').val("1/1/2018")
-                        .parent().addClass("is-dirty");
-                    $('#targetKonec').val("1/1/2018")
-                        .parent().addClass("is-dirty");
-                    $('#vezanCilj').val("<%= card.konec %>")
-                        .parent().addClass("is-dirty");
+                    let dateZ,dateK;
+                    try {
+                         dateZ = card.getElementsByClassName("dateNaloga")[0].innerHTML;
+                         dateK = card.getElementsByClassName("dateNaloga")[1].innerHTML;
+                    } catch(err) {
+                        console.log(err);
+                    }
+                    if (dateZ) $('#targetZacetek').val(dateZ).parent().addClass("is-dirty");
+                    if (dateK) $('#targetKonec') .val(dateK).parent().addClass("is-dirty");
                     let kat = card.getElementsByClassName("kategorijaNaloga")[0].value;
                     $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val="+kat+"]").get(0).textContent.trim();
-                    $("input[name='sampleKategorija']").val(kat)
-                        .parent().addClass("is-dirty");
+                    $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val="+kat+"]").attr('data-selected','true');
+                    getmdlSelect.init("#dialogKategorija");
                     let cl = card.getElementsByClassName("ciljNaloga")[0].value;
                     $('#vezanCilj').get(0).placeholder = $(".list-cilj").find("[data-val="+cl+"]").get(0).textContent.trim();
-                    $("input[name='sampleCilj']").val(cl)
-                        .parent().addClass("is-dirty");
+                    $("input[name='sampleCilj']").parent().addClass("is-dirty").find("li[data-val="+cl+"]").attr('data-selected','true');
+                    getmdlSelect.init("#dialogCilj");
+                    let status = card.getElementsByClassName("statusNaloga")[0].innerHTML;
+                    $('#statusNaloge').get(0).placeholder = status;
+                    if(status == "Neopravljena") {
+                        $("#statusNaloge").parent().addClass("is-dirty")
+                            .find("li[data-val=false]").attr('data-selected','true');
+                        $("input[name='oldStatus']").val("false");
+                    } else {
+                        $("#statusNaloge").parent().addClass("is-dirty")
+                            .find("li[data-val=true]").attr('data-selected','true');
+                        $("input[name='oldStatus']").val("true");
+                    }
+                    getmdlSelect.init("#dialogStatus");
+                    $('#xpNaloge').val(card.getElementsByClassName("xpNaloga")[0].innerHTML.match(/\d/g).join("")).parent().addClass("is-dirty");
+                    let usr = card.getElementsByClassName("udelezenecNaloga");
+                    let chckbox = $("input:checkbox[name='person']");
+                    console.log(usr);
+                    let u=0;
+                    console.log("for");
+                    $("#checkboxVsi").parent()[0].MaterialCheckbox.uncheck();
+                    if(chckbox.length-1==usr.length) {
+                        $("#checkboxVsi").parent()[0].MaterialCheckbox.check();
+                    }
+                    for(let i=1;i<chckbox.length;i++) {
+                        let curr = $("#"+chckbox[i].id).parent()[0].MaterialCheckbox;
+                        curr.uncheck();
+                        if(usr[u].value == chckbox[i].value) {
+                            curr.check();
+                            u++;
+                        }
+                    }
+
+                    console.log(usr);
+                    event.stopPropagation();
                 });
             },
             error: function (xhr, ajaxOptions, thrownError) {

@@ -6,9 +6,9 @@ let ciljiSchema = new mongoose.Schema({
     opis: { type:String, required: true},
     zacetek: { type:Date, default: Date.now },
     konec: { type:Date },
-    xp: {Number},
+    xp: Number,
     vezane_naloge: [{type: mongoose.Schema.Types.ObjectId, ref : "Naloge"}],
-    vezani_uporabniki: [{type: mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
+    vezani_uporabniki: [{user : {type: mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}, uXp: Number}],
     skupni_cilj: Boolean,
     status: Boolean
 });

@@ -339,6 +339,7 @@ html, body {
 .spanCilji {
     display: inline-block;
     color: #000;
+    text-align: center;
 }
 
 .spanFirst {

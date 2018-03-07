@@ -11,7 +11,7 @@
                     <input type="hidden" value="<%= naloge[i].vezan_cilj %>" class="ciljNaloga">
                     <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">Skupni cilj družine
                         <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge">
-                            <span class="mdl-chip__text">+<%= naloge[i].xp %> xp</span>
+                            <span class="mdl-chip__text xpNaloga">+<%= naloge[i].xp %> xp</span>
                         </span>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <span class="mdl-chip--contact chip-no-margin">
                             <% for (let j = 0; j<naloge[i].vezani_uporabniki.length;j++) { %>
                             <img class="mdl-chip__contact" src="<%= slika[naloge[i].vezani_uporabniki[j]][0] %>" alt="<%= slika[naloge[i].vezani_uporabniki[j]][2] %>" title="<%= slika[naloge[i].vezani_uporabniki[j]][2] %>">
-                            <input type="hidden" value="<%= slika[naloge[i].vezani_uporabniki[j]][1] %>" class="ciljNaloga">
+                            <input type="hidden" value="<%= slika[naloge[i].vezani_uporabniki[j]][1] %>" class="udelezenecNaloga">
                             <% } %>
                         </span>
                     </span>
@@ -48,8 +48,8 @@
                     <li class="mdl-list__item padding-10">
                         <span class="mdl-list__item-primary-content">
                             <i class="material-icons">event</i>
-                            <% if (naloge[i].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10"><%= moment(naloge[i].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
-                            <% if (naloge[i].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10"><%= moment(naloge[i].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
+                            <% if (naloge[i].zacetek) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[i].zacetek).format( 'DD-MMM-YYYY') %> 12:00</span><% } %>
+                            <% if (naloge[i].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[i].konec).format( 'DD-MMM-YYYY') %> 18:00</span><% } %>
                             <% if (!naloge[i].zacetek && !naloge[i].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10">Datum za to nalogo ni definiran.</span><% } %>
                         </span>
                     </li>
@@ -57,8 +57,8 @@
             </div>
             <div class="mdl-card__supporting-text mdl-color-text--grey">
                 Status naloge:
-                <% if (naloge[i].status) { %><span name="status" class="mdl-typography--subhead mdl-color-text--grey">Opravljena</span>
-                <% } else { %><span name="status" class="mdl-typography--subhead mdl-color-text--grey">Neopravljena</span><% } %>
+                <% if (naloge[i].status) { %><span class="mdl-typography--subhead mdl-color-text--grey statusNaloga">Opravljena</span>
+                <% } else { %><span class="mdl-typography--subhead mdl-color-text--grey statusNaloga">Neopravljena</span><% } %>
             </div>
         </div>
     </div>

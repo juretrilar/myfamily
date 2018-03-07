@@ -1,10 +1,14 @@
 let validation = 0;
-window.onload = function() {
+jQuery(function($) {
     'use strict';
     let dialog = document.querySelector('dialog');
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
     }
+    dialog.querySelector('.close').onclick = function() {
+        dialog.close();
+    };
+
     function onRowClick(tableId, callback) {
         let table = document.getElementById("table-cilji"),
             rows = table.getElementsByTagName("TR"),i;
@@ -30,10 +34,7 @@ window.onload = function() {
         //opravljeno row.getElementsByTagName("td")[4].innerHTML
     });
 
-    dialog.querySelector('button:not([disabled])')
-        .addEventListener('click', function() {
-            dialog.close();
-        });
+
 
     let personGroup = $('input[name=person]');
     $("#checkboxVsi").on( "click", function() {
@@ -109,18 +110,18 @@ window.onload = function() {
     dialog.appendChild(document.getElementById("mddtp-picker__time"));
     dialog.appendChild(document.getElementById("mddtp-picker__date"));
 
-};
+
+});
 
 function clearData() {
-    $('#imeDialog').val("");
-    $('#opisDialog').val("");
-    $('#targetZacetek').val("");
-    $('#targetKonec').val("");
+    $('#newDialog').val("");
+    $('#imeDialog').val("").parent().removeClass("is-dirty");
+    $('#opisDialog').val("").parent().removeClass("is-dirty");
+    $('#targetZacetek').val("").parent().removeClass("is-dirty");
+    $('#targetKonec').val("").parent().removeClass("is-dirty");
+    $('#oldStatus').val("");
+    $('#newStatus').val("");
     //$('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
-    $('#targetKonec').parent().removeClass("is-dirty");
-    $('#targetZacetek').parent().removeClass("is-dirty");
-    $('#opisDialog').parent().removeClass("is-dirty");
-    $('#imeDialog').parent().removeClass("is-dirty");
 }
 
 function fillNaloge() {
@@ -133,8 +134,6 @@ function fillNaloge() {
     $('#claniNaloge').attr('style',"display: block!important");
     $('#dialogCilj').attr('style',"display: block!important");
     $('#update_dialog').attr('action',"/ustvari_nalogo").attr('onsubmit',"return validateNaloga()");
-
-
 }
 
 function fillCilji() {
@@ -154,6 +153,7 @@ function posodobiCilj() {
     fillCilji();
     document.getElementById("dialog-title").innerHTML = "Uredi cilj";
     document.getElementById("ustvari").innerHTML = "Posodobi";
+    $('#newDialog').val("false");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: auto');
 
@@ -164,6 +164,7 @@ function posodobiNalogo() {
     fillNaloge();
     document.getElementById("dialog-title").innerHTML = "Uredi nalogo";
     document.getElementById("ustvari").innerHTML = "Posodobi";
+    $('#newDialog').val("false");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
 }
@@ -173,6 +174,7 @@ function dodajNovCilj() {
     fillCilji();
     document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
     document.getElementById("ustvari").innerHTML = "Ustvari";
+    $('#newDialog').val("true");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: auto');
 }
@@ -182,6 +184,7 @@ function dodajNovoNalogo() {
     fillNaloge();
     document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
     document.getElementById("ustvari").innerHTML = "Ustvari";
+    $('#newDialog').val("true");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
 }
@@ -210,10 +213,13 @@ function validateNaloga() {
     }
     if (validation==0) {
         if (document.forms["update_dialog"]["vezanCilj"].value == "") {
+            console.log($("#vezanCilj"));
+            console.log($("#vezanCilj").val());
+            console.log($("input[name='sampleCilj']").val());
             alert("Vezan cilj mora biti izbran.");
             return false;
         }
-        if (document.forms["update_dialog"]["kategorija"].value == "") {
+        if (document.forms["update_dialog"]["sampleKategorija"].value == "") {
             alert("Kategorija mora biti izbrana.");
             return false;
         }
