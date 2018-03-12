@@ -22,6 +22,7 @@ let color = {"5a78505d19ac7744c8175d18": "#ff9933", "5a785125e7c9722aa0e1e8ac": 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 let currentTab = 0;
+let successfulPost = 0;
 
 function vrniNapako(res, err){
     res.render("pages/error", {message : "Napaka pri poizvedbi /db", error : {status : 500, stack : err}});
@@ -61,41 +62,44 @@ module.exports.naslovnaStran = function (req, res) {
         }
     }*/
                     for (i = 0; i < naloga.length; i++) {
-                        let zac = moment(naloga[i].zacetek).format('MM/DD/YYYY');
-                        let kon = moment(naloga[i].konec).format('MM/DD/YYYY');
-                        let now = moment(Date.now()).format('MM/DD/YYYY');
+                        let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
+                        let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
+                        let now = moment(Date.now()).format('MM-DD-YYYY');
                         if (naloga[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
                             j = i;
+                            let urZac = moment(naloga[i].zacetek).format('HH:mm');
+                            let urKon = moment(naloga[i].konec).format('HH:mm');
+                            if(!validator.matches(urZac ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urZac = "00:00";
+                            if(!validator.matches(urKon ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urKon = "23:59";
                             obj.monthly.push({
                                 id: naloga[i].id,
                                 name: naloga[i].ime,
                                 startdate: moment(naloga[i].zacetek).format('YYYY-MM-DD'),
                                 enddate: moment(naloga[i].konec).format('YYYY-MM-DD'),
-                                starttime: "15:00",
-                                endtime: "18:00",
+                                starttime: urZac,
+                                endtime: urKon,
                                 color: color[naloga[i].kategorija],
                                 url: "/koledar/" + naloga[i].id
                             });
-                        }
-                        if (zac == now || dateCheck(zac, kon, now)) {
-                            idx.push(i);
-                            Uporabnik.findOne({_id: naloga[i].avtor}).then(avtor => {
-                                opomnik.push({
-                                    ime: naloga[idx[0]].ime,
-                                    xp: naloga[idx[0]].xp,
-                                    avtor: avtor.ime,
-                                    status: naloga[idx[0]].status
+                            if (zac == now || dateCheck(zac, kon, now)) {
+                                idx.push(i);
+                                Uporabnik.findOne({_id: naloga[i].avtor}).then(avtor => {
+                                    opomnik.push({
+                                        ime: naloga[idx[0]].ime,
+                                        xp: naloga[idx[0]].xp,
+                                        avtor: avtor.ime,
+                                        status: naloga[idx[0]].status
+                                    });
+                                    idx.shift();
+                                    console.log(opomnik);
+                                    if (idx.length == 0) {
+                                        cb();
+                                    }
+                                }).catch(err => {
+                                    vrniNapako(res, err);
+                                    return;
                                 });
-                                idx.shift();
-                                console.log(opomnik);
-                                if (idx.length == 0) {
-                                    console.log("cb");
-                                    cb();
-                                }
-                            }).catch(err => {
-                                vrniNapako(res, err);
-                                return;
-                            });
+                            }
                         }
                     }
                 }).catch(err => {
@@ -115,10 +119,10 @@ module.exports.naslovnaStran = function (req, res) {
                 }
             }
             posodobiJson(obj, session);
-            console.log("aync");
             console.log(opomnik);
-            res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment});
+            res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             currentTab = 0;
+            successfulPost = 0;
         });
     }
 };
@@ -229,7 +233,7 @@ module.exports.prikaziNaloge = function(req, res, next) {
             where_search.zacetek = null;
         }
     }
-    console.log(where_search);
+    //console.log(where_search);
     async.parallel({
             docs: function (cb) { Naloge.find(where_search).exec(cb);},
             kategorija: function (cb) { Kategorija.find().exec(cb); },
@@ -246,7 +250,7 @@ module.exports.prikaziNaloge = function(req, res, next) {
             for(let i=0;i<results.uporabnik.length;i++) {
                 usr[results.uporabnik[i].id] = [results.uporabnik[i].slika, results.uporabnik[i].id, results.uporabnik[i].ime];
             }
-            console.log(usr);
+            //console.log(usr);
             res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr});
         });
 };
@@ -254,16 +258,10 @@ module.exports.prikaziNaloge = function(req, res, next) {
 //** POST /ustvari_nalogo
 module.exports.ustvariNalogo = function(req, res, next) {
     currentTab = 2;
-    let v_usr = [];
-    if(!validatenaloga(req)) return;
+    if(!validatenaloga(req,res)) return;
     if(!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
     if(!req.body.dateKonec) req.body.dateKonec = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
     if(req.body.dateZacetek > req.body.dateKonec)  {vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. "+req.body.dateZacetek+" "+req.body.dateKone);return;}
-    for(let i=0;i<req.body.person.length;i++) {
-        if(validator.isMongoId(req.body.person[i])) {
-            v_usr.push(req.body.person[i]);
-        }
-    }
     let dZac = req.body.dateZacetek;
     let dKon = req.body.dateKonec;
     if (dZac != "") {
@@ -272,39 +270,60 @@ module.exports.ustvariNalogo = function(req, res, next) {
             return;
         }
     }
-    if(req.body.newDialog == true) {}
+    let currXp = req.body.xpNaloge;
+    if(req.body.newStatus==false && req.body.oldStatus==true) currXp = -currXp;
+    if(req.body.newDialog && req.body.newStatus==false) currXp = 0;
+    if(!req.body.newDialog && req.body.newStatus==false) currXp = 0;
+    if(req.body.newStatus==true && req.body.oldStatus==true) currXp = 0;
     let novaNaloga = {
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
         kategorija: req.body.sampleKategorija,
         zacetek: dZac,
         konec: dKon,
-        xp: req.body.xp,
+        xp: req.body.xpNaloge,
         vezan_cilj: req.body.sampleCilj,
-        vezani_uporabniki: v_usr,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
-        status: false
+        status: req.body.status
     };
-    if(req.body.targetZacetek == "") novaNaloga.zacetek = dateNow();
+    for(let i=0;i<req.body.person.length;i++) {
+        //console.log(req.body.person[i]);
+        if(mongoose.Types.ObjectId.isValid(req.body.person[i])) {
+           // console.log(ObjectId(req.body.person[i]), "object id");
+            novaNaloga.vezani_uporabniki = {usr:  mongoose.Types.ObjectId(req.body.person[i]), uXp: currXp};
+            console.log(novaNaloga.vezani_uporabniki);
+        }
+    }
+    if(req.body.dateZacetek == "") novaNaloga.zacetek = dateNow();
+    if(req.body.dateKonec == "") novaNaloga.konec = novaNaloga.zacetek;
     let conditions = { ime: req.body.imeDialog };
     Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runValidators: true}, function (err, doc) { // callback
         if (err) {
             vrniNapako(res, err);
+            return;
         } else {
-            conditions = {vezani_uporabniki: {$ne: req.session.trenutniUporabnik.id}};
-            let currXp = req.body.xpNaloge;
-            if(req.body.newStatus==false && req.body.oldStatus==true) currXp = -currXp;
-            if(req.body.newDialog==true && req.body.newStatus==false) currXp = 0;
-            if(req.body.newDialog==false && req.body.newStatus==false) currXp = 0;
-            if(req.body.newStatus==true && req.body.oldStatus==true) currXp = 0;
-            let update = {$addToSet: {"vezani_uporabniki.usr": v_usr, },
-                $inc:{xp: currXp, "vezani_uporabniki.uXp": currXp}};
-            Cilji.findOneAndUpdate(conditions, update, function (err, doc) {});
-            conditions = {vezane_naloge: {$ne: novaNaloga._id}};
-            update = {$addToSet: {vezane_naloge: novaNaloga._id}};
-            Cilji.findOneAndUpdate(conditions, update, function (err, doc) {});
-            res.redirect('/')
+
+            console.log(doc._id);
+            conditions = { vezani_uporabniki: {$ne: new mongoose.mongo.ObjectId(req.session.trenutniUporabnik.id)}};
+            let update = {$addToSet: { vezani_uporabniki : { usr : novaNaloga.vezani_uporabniki}},
+                $inc:{ xp: currXp, "vezani_uporabniki.uXp" : currXp}};
+            Cilji.findOneAndUpdate(conditions, update, function (err, doc) {
+                vrniNapako(res, err);
+                console.log(err);
+                return;
+            });
+            if (req.body.newDialog) {
+                conditions = { vezane_naloge : { naloga : new mongoose.mongo.ObjectId(req.body.newDialog)}};
+                update = {$addToSet: { vezane_naloge : { stanje : req.body.status }}};
+            } else {
+                conditions = { vezane_naloge : { naloga : new mongoose.mongo.ObjectId(doc._id)}};
+                update = {$addToSet: { vezane_naloge : { naloga : new mongoose.mongo.ObjectId(doc._id), stanje : req.body.status }}};
+            }
+            Cilji.findOneAndUpdate(conditions, update, function (err, doc) { vrniNapako(res, err); return;});
+            successfulPost = 1;
+
         }
+        res.redirect("/");
     });
 };
 
@@ -314,8 +333,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
 //** POST /ustvari_cilj
 module.exports.ustvariCilj = function(req, res, next) {
     currentTab = 3;
-    if(!validator.matches(req.body.imeDialog ,/^[A-ZČĆŽŠĐ\s]+$/i)) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki. "+req.body.imeDialog);return;}
-    if(!validator.matches(req.body.opisDialog ,/^[A-ZČĆŽŠĐ\s]+$/i)) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki. "+req.body.opisDialog);return;}
+    validateImeOpisId(req,res);
     if(!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
     if(!req.body.dateKonec) req.body.dateKonec = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
     if(req.body.dateZacetek > req.body.dateKonec)  {vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. "+req.body.dateZacetek+" "+req.body.dateKone);return;}
@@ -328,21 +346,24 @@ module.exports.ustvariCilj = function(req, res, next) {
         }
     }
     let novCilj = {
-        _id : new ObjectId(),
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
         zacetek: dZac,
         konec: dKon,
-        vezane_naloge: [],//req.body.person,
-        vezani_uporabniki: v_usr,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
+        skupni_cilj: req.body.skupnaNaloga,
         status: false
     };
-    console.log(novCilj);
-    Cilji.create(novCilj).then(data => {
-        res.redirect('/');
-    }).catch(err => {
-        vrniNapako(res, err);
+    if(req.body.dateZacetek == "") novCilj.zacetek = dateNow();
+    if(req.body.dateKonec == "") novCilj.konec = novCilj.zacetek;
+    let conditions = { ime: req.body.imeDialog };
+    Cilji.findOneAndUpdate(conditions, novCilj,{upsert: true, runValidators: true}, function (err, doc) { // callback
+        if (err) {
+            vrniNapako(res, err);
+        } else {
+            successfulPost = 1;
+            res.redirect('/')
+        }
     });
 };
 
@@ -373,12 +394,19 @@ module.exports = function (app) {
 
 }; */
 
-function validatenaloga(req) {
-    if(!validator.matches(req.body.imeDialog ,/^[A-ZČĆŽŠĐ0-9\s]+$/i)) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki. "+req.body.imeDialog);return false;}
-    if(!validator.matches(req.body.opisDialog ,/^[A-ZČĆŽŠĐ0-9\s]+$/i)) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki. "+req.body.opisDialog);return false;}
+function validatenaloga(req,res) {
+    if(!validateImeOpisId(req,res)) return false;
     if(!validator.isMongoId(req.body.sampleKategorija)) {vrniNapako(res, "Za kategorijo so bili uporabljeni napačni znaki. "+req.body.sampleKategorija);return false;}
     if(!validator.isInt(req.body.xpNaloge, [{ min: 1, max: 100 }])) {vrniNapako(res, "Izbrana vrednost mora biti med 1 in 100 xp.");return false;}
     if(!validator.isMongoId(req.body.sampleCilj)) {vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+req.body.sampleCilj);return false;}
+    return true;
+}
+
+function validateImeOpisId(req,res) {
+    //console.log(req.body.newDialog);
+    if(req.body.newDialog != "") {if(!validator.isMongoId(req.body.newDialog)) {vrniNapako(res, "Id za posodobitev je napačen. "+req.body.newDialog);return false;}}
+    if(!validator.matches(req.body.imeDialog ,/^[A-ZČĆŽŠĐ0-9.,\s]+$/i)) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki. "+req.body.imeDialog);return false;}
+    if(!validator.matches(req.body.opisDialog ,/^[A-ZČĆŽŠĐ0-9.,\s]+$/i)) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki. "+req.body.opisDialog);return false;}
     return true;
 }
 

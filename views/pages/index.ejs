@@ -70,10 +70,10 @@
                             <% } %>
                         </ul>
                     </div>
-                    <ul class="mdl-list margin-zero padding-zero">
-                        <li class="mdl-list__item padding-zero overflow-visible">
+                    <ul class="mdl-list margin-zero padding-zero" id="xpStatus">
+                        <li class="mdl-list__item padding-zero overflow-visible dialog-duo">
                             <div class="mdl-list__item-primary-content">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
+                                <div id="dialogStatus" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
                                     <input type="text" value="" class="mdl-textfield__input" id="statusNaloge" readonly>
                                     <input type="hidden" value="" name="newStatus">
                                     <input type="hidden" value="false" name="oldStatus">
@@ -96,7 +96,7 @@
                     </ul>
                     <div id="ciljiVsi">
                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
-                            <input type="checkbox" id="skupnaNaloga" class="mdl-checkbox__input">
+                            <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
                             <span class="mdl-checkbox__label" id="vsiCiljiLabel">Dodaj cilj med skupne cilje družine</span>
                         </label>
                     </div>

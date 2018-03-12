@@ -66,6 +66,10 @@ html, body {
     display: inline-table;
 }
 
+.padding-top-16 {
+    padding-top: 16px;
+}
+
 /*        */
 
 /* DIALOG */
@@ -126,6 +130,14 @@ html, body {
 }
 .textfield-modal-half {
     width: 100px;
+}
+
+.dialog-duo {
+    font-size: initial;
+    letter-spacing: inherit;
+    line-height: inherit;
+    color: inherit;
+    font-weight: 300;
 }
 
 /*            */
@@ -257,6 +269,11 @@ html, body {
     margin-top: -50px;
     overflow: visible;
     width: 100%;
+    z-index: 7;
+}
+
+.mdl-card-nal {
+    margin-top: 0;
 }
 
 .mdl-card-search {
@@ -317,6 +334,17 @@ html, body {
 .author-chip {
     width: 48px;
     height: 48px;
+}
+
+.mdl-card-obvestilo {
+    width: 100%;
+    min-height: 100px;
+}
+
+.font-sporocilo {
+    font-size: 24px;
+    padding: 32px;
+    line-height: 32px;
 }
 
 /*       */

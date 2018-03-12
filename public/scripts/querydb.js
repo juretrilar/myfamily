@@ -71,6 +71,7 @@ jQuery(function($) {
                 } onCardClick("nalogeGrid", function (card, event) {
                     posodobiNalogo();
                     //
+                    $('#newDialog').val(card.getElementsByClassName("idNaloga")[0].value);
                     $('#imeDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].previousElementSibling.innerHTML)
                         .parent().addClass("is-dirty");
                     $('#opisDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].innerHTML)
@@ -82,8 +83,14 @@ jQuery(function($) {
                     } catch(err) {
                         console.log(err);
                     }
-                    if (dateZ) $('#targetZacetek').val(dateZ).parent().addClass("is-dirty");
-                    if (dateK) $('#targetKonec') .val(dateK).parent().addClass("is-dirty");
+                    if (dateZ) {
+                        $('#targetZacetek').val(dateZ).parent().addClass("is-dirty");
+                        $('#dateZacetek').val(moment(dateZ.replace(' ob ',' '), 'DD-MM-Y HH:mm').format('Y-MM-DD HH:mm'));
+                    }
+                    if (dateK) {
+                        $('#targetKonec') .val(dateK).parent().addClass("is-dirty");
+                        $('#dateKonec').val(moment(dateK.replace(' ob ',' '), 'DD-MM-Y HH:mm').format('Y-MM-DD HH:mm'));
+                    }
                     let kat = card.getElementsByClassName("kategorijaNaloga")[0].value;
                     $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val="+kat+"]").get(0).textContent.trim();
                     $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val="+kat+"]").attr('data-selected','true');
@@ -98,18 +105,18 @@ jQuery(function($) {
                         $("#statusNaloge").parent().addClass("is-dirty")
                             .find("li[data-val=false]").attr('data-selected','true');
                         $("input[name='oldStatus']").val("false");
+                        $("input[name='newStatus']").val("false");
                     } else {
                         $("#statusNaloge").parent().addClass("is-dirty")
                             .find("li[data-val=true]").attr('data-selected','true');
                         $("input[name='oldStatus']").val("true");
+                        $("input[name='newStatus']").val("true");
                     }
                     getmdlSelect.init("#dialogStatus");
                     $('#xpNaloge').val(card.getElementsByClassName("xpNaloga")[0].innerHTML.match(/\d/g).join("")).parent().addClass("is-dirty");
                     let usr = card.getElementsByClassName("udelezenecNaloga");
                     let chckbox = $("input:checkbox[name='person']");
-                    console.log(usr);
                     let u=0;
-                    console.log("for");
                     $("#checkboxVsi").parent()[0].MaterialCheckbox.uncheck();
                     if(chckbox.length-1==usr.length) {
                         $("#checkboxVsi").parent()[0].MaterialCheckbox.check();
@@ -123,7 +130,6 @@ jQuery(function($) {
                         }
                     }
 
-                    console.log(usr);
                     event.stopPropagation();
                 });
             },

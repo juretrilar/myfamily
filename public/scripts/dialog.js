@@ -1,6 +1,8 @@
 let validation = 0;
 jQuery(function($) {
     'use strict';
+    document.onclick = zapriVse;
+
     let dialog = document.querySelector('dialog');
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
@@ -131,8 +133,11 @@ function fillNaloge() {
     $('#tKonec').html("Konec naloge");
     $('#ciljiVsi').attr('style',"display: none!important");
     $('#dialogKategorija').attr('style',"display: block!important");
+    $('#dialogZacetek').attr('style',"display: block!important");
+    $('#dialogKonec').attr('style',"display: block!important");
     $('#claniNaloge').attr('style',"display: block!important");
     $('#dialogCilj').attr('style',"display: block!important");
+    $('#xpStatus').attr('style',"display: block!important");
     $('#update_dialog').attr('action',"/ustvari_nalogo").attr('onsubmit',"return validateNaloga()");
 }
 
@@ -143,8 +148,11 @@ function fillCilji() {
     $('#tKonec').html("Konec cilja");
     $('#ciljiVsi').attr('style',"display: block!important");
     $('#dialogKategorija').attr('style',"display: none!important");
+    $('#dialogZacetek').attr('style',"display: none!important");
+    $('#dialogKonec').attr('style',"display: none!important");
     $('#claniNaloge').attr('style',"display: none!important");
     $('#dialogCilj').attr('style',"display: none!important");
+    $('#xpStatus').attr('style',"display: none!important");
     $('#update_dialog').attr('action',"/ustvari_cilj").attr('onsubmit'," return validateCilj()");
 }
 
@@ -153,7 +161,6 @@ function posodobiCilj() {
     fillCilji();
     document.getElementById("dialog-title").innerHTML = "Uredi cilj";
     document.getElementById("ustvari").innerHTML = "Posodobi";
-    $('#newDialog').val("false");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: auto');
 
@@ -164,7 +171,6 @@ function posodobiNalogo() {
     fillNaloge();
     document.getElementById("dialog-title").innerHTML = "Uredi nalogo";
     document.getElementById("ustvari").innerHTML = "Posodobi";
-    $('#newDialog').val("false");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
 }
@@ -174,7 +180,7 @@ function dodajNovCilj() {
     fillCilji();
     document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
     document.getElementById("ustvari").innerHTML = "Ustvari";
-    $('#newDialog').val("true");
+    $('#newDialog').val("");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: auto');
 }
@@ -184,7 +190,7 @@ function dodajNovoNalogo() {
     fillNaloge();
     document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
     document.getElementById("ustvari").innerHTML = "Ustvari";
-    $('#newDialog').val("true");
+    $('#newDialog').val("");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
 }
@@ -211,11 +217,13 @@ function validateNaloga() {
             return false;
         }
     }
+    if($('#newDialog').val()) {
+        $('#sporocilo').innerText = "Cilj je bil uspešno ustvarjen.";
+    } else {
+        $('#sporocilo').innerText = "Cilj je bil uspešno posodobljen.";
+    }
     if (validation==0) {
         if (document.forms["update_dialog"]["vezanCilj"].value == "") {
-            console.log($("#vezanCilj"));
-            console.log($("#vezanCilj").val());
-            console.log($("input[name='sampleCilj']").val());
             alert("Vezan cilj mora biti izbran.");
             return false;
         }
@@ -223,10 +231,16 @@ function validateNaloga() {
             alert("Kategorija mora biti izbrana.");
             return false;
         }
-    }
-    if (document.forms["update_dialog"]["statusNaloge"].value == "") {
-        alert("Status naloge mora biti izbran.");
-        return false;
+        if (document.forms["update_dialog"]["statusNaloge"].value == "") {
+            alert("Status naloge mora biti izbran.");
+            return false;
+        }
+        if($('#newDialog').val()) {
+            $('#sporocilo').innerText = "Naloga je bila uspešno ustvarjena.";
+        } else {
+            $('#sporocilo').innerText = "Naloga je bila uspešno posodobljena.";
+        }
+        console.log("cilj");
     }
     validation = 0;
 }
@@ -258,4 +272,8 @@ function openTimePicker(elementId,picker, inputId, inputDateId, pickerTime) {
         input.value = picker.time.format('DD-MM-Y');
         input.parentNode.MaterialTextfield.checkDirty();
     });
+}
+
+function zapriVse() {
+    $('.hideOnClick').attr('style',"display: none!important");
 }
