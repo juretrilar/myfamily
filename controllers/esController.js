@@ -31,6 +31,7 @@ function vrniNapako(res, err){
 //** GET /
 module.exports.naslovnaStran = function (req, res) {
     if(!req.session.trenutniUporabnik) {
+        console.log("not logged");
         res.render('pages/prijava', {
             uporabnik: ""
         });
@@ -91,7 +92,7 @@ module.exports.naslovnaStran = function (req, res) {
                                         status: naloga[idx[0]].status
                                     });
                                     idx.shift();
-                                    console.log(opomnik);
+                                    //console.log(opomnik);
                                     if (idx.length == 0) {
                                         cb();
                                     }
@@ -117,9 +118,9 @@ module.exports.naslovnaStran = function (req, res) {
                 if(result.cilji[i].skupni_cilj == true) {
                     sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp})
                 }
+                //console.log(result.cilji[i].vezani_uporabniki, "vezan");
             }
             posodobiJson(obj, session);
-            console.log(opomnik);
             res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             currentTab = 0;
             successfulPost = 0;
@@ -147,7 +148,6 @@ module.exports.prijaviUporabnika = function(req, res, next){
             for(i in uporabniki){
                 //ce se email in geslo ujemata
                 if(uporabniki[i].email === email && uporabniki[i].geslo === geslo){
-                    console.log("here we are");
                     //shrani podatke v sejo
                     session.trenutniUporabnik = {
                         email : uporabniki[i].email,
@@ -156,7 +156,6 @@ module.exports.prijaviUporabnika = function(req, res, next){
                         id : uporabniki[i]._id,
                         druzina : uporabniki[i].druzina,
                         admin : uporabniki[i].admin,
-                        odsotnosti : uporabniki[i].odsotnosti,
                         last_login : uporabniki[i].last_login,
                         slika : uporabniki[i].slika
                     };
@@ -166,8 +165,10 @@ module.exports.prijaviUporabnika = function(req, res, next){
                     break;
                 }
             }
+
             if(session.trenutniUporabnik){
                res.redirect("/");
+                console.log("here we are");
             } else {
                 res.render("pages/prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!", uporabnik : ""});
             }
@@ -235,24 +236,24 @@ module.exports.prikaziNaloge = function(req, res, next) {
     }
     //console.log(where_search);
     async.parallel({
-            docs: function (cb) { Naloge.find(where_search).exec(cb);},
-            kategorija: function (cb) { Kategorija.find().exec(cb); },
-            uporabnik: function (cb) { Uporabnik.find().select("slika ime").exec(cb); },
-        },
-        function(err, results) {
-            if (err) {
-                vrniNapako(err,res);
-            }
-            let kat = {},usr = {};
-            for(let i=0;i<results.kategorija.length;i++) {
-                kat[results.kategorija[i].id] = results.kategorija[i].ime;
-            }
-            for(let i=0;i<results.uporabnik.length;i++) {
-                usr[results.uporabnik[i].id] = [results.uporabnik[i].slika, results.uporabnik[i].id, results.uporabnik[i].ime];
-            }
-            //console.log(usr);
-            res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr});
-        });
+        docs: function (cb) { Naloge.find(where_search).exec(cb);},
+        kategorija: function (cb) { Kategorija.find().exec(cb); },
+        uporabnik: function (cb) { Uporabnik.find().select("slika ime").exec(cb); },
+    },
+    function(err, results) {
+        if (err) {
+            vrniNapako(err,res);
+        }
+        let kat = {},usr = {};
+        for(let i=0;i<results.kategorija.length;i++) {
+            kat[results.kategorija[i].id] = results.kategorija[i].ime;
+        }
+        for(let i=0;i<results.uporabnik.length;i++) {
+            usr[results.uporabnik[i].id] = [results.uporabnik[i].slika, results.uporabnik[i].id, results.uporabnik[i].ime];
+        }
+        //console.log(usr);
+        res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr});
+    });
 };
 
 //** POST /ustvari_nalogo
@@ -281,49 +282,72 @@ module.exports.ustvariNalogo = function(req, res, next) {
         kategorija: req.body.sampleKategorija,
         zacetek: dZac,
         konec: dKon,
+        vezani_uporabniki: [],
         xp: req.body.xpNaloge,
         vezan_cilj: req.body.sampleCilj,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
         status: req.body.status
     };
-    for(let i=0;i<req.body.person.length;i++) {
-        //console.log(req.body.person[i]);
-        if(mongoose.Types.ObjectId.isValid(req.body.person[i])) {
-           // console.log(ObjectId(req.body.person[i]), "object id");
-            novaNaloga.vezani_uporabniki = {usr:  mongoose.Types.ObjectId(req.body.person[i]), uXp: currXp};
-            console.log(novaNaloga.vezani_uporabniki);
+    let update;
+    if(mongoose.Types.ObjectId.isValid(req.body.person)) {
+        novaNaloga.vezani_uporabniki.push(req.body.person);
+    } else {
+        for(let i=0;i<req.body.person.length;i++) {
+            if(mongoose.Types.ObjectId.isValid(req.body.person[i])) {
+                novaNaloga.vezani_uporabniki.push(mongoose.Types.ObjectId(req.body.person[i]));
+            }
         }
     }
+            //
     if(req.body.dateZacetek == "") novaNaloga.zacetek = dateNow();
     if(req.body.dateKonec == "") novaNaloga.konec = novaNaloga.zacetek;
-    let conditions = { ime: req.body.imeDialog };
-    Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runValidators: true}, function (err, doc) { // callback
+    let conditions = { ime: req.body.imeDialog};
+    Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runVlidators: true, returnNewDocument: true}, function (err, doc) { // callback
         if (err) {
             vrniNapako(res, err);
+            console.log(err);
             return;
         } else {
-
-            console.log(doc._id);
-            conditions = { vezani_uporabniki: {$ne: new mongoose.mongo.ObjectId(req.session.trenutniUporabnik.id)}};
-            let update = {$addToSet: { vezani_uporabniki : { usr : novaNaloga.vezani_uporabniki}},
-                $inc:{ xp: currXp, "vezani_uporabniki.uXp" : currXp}};
-            Cilji.findOneAndUpdate(conditions, update, function (err, doc) {
-                vrniNapako(res, err);
-                console.log(err);
-                return;
+            Cilji.findOne({_id: req.body.sampleCilj}, function(err, cilj) {
+                if(!err) {
+                    let obj = cilj.vezani_uporabniki.id_user;
+                    if(!obj) obj = {};
+                    for(let i = 0; i<novaNaloga.vezani_uporabniki.length; i++) {
+                        let index = Object.values(obj).indexOf(novaNaloga.vezani_uporabniki[i]);
+                        console.log(index, novaNaloga.vezani_uporabniki[i]);
+                        if (index > -1) {
+                            cilj.vezani_uporabniki[index].xp_user += currXp;
+                        } else {
+                            cilj.vezani_uporabniki.push({"id_user" : novaNaloga.vezani_uporabniki[i], "xp_user" : currXp});
+                        }
+                    }
+                    obj = cilj.vezane_naloge.id_nal;
+                    let nalId = doc._id;
+                    if(req.body.newDialog) nalId = req.body.newDialog;
+                    console.log(req.body.status);
+                    if (obj) {
+                        let index = Object.values(obj).indexOf(nalId);
+                        if(index > -1) {
+                            cilj.vezane_naloge[index].stanje = req.body.status;
+                        } else {
+                            cilj.vezane_naloge.push({"id_nal" : nalId, "stanje" : req.body.status});
+                        }
+                    }
+                    console.log(cilj);
+                    cilj.save(function (err) {
+                        if(!err) {
+                            res.redirect("/");
+                            successfulPost = 1;
+                        }
+                        else {
+                            vrniNapako(res,err);
+                            console.log(err);
+                            return;
+                        }
+                    });
+                }
             });
-            if (req.body.newDialog) {
-                conditions = { vezane_naloge : { naloga : new mongoose.mongo.ObjectId(req.body.newDialog)}};
-                update = {$addToSet: { vezane_naloge : { stanje : req.body.status }}};
-            } else {
-                conditions = { vezane_naloge : { naloga : new mongoose.mongo.ObjectId(doc._id)}};
-                update = {$addToSet: { vezane_naloge : { naloga : new mongoose.mongo.ObjectId(doc._id), stanje : req.body.status }}};
-            }
-            Cilji.findOneAndUpdate(conditions, update, function (err, doc) { vrniNapako(res, err); return;});
-            successfulPost = 1;
-
         }
-        res.redirect("/");
     });
 };
 

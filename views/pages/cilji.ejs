@@ -104,13 +104,13 @@
                                 </div>
                             </td>
                             <td>
-                                <input type="hidden" value="<%= cilji[i].vezani_uporabniki['user'] %>" id="stUporabnikovEnd">
+                                <input type="hidden" value="<%= cilji[i].vezani_uporabniki %>" id="stUporabnikovEnd">
                                 <div class="progress">
-                                    <%= cilji[i].vezani_uporabniki['user'] %>
-                                    <%= cilji[i].vezani_uporabniki.user %>
+                                    <%= cilji[i].vezani_uporabniki.xp_user %>
+                                    <%= cilji[i].vezani_uporabniki.id_user %>
                                     <%= cilji[i].vezani_uporabniki %>
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.user; j++) { %>
-                                    <span class="spanCilji" name="ciljiVezan"><%= cilji[i].vezani_uporabniki.user.uXp %></span>
+                                    <span class="spanCilji" name="ciljiVezan"><%= cilji[i].vezani_uporabniki.xp_user %></span>
                                     <% } %>
                                 </div>
                             </td>

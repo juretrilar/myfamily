@@ -7,12 +7,11 @@ let ciljiSchema = new mongoose.Schema({
     zacetek: { type:Date, default: Date.now },
     konec: { type:Date },
     xp: Number,
-    vezane_naloge: [{naloga : {type: mongoose.Schema.Types.ObjectId, ref : "Naloge"}, stanje: Boolean}],
-    vezani_uporabniki: [{user : {type: mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}, uXp: Number}],
+    vezane_naloge: [{_id : false, id_nal : mongoose.Schema.Types.ObjectId, stanje: Boolean }],
+    vezani_uporabniki: [{_id : false, id_user : mongoose.Schema.Types.ObjectId , xp_user : Number }],
     skupni_cilj: Boolean,
     status: Boolean
-});
+},  { usePushEach: true });
 
 mongoose.model('Cilji', ciljiSchema, 'Cilji');
-
 
