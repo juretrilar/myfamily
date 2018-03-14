@@ -286,7 +286,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
         xp: req.body.xpNaloge,
         vezan_cilj: req.body.sampleCilj,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
-        status: req.body.status
+        status: req.body.newStatus
     };
     let update;
     if(mongoose.Types.ObjectId.isValid(req.body.person)) {
@@ -310,27 +310,25 @@ module.exports.ustvariNalogo = function(req, res, next) {
         } else {
             Cilji.findOne({_id: req.body.sampleCilj}, function(err, cilj) {
                 if(!err) {
-                    let obj = cilj.vezani_uporabniki.id_user;
+                    let obj = cilj.vezani_uporabniki.map(value => String(value.id_user));
                     if(!obj) obj = {};
                     for(let i = 0; i<novaNaloga.vezani_uporabniki.length; i++) {
-                        let index = Object.values(obj).indexOf(novaNaloga.vezani_uporabniki[i]);
-                        console.log(index, novaNaloga.vezani_uporabniki[i]);
+                        let index = obj.indexOf(String(novaNaloga.vezani_uporabniki[i]));
                         if (index > -1) {
                             cilj.vezani_uporabniki[index].xp_user += currXp;
                         } else {
                             cilj.vezani_uporabniki.push({"id_user" : novaNaloga.vezani_uporabniki[i], "xp_user" : currXp});
                         }
                     }
-                    obj = cilj.vezane_naloge.id_nal;
+                    obj = cilj.vezane_naloge.map(value => String(value.id_nal));
                     let nalId = doc._id;
                     if(req.body.newDialog) nalId = req.body.newDialog;
-                    console.log(req.body.status);
                     if (obj) {
-                        let index = Object.values(obj).indexOf(nalId);
+                        let index = obj.indexOf(nalId);
                         if(index > -1) {
-                            cilj.vezane_naloge[index].stanje = req.body.status;
+                            cilj.vezane_naloge[index].stanje = req.body.newStatus;
                         } else {
-                            cilj.vezane_naloge.push({"id_nal" : nalId, "stanje" : req.body.status});
+                            cilj.vezane_naloge.push({"id_nal" : nalId, "stanje" : req.body.newStatus});
                         }
                     }
                     console.log(cilj);
