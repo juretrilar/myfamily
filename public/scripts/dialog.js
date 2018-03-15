@@ -137,7 +137,7 @@ function fillNaloge() {
     $('#dialogKonec').attr('style',"display: block!important");
     $('#claniNaloge').attr('style',"display: block!important");
     $('#dialogCilj').attr('style',"display: block!important");
-    $('#xpStatus').attr('style',"display: block!important");
+    $('#dialogStatus').attr('style',"display: block!important");
     $('#update_dialog').attr('action',"/ustvari_nalogo").attr('onsubmit',"return validateNaloga()");
 }
 
@@ -152,7 +152,7 @@ function fillCilji() {
     $('#dialogKonec').attr('style',"display: none!important");
     $('#claniNaloge').attr('style',"display: none!important");
     $('#dialogCilj').attr('style',"display: none!important");
-    $('#xpStatus').attr('style',"display: none!important");
+    $('#dialogStatus').attr('style',"display: none!important");
     $('#update_dialog').attr('action',"/ustvari_cilj").attr('onsubmit'," return validateCilj()");
 }
 

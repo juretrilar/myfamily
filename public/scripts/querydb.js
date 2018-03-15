@@ -2,6 +2,25 @@ jQuery(function($) {
     let items;
     let perPage = 8;
 
+    $('#osebaSearch').get(0).onchange = function() {
+        $("#chipOseba").attr('style',"display: inline-block;").find("span:first-child").text($(this).val()); // get the current value of the input field.
+    };
+    $('#statusSearch').get(0).onchange = function() {
+        $("#chipStatus").attr('style',"display: inline-block;").find("span:first-child").text($(this).val()); // get the current value of the input field.
+    };
+    $('#kategorijaSearch').get(0).onchange = function() {
+        $("#chipKategorija").attr('style',"display: inline-block;").find("span:first-child").text($(this).val()); // get the current value of the input field.
+    };
+    $('#avtorSearch').get(0).onchange = function() {
+        $("#chipAvtor").attr('style',"display: inline-block;").find("span:first-child").text($(this).val()); // get the current value of the input field.
+    };
+    $('#koledarSearch').get(0).onchange = function() {
+        $("#chipKoledar").attr('style',"display: inline-block;").find("span:first-child").text($(this).val()); // get the current value of the input field.
+    };
+    $('#ciljSearch').get(0).onchange = function() {
+        $("#chipCilj").attr('style',"display: inline-block;").find("span:first-child").text($(this).val()); // get the current value of the input field.
+    };
+
     let $paginator = $("#pagination");
     $paginator.pagination({
         itemsOnPage: perPage,
@@ -155,4 +174,13 @@ jQuery(function($) {
         $('#koledarSearch').val("").parent().removeClass("is-dirty");
         $('#ciljSearch').val("").parent().removeClass("is-dirty");
     });
+
 });
+
+function clearField(i, chip) {
+    getmdlSelect.init(".mdl-filter"+i);
+    let elm = document.getElementsByClassName("mdl-filter"+i)[0];
+    elm.classList.remove("is-dirty");
+    chip.style.display = 'none'
+}
+

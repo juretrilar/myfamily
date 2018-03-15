@@ -26,74 +26,105 @@
                 </div>
             </div>
             <form id="searchFilter">
-            <div class="mdl-card__supporting-text overflow-visible">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter">
-                    <input type="text" value="" class="mdl-textfield__input" id="osebaSearch" readonly>
-                    <input type="hidden" value="" name="osebaSearch">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="osebaSearch" class="mdl-textfield__label">Za koga</label>
-                    <ul for="osebaSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <% for (var i = 0; i < uporabniki.length; i++) { %>
-                        <li class="mdl-menu__item" data-val="<%= uporabniki[i].id %>"><%= uporabniki[i].ime %></li>
-                        <% } %>
-                    </ul>
+                <div class="mdl-card__supporting-text overflow-visible">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter1">
+                        <input type="text" value="" class="mdl-textfield__input" id="osebaSearch" readonly>
+                        <input type="hidden" value="" name="osebaSearch">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="osebaSearch" class="mdl-textfield__label">Za koga</label>
+                        <ul for="osebaSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <% for (var i = 0; i < uporabniki.length; i++) { %>
+                            <li class="mdl-menu__item" data-val="<%= uporabniki[i].id %>"><%= uporabniki[i].ime %></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter2">
+                        <input type="text" value="" class="mdl-textfield__input" id="statusSearch" readonly>
+                        <input type="hidden" value="" name="statusSearch">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="statusSearch" class="mdl-textfield__label">Status</label>
+                        <ul for="statusSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <li class="mdl-menu__item" data-val="true">Opravljeno</li>
+                            <li class="mdl-menu__item" data-val="false">Neopravljeno</li>
+                        </ul>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter3">
+                        <input type="text" value="" class="mdl-textfield__input" id="kategorijaSearch" readonly>
+                        <input type="hidden" value="" name="kategorijaSearch">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="kategorijaSearch" class="mdl-textfield__label">Kategorija</label>
+                        <ul for="kategorijaSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <% for (var i = 0; i < kategorija.length; i++) { %>
+                            <li class="mdl-menu__item" data-val="<%= kategorija[i].id %>"><%= kategorija[i].ime %></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter4">
+                        <input type="text" value="" class="mdl-textfield__input" id="avtorSearch" readonly>
+                        <input type="hidden" value="" name="avtorSearch">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="avtorSearch" class="mdl-textfield__label">Avtor</label>
+                        <ul for="avtorSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <% for (var i = 0; i < uporabniki.length; i++) { %>
+                            <li class="mdl-menu__item" data-val="<%= uporabniki[i].id %>"><%= uporabniki[i].ime %></li>
+                            <% } %>
+                        </ul>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter5">
+                        <input type="text" value="" class="mdl-textfield__input" id="koledarSearch" readonly>
+                        <input type="hidden" value="" name="koledarSearch">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="koledarSearch" class="mdl-textfield__label">V koledarju</label>
+                        <ul for="koledarSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <li class="mdl-menu__item" data-val="Da">Da</li>
+                            <li class="mdl-menu__item" data-val="Ne">Ne</li>
+                        </ul>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter6">
+                        <input type="text" value="" class="mdl-textfield__input" id="ciljSearch" readonly>
+                        <input type="hidden" value="" name="ciljSearch">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="ciljSearch" class="mdl-textfield__label">Vezan Cilj</label>
+                        <ul for="ciljSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                            <% for (var i = 0; i < cilji.length; i++) { %>
+                            <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
+                            <% } %>
+                        </ul>
+                    </div>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter">
-                    <input type="text" value="" class="mdl-textfield__input" id="statusSearch" readonly>
-                    <input type="hidden" value="" name="statusSearch">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="statusSearch" class="mdl-textfield__label">Status</label>
-                    <ul for="statusSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="true">Opravljeno</li>
-                        <li class="mdl-menu__item" data-val="false">Neopravljeno</li>
-                    </ul>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter">
-                    <input type="text" value="" class="mdl-textfield__input" id="kategorijaSearch" readonly>
-                    <input type="hidden" value="" name="kategorijaSearch">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="kategorijaSearch" class="mdl-textfield__label">Kategorija</label>
-                    <ul for="kategorijaSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <% for (var i = 0; i < kategorija.length; i++) { %>
-                        <li class="mdl-menu__item" data-val="<%= kategorija[i].id %>"><%= kategorija[i].ime %></li>
-                        <% } %>
-                    </ul>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter">
-                    <input type="text" value="" class="mdl-textfield__input" id="avtorSearch" readonly>
-                    <input type="hidden" value="" name="avtorSearch">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="avtorSearch" class="mdl-textfield__label">Avtor</label>
-                    <ul for="avtorSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <% for (var i = 0; i < uporabniki.length; i++) { %>
-                        <li class="mdl-menu__item" data-val="<%= uporabniki[i].id %>"><%= uporabniki[i].ime %></li>
-                        <% } %>
-                    </ul>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter">
-                    <input type="text" value="" class="mdl-textfield__input" id="koledarSearch" readonly>
-                    <input type="hidden" value="" name="koledarSearch">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="koledarSearch" class="mdl-textfield__label">V koledarju</label>
-                    <ul for="koledarSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <li class="mdl-menu__item" data-val="Da">Da</li>
-                        <li class="mdl-menu__item" data-val="Ne">Ne</li>
-                    </ul>
-                </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search mdl-filter">
-                    <input type="text" value="" class="mdl-textfield__input" id="ciljSearch" readonly>
-                    <input type="hidden" value="" name="ciljSearch">
-                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label for="ciljSearch" class="mdl-textfield__label">Vezan Cilj</label>
-                    <ul for="ciljSearch" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                        <% for (var i = 0; i < cilji.length; i++) { %>
-                        <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
-                        <% } %>
-                    </ul>
-                </div>
-            </div>
             </form>
-            <div class="mdl-card__actions mdl-card--border" style="text-align: center;">
+            <div id="query" class="mdl-card__actions mdl-card--border" style="text-align: center;">
+                <span id="chipOseba" class="mdl-chip mdl-chip--deletable hide-element">
+                    <span class="mdl-chip__text">Deletable Chip</span>
+                    <button type="button" class="mdl-chip__action" onclick="clearField(1,chipOseba)"><i class="material-icons">cancel</i></button>
+                </span>
+                <span id="chipStatus"class="mdl-chip mdl-chip--deletable hide-element">
+                    <span class="mdl-chip__text">Deletable Chip</span>
+                    <button type="button" class="mdl-chip__action" onclick="clearField(2,chipStatus)"><i class="material-icons">cancel</i></button>
+                </span>
+                <span id="chipKategorija" class="mdl-chip mdl-chip--deletable hide-element">
+                    <span class="mdl-chip__text">Deletable Chip</span>
+                    <button type="button" class="mdl-chip__action" onclick="clearField(3,chipKategorija)"><i class="material-icons">cancel</i></button>
+                </span>
+                <span id="chipAvtor" class="mdl-chip mdl-chip--deletable hide-element">
+                    <span class="mdl-chip__text">Deletable Chip</span>
+                    <button type="button" class="mdl-chip__action" onclick="clearField(4,chipAvtor)"><i class="material-icons">cancel</i></button>
+                </span>
+                <span id="chipKoledar" class="mdl-chip mdl-chip--deletable hide-element">
+                    <span class="mdl-chip__text">Deletable Chip</span>
+                    <button type="button" class="mdl-chip__action" onclick="clearField(5,chipKoledar)"><i class="material-icons">cancel</i></button>
+                </span>
+                <span id="chipCilj" class="mdl-chip mdl-chip--deletable hide-element">
+                    <span class="mdl-chip__text">Deletable Chip</span>
+                    <button type="button" class="mdl-chip__action" onclick="clearField(6, chipCilj)"><i class="material-icons">cancel</i></button>
+                </span>
+                <!--
+                <button id="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
+                    Ponastavi iskalni niz
+                </button>
+                -->
+            </div>
+            <div class="mdl-card__actions" style="text-align: center;">
                 <!--
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-search">
                     <input type="text" value="" class="mdl-textfield__input" id="rezultatiSearch" readonly>
@@ -106,9 +137,6 @@
                         <li class="mdl-menu__item" data-val="32">32</li>
                     </ul>
                 </div>-->
-                <button id="reset" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
-                    Ponastavi iskalni niz
-                </button>
                 <button id="filter" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored">
                     Išči
                 </button>

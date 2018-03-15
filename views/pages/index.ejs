@@ -25,7 +25,7 @@
             <h3 id="dialog-title" class="mdl-dialog__title"></h3>
             <form action="" method="POST" id="update_dialog" onsubmit="">
                 <input type="hidden" name="newDialog" id="newDialog">
-                <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
+                <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible;margin-bottom: 30px;">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                         <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog" maxlength="20"/>
                         <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
@@ -73,6 +73,12 @@
                     <ul class="mdl-list margin-zero padding-zero" id="xpStatus">
                         <li class="mdl-list__item padding-zero overflow-visible dialog-duo">
                             <div class="mdl-list__item-primary-content">
+                                <div id="ciljiVsi">
+                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
+                                        <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
+                                        <span class="mdl-checkbox__label" id="vsiCiljiLabel">Dodaj med skupne cilje</span>
+                                    </label>
+                                </div>
                                 <div id="dialogStatus" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
                                     <input type="text" value="" class="mdl-textfield__input" id="statusNaloge" readonly>
                                     <input type="hidden" value="" name="newStatus">
@@ -94,12 +100,6 @@
                             </div>
                         </li>
                     </ul>
-                    <div id="ciljiVsi">
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
-                            <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
-                            <span class="mdl-checkbox__label" id="vsiCiljiLabel">Dodaj cilj med skupne cilje družine</span>
-                        </label>
-                    </div>
                     <div id="claniNaloge">
                         <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
                         <ul class="mdl-list" style="margin: 0;" id="listClani">

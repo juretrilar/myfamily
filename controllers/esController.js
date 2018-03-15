@@ -288,7 +288,6 @@ module.exports.ustvariNalogo = function(req, res, next) {
         avtor: ObjectId(req.session.trenutniUporabnik.id),
         status: req.body.newStatus
     };
-    let update;
     if(mongoose.Types.ObjectId.isValid(req.body.person)) {
         novaNaloga.vezani_uporabniki.push(req.body.person);
     } else {
@@ -356,28 +355,22 @@ module.exports.ustvariNalogo = function(req, res, next) {
 module.exports.ustvariCilj = function(req, res, next) {
     currentTab = 3;
     validateImeOpisId(req,res);
-    if(!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
-    if(!req.body.dateKonec) req.body.dateKonec = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
-    if(req.body.dateZacetek > req.body.dateKonec)  {vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. "+req.body.dateZacetek+" "+req.body.dateKone);return;}
-    let dZac = req.body.dateZacetek;
-    let dKon = req.body.dateKonec;
-    if (dZac != "") {
-        if (dKon != "" && dZac > dKon) {
-            vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+dZac+" "+dKon);
-            return;
-        }
-    }
+    let updated = dateNow();
     let novCilj = {
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
-        zacetek: dZac,
-        konec: dKon,
-        avtor: ObjectId(req.session.trenutniUporabnik.id),
+        last_updated: updated,
         skupni_cilj: req.body.skupnaNaloga,
-        status: false
+        maxXp: req.body.xp
     };
-    if(req.body.dateZacetek == "") novCilj.zacetek = dateNow();
-    if(req.body.dateKonec == "") novCilj.konec = novCilj.zacetek;
+    if(req.body.newDialog) {
+        if(req.body.stanje) {
+            novCilj.konec = updated;
+        }
+    } else {
+        novCilj.zacetek = updated;
+    }
+
     let conditions = { ime: req.body.imeDialog };
     Cilji.findOneAndUpdate(conditions, novCilj,{upsert: true, runValidators: true}, function (err, doc) { // callback
         if (err) {

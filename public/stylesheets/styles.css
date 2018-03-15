@@ -33,7 +33,7 @@ html, body {
     overflow: visible;
 }
 
-.mdl-chip {
+.mdl-chip-small {
     height: 20px;
     padding: 0 5px;
     line-height: 16px;
@@ -270,6 +270,7 @@ html, body {
     overflow: visible;
     width: 100%;
     z-index: 7;
+    min-height: unset;
 }
 
 .mdl-card-nal {
@@ -365,9 +366,11 @@ html, body {
 }
 
 .spanCilji {
-    display: inline-block;
+    display: table-cell;
     color: #000;
+    vertical-align: middle;
     text-align: center;
+    height: 20px;
 }
 
 .spanFirst {
@@ -376,6 +379,7 @@ html, body {
 
 .spanLast {
     border-radius: 0 20px 20px 0;
+
 }
 
 .spanOnly {
