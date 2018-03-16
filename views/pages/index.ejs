@@ -72,7 +72,14 @@
                     </div>
                     <ul class="mdl-list margin-zero padding-zero" id="xpStatus">
                         <li class="mdl-list__item padding-zero overflow-visible dialog-duo">
-                            <div class="mdl-list__item-primary-content">
+                            <div class="mdl-list__item-primary-content" style="padding-right: 10px">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                                    <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" title="Število točk potrebnih dokončanje cilja.">
+                                    <label class="mdl-textfield__label" for="xpNaloge">XP naloge</label>
+                                    <span class="mdl-textfield__error">Polje je obvezno!</span>
+                                </div>
+                            </div>
+                            <div class="mdl-list__item-primary-content" style="padding-left: 10px">
                                 <div id="ciljiVsi">
                                     <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
                                         <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
@@ -91,13 +98,7 @@
                                     </ul>
                                 </div>
                             </div>
-                            <div class="mdl-list__item-secondary-content">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                                    <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" pattern="(100)|^[1-9]\d{0,1}" max="100">
-                                    <label class="mdl-textfield__label" for="xpNaloge">XP naloge</label>
-                                    <span class="mdl-textfield__error">Samo številke med 10 in 100</span>
-                                </div>
-                            </div>
+
                         </li>
                     </ul>
                     <div id="claniNaloge">

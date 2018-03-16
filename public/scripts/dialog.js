@@ -12,31 +12,22 @@ jQuery(function($) {
     };
 
     function onRowClick(tableId, callback) {
-        let table = document.getElementById("table-cilji"),
+        let table = document.getElementById(tableId),
             rows = table.getElementsByTagName("TR"),i;
-        for (i = 0; i < rows.length; i++) {
+        for (i = 1; i < rows.length; i++) {
             table.rows[i].onclick = function (row) {
                 return function () {
                     callback(row);
                 };
             }(table.rows[i]);
         }
-    } onRowClick("my-table-id", function (row){
-        posodobiCilj();
-        $('#imeDialog').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.firstElementChild.innerHTML)
-            .parent().addClass("is-dirty");
-        $('#opisDialog').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.lastElementChild.innerHTML)
-            .parent().addClass("is-dirty");
-        $('#targetZacetek').val(row.getElementsByTagName("td")[2].innerHTML)
-            .parent().addClass("is-dirty");
-        $('#targetKonec').val(row.getElementsByTagName("td")[3].innerHTML)
-            .parent().addClass("is-dirty");
-
-        //xp row.getElementsByTagName("td")[3].innerHTML
-        //opravljeno row.getElementsByTagName("td")[4].innerHTML
+    }
+    onRowClick("table-cilji", function (row){
+        posodobiCilj(row);
     });
-
-
+    onRowClick("table-cilji-end", function (row){
+        posodobiCilj(row);
+    });
 
     let personGroup = $('input[name=person]');
     $("#checkboxVsi").on( "click", function() {
@@ -59,38 +50,6 @@ jQuery(function($) {
         //DO YOUR THANG
     });
 
-    /*
-    function onCardClick(cardId, callback) {
-        let parent = document.getElementById("nalogeGrid"),
-            card = parent.getElementsByClassName("mdl-card"),i;
-        for (i = 0; i < card.length; i++) {
-            card[i].onclick = function (card) {
-                return function () {
-                    callback(card, event);
-                };
-            }(card[i]);
-        }
-    } onCardClick("my-parent-id", function (card, event){
-        if ($(event.target).hasClass("mdl-menu__item")) {
-            // vstavi spremembo v bazo
-            return;
-        }
-        posodobiNalogo();
-        /* Zaenkrat še ne dela
-        $('#imeDialog').val("<%= card.ime %>")
-            .parent().addClass("is-dirty");
-        $('#opisDialog').val("<%= card.opis %>")
-            .parent().addClass("is-dirty");
-        $('#targetZacetek').val("<%= card.zacetek %>")
-            .parent().addClass("is-dirty");
-        $('#targetKonec').val("<%= card.konec %>")
-            .parent().addClass("is-dirty");
-        $('#vezanCilj').val("<%= card.konec %>")
-            .parent().addClass("is-dirty");
-        $('#kategorija').val("<%= card.konec %>")
-            .parent().addClass("is-dirty");
-
-    });*/
     let dz = new mdDateTimePicker.default({
         type: 'date',
         past: moment().subtract(1, 'years'),
@@ -156,11 +115,19 @@ function fillCilji() {
     $('#update_dialog').attr('action',"/ustvari_cilj").attr('onsubmit'," return validateCilj()");
 }
 
-function posodobiCilj() {
+function posodobiCilj(row) {
     clearData();
     fillCilji();
     document.getElementById("dialog-title").innerHTML = "Uredi cilj";
     document.getElementById("ustvari").innerHTML = "Posodobi";
+    $('#imeDialog').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[0].innerHTML)
+        .parent().addClass("is-dirty");
+    $('#opisDialog').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[1].innerHTML)
+        .parent().addClass("is-dirty");
+    $("#xpNaloge").val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[2].value)
+        .parent().addClass("is-dirty");
+    if(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[3].value === "true") $("#skupnaNaloga").parent().get(0).MaterialCheckbox.check();
+    $("#newDialog").val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[4].value);
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: auto');
 
@@ -209,13 +176,8 @@ function validateNaloga() {
         $("#opisDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
     }
-    let dZac = document.forms["update_dialog"]["dateZacetek"].value;
-    let dKon = document.forms["update_dialog"]["dateKonec"].value;
-    if (dZac != "") {
-        if (dKon != "" && dZac > dKon) {
-            $("#dateKonecErr").text("Datum konca mora biti po datumu začetka!").parent().addClass("is-invalid");
-            return false;
-        }
+    if(document.forms["update_dialog"]["xpNaloge"].value == "") {
+        return false;
     }
     if($('#newDialog').val()) {
         $('#sporocilo').innerText = "Cilj je bil uspešno ustvarjen.";
@@ -223,6 +185,14 @@ function validateNaloga() {
         $('#sporocilo').innerText = "Cilj je bil uspešno posodobljen.";
     }
     if (validation==0) {
+        let dZac = document.forms["update_dialog"]["dateZacetek"].value;
+        let dKon = document.forms["update_dialog"]["dateKonec"].value;
+        if (dZac != "") {
+            if (dKon != "" && dZac > dKon) {
+                $("#dateKonecErr").text("Datum konca mora biti po datumu začetka!").parent().addClass("is-invalid");
+                return false;
+            }
+        }
         if (document.forms["update_dialog"]["vezanCilj"].value == "") {
             alert("Vezan cilj mora biti izbran.");
             return false;

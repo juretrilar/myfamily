@@ -355,13 +355,14 @@ module.exports.ustvariNalogo = function(req, res, next) {
 module.exports.ustvariCilj = function(req, res, next) {
     currentTab = 3;
     validateImeOpisId(req,res);
+    if(!validator.isInt(req.body.xpNaloge)) {vrniNapako(res, "Dovoljene so samo cele številke.");return false;}
     let updated = dateNow();
     let novCilj = {
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
         last_updated: updated,
         skupni_cilj: req.body.skupnaNaloga,
-        maxXp: req.body.xp
+        maxXp: req.body.xpNaloge
     };
     if(req.body.newDialog) {
         if(req.body.stanje) {

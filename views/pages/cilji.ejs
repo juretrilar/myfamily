@@ -29,15 +29,17 @@
                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji">
                     <thead>
                     <tr>
-                        <th style="text-align: left;">Opis cilja</th>
-                        <th style="text-align: center;">Udeleženci</th>
+                        <th style="text-align: left;">Ime in opis</th>
+                        <th style="text-align: center;">Trenutne/vse točke</th>
+                        <th style="text-align: center;" class="mdl-cell--hide-phone">Točke udeležencev</th>
                         <th style="text-align: center;" class="mdl-cell--hide-phone">Ustvarjen</th>
                         <th style="text-align: center;" class="mdl-cell--hide-phone">Zadnja posodobitev</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <% var m = 0 %>
                     <% for (var i = 0; i < cilji.length; i++) { %>
-                        <% if(cilji[i].status == false) { %>
+                        <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
                         <tr>
                             <td class="mdl-data-table__cell--non-numeric padding-zero">
                                 <div class="mdl-list__item mdl-list__item--two-line">
@@ -45,14 +47,18 @@
                                     <span class="mdl-list__item-primary-content">
                                         <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
                                         <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= cilji[i].opis %></span>
+                                        <input type="hidden" value="<%= cilji[i].maxXp %>" name="maxXp">
+                                        <input type="hidden" value="<%= cilji[i].skupni_cilj %>" name="jeSkupen">
+                                        <input type="hidden" value="<%= cilji[i]._id %>" name="idCilj">
                                     </span>
                                 </div>
                             </td>
-                            <td><!--
+                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;" id="razmerje<%= m %>"></td>
+                            <td class=mdl-data-table__cell--non-numeric"><!--
                                 <div class="mdl-tooltip clani-naloge" data-mdl-for="<%= i+"c"%>">
                                    <img src="https://www.gravatar.com/avatar/02f02fcd0e0adfd6f5d5d1d594a8953c?s=32&d=identicon&r=PG">
                                 </div>-->
-                                <div class="progress progress<%= i %>">
+                                <div class="progress progress<%= m++ %>">
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
                                     <span class="spanCilji"><%= cilji[i].vezani_uporabniki[j].xp_user %></span>
                                     <% } %>
@@ -60,7 +66,7 @@
                             </td>
                             <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
                             </td>
                         </tr>
                         <% } %>
@@ -84,14 +90,16 @@
                     <thead>
                     <tr>
                         <th style="text-align: left;">Opis cilja</th>
-                        <th style="text-align: center;">Udeleženci</th>
+                        <th style="text-align: center;">Trenutne/vse točke</th>
+                        <th style="text-align: center;" class="mdl-cell--hide-phone">Točke udeležencev</th>
                         <th style="text-align: center;" class="mdl-cell--hide-phone">Ustvarjen</th>
                         <th style="text-align: center;" class="mdl-cell--hide-phone">Zaključen</th>
                     </tr>
                     </thead>
                     <tbody>
+                    <% m = 0 %>
                     <% for (var i = 0; i < cilji.length; i++) { %>
-                        <% if(cilji[i].status == true) { %>
+                        <% if(cilji[i].maxXp <= cilji[i].xp) { %>
                         <tr>
                             <td class="mdl-data-table__cell--non-numeric padding-zero">
                                 <div class="mdl-list__item mdl-list__item--two-line">
@@ -99,11 +107,15 @@
                                     <span class="mdl-list__item-primary-content">
                                         <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
                                         <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= cilji[i].opis %></span>
+                                        <input type="hidden" value="<%= cilji[i].maxXp %>" name="maxXp">
+                                        <input type="hidden" value="<%= cilji[i].skupni_cilj %>" name="jeSkupen">
+                                        <input type="hidden" value="<%= cilji[i]._id %>" name="idCilj">
                                     </span>
                                 </div>
                             </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;" id="razmerjeE<%= m %>"></td>
                             <td>
-                                <div class="progress progress<%= i %>">
+                                <div class="progress progressE<%= m++ %>">
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
                                     <span class="spanCilji"><%= cilji[i].vezani_uporabniki[j].xp_user %></span>
                                     <% } %>
