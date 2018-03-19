@@ -1,34 +1,41 @@
 <div class="text-container mdl-grid">
     <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-    <div class="text-main text-content mdl-color--primary mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col mdl-grid ">
-        <div class="mdl-card section__text mdl-color--primary mdl-cell mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--order-1-desktop mdl-cell--order-1-tablet mdl-cell--order-1-phone ">
+    <div class="text-main text-content mdl-color--primary mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col mdl-grid">
+        <div class="mdl-cell mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-grid--no-spacing">
+        <div class="mdl-card section__text mdl-color--primary" style="width: 100%">
             <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text mdl-color-text--white">Opomniki</h2>
             </div>
+            <ul class=" mdl-list margin-zero padding-zero">
+                <% for(let i=0;i<opomniki.length;i++) { %>
+                <li class="mdl-list__item mdl-list__item--two-line">
+                    <div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--white "><%= opomniki[i].ime %></span>
+                        <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
+                            <span class="mdl-chip__text">+100 xp</span>
+                        </span>
+                        <span class="mdl-list__item-sub-title"><%= opomniki[i].avtor %></span>
+                    </span>
+                    <span class="mdl-list__item-secondary-content">
+                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="opomnik<%= i %>">
+                            <input type="checkbox" id="opomnik<%= i %>" name="checkbox" class="mdl-checkbox__input" <% if (opomniki[i].status == true) { %>checked="checked" <% } %>/>
+                        </label>
+                    </span>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+        <div class="mdl-card section__text mdl-color--primary" style="width: 100%">
+            <div class="mdl-card__title">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Fizična aktivnost moje družine</h2>
+            </div>
             <div class="mdl-card__supporting-text padding-zero">
-                <ul class=" mdl-list margin-zero padding-zero">
-                    <% for(let i=0;i<opomniki.length;i++) { %>
-                    <li class="mdl-list__item mdl-list__item--two-line">
-                        <div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>
-                        <span class="mdl-list__item-primary-content">
-                            <span class="mdl-color-text--white "><%= opomniki[i].ime %></span>
-                            <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
-                                <span class="mdl-chip__text">+100 xp</span>
-                            </span>
-                            <span class="mdl-list__item-sub-title"><%= opomniki[i].avtor %></span>
-                        </span>
-                        <span class="mdl-list__item-secondary-content">
-                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="opomnik<%= i %>">
-                                <input type="checkbox" id="opomnik<%= i %>" name="checkbox" class="mdl-checkbox__input" <% if (opomniki[i].status == true) { %>checked="checked" <% } %>/>
-                            </label>
-                        </span>
-                    </li>
-                    <% } %>
-                </ul>
+                <canvas id="myChart" style="min-height: 300px"></canvas>
             </div>
         </div>
-        <div class="mdl-card section__text mdl-cell mdl-color--primary mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--order-2-desktop mdl-cell--order-3-tablet mdl-cell--order-3-phone">
-            <div class="mdl-card__supporting-text" style="width: 95%;">
+        </div>
+        <div class="mdl-card section__text mdl-cell mdl-color--primary mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet">
                 <div class="mdl-textfield mdl-js-textfield mdl-color-text--white" style="width: 100%">
                     <input class="mdl-textfield__input mdl-textfield__status" id="tt1" type="text" id="sample1">
                     <label class="mdl-textfield__label mdl-color-text--white" for="sample1">Danes je kar bizi dan</label>
@@ -39,24 +46,17 @@
                         <i class="material-icons">done</i>&nbsp&nbspObjavi</label>
                 </div>
                 <div class='circle-containerFamily'>
-                    <a href='#' class='center'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2003-28-a-thumb.jpg'></a>
                     <a href='#' class='deg0'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-1994-02-c-thumb.jpg'></a>
                     <a href='#' class='deg45'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2005-37-a-thumb.jpg'></a>
+                    <a href='#' class='deg90'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-1994-02-c-thumb.jpg'></a>
                     <a href='#' class='deg135'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2010-26-a-thumb.jpg'></a>
                     <a href='#' class='deg180'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2004-27-a-thumb.jpg'></a>
                     <a href='#' class='deg225'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-1992-17-a-thumb.jpg'></a>
+                    <a href='#' class='deg270'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2010-26-a-thumb.jpg'></a>
                     <a href='#' class='deg315'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2004-32-d-thumb.jpg'></a>
                 </div>
             </div>
-        </div>
-        <div class="mdl-card section__text mdl-color--primary mdl-cell mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-cell--order-3-desktop mdl-cell--order-2-tablet mdl-cell--order-2-phone">
-            <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text mdl-color-text--white">Fizična aktivnost moje družine</h2>
-            </div>
-            <div class="mdl-card__supporting-text">
 
-            </div>
-        </div>
     </div>
 </div>
 <div class="text-container mdl-grid">

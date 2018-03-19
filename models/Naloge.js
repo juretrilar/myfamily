@@ -11,7 +11,8 @@ let nalogeSchema = new mongoose.Schema({
     vezan_cilj : {type : mongoose.Schema.Types.ObjectId, ref : "Cilji"},
     avtor: {type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"},
     status: Boolean,
-    vezani_uporabniki: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}]
+    vezani_uporabniki: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
+    druzina: {type: mongoose.Schema.Types.ObjectId},
 });
 
 mongoose.model('Naloge', nalogeSchema, 'Naloge');

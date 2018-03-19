@@ -3,6 +3,17 @@ jQuery(function($) {
     'use strict';
     document.onclick = zapriVse;
 
+
+    /*Dobim slike in jih zapišem v img, sliko prijavljenega uporabnika dam za ozadje.
+    V skripti preštejem slike in jim na podlagi števila naredim izris.
+
+    Če bo potrebno bom dodal večje ikone na večjih ekranih. Potrebno je preveriti kaj se zgodi če imamo preveč uporabnikov.
+     */
+
+
+
+
+
     let dialog = document.querySelector('dialog');
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);

@@ -9,7 +9,6 @@ let druzinaSchema = new mongoose.Schema({
     otroci: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
     vnuki: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
     pravnuki: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
-    cilji: [{type : mongoose.Schema.Types.ObjectId, ref : "Cilji"}]
 });
 
 mongoose.model('Druzina', druzinaSchema, 'Druzina');
