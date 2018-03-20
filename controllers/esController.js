@@ -43,9 +43,8 @@ module.exports.naslovnaStran = function (req, res) {
         async.parallel({
             uporabniki: function (cb) {
                 setTimeout(function() {
-                    cb(null, 'uporabniki');
+                    cb(null, Uporabnik.find());
                 }, 200);
-                Uporabnik.find().exec(cb);
             },
             cilji: function (cb) {
                 setTimeout(function() {
@@ -127,9 +126,8 @@ module.exports.naslovnaStran = function (req, res) {
             },
             kategorija: function (cb) {
                 setTimeout(function() {
-                    cb(null, 'kategorija');
+                    cb(null, Kategorija.find());
                 }, 200);
-                Kategorija.find().exec(cb);
             },
         }, function (err, result) {
             console.log("0");
