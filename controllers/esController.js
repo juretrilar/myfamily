@@ -41,8 +41,8 @@ module.exports.naslovnaStran = function (req, res) {
         let obj = {monthly: []};
         let idx = [];
         async.parallel({
-            uporabniki: function (cb) { Uporabnik.find().exec(cb); },
-            cilji: function (cb) { Cilji.find().exec(cb); },
+            uporabniki: function (cb) { Uporabnik.find().exec(cb);console.log("a"); },
+            cilji: function (cb) { Cilji.find().exec(cb);console.log("b"); },
             docs: function (cb) {
                 Naloge.find().then(naloga => {
                     let j=0,o=0;
@@ -111,9 +111,10 @@ module.exports.naslovnaStran = function (req, res) {
                     return;
                 });
             },
-            kategorija: function (cb) { Kategorija.find().exec(cb); },
+            kategorija: function (cb) { Kategorija.find().exec(cb);console.log("c"); },
         }, function (err, result) {
             if (err) {
+                console.log("0");
                 console.log(err);
                 vrniNapako(err,res);
             }
