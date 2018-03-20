@@ -140,7 +140,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
                 isLoggedIn: false,
                 uporabniki: 0,
                 uporabnik: "",
-                error: "Napačen e-poštni naslov ali geslo."
+                error: "Napaka v povezavi z bazo!"
             });
         }
         else {
@@ -157,15 +157,16 @@ module.exports.prijaviUporabnika = function(req, res, next){
                         id : uporabniki[i]._id,
                         druzina : uporabniki[i].druzina,
                         admin : uporabniki[i].admin,
-                        last_login : uporabniki[i].last_login,
                         slika : uporabniki[i].slika
                     };
-                    Uporabnik.findByIdAndUpdate(req.session.trenutniUporabnik.id, {zadnjaPrijava : new Date()}).catch(err => {
+                    Uporabnik.findByIdAndUpdate(req.session.trenutniUporabnik.id, {last_login : new Date()}).catch(err => {
                         vrniNapako(res, err);
                     });
+                    session.trenutniUporabnik.last_login = new Date();
                     break;
                 }
             }
+            console.log(session.trenutniUporabnik);
 
             if(session.trenutniUporabnik){
                res.redirect("/");
