@@ -30,6 +30,7 @@ function vrniNapako(res, err){
 
 //** GET /
 module.exports.naslovnaStran = function (req, res) {
+    console.log("connnecting");
     if(!req.session.trenutniUporabnik) {
         console.log("not logged");
         res.render('pages/prijava', {
@@ -97,6 +98,7 @@ module.exports.naslovnaStran = function (req, res) {
                                         cb();
                                     }
                                 }).catch(err => {
+                                    console.log(err);
                                     vrniNapako(res, err);
                                     return;
                                 });
@@ -104,6 +106,7 @@ module.exports.naslovnaStran = function (req, res) {
                         }
                     }
                 }).catch(err => {
+                    console.log(err);
                     vrniNapako(res, err);
                     return;
                 });
@@ -111,6 +114,7 @@ module.exports.naslovnaStran = function (req, res) {
             kategorija: function (cb) { Kategorija.find().exec(cb); },
         }, function (err, result) {
             if (err) {
+                console.log(err);
                 vrniNapako(err,res);
             }
             let sCilji = [];
@@ -191,7 +195,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
         email: req.body.email,
         telefon: req.body.phone,
         admin: true,
-        slika: "staticna_pot_na_slike",
+        slika: ""+req.body.avatar,
         created_at: Date.now(),
         updated_at: Date.now()
     };

@@ -75,7 +75,7 @@
                                     <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
                                     <% for(let i=1;i<8;i++) { %>
                                     <label class="avatars">
-                                        <input type="radio" name="avatar" hidden/>
+                                        <input type="radio" name="avatar" value="/uploads/<%= i %>.png" hidden/>
                                         <img src="/uploads/<%= i %>.png" alt=""/>
                                     </label>
                                     <% } %>
