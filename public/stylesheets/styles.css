@@ -10,6 +10,10 @@ html, body {
     display: none;
 }
 
+.align-center {
+    text-align: center;
+}
+
 .circle-container-main{
     width: 32px;
     height: 32px;
@@ -283,6 +287,47 @@ html, body {
     .deg225 { transform: rotate(225deg) translate(144px) rotate(-225deg); }
     .deg270 { transform: rotate(270deg) translate(128px) rotate(-270deg); }
     .deg315 { transform: rotate(315deg) translate(144px) rotate(-315deg); }
+}
+
+
+.tri-card:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 100px;
+    right: 0;
+    top: 149px;
+    bottom: 0;
+    border: 25px solid;
+    border-color: white transparent transparent transparent;
+}
+
+.circle-containerFamily button{
+    padding: 0;
+    min-width: 59px;
+}
+
+.card-info .mdl-card__actions{
+    padding: 8px 0 0 0;
+}
+
+#viberOpen img{
+    margin-left: 14px;
+}
+
+.card-info {
+    width: 250px;
+    height: 150px;
+    min-height: 150px;
+    left: 50%;
+    margin-top: -15px;
+    position: absolute;
+    transform: translate(50px);
+}
+
+.icon {
+    color: lightgrey;
 }
 
 /*        */

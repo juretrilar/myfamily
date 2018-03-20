@@ -5,547 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0385c574-b552-42e2-beda-6114b3d5017d" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/public/scripts/charts.js" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/controllers/esController.js" afterPath="$PROJECT_DIR$/controllers/esController.js" />
       <change beforePath="$PROJECT_DIR$/models/Cilji.js" afterPath="$PROJECT_DIR$/models/Cilji.js" />
-      <change beforePath="$PROJECT_DIR$/models/Druzina.js" afterPath="$PROJECT_DIR$/models/Druzina.js" />
       <change beforePath="$PROJECT_DIR$/models/Naloge.js" afterPath="$PROJECT_DIR$/models/Naloge.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/.eslintrc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/LICENSE.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/LICENSE.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/README.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/README.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/book.json" afterPath="$PROJECT_DIR$/node_modules/chart.js/book.json" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/bower.json" afterPath="$PROJECT_DIR$/node_modules/chart.js/bower.json" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/Chart.bundle.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/Chart.bundle.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/Chart.bundle.min.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/Chart.bundle.min.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/Chart.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/Chart.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/Chart.min.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/Chart.min.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/category.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/category.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/linear.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/linear.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/logarithmic.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/logarithmic.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/time.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/cartesian/time.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/labelling.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/labelling.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/radial/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/radial/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/radial/linear.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/radial/linear.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/styling.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/axes/styling.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/area.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/area.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/bar.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/bar.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/bubble.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/bubble.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/doughnut.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/doughnut.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/line.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/line.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/mixed.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/mixed.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/polar.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/polar.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/radar.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/radar.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/scatter.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/charts/scatter.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/animations.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/animations.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/elements.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/elements.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/layout.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/layout.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/legend.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/legend.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/title.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/title.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/tooltip.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/configuration/tooltip.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/api.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/api.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/axes.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/axes.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/charts.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/charts.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/contributing.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/contributing.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/plugins.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/plugins.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/updates.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/developers/updates.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/colors.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/colors.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/device-pixel-ratio.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/fonts.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/fonts.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/interactions/events.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/interactions/events.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/interactions/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/interactions/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/interactions/modes.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/interactions/modes.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/options.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/options.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/responsive.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/general/responsive.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/getting-started/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/getting-started/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/getting-started/installation.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/getting-started/installation.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/getting-started/integration.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/getting-started/integration.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/getting-started/usage.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/getting-started/usage.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/gitbook/gitbook-plugin-anchorjs/anchor-style.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/gitbook/gitbook-plugin-anchorjs/anchor-style.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/notes/comparison.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/notes/comparison.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/notes/extensions.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/notes/extensions.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/notes/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/notes/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/notes/license.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/notes/license.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/search_plus_index.json" afterPath="$PROJECT_DIR$/node_modules/chart.js/dist/docs/search_plus_index.json" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/README.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/README.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/SUMMARY.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/SUMMARY.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/README.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/README.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/cartesian/README.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/cartesian/README.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/cartesian/linear.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/cartesian/linear.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/cartesian/time.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/cartesian/time.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/radial/linear.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/radial/linear.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/styling.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/axes/styling.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/bar.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/bar.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/doughnut.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/doughnut.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/line.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/line.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/mixed.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/mixed.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/polar.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/polar.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/radar.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/charts/radar.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/configuration/legend.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/configuration/legend.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/configuration/tooltip.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/configuration/tooltip.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/api.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/api.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/axes.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/axes.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/charts.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/charts.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/contributing.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/contributing.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/updates.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/developers/updates.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/general/colors.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/general/colors.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/general/interactions/README.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/general/interactions/README.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/general/interactions/events.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/general/interactions/events.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/general/interactions/modes.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/general/interactions/modes.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/general/responsive.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/general/responsive.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/getting-started/README.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/getting-started/README.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/getting-started/installation.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/getting-started/installation.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/docs/notes/extensions.md" afterPath="$PROJECT_DIR$/node_modules/chart.js/docs/notes/extensions.md" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/gulpfile.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/gulpfile.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/CHANGELOG.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/LICENSE" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/README.md" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/ender.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/af.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ar-dz.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ar-kw.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ar-ly.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ar-ma.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ar-sa.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ar-tn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ar.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/az.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/be.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/bg.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/bn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/bo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/br.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/bs.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ca.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/cs.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/cv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/cy.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/da.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/de-at.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/de-ch.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/de.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/dv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/el.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/en-au.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/en-ca.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/en-gb.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/en-ie.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/en-nz.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/eo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/es-do.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/es.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/et.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/eu.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/fa.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/fi.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/fo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/fr-ca.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/fr-ch.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/fr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/fy.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/gd.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/gl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/gom-latn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/he.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/hi.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/hr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/hu.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/hy-am.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/id.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/is.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/it.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ja.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/jv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ka.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/kk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/km.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/kn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ko.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ky.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/lb.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/lo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/lt.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/lv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/me.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/mi.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/mk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ml.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/mr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ms-my.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ms.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/my.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/nb.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ne.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/nl-be.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/nl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/nn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/pa-in.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/pl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/pt-br.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/pt.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ro.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ru.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/sd.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/se.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/si.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/sk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/sl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/sq.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/sr-cyrl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/sr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ss.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/sv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/sw.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ta.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/te.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/tet.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/th.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/tl-ph.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/tlh.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/tr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/tzl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/tzm-latn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/tzm.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/uk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/ur.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/uz-latn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/uz.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/vi.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/x-pseudo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/yo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/zh-cn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/zh-hk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/locale/zh-tw.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/min/locales.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/min/locales.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/min/moment-with-locales.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/min/moment-with-locales.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/min/moment.min.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/moment.d.ts" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/moment.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/package.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/package.json" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/check-overflow.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/date-from-array.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/from-anything.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/from-array.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/from-object.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/from-string-and-array.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/from-string-and-format.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/from-string.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/local.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/parsing-flags.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/utc.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/create/valid.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/abs.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/add-subtract.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/as.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/bubble.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/constructor.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/create.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/duration.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/get.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/humanize.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/iso-string.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/prototype.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/duration/valid.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/format/format.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/base-config.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/calendar.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/constructor.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/en.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/formats.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/invalid.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/lists.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/locale.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/locales.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/ordinal.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/pre-post-format.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/prototype.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/relative.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/locale/set.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/add-subtract.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/calendar.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/clone.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/compare.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/constructor.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/creation-data.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/diff.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/format.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/from.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/get-set.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/locale.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/min-max.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/moment.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/now.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/prototype.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/start-end-of.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/to-type.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/to.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/moment/valid.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/parse/regex.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/parse/token.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/aliases.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/constants.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/day-of-month.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/day-of-week.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/day-of-year.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/hour.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/millisecond.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/minute.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/month.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/offset.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/priorities.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/quarter.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/second.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/timestamp.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/timezone.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/units.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/week-calendar-utils.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/week-year.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/week.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/units/year.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/abs-ceil.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/abs-floor.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/abs-round.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/compare-arrays.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/defaults.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/deprecate.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/extend.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/has-own-prop.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/hooks.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/index-of.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/is-array.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/is-date.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/is-function.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/is-number.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/is-object-empty.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/is-object.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/is-undefined.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/keys.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/map.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/some.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/to-int.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/lib/utils/zero-fill.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/af.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ar-dz.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ar-kw.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ar-ly.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ar-ma.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ar-sa.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ar-tn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ar.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/az.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/be.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/bg.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/bn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/bo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/br.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/bs.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ca.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/cs.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/cv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/cy.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/da.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/de-at.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/de-ch.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/de.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/dv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/el.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/en-au.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/en-ca.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/en-gb.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/en-ie.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/en-nz.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/eo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/es-do.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/es.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/et.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/eu.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/fa.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/fi.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/fo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/fr-ca.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/fr-ch.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/fr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/fy.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/gd.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/gl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/gom-latn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/he.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/hi.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/hr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/hu.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/hy-am.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/id.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/is.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/it.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ja.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/jv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ka.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/kk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/km.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/kn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ko.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ky.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/lb.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/lo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/lt.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/lv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/me.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/mi.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/mk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ml.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/mr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ms-my.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ms.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/my.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/nb.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ne.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/nl-be.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/nl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/nn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/pa-in.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/pl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/pt-br.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/pt.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ro.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ru.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/sd.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/se.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/si.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/sk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/sl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/sq.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/sr-cyrl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/sr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ss.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/sv.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/sw.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ta.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/te.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/tet.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/th.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/tl-ph.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/tlh.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/tr.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/tzl.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/tzm-latn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/tzm.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/uk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/ur.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/uz-latn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/uz.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/vi.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/x-pseudo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/yo.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/zh-cn.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/zh-hk.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/locale/zh-tw.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/node_modules/moment/src/moment.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/package.json" afterPath="$PROJECT_DIR$/node_modules/chart.js/package.json" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/advanced/data-labelling.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/advanced/data-labelling.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/advanced/progress-bar.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/advanced/progress-bar.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/analyser.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/analyser.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/line-boundaries.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/line-boundaries.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/line-datasets.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/line-datasets.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/line-stacked.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/line-stacked.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/radar.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/area/radar.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/horizontal.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/horizontal.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/multi-axis.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/multi-axis.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/stacked-group.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/stacked-group.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/stacked.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/stacked.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/vertical.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bar/vertical.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bubble.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/bubble.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/combo-bar-line.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/combo-bar-line.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/doughnut.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/doughnut.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/basic.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/basic.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/interpolation-modes.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/interpolation-modes.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/line-styles.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/line-styles.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/multi-axis.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/multi-axis.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/point-sizes.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/point-sizes.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/point-styles.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/point-styles.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/skip-points.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/skip-points.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/stepped.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/line/stepped.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/pie.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/pie.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/polar-area.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/polar-area.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/radar-skip-points.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/radar-skip-points.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/radar.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/radar.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/scatter/basic.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/scatter/basic.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/scatter/multi-axis.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/charts/scatter/multi-axis.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/index.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/index.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/legend/point-style.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/legend/point-style.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/legend/positioning.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/legend/positioning.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/samples.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/samples.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/filtering-labels.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/filtering-labels.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/gridlines-display.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/gridlines-display.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/gridlines-style.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/gridlines-style.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/linear/min-max-suggested.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/linear/min-max-suggested.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/linear/min-max.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/linear/min-max.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/linear/step-size.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/linear/step-size.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/logarithmic/line.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/logarithmic/line.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/logarithmic/scatter.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/logarithmic/scatter.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/multiline-labels.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/multiline-labels.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/non-numeric-y.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/non-numeric-y.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/time/combo.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/time/combo.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/time/financial.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/time/financial.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/time/line-point-data.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/time/line-point-data.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/time/line.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scales/time/line.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/scriptable/bubble.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/scriptable/bubble.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/border.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/border.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/callbacks.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/callbacks.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/custom-line.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/custom-line.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/custom-pie.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/custom-pie.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/custom-points.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/custom-points.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/interactions.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/interactions.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/positioning.html" afterPath="$PROJECT_DIR$/node_modules/chart.js/samples/tooltips/positioning.html" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/chart.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/chart.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/controllers/controller.bar.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/controllers/controller.bar.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/controllers/controller.doughnut.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/controllers/controller.doughnut.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.controller.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.controller.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.datasetController.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.datasetController.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.helpers.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.helpers.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.layoutService.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.plugin.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.scale.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.scale.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.scaleService.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.scaleService.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.ticks.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.ticks.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.tooltip.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/core/core.tooltip.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/elements/element.point.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/elements/element.point.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/plugins/plugin.filler.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/plugins/plugin.filler.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/plugins/plugin.legend.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/plugins/plugin.legend.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/plugins/plugin.title.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/plugins/plugin.title.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.linear.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.linear.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.linearbase.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.linearbase.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.logarithmic.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.logarithmic.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.radialLinear.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.radialLinear.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.time.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/src/scales/scale.time.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/.eslintrc" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/jasmine.utils.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/jasmine.utils.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/controller.bar.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/controller.bar.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/controller.doughnut.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/controller.doughnut.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.controller.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.controller.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.helpers.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.helpers.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.layoutService.tests.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.plugin.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.plugin.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.tooltip.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/core.tooltip.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/global.deprecations.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/global.deprecations.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/plugin.legend.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/plugin.legend.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/plugin.title.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/plugin.title.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/scale.logarithmic.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/scale.logarithmic.tests.js" />
-      <change beforePath="$PROJECT_DIR$/node_modules/chart.js/test/specs/scale.time.tests.js" afterPath="$PROJECT_DIR$/node_modules/chart.js/test/specs/scale.time.tests.js" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" afterPath="$PROJECT_DIR$/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change beforePath="$PROJECT_DIR$/models/Uporabnik.js" afterPath="$PROJECT_DIR$/models/Uporabnik.js" />
       <change beforePath="$PROJECT_DIR$/public/scripts/dialog.js" afterPath="$PROJECT_DIR$/public/scripts/dialog.js" />
       <change beforePath="$PROJECT_DIR$/public/stylesheets/styles.css" afterPath="$PROJECT_DIR$/public/stylesheets/styles.css" />
       <change beforePath="$PROJECT_DIR$/views/pages/dashboard.ejs" afterPath="$PROJECT_DIR$/views/pages/dashboard.ejs" />
-      <change beforePath="$PROJECT_DIR$/views/partials/scriptLogged.ejs" afterPath="$PROJECT_DIR$/views/partials/scriptLogged.ejs" />
+      <change beforePath="$PROJECT_DIR$/views/pages/prijava.ejs" afterPath="$PROJECT_DIR$/views/pages/prijava.ejs" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -562,8 +30,8 @@
       <file leaf-file-name="dialog.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/scripts/dialog.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+            <state relative-caret-position="364">
+              <caret line="14" column="168" lean-forward="false" selection-start-line="14" selection-start-column="168" selection-end-line="14" selection-end-column="168" />
               <folding />
             </state>
           </provider>
@@ -572,8 +40,8 @@
       <file leaf-file-name="esController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/esController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6708">
-              <caret line="366" column="23" lean-forward="false" selection-start-line="366" selection-start-column="23" selection-end-line="366" selection-end-column="23" />
+            <state relative-caret-position="280">
+              <caret line="155" column="52" lean-forward="false" selection-start-line="155" selection-start-column="52" selection-end-line="155" selection-end-column="52" />
               <folding>
                 <element signature="e#1607#2149#0" expanded="false" />
               </folding>
@@ -581,11 +49,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Uporabnik.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Uporabnik.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/models/Uporabnik.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="78">
-              <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="67" />
+            <state relative-caret-position="208">
+              <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="prijava.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/pages/prijava.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="416">
+              <caret line="22" column="159" lean-forward="false" selection-start-line="22" selection-start-column="159" selection-end-line="22" selection-end-column="159" />
               <folding />
             </state>
           </provider>
@@ -595,7 +73,7 @@
         <entry file="file://$PROJECT_DIR$/models/Druzina.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="260">
-              <caret line="10" column="75" lean-forward="false" selection-start-line="10" selection-start-column="75" selection-end-line="10" selection-end-column="75" />
+              <caret line="10" column="72" lean-forward="false" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="72" />
               <folding />
             </state>
           </provider>
@@ -605,27 +83,7 @@
         <entry file="file://$PROJECT_DIR$/models/Cilji.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="364">
-              <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="51" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Naloge.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/models/Naloge.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="11" column="70" lean-forward="true" selection-start-line="11" selection-start-column="70" selection-end-line="11" selection-end-column="70" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1976">
-              <caret line="76" column="83" lean-forward="false" selection-start-line="76" selection-start-column="83" selection-end-line="76" selection-end-column="83" />
+              <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="67" />
               <folding />
             </state>
           </provider>
@@ -634,22 +92,31 @@
       <file leaf-file-name="dashboard.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/dashboard.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
+            <state relative-caret-position="489">
+              <caret line="66" column="122" lean-forward="false" selection-start-line="66" selection-start-column="122" selection-end-line="66" selection-end-column="122" />
               <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#canvas#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#button#3;n#form#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="charts.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/public/scripts/charts.js">
+      <file leaf-file-name="querydb.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/scripts/querydb.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="75" column="23" lean-forward="true" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
+            <state relative-caret-position="728">
+              <caret line="28" column="12" lean-forward="false" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nalogequery.ejs" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/pages/nalogequery.ejs">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="286">
+              <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="87" />
               <folding />
             </state>
           </provider>
@@ -658,8 +125,8 @@
       <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="752">
-              <caret line="281" column="39" lean-forward="false" selection-start-line="281" selection-start-column="39" selection-end-line="281" selection-end-column="39" />
+            <state relative-caret-position="358">
+              <caret line="314" column="11" lean-forward="false" selection-start-line="314" selection-start-column="11" selection-end-line="314" selection-end-column="11" />
               <folding />
             </state>
           </provider>
@@ -677,9 +144,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>events</find>
-      <find>href</find>
-      <find>mesec</find>
       <find>nalog</find>
       <find>none</find>
       <find>.dialo</find>
@@ -707,6 +171,9 @@
       <find>xpS</find>
       <find>posodobiCilj</find>
       <find>childrem</find>
+      <find>checkbo</find>
+      <find>card-</find>
+      <find>session</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -727,7 +194,6 @@
         <option value="$PROJECT_DIR$/public/scripts/naloge.js" />
         <option value="$PROJECT_DIR$/controllers/uporabnikController.js" />
         <option value="$PROJECT_DIR$/routes/request-handler.js" />
-        <option value="$PROJECT_DIR$/models/Uporabnik.js" />
         <option value="$PROJECT_DIR$/views/pages/prijava.html" />
         <option value="$PROJECT_DIR$/views/pages/error.ejs" />
         <option value="$PROJECT_DIR$/public/scripts/prijava.js" />
@@ -739,7 +205,6 @@
         <option value="$PROJECT_DIR$/routes/routes.js" />
         <option value="$PROJECT_DIR$/views/pages/koledar.ejs" />
         <option value="$PROJECT_DIR$/public/stylesheets/monthly.css" />
-        <option value="$PROJECT_DIR$/views/pages/prijava.ejs" />
         <option value="$PROJECT_DIR$/views/partials/nav.ejs" />
         <option value="$PROJECT_DIR$/public/scripts/monthly.js" />
         <option value="$PROJECT_DIR$/public/stylesheets/simplePagination.css" />
@@ -754,17 +219,19 @@
         <option value="$PROJECT_DIR$/views/pages/nalogequery.ejs" />
         <option value="$PROJECT_DIR$/views/pages/naloge.ejs" />
         <option value="$PROJECT_DIR$/views/pages/index.ejs" />
-        <option value="$PROJECT_DIR$/controllers/esController.js" />
         <option value="$PROJECT_DIR$/public/scripts/cilji.js" />
         <option value="$PROJECT_DIR$/views/pages/cilji.ejs" />
         <option value="$PROJECT_DIR$/views/partials/scriptLogged.ejs" />
-        <option value="$PROJECT_DIR$/views/pages/dashboard.ejs" />
-        <option value="$PROJECT_DIR$/public/stylesheets/styles.css" />
         <option value="$PROJECT_DIR$/public/scripts/charts.js" />
-        <option value="$PROJECT_DIR$/public/scripts/dialog.js" />
         <option value="$PROJECT_DIR$/models/Druzina.js" />
         <option value="$PROJECT_DIR$/models/Cilji.js" />
         <option value="$PROJECT_DIR$/models/Naloge.js" />
+        <option value="$PROJECT_DIR$/views/pages/prijava.ejs" />
+        <option value="$PROJECT_DIR$/public/scripts/dialog.js" />
+        <option value="$PROJECT_DIR$/views/pages/dashboard.ejs" />
+        <option value="$PROJECT_DIR$/public/stylesheets/styles.css" />
+        <option value="$PROJECT_DIR$/controllers/esController.js" />
+        <option value="$PROJECT_DIR$/models/Uporabnik.js" />
       </list>
     </option>
   </component>
@@ -822,6 +289,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -859,6 +328,12 @@
             <path>
               <item name="myfamily" type="b2602c69:ProjectViewProjectNode" />
               <item name="myfamily" type="462c0819:PsiDirectoryNode" />
+              <item name="public" type="462c0819:PsiDirectoryNode" />
+              <item name="stylesheets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="myfamily" type="b2602c69:ProjectViewProjectNode" />
+              <item name="myfamily" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -882,8 +357,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -970,26 +443,28 @@
       <workItem from="1521102166820" duration="15011000" />
       <workItem from="1521188065724" duration="15827000" />
       <workItem from="1521448803185" duration="18247000" />
+      <workItem from="1521530234803" duration="15155000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="612699000" />
+    <option name="totallyTimeSpent" value="627854000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-9" y="-9" width="1938" height="1048" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15104167" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32981133" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1156,13 +631,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/prijava.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="50" column="89" lean-forward="false" selection-start-line="50" selection-start-column="89" selection-end-line="50" selection-end-column="89" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/partials/footer.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
@@ -1219,7 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="16" column="76" lean-forward="false" selection-start-line="16" selection-start-column="76" selection-end-line="16" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1243,7 +710,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="312">
           <caret line="12" column="63" lean-forward="false" selection-start-line="12" selection-start-column="33" selection-end-line="12" selection-end-column="63" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1251,7 +717,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1259,15 +724,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="130">
           <caret line="5" column="41" lean-forward="false" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/nalogequery.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="42" column="88" lean-forward="true" selection-start-line="42" selection-start-column="88" selection-end-line="42" selection-end-column="102" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1275,14 +731,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
           <caret line="15" column="73" lean-forward="true" selection-start-line="15" selection-start-column="73" selection-end-line="15" selection-end-column="73" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/querydb.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="728">
-          <caret line="28" column="12" lean-forward="false" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="48" />
           <folding />
         </state>
       </provider>
@@ -1295,46 +743,93 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/charts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1950">
+          <caret line="75" column="23" lean-forward="false" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Naloge.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="14" column="67" lean-forward="false" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/nalogequery.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="11" column="24" lean-forward="false" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="87" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/querydb.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="728">
+          <caret line="28" column="12" lean-forward="false" selection-start-line="28" selection-start-column="12" selection-end-line="28" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Cilji.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="14" column="53" lean-forward="false" selection-start-line="14" selection-start-column="50" selection-end-line="14" selection-end-column="67" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/prijava.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="416">
+          <caret line="22" column="159" lean-forward="false" selection-start-line="22" selection-start-column="159" selection-end-line="22" selection-end-column="159" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Druzina.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="10" column="72" lean-forward="false" selection-start-line="10" selection-start-column="53" selection-end-line="10" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/dashboard.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="35" column="14" lean-forward="true" selection-start-line="35" selection-start-column="14" selection-end-line="35" selection-end-column="14" />
+        <state relative-caret-position="489">
+          <caret line="66" column="122" lean-forward="false" selection-start-line="66" selection-start-column="122" selection-end-line="66" selection-end-column="122" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#canvas#0;n#div#1;n#div#1;n#div#0;n#div#1;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#button#3;n#form#0;n#div#1;n#div#0;n#div#1;n#div#1;n#div#1;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="752">
-          <caret line="281" column="39" lean-forward="false" selection-start-line="281" selection-start-column="39" selection-end-line="281" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/charts.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="75" column="23" lean-forward="true" selection-start-line="75" selection-start-column="23" selection-end-line="75" selection-end-column="23" />
+        <state relative-caret-position="358">
+          <caret line="314" column="11" lean-forward="false" selection-start-line="314" selection-start-column="11" selection-end-line="314" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/scripts/dialog.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="10" column="7" lean-forward="false" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
+        <state relative-caret-position="364">
+          <caret line="14" column="168" lean-forward="false" selection-start-line="14" selection-start-column="168" selection-end-line="14" selection-end-column="168" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/esController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6708">
-          <caret line="366" column="23" lean-forward="false" selection-start-line="366" selection-start-column="23" selection-end-line="366" selection-end-column="23" />
+        <state relative-caret-position="280">
+          <caret line="155" column="52" lean-forward="false" selection-start-line="155" selection-start-column="52" selection-end-line="155" selection-end-column="52" />
           <folding>
             <element signature="e#1607#2149#0" expanded="false" />
           </folding>
@@ -1343,32 +838,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/models/Uporabnik.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="3" column="4" lean-forward="false" selection-start-line="3" selection-start-column="4" selection-end-line="3" selection-end-column="67" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Druzina.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="10" column="75" lean-forward="false" selection-start-line="10" selection-start-column="75" selection-end-line="10" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Cilji.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="364">
-          <caret line="14" column="4" lean-forward="false" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Naloge.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="11" column="70" lean-forward="true" selection-start-line="11" selection-start-column="70" selection-end-line="11" selection-end-column="70" />
+        <state relative-caret-position="208">
+          <caret line="8" column="18" lean-forward="false" selection-start-line="8" selection-start-column="18" selection-end-line="8" selection-end-column="18" />
           <folding />
         </state>
       </provider>

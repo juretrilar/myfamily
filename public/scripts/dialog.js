@@ -9,10 +9,10 @@ jQuery(function($) {
 
     Če bo potrebno bom dodal večje ikone na večjih ekranih. Potrebno je preveriti kaj se zgodi če imamo preveč uporabnikov.
      */
-
-
-
-
+    document.querySelector('#phoneCall').onclick = function () { document.querySelector('#contactInfo').setAttribute("action", $("#contactInfo").find("input")[0].value)};
+    document.querySelector('smsSend').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[1].value)};
+    document.querySelector('mailSend').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[2].value)};
+    document.querySelector('viberOpen').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[3].value)};
 
     let dialog = document.querySelector('dialog');
     if (! dialog.showModal) {

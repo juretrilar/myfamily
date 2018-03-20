@@ -153,6 +153,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
                         email : uporabniki[i].email,
                         ime : uporabniki[i].ime,
                         telefon : uporabniki[i].telefon,
+                        viber : uporabniki[i].viber,
                         id : uporabniki[i]._id,
                         druzina : uporabniki[i].druzina,
                         admin : uporabniki[i].admin,
