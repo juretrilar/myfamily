@@ -30,7 +30,6 @@ function vrniNapako(res, err){
 
 //** GET /
 module.exports.naslovnaStran = function (req, res) {
-    console.log("connnecting");
     if(!req.session.trenutniUporabnik) {
         console.log("not logged");
         res.render('pages/prijava', {
@@ -105,6 +104,7 @@ module.exports.naslovnaStran = function (req, res) {
                             }
                         }
                     }
+                    console.log("koledar built");
                 }).catch(err => {
                     console.log(err);
                     vrniNapako(res, err);
@@ -117,6 +117,7 @@ module.exports.naslovnaStran = function (req, res) {
                 console.log(err);
                 vrniNapako(err,res);
             }
+
             let sCilji = [];
             for (let i=0;i<result.cilji.length;i++) {
                 if(result.cilji[i].skupni_cilj == true) {
@@ -125,6 +126,7 @@ module.exports.naslovnaStran = function (req, res) {
                 //console.log(result.cilji[i].vezani_uporabniki, "vezan");
             }
             posodobiJson(obj, session);
+            console.log("connnecting");
             res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             currentTab = 0;
             successfulPost = 0;
