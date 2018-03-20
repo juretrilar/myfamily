@@ -41,11 +41,25 @@ module.exports.naslovnaStran = function (req, res) {
         let obj = {monthly: []};
         let idx = [];
         async.parallel({
-            uporabniki: function (cb) { Uporabnik.find().exec(cb); },
-            cilji: function (cb) { Cilji.find().exec(cb); },
+            uporabniki: function (cb) {
+                setTimeout(function() {
+                    callback(null, 'uporabniki');
+                }, 200);
+                Uporabnik.find().exec(cb);
+            },
+            cilji: function (cb) {
+                setTimeout(function() {
+                    callback(null, 'cilji');
+                }, 200);
+                //Cilji.find().exec(cb);
+                },
             docs: function (cb) {
+                setTimeout(function() {
+                    callback(null, 'naloga');
+                }, 200);
+                /*
                 Naloge.find().then(naloga => {
-                    let j=0,o=0;
+                    let j=0,o=0;*/
                     /*
     for (i = 0; i < cilji.length; i++) {
         if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
@@ -61,7 +75,7 @@ module.exports.naslovnaStran = function (req, res) {
                 url: ""
             });
         }
-    }*/
+    }*//*
                     for (i = 0; i < naloga.length; i++) {
                         let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
                         let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
@@ -108,10 +122,15 @@ module.exports.naslovnaStran = function (req, res) {
                     console.log(err);
                     vrniNapako(res, err);
                     return;
-                });
+                });*/
                 console.log("koledar built");
             },
-            kategorija: function (cb) { Kategorija.find().exec(cb); },
+            kategorija: function (cb) {
+                setTimeout(function() {
+                    callback(null, 'kategorija');
+                }, 200);
+                Kategorija.find().exec(cb);
+            },
         }, function (err, result) {
             console.log("0");
             if (err) {
