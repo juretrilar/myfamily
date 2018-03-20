@@ -43,19 +43,19 @@ module.exports.naslovnaStran = function (req, res) {
         async.parallel({
             uporabniki: function (cb) {
                 setTimeout(function() {
-                    callback(null, 'uporabniki');
+                    cb(null, 'uporabniki');
                 }, 200);
                 Uporabnik.find().exec(cb);
             },
             cilji: function (cb) {
                 setTimeout(function() {
-                    callback(null, 'cilji');
+                    cb(null, 'cilji');
                 }, 200);
                 //Cilji.find().exec(cb);
                 },
             docs: function (cb) {
                 setTimeout(function() {
-                    callback(null, 'naloga');
+                    cb(null, 'naloga');
                 }, 200);
                 /*
                 Naloge.find().then(naloga => {
@@ -127,7 +127,7 @@ module.exports.naslovnaStran = function (req, res) {
             },
             kategorija: function (cb) {
                 setTimeout(function() {
-                    callback(null, 'kategorija');
+                    cb(null, 'kategorija');
                 }, 200);
                 Kategorija.find().exec(cb);
             },
