@@ -125,7 +125,7 @@ module.exports.naslovnaStran = function (req, res) {
                 }
                 //console.log(result.cilji[i].vezani_uporabniki, "vezan");
             }
-            posodobiJson(obj, session);
+            //posodobiJson(obj, session);
             console.log("connnecting");
             res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             currentTab = 0;
