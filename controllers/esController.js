@@ -48,8 +48,9 @@ module.exports.naslovnaStran = function (req, res) {
             cilji: function (cb) {
                 setTimeout(function() {
                     cb(null, Cilji.find());
-                }, 1000);
-                console.log("c");
+                    console.log("c");
+                }, 100);
+
                  },
             docs: function (cb) {
                 setTimeout(function() {
@@ -102,7 +103,7 @@ module.exports.naslovnaStran = function (req, res) {
                                         });
                                         idx.shift();
                                         if (idx.length == 0) {
-                                                cb(null, naloga);
+                                            cb(null, naloga);
                                             console.log("n");
                                         }
                                     }).catch(err => {
@@ -118,13 +119,13 @@ module.exports.naslovnaStran = function (req, res) {
                         vrniNapako(res, err);
                         return;
                     });
-                }, 100);
+                }, 10);
             },
             kategorija: function (cb) {
                 setTimeout(function() {
                     cb(null,  Kategorija.find());
+                    console.log("k");
                 }, 100);
-                console.log("k");
             },
         }, function (err, result) {
             console.log("0");
