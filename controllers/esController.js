@@ -41,12 +41,15 @@ module.exports.naslovnaStran = function (req, res) {
         let obj = {monthly: []};
         let idx = [];
         async.parallel({
-            uporabniki: function (cb) { Uporabnik.find().exec(cb); },
+            uporabniki: function (cb) {
+                Uporabnik.find().exec(cb);
+                console.log("u");
+                },
             cilji: function (cb) {
                 setTimeout(function() {
                     cb(null, Cilji.find());
                 }, 1000);
-                //;
+                console.log("c");
                  },
             docs: function (cb) {
                 Naloge.find().then(naloga => {
@@ -100,7 +103,8 @@ module.exports.naslovnaStran = function (req, res) {
                                     if (idx.length == 0) {
                                         setTimeout(function() {
                                             cb(null, naloga);
-                                        }, 1000);
+                                        }, 100);
+                                        console.log("n");
                                     }
                                 }).catch(err => {
                                     console.log(err);
@@ -119,7 +123,8 @@ module.exports.naslovnaStran = function (req, res) {
             kategorija: function (cb) {
                 setTimeout(function() {
                     cb(null,  Kategorija.find());
-                }, 1000);
+                }, 100);
+                console.log("k");
             },
         }, function (err, result) {
             console.log("0");
@@ -137,8 +142,6 @@ module.exports.naslovnaStran = function (req, res) {
             }
             console.log("2");
             posodobiJson(obj, session);
-            if(!result.cilji)result.cilji={};
-            if(!result.docs)result.docs={};
             res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             console.log("3");
             currentTab = 0;
