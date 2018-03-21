@@ -297,13 +297,22 @@ html, body {
     height: 0;
     left: 100px;
     right: 0;
-    top: 149px;
+    top: 139px;
     bottom: 0;
     border: 25px solid;
     border-color: white transparent transparent transparent;
 }
 
-.circle-containerFamily button{
+.container .row {
+    margin: 0;
+    text-align: center;
+}
+
+.container .row img {
+    margin: 20px 15px;
+}
+
+.container button{
     padding: 0;
     min-width: 59px;
 }
@@ -313,17 +322,17 @@ html, body {
 }
 
 #viberOpen img{
-    margin-left: 14px;
+    margin: 0 14px 0 0;
 }
 
 .card-info {
-    width: 250px;
-    height: 150px;
-    min-height: 150px;
-    left: 50%;
-    margin-top: -15px;
     position: absolute;
-    transform: translate(50px);
+    width: 250px;
+    height: 140px;
+    min-height: 140px;
+    /*transform: translate(50px);*/
+    text-align: center;
+    z-index: 9999;
 }
 
 .icon {

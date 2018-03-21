@@ -1,7 +1,20 @@
 let validation = 0;
+
+
+
 jQuery(function($) {
     'use strict';
-    document.onclick = zapriVse;
+    document.onclick = zapriVse();
+
+    document.onmouseup = (function(e)    {
+        let container = $(".tri-card");
+
+        if($(container).is(":visible")) {
+            if (!container.is(e.target) && container.has(e.target).length === 0)        {
+                container.hide();
+            }
+        }
+    });
 
 
     /*Dobim slike in jih zapišem v img, sliko prijavljenega uporabnika dam za ozadje.
@@ -10,9 +23,15 @@ jQuery(function($) {
     Če bo potrebno bom dodal večje ikone na večjih ekranih. Potrebno je preveriti kaj se zgodi če imamo preveč uporabnikov.
      */
     document.querySelector('#phoneCall').onclick = function () { document.querySelector('#contactInfo').setAttribute("action", $("#contactInfo").find("input")[0].value)};
-    document.querySelector('smsSend').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[1].value)};
-    document.querySelector('mailSend').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[2].value)};
-    document.querySelector('viberOpen').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[3].value)};
+    document.querySelector('#smsSend').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[1].value)};
+    document.querySelector('#mailSend').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[2].value)};
+    document.querySelector('#viberOpen').onclick = function () { document.querySelector('contactInfo').setAttribute("action", $("#contactInfo").find("input")[3].value)};
+
+    onUserClick("container", function (img){
+        let pos = img.getBoundingClientRect();
+        console.log(pos);
+        $(".tri-card").attr("style","display: block;").offset({ top: pos.top-145, left: pos.left-90 });
+    });
 
     let dialog = document.querySelector('dialog');
     if (! dialog.showModal) {
@@ -255,6 +274,19 @@ function openTimePicker(elementId,picker, inputId, inputDateId, pickerTime) {
     });
 }
 
-function zapriVse() {
+function zapriVse(evt) {
     $('.hideOnClick').attr('style',"display: none!important");
+    console.log("close all");
+}
+
+function onUserClick(imgId, callback) {
+    let wrap = document.getElementsByClassName(imgId)[0],
+        img = wrap.getElementsByClassName("user"),i;
+    for (i = 0; i < img.length; i++) {
+        img[i].onclick = function (img) {
+            return function () {
+                callback(img);
+            };
+        }(img[i]);
+    }
 }

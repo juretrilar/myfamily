@@ -35,7 +35,7 @@
             </div>
         </div>
         </div>
-        <div class="mdl-card section__text mdl-cell mdl-color--primary mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet">
+        <div class="mdl-card section__text mdl-cell mdl-color--primary mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet overflow-visible">
                 <div class="mdl-textfield mdl-js-textfield mdl-color-text--white" style="width: 100%">
                     <input class="mdl-textfield__input mdl-textfield__status" id="tt1" type="text" id="sample1">
                     <label class="mdl-textfield__label mdl-color-text--white" for="sample1">Danes je kar bizi dan</label>
@@ -45,19 +45,16 @@
                     <label class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--blue-800" for="sample-input" style="position:relative;float: right; width: 20%; bottom: 10px;">
                         <i class="material-icons">done</i>&nbsp&nbspObjavi</label>
                 </div>
-                <div class='circle-containerFamily'>
-                    <a href='#' class='deg0'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-1994-02-c-thumb.jpg'></a>
-                    <div class="mdl-card card-info mdl-shadow--2dp overflow-visible tri-card">
+                <div class="container">
+                    <div class="mdl-card card-info mdl-shadow--2dp overflow-visible hide-element tri-card">
                         <div class="mdl-dialog__content padding-10 align-center">
-                            <h4 class="align-center margin-zero">
-                                Testna oseba
-                            </h4>
+                            <h4 class="align-center margin-zero">Testna oseba</h4>
                             <span class="mdl-chip mdl-color--green mdl-color-text--white">
-                                <span class="mdl-chip__text">+100 xp</span>
-                            </span>
+                            <span class="mdl-chip__text">+100 xp</span>
+                        </span>
                             <span class="mdl-chip mdl-color--red mdl-color-text--white">
-                                <span class="mdl-chip__text">-100 xp</span>
-                            </span>
+                            <span class="mdl-chip__text">-100 xp</span>
+                        </span>
                         </div>
                         <div class="mdl-card__actions mdl-card--border">
                             <form id="contactInfo" method="GET" action="">
@@ -65,23 +62,60 @@
                                 <button id="smsSend" type="submit" class="mdl-button mdl-js-button"><i class="icon material-icons">sms</i></button>
                                 <button id="mailSend" type="submit" class="mdl-button mdl-js-button"><i class="icon material-icons">mail</i></button>
                                 <button id="viberOpen" type="submit" class="mdl-button mdl-js-button"><img align="middle" src="http://icons.iconarchive.com/icons/bokehlicia/captiva/256/web-viber-icon.png" style="width: 32px;height: 32px;"></button>
-                                <input type="hidden" value="tel:2125551212">
-                                <input type="hidden" value="sms:2125551212">
-                                <input type="hidden" value="mailto:someone@example.com">
-                                <input type="hidden" value="viber://chats?number=051123456">
                             </form>
                         </div>
                     </div>
-                    <a href='#' class='deg45'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2005-37-a-thumb.jpg'></a>
-                    <a href='#' class='deg90'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-1994-02-c-thumb.jpg'></a>
-                    <a href='#' class='deg135'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2010-26-a-thumb.jpg'></a>
-                    <a href='#' class='deg180'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2004-27-a-thumb.jpg'></a>
-                    <a href='#' class='deg225'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-1992-17-a-thumb.jpg'></a>
-                    <a href='#' class='deg270'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2010-26-a-thumb.jpg'></a>
-                    <a href='#' class='deg315'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-2004-32-d-thumb.jpg'></a>
+                    <div class="row">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].vrsta == 7) { %>
+                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level7 user">
+                        <% } %>
+                    <% } %>
+                    </div>
+                    <div class="row">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].vrsta == 6) { %>
+                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level6 user">
+                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level6 user">
+                        <% } %>
+                    <% } %>
+                    </div>
+                    <div class="row">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].vrsta == 5) { %>
+                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level5 user">
+                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level5 user">
+                        <% } %>
+                    <% } %>
+                    </div>
+                    <div class="row">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].vrsta == 4) { %>
+                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level4 user">
+                            <input type="hidden" value="tel:<%= uporabnik[j].telefon %>">
+                            <input type="hidden" value="sms:<%= uporabnik[j].telefon %>">
+                            <input type="hidden" value="mailto:<%= uporabnik[j].email %>">
+                            <input type="hidden" value="viber://chats?number=<%= uporabnik[j].telefon %>">
+                            <input type="hidden" value="<%= uporabnik[j].ime %>">
+                        <% } %>
+                    <% } %>
+                    </div>
+                    <div class="row">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].vrsta == 3) { %>
+                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level3 user">
+                        <% } %>
+                    <% } %>
+                    </div>
                 </div>
-            </div>
 
+            <!--
+                <div class='circle-containerFamily'>
+                    <a href='#' class='deg0'><img src='http://imgsrc.hubblesite.org/hu/db/images/hs-1994-02-c-thumb.jpg'></a>
+
+                    <!--
+                </div>-->
+        </div>
     </div>
 </div>
 <div class="text-container mdl-grid">
