@@ -46,89 +46,89 @@ module.exports.naslovnaStran = function (req, res) {
                 console.log("u");
                 },
             cilji: function (cb) {
-                setTimeout(function() {
-                    cb(null, Cilji.find());
-                    console.log("c");
-                }, 100);
-
+                Cilji.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
                  },
             docs: function (cb) {
-                setTimeout(function() {
-                    Naloge.find().then(naloga => {
-                        let j=0,o=0;
-    /*
-        for (i = 0; i < cilji.length; i++) {
-            if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
-                j++;
-                obj.monthly.push({
-                    id: cilji[i].id,
-                    name: cilji[i].name,
-                    startdate: moment(cilji[i].zacetek).format('YYYY-MM-DD'),
-                    enddate: moment(cilji[i].konec).format('YYYY-MM-DD'),
-                    starttime: "",
-                    endtime: "",
-                    color: "#EF44EF",
-                    url: ""
-                });
-            }
-        }*/
-                        for (let i = 0; i < naloga.length; i++) {
-                            let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
-                            let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
-                            let now = moment(Date.now()).format('MM-DD-YYYY');
-                            if (naloga[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
-                                j = i;
-                                let urZac = moment(naloga[i].zacetek).format('HH:mm');
-                                let urKon = moment(naloga[i].konec).format('HH:mm');
-                                if(!validator.matches(urZac ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urZac = "00:00";
-                                if(!validator.matches(urKon ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urKon = "23:59";
-                                obj.monthly.push({
-                                    id: naloga[i].id,
-                                    name: naloga[i].ime,
-                                    startdate: moment(naloga[i].zacetek).format('YYYY-MM-DD'),
-                                    enddate: moment(naloga[i].konec).format('YYYY-MM-DD'),
-                                    starttime: urZac,
-                                    endtime: urKon,
-                                    color: color[naloga[i].kategorija],
-                                    url: "/koledar/" + naloga[i].id
-                                });
-                                if (zac == now || dateCheck(zac, kon, now)) {
-                                    idx.push(i);
-                                    Uporabnik.findOne({_id: naloga[i].avtor}).then(avtor => {
-                                        opomnik.push({
-                                            ime: naloga[idx[0]].ime,
-                                            xp: naloga[idx[0]].xp,
-                                            avtor: avtor.ime,
-                                            status: naloga[idx[0]].status
-                                        });
-                                        idx.shift();
-                                        if (idx.length == 0) {
-                                            cb(null, naloga);
-                                            console.log("n");
-                                        }
-                                    }).catch(err => {
-                                        console.log(err);
-                                        vrniNapako(res, err);
-                                        return;
+                Naloge.find({$query: {},$maxTimeMS: 10000 }).then(naloga => {
+                    let j=0,o=0;
+/*
+    for (i = 0; i < cilji.length; i++) {
+        if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
+            j++;
+            obj.monthly.push({
+                id: cilji[i].id,
+                name: cilji[i].name,
+                startdate: moment(cilji[i].zacetek).format('YYYY-MM-DD'),
+                enddate: moment(cilji[i].konec).format('YYYY-MM-DD'),
+                starttime: "",
+                endtime: "",
+                color: "#EF44EF",
+                url: ""
+            });
+        }
+    }*/
+                    for (let i = 0; i < naloga.length; i++) {
+                        let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
+                        let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
+                        let now = moment(Date.now()).format('MM-DD-YYYY');
+                        if (naloga[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
+                            j = i;
+                            let urZac = moment(naloga[i].zacetek).format('HH:mm');
+                            let urKon = moment(naloga[i].konec).format('HH:mm');
+                            if(!validator.matches(urZac ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urZac = "00:00";
+                            if(!validator.matches(urKon ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urKon = "23:59";
+                            obj.monthly.push({
+                                id: naloga[i].id,
+                                name: naloga[i].ime,
+                                startdate: moment(naloga[i].zacetek).format('YYYY-MM-DD'),
+                                enddate: moment(naloga[i].konec).format('YYYY-MM-DD'),
+                                starttime: urZac,
+                                endtime: urKon,
+                                color: color[naloga[i].kategorija],
+                                url: "/koledar/" + naloga[i].id
+                            });
+                            if (zac == now || dateCheck(zac, kon, now)) {
+                                idx.push(i);
+                                Uporabnik.findOne({_id: naloga[i].avtor}).then(avtor => {
+                                    opomnik.push({
+                                        ime: naloga[idx[0]].ime,
+                                        xp: naloga[idx[0]].xp,
+                                        avtor: avtor.ime,
+                                        status: naloga[idx[0]].status
                                     });
-                                }
+                                    idx.shift();
+                                    if (idx.length == 0) {
+                                        cb();
+                                        console.log("n");
+                                    }
+                                }).catch(err => {
+                                    console.log(err);
+                                    vrniNapako(res, err);
+                                    return;
+                                });
                             }
                         }
-                    }).catch(err => {
-                        console.log(err);
-                        vrniNapako(res, err);
-                        return;
-                    });
-                }, 10);
+                    }
+                }).catch(err => {
+                    console.log(err);
+                    vrniNapako(res, err);
+                    return;
+                });
             },
             kategorija: function (cb) {
+                Kategorija.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
+                /*
+                Kategorija.find().then(kat => {}).catch(err => {
+                    console.log(err);
+                    vrniNapako(res, err);
+                });
                 setTimeout(function() {
-                    cb(null,  Kategorija.find());
+                    cb(kat);
                     console.log("k");
-                }, 100);
+                }, 1000);*/
             },
         }, function (err, result) {
-            console.log("0");
+            console.log(result.cilji, result.kategorija, result.docs);
             if (err) {
                 console.log(err);
                 vrniNapako(err,res);
