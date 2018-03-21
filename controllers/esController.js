@@ -42,13 +42,16 @@ module.exports.naslovnaStran = function (req, res) {
         let idx = [];
         async.parallel({
             uporabniki: function (cb) { Uporabnik.find().exec(cb); },
-            cilji: function (cb) {//Cilji.find().exec(cb);
+            cilji: function (cb) {
+                setTimeout(function() {
+                    cb(null, Cilji.find());
+                }, 1000);
+                //;
                  },
             docs: function (cb) {
-                /*
                 Naloge.find().then(naloga => {
                     let j=0,o=0;
-
+/*
     for (i = 0; i < cilji.length; i++) {
         if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
             j++;
@@ -63,7 +66,7 @@ module.exports.naslovnaStran = function (req, res) {
                 url: ""
             });
         }
-    }
+    }*/
                     for (i = 0; i < naloga.length; i++) {
                         let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
                         let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
@@ -94,9 +97,10 @@ module.exports.naslovnaStran = function (req, res) {
                                         status: naloga[idx[0]].status
                                     });
                                     idx.shift();
-                                    //console.log(opomnik);
                                     if (idx.length == 0) {
-                                        cb();
+                                        setTimeout(function() {
+                                            cb(null, naloga);
+                                        }, 1000);
                                     }
                                 }).catch(err => {
                                     console.log(err);
@@ -110,11 +114,12 @@ module.exports.naslovnaStran = function (req, res) {
                     console.log(err);
                     vrniNapako(res, err);
                     return;
-                });*/
-                console.log("koledar built");
+                });
             },
             kategorija: function (cb) {
-                Kategorija.find().exec(cb);
+                setTimeout(function() {
+                    cb(null,  Kategorija.find());
+                }, 1000);
             },
         }, function (err, result) {
             console.log("0");
@@ -128,11 +133,12 @@ module.exports.naslovnaStran = function (req, res) {
                 if(result.cilji[i].skupni_cilj == true) {
                     sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp})
                 }
-                //console.log(result.cilji[i].vezani_uporabniki, "vezan");
+                console.log(result.cilji[i].vezani_uporabniki, "vezan");
             }
             console.log("2");
-            //posodobiJson(obj, session);
-
+            posodobiJson(obj, session);
+            if(!result.cilji)result.cilji={};
+            if(!result.docs)result.docs={};
             res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             console.log("3");
             currentTab = 0;
