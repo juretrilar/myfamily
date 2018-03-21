@@ -47,9 +47,14 @@ module.exports.naslovnaStran = function (req, res) {
                 },
             cilji: function (cb) {
                 Cilji.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
+                console.log("c");
                  },
             docs: function (cb) {
                 Naloge.find({$query: {},$maxTimeMS: 10000 }).then(naloga => {
+                    if(naloga.length == 0) {
+                        cb();
+                        return;
+                    }
                     let j=0,o=0;
 /*
     for (i = 0; i < cilji.length; i++) {
@@ -117,6 +122,7 @@ module.exports.naslovnaStran = function (req, res) {
             },
             kategorija: function (cb) {
                 Kategorija.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
+                console.log("k");
                 /*
                 Kategorija.find().then(kat => {}).catch(err => {
                     console.log(err);
