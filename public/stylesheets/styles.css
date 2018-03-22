@@ -312,7 +312,7 @@ html, body {
     margin: 20px 15px;
 }
 
-.container button{
+.container a{
     padding: 0;
     min-width: 59px;
 }

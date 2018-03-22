@@ -29,8 +29,12 @@ jQuery(function($) {
 
     onUserClick("container", function (img){
         let pos = img.getBoundingClientRect();
-        console.log(pos);
         $(".tri-card").attr("style","display: block;").offset({ top: pos.top-145, left: pos.left-90 });
+        $("#userCard").text(img.nextElementSibling.value);
+        $("#phoneCall").href("tel:"+img.nextElementSibling.nextElementSibling.value);
+        $("#smsSend").href("sms:"+img.nextElementSibling.nextElementSibling.value);
+        $("#mailSend").href("mailto:"+img.nextElementSibling.nextElementSibling.nextElementSibling.value);
+        $("#viberOpen").href("viber://chats?number="+img.nextElementSibling.nextElementSibling.value);
     });
 
     let dialog = document.querySelector('dialog');

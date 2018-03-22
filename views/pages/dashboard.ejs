@@ -48,7 +48,7 @@
                 <div class="container">
                     <div class="mdl-card card-info mdl-shadow--2dp overflow-visible hide-element tri-card">
                         <div class="mdl-dialog__content padding-10 align-center">
-                            <h4 class="align-center margin-zero">Testna oseba</h4>
+                            <h4 id="userCard" class="align-center margin-zero"></h4>
                             <span class="mdl-chip mdl-color--green mdl-color-text--white">
                             <span class="mdl-chip__text">+100 xp</span>
                         </span>
@@ -56,21 +56,20 @@
                             <span class="mdl-chip__text">-100 xp</span>
                         </span>
                         </div>
-                        <a href="tel:+38651757557" style="width: 50px;height: 10px;">Click on me</a>
                         <div class="mdl-card__actions mdl-card--border">
-
-                            <form id="contactInfo" method="GET" action="tel:+38651757557">
-                                <button id="phoneCall" type="submit" class="mdl-button mdl-js-button"><i class="icon material-icons">phone</i></button>
-                                <button id="smsSend" type="submit" class="mdl-button mdl-js-button"><i class="icon material-icons">sms</i></button>
-                                <button id="mailSend" type="submit" class="mdl-button mdl-js-button"><i class="icon material-icons">mail</i></button>
-                                <button id="viberOpen" type="submit" class="mdl-button mdl-js-button"><img align="middle" src="http://icons.iconarchive.com/icons/bokehlicia/captiva/256/web-viber-icon.png" style="width: 32px;height: 32px;"></button>
-                            </form>
+                            <a id="phoneCall"class="mdl-button mdl-js-button"><i class="icon material-icons">phone</i></a>
+                            <a id="smsSend" class="mdl-button mdl-js-button"><i class="icon material-icons">sms</i></a>
+                            <a id="mailSend"  class="mdl-button mdl-js-button"><i class="icon material-icons">mail</i></a>
+                            <a id="viberOpen" class="mdl-button mdl-js-button"><img align="middle" src="http://icons.iconarchive.com/icons/bokehlicia/captiva/256/web-viber-icon.png" style="width: 32px;height: 32px;"></a>
                         </div>
                     </div>
                     <div class="row">
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 7) { %>
                             <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level7 user">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
                         <% } %>
                     <% } %>
                     </div>
@@ -78,7 +77,9 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 6) { %>
                             <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level6 user">
-                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level6 user">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
                         <% } %>
                     <% } %>
                     </div>
@@ -86,7 +87,9 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 5) { %>
                             <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level5 user">
-                            <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level5 user">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
                         <% } %>
                     <% } %>
                     </div>
@@ -94,11 +97,9 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 4) { %>
                             <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level4 user">
-                            <input type="hidden" value="tel:<%= uporabnik[j].telefon %>">
-                            <input type="hidden" value="sms:<%= uporabnik[j].telefon %>">
-                            <input type="hidden" value="mailto:<%= uporabnik[j].email %>">
-                            <input type="hidden" value="viber://chats?number=<%= uporabnik[j].telefon %>">
-                            <input type="hidden" value="<%= uporabnik[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
                         <% } %>
                     <% } %>
                     </div>
@@ -106,6 +107,9 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 3) { %>
                             <img src="https://ssl.gstatic.com/s2/oz/images/faviconr2.ico" alt="" width="64" height="64" class="level3 user">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
                         <% } %>
                     <% } %>
                     </div>
