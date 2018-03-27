@@ -35,7 +35,7 @@ jQuery(function($) {
         }
     });
 
-
+    // TODO
     /*Dobim slike in jih zapišem v img, sliko prijavljenega uporabnika dam za ozadje.
     V skripti preštejem slike in jim na podlagi števila naredim izris.
 
@@ -119,8 +119,6 @@ jQuery(function($) {
     registerDateTimePicker("dialogKonec", dk, "targetKonec", "dateKonec", tk);
     dialog.appendChild(document.getElementById("mddtp-picker__time"));
     dialog.appendChild(document.getElementById("mddtp-picker__date"));
-
-
 });
 
 function clearData() {
@@ -310,7 +308,7 @@ function onUserClick(imgId, callback) {
     }
 }
 
-function openSettings() {
+function cleanNav() {
     $("#dashboard").removeClass("is-active");
     $("#cilj").removeClass("is-active");
     $("#naloge").removeClass("is-active");
@@ -319,9 +317,21 @@ function openSettings() {
     $("#menuCilj").removeClass("is-active");
     $("#menuNaloge").removeClass("is-active");
     $("#menuKoledar").removeClass("is-active");
+}
+
+function openSettings() {
+    cleanNav();
+    $("#notifications").removeClass("is-active");
     $("#settings").addClass("is-active");
 }
 
+function openNotifications() {
+    cleanNav();
+    $("#settings").removeClass("is-active");
+    $("#notifications").addClass("is-active");
+}
+
+//SERVER WORKER
 function initializeUI() {
     pushButton.addEventListener('click', function() {
         pushButton.disabled = true;

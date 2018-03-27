@@ -94,16 +94,16 @@ module.exports.naslovnaStran = function (req, res) {
                                 color: color[naloga[i].kategorija],
                                 url: "/koledar/" + naloga[i].id
                             });
-                            console.log(zac, now);
-                            console.log(dateCheck(zac, kon, now));
+                            //console.log(zac, now);
+                            //console.log(dateCheck(zac, kon, now));
                             if (zac == now || dateCheck(zac, kon, now)) {
                                 idx.push(naloga[i]);
                             }
                         }
                     }
-                    console.log(idx, "vse naloge");
+                    //console.log(idx, "vse naloge");
                     if (idx.length == 0) {
-                        console.log("Za današnji dan ni nobene naloge.");
+                        //console.log("Za današnji dan ni nobene naloge.");
                         cb();
                     }
                     for(let i=0;i<idx.length;i++) {
@@ -116,7 +116,7 @@ module.exports.naslovnaStran = function (req, res) {
                             });
                             idx.shift();
                             if (idx.length == 0) {
-                                console.log("n");
+                                //console.log("n");
                                 cb();
                             }
                         }).catch(err => {
@@ -130,16 +130,16 @@ module.exports.naslovnaStran = function (req, res) {
                     vrniNapako(res, err);
                     return;
                 });
-                console.log("m");
+                //console.log("m");
             },
             kategorija: function (cb) {
                 Kategorija.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
-                console.log("k");
+                //console.log("k");
             },
         }, function (err, result) {
             console.log(result.cilji, result.kategorija, result.docs);
             if (err) {
-                console.log(err);
+                //console.log(err);
                 vrniNapako(err,res);
             }
             console.log("1");
@@ -148,12 +148,12 @@ module.exports.naslovnaStran = function (req, res) {
                 if(result.cilji[i].skupni_cilj == true) {
                     sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp})
                 }
-                console.log(result.cilji[i].vezani_uporabniki, "vezan");
+                //console.log(result.cilji[i].vezani_uporabniki, "vezan");
             }
-            console.log("2");
+            //console.log("2");
             posodobiJson(obj, session);
             res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
-            console.log("3");
+            //console.log("3");
             currentTab = 0;
             successfulPost = 0;
         });
@@ -194,7 +194,8 @@ module.exports.prijaviUporabnika = function(req, res, next){
                         id : uporabniki[i]._id,
                         druzina : uporabniki[i].druzina,
                         admin : uporabniki[i].admin,
-                        slika : uporabniki[i].slika
+                        slika : uporabniki[i].slika,
+                        vrsta : uporabniki[i].vrsta
                     };
                     Uporabnik.findByIdAndUpdate(req.session.trenutniUporabnik.id, {last_login : new Date()}).catch(err => {
                         vrniNapako(res, err);
@@ -237,6 +238,29 @@ module.exports.ustvariUporabnika = function(req, res, next) {
         res.redirect('/');
     }).catch(err => {
         vrniNapako(res, err);
+    });
+};
+
+//** POST /settings
+module.exports.posodobiOsebnePodatke = function(req, res, next) {
+    console.log(req.body);
+    let updateUporabnik = {
+        ime: req.body.set_name,
+        email: req.body.set_email,
+        telefon: req.body.set_phone,
+        vrsta: parseInt(req.body.izbranaVrsta),
+    };
+    if(req.body.reg_password) updateUporabnik.geslo = req.body.set_password;
+    if(req.body.avatar) updateUporabnik.slika = ""+req.body.avatar;
+    let conditions = { _id: req.session.trenutniUporabnik.id };
+    Uporabnik.findOneAndUpdate(conditions, updateUporabnik,{upsert: true, runValidators: true}, function (err, doc) { // callback
+        if (err) {
+            console.log(err);
+            vrniNapako(res, err);
+        } else {
+            successfulPost = 1;
+            res.redirect('/')
+        }
     });
 };
 
