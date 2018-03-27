@@ -5,13 +5,15 @@ router.get('/', requestHandler.naslovnaStran);
 
 router.post('/prijava', requestHandler.prijaviUporabnika);
 
+router.get('/prijava', requestHandler.prijava);
+
 router.post('/registracija', requestHandler.ustvariUporabnika);
 
 router.post('/ustvari_nalogo', requestHandler.ustvariNalogo);
 
 router.post('/prikazi_naloge', requestHandler.prikaziNaloge);
 /*
-router.get('/uredi_cilj', requestHandler.urersdiCilj);
+router.get('/uredi_cilj', requestHandler.urediCilj);
 */
 router.post('/ustvari_cilj', requestHandler.ustvariCilj);
 

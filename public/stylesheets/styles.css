@@ -191,7 +191,16 @@ html, body {
 }
 
 .mdl-layout__header-row {
-    padding-right: 0!important;
+    padding-right: 0;
+}
+
+@media (max-width: 840px){
+    .mdl-layout__header-row {
+        padding-left: 24px;
+    }
+}
+.mdl-layout__header-row {
+
 }
 
 .mdl-layout__tab-bar-button {
@@ -257,38 +266,6 @@ html, body {
     background: url("/uploads/1.png") no-repeat center;
     background-size: 128px 128px;
 }
-
-.circle-containerFamily a {
-    display: block;
-    overflow: hidden;
-    position: absolute;
-    top: 50%; left: 50%;
-    width: 80px; height: 80px;
-    border-radius: 50%;
-    margin: -40px; /* half the width */
-}
-
-.circle-containerFamily img { display: block; width: 100%; }
-.deg0 { transform: translate(144px); } /* 12em = half the width of the wrapper */
-.deg45 { transform: rotate(45deg) translate(192px) rotate(-45deg); }
-.deg90 { transform: rotate(90deg) translate(192px) rotate(-90deg);}
-.deg135 { transform: rotate(135deg) translate(192px) rotate(-135deg); }
-.deg180 { transform: translate(-144px); }
-.deg225 { transform: rotate(225deg) translate(192px) rotate(-225deg); }
-.deg270 { transform: rotate(270deg) translate(192px) rotate(-270deg); }
-.deg315 { transform: rotate(315deg) translate(192px) rotate(-315deg); }
-
-@media screen and (max-width: 840px) {
-    .deg0 { transform: translate(176px); } /* 12em = half the width of the wrapper */
-    .deg45 { transform: rotate(45deg) translate(144px) rotate(-45deg); }
-    .deg90 { transform: rotate(90deg) translate(128px) rotate(-90deg);}
-    .deg135 { transform: rotate(135deg) translate(144px) rotate(-135deg); }
-    .deg180 { transform: translate(-176px); }
-    .deg225 { transform: rotate(225deg) translate(144px) rotate(-225deg); }
-    .deg270 { transform: rotate(270deg) translate(128px) rotate(-270deg); }
-    .deg315 { transform: rotate(315deg) translate(144px) rotate(-315deg); }
-}
-
 
 .tri-card:after {
     content: ' ';
@@ -565,6 +542,32 @@ html, body {
 .util-no-decoration {
     text-decoration: none;
 }
+
+.mdl-button--file input {
+    cursor: pointer;
+    height: 100%;
+    right: 0;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    width: 300px;
+    z-index: 4;
+}
+
+.mdl-textfield--file .mdl-textfield__input {
+    box-sizing: border-box;
+    width: calc(100% - 32px);
+}
+
+.mdl-textfield--file .mdl-button--file {
+    right: 0;
+}
+
+.card-500 .mdl-card {
+    width: auto;
+    max-width: 500px;
+}
+
 
 #avatars{
     width: 100%;

@@ -33,7 +33,9 @@ module.exports.naslovnaStran = function (req, res) {
     if(!req.session.trenutniUporabnik) {
         console.log("not logged");
         res.render('pages/prijava', {
-            uporabnik: ""
+            uporabnik: "",
+            sporociloPrijava : "",
+            currSession:  "",
         });
     } else {
         let opomnik = [];
@@ -92,46 +94,47 @@ module.exports.naslovnaStran = function (req, res) {
                                 color: color[naloga[i].kategorija],
                                 url: "/koledar/" + naloga[i].id
                             });
+                            console.log(zac, now);
+                            console.log(dateCheck(zac, kon, now));
                             if (zac == now || dateCheck(zac, kon, now)) {
-                                idx.push(i);
-                                Uporabnik.findOne({_id: naloga[i].avtor}).then(avtor => {
-                                    opomnik.push({
-                                        ime: naloga[idx[0]].ime,
-                                        xp: naloga[idx[0]].xp,
-                                        avtor: avtor.ime,
-                                        status: naloga[idx[0]].status
-                                    });
-                                    idx.shift();
-                                    if (idx.length == 0) {
-                                        cb();
-                                        console.log("n");
-                                    }
-                                }).catch(err => {
-                                    console.log(err);
-                                    vrniNapako(res, err);
-                                    return;
-                                });
+                                idx.push(naloga[i]);
                             }
                         }
+                    }
+                    console.log(idx, "vse naloge");
+                    if (idx.length == 0) {
+                        console.log("Za današnji dan ni nobene naloge.");
+                        cb();
+                    }
+                    for(let i=0;i<idx.length;i++) {
+                        Uporabnik.findOne({_id: naloga[i].avtor}).then(avtor => {
+                            opomnik.push({
+                                ime: idx[i].ime,
+                                xp: idx[i].xp,
+                                avtor: avtor.ime,
+                                status: idx[i].status
+                            });
+                            idx.shift();
+                            if (idx.length == 0) {
+                                console.log("n");
+                                cb();
+                            }
+                        }).catch(err => {
+                            console.log(err);
+                            vrniNapako(res, err);
+                            return;
+                        });
                     }
                 }).catch(err => {
                     console.log(err);
                     vrniNapako(res, err);
                     return;
                 });
+                console.log("m");
             },
             kategorija: function (cb) {
                 Kategorija.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
                 console.log("k");
-                /*
-                Kategorija.find().then(kat => {}).catch(err => {
-                    console.log(err);
-                    vrniNapako(res, err);
-                });
-                setTimeout(function() {
-                    cb(kat);
-                    console.log("k");
-                }, 1000);*/
             },
         }, function (err, result) {
             console.log(result.cilji, result.kategorija, result.docs);
@@ -149,13 +152,18 @@ module.exports.naslovnaStran = function (req, res) {
             }
             console.log("2");
             posodobiJson(obj, session);
-            res.render("pages/index", {uporabniki : result.uporabniki, uporabnik : req.session.trenutniUporabnik.ime, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
+            res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             console.log("3");
             currentTab = 0;
             successfulPost = 0;
         });
     }
 };
+
+module.exports.prijava = function(req, res, next) {
+    res.redirect("/");
+};
+
 
 //** POST /priava
 module.exports.prijaviUporabnika = function(req, res, next){
@@ -169,7 +177,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
                 isLoggedIn: false,
                 uporabniki: 0,
                 uporabnik: "",
-                error: "Napaka v povezavi z bazo!"
+                sporociloPrijava : "Napačen e-mail in/ali geslo!"
             });
         }
         else {
@@ -199,7 +207,6 @@ module.exports.prijaviUporabnika = function(req, res, next){
 
             if(session.trenutniUporabnik){
                res.redirect("/");
-                console.log("here we are");
             } else {
                 res.render("pages/prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!", uporabnik : ""});
             }
@@ -209,20 +216,21 @@ module.exports.prijaviUporabnika = function(req, res, next){
 
 //** POST /registracija
 module.exports.ustvariUporabnika = function(req, res, next) {
+    console.log(req.body.avatar);
     console.log(req.body);
     let family = ustvariKljuc();
     if(req.body.family) family=req.body.family;
     let noviUporabnik = {
         _id : new ObjectId(),
-        ime: req.body.name_surname,
+        ime: req.body.reg_name,
         druzina:  new ObjectId(),
-        geslo: req.body.password,
-        email: req.body.email,
-        telefon: req.body.phone,
-        admin: true,
+        geslo: req.body.reg_password,
+        email: req.body.reg_email,
+        telefon: req.body.reg_phone,
+        vrsta: 0,
+        admin: false,
         slika: ""+req.body.avatar,
-        created_at: Date.now(),
-        updated_at: Date.now()
+        created_at: Date.now()
     };
     Uporabnik.create(noviUporabnik).then(data => {
         console.log("CREATED USER");

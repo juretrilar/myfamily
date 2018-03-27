@@ -51,3 +51,4 @@ require("./Uporabnik");
 require("./Cilji");
 require("./Naloge");
 require("./Druzina");
+require("./Kategorija");
