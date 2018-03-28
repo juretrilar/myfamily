@@ -15,14 +15,23 @@ let moment = require('moment');
 let fs = require('fs');
 let mkdirp = require('mkdirp');
 let validator = require('validator');
+let SMSAPI = require('smsapicom'), smsapi = new SMSAPI();
+let CronJob = require('cron').CronJob;
 
 let color = {"5a78505d19ac7744c8175d18": "#ff9933", "5a785125e7c9722aa0e1e8ac": "#0099ff", "5a785157425a883c30b08b7a": "#33cc33", "5a785178900a3b278c196667": "#ff00ff"};
-
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 let currentTab = 0;
 let successfulPost = 0;
+let jobsCounter = 0;
+let jobs = {};
+
+smsapi.authentication
+    .login('username', 'password')
+    .then(sendMessage)
+    .then(displayResult)
+    .catch(displayError);
 
 function vrniNapako(res, err){
     res.render("pages/error", {message : "Napaka pri poizvedbi /db", error : {status : 500, stack : err}});
@@ -258,11 +267,87 @@ module.exports.posodobiOsebnePodatke = function(req, res, next) {
             console.log(err);
             vrniNapako(res, err);
         } else {
-            successfulPost = 1;
+            //successfulPost = 1;
             res.redirect('/')
         }
     });
 };
+
+
+//** POST /notifications
+module.exports.posodobiObvestila = function(req, res, next) {
+    let conditions = { _id: req.session.trenutniUporabnik.id };
+    Uporabnik.find(conditions,{ notf_telefon: 1, notf_email: 1 }, { $maxTimeMS: 10000 }).then(notif => {
+        if (err) {
+            console.log(err);
+            vrniNapako(res, err);
+        } else {
+            let updateUporabnik = {};
+            if (notif.notf_telefon != req.body.switchSms) {
+                updateUporabnik.notf_telefon = req.body.switchSms;
+                if( req.body.switchSms == true) {
+                    if (jobs[req.session.trenutniUporabnik.id+"sms"]) {
+                        jobs[req.session.trenutniUporabnik.id+"sms"].start();
+                    } else {
+                        jobs[req.session.trenutniUporabnik.id+"sms"] = new CronJob({
+                            cronTime: '00 00 08 * * *',
+                            onTick: function() {
+                                let name = "MyFamily";
+                                let number = 051757557; //user number
+                                let text = "Današjni dan: 12:00 Pospravi smeti, Odnesi smeti, Fizična aktivnost 19:00 - 20:30";
+                                sendMessage(name, number, text);
+                              /* Runs every day (Monday through Sunday) */
+                            },
+                            start: true,
+                            timeZone,
+                            context: {jobName: req.session.trenutniUporabnik.id}
+                          });
+                    }                    
+                } else {
+                    jobs[req.session.trenutniUporabnik.id+"sms"].stop();
+                }
+            }            
+            if (notif.notf_email !=  req.body.switchMail) { 
+                updateUporabnik.notf_email = req.body.switchMail;
+                if( req.body.notf_email == true) {
+                    if (jobs[req.session.trenutniUporabnik.id+"email"]) {
+                        jobs[req.session.trenutniUporabnik.id+"email"].start();
+                    } else {
+                        jobs[req.session.trenutniUporabnik.id+"email"] = new CronJob({
+                            cronTime: '00 00 08 * * *',
+                            onTick: function() {
+                                /* Logic to send emails
+                                let name = "MyFamily";
+                                let email = 051757557; //user number
+                                let text = "Današjni dan: 12:00 Pospravi smeti, Odnesi smeti, Fizična aktivnost 19:00 - 20:30";
+                                sendMessage(name, number, text);
+                              /* Runs every day (Monday through Sunday) */
+                            },
+                            start: true,
+                            timeZone,
+                            context: {jobName: req.session.trenutniUporabnik.id}
+                          });
+                    }                    
+                } else {
+                    jobs[req.session.trenutniUporabnik.id+"email"].stop();
+                } 
+            }   
+            if(updateUporabnik) {
+                Uporabnik.findOneAndUpdate(conditions, updateUporabnik,{upsert: false, runValidators: true}, function (err, doc) { // callback
+                    if (err) {
+                        console.log(err);
+                        vrniNapako(res, err);
+                    } else {
+                        //successfulPost = 1;
+                        res.redirect('/')
+                    }
+                });
+            }
+        }
+    });   
+};
+
+
 
 //** POST /koledar/:koledarId
 module.exports.prikaziKoledar = function(req, res, next) {
@@ -527,4 +612,21 @@ function dateCheck(from,to,check) {
         return true;
     }
     return false;
+}
+
+function sendMessage(name, number, text){
+    return smsapi.message
+        .sms()
+        .from(name)
+        .to(number)
+        .message(text)
+        .execute(); // return Promise
+}
+
+function displayResult(result){
+    console.log(result);
+}
+
+function displayError(err){
+    console.error(err);
 }

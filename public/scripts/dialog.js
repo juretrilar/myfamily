@@ -1,8 +1,10 @@
 let validation = 0;
+
 const applicationServerPublicKey = "BNVzh877MvprwKdzl90ARgaI9A77Sv6i_2ego2-etTeILUXvNIX_Kr09sl9uVOKz0lTVcKMacOu_VSYrLDYoItM";
 let isSubscribed = false;
 let swRegistration = null;
 
+let colors = ["#00FF00", "#6699ff", "#ff6600", "#FF25FF", "#FF6C6A", "#53ff1a", "#00C8FF", "#ff66ff","#ff9900"];
 
 jQuery(function($) {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -35,6 +37,9 @@ jQuery(function($) {
         }
     });
 
+    tockeUdelezencev($('#table-cilji').find('tr').length-1, "progress", "razmerje");
+    tockeUdelezencev($('#table-cilji-end').find('tr').length-1, "progressE", "razmerjeE");
+
     // TODO
     /*Dobim slike in jih zapišem v img, sliko prijavljenega uporabnika dam za ozadje.
     V skripti preštejem slike in jim na podlagi števila naredim izris.
@@ -51,6 +56,20 @@ jQuery(function($) {
         $("#mailSend").attr("href","mailto:"+img.nextElementSibling.nextElementSibling.nextElementSibling.value);
         $("#viberOpen").attr("href","viber://chats?number="+img.nextElementSibling.nextElementSibling.value);
     });
+
+    $('#mycalendar').monthly({
+        mode: 'event',
+        dataType: 'json',
+        jsonUrl: id+"/data/events.json"
+    });
+    switch(window.location.protocol) {
+        case 'http:':
+        case 'https:':
+            // running on a server, should be good.
+            break;
+        case 'file:':
+            alert('Just a heads-up, events will not work when run locally.');
+    }
 
     let dialog = document.querySelector('dialog');
     if (! dialog.showModal) {
@@ -438,4 +457,34 @@ function updateBtn() {
     }
 
     $("#pushButton").removeAttr("disabled");
+}
+
+function tockeUdelezencev(stCiljev, prg, razmerje) {
+    for(let i = 0; i <stCiljev; i++) {
+        let curr = $('.'+prg+i).children();
+        let stUporabnikov = curr.length;
+        let sumXP = 0;
+        curr.each(function() {
+            sumXP += parseInt($(this)[0].innerHTML);
+        });
+        //curr.text(sumXP+"/"+$("."+prg+i).prev().find("input[name=person]").val());
+        $("#"+razmerje+i).text(sumXP+"/"+$("."+prg+i).parent().prev().prev().find("input[name=maxXp]").val());
+        console.log($("."+prg+i).parent().prev().prev().find("input[name=maxXp]"));
+        if(stUporabnikov==0) {
+            $("."+prg+i).attr('style',"display: none!important");
+        } else if (stUporabnikov == 1) {
+            $("."+prg+i+" :nth-child(1)").addClass("spanOnly");
+        } else {
+            $("."+prg+i+" :nth-child(1)").attr('style',"width: "+(curr[0].innerHTML/sumXP)*100+"%; background-color: #FF8C1A").addClass("spanFirst");
+            for (let j=2; j<stUporabnikov; j++) {
+                let span = $("."+prg+i+" :nth-child("+j+")");
+                span.attr('style',"width: "+(curr[j-1].innerHTML/sumXP)*100+"%; background-color: "+colors[j-2]+";");
+            }
+            $("."+prg+i+" :nth-child("+stUporabnikov+")").attr('style',"width: "+(curr[stUporabnikov-1].innerHTML/sumXP)*100+"%; background-color: yellow;").addClass("spanLast");
+        }
+    }
+}
+
+function zapriNalogo() {
+    $("#NalogaPopUp").css("display", "none");
 }

@@ -9,6 +9,8 @@ let uporabnikSchema = new mongoose.Schema({
     email: {type: String, required : true, unique: true},
     viber: String,
     telefon: Number,
+    notf_telefon: Boolean,
+    notf_email: Boolean,
     admin: Boolean,
     slika: String,
     created_at: Date,

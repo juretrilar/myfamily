@@ -21,6 +21,8 @@ router.get('/koledar/:koledarId', requestHandler.prikaziKoledar);
 
 router.post('/settings', requestHandler.posodobiOsebnePodatke);
 
+router.post('/notifications', requestHandler.posodobiObvestila);
+
 router.get('/odjava', requestHandler.odjava);
 /*
 // BAZA
