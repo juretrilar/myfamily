@@ -17,6 +17,7 @@ let mkdirp = require('mkdirp');
 let validator = require('validator');
 let SMSAPI = require('smsapicom'), smsapi = new SMSAPI();
 let CronJob = require('cron').CronJob;
+let nodemailer = require('nodemailer');
 
 let color = {"5a78505d19ac7744c8175d18": "#ff9933", "5a785125e7c9722aa0e1e8ac": "#0099ff", "5a785157425a883c30b08b7a": "#33cc33", "5a785178900a3b278c196667": "#ff00ff"};
 
@@ -28,10 +29,18 @@ let jobsCounter = 0;
 let jobs = {};
 
 smsapi.authentication
-    .login('username', 'password')
+    .login(process.env.SMSAPI_user, process.env.SMSAPI_pass)
     .then(sendMessage)
     .then(displayResult)
     .catch(displayError);
+
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.mailUser,
+        pass: process.env.mailPass
+    }
+});
 
 function vrniNapako(res, err){
     res.render("pages/error", {message : "Napaka pri poizvedbi /db", error : {status : 500, stack : err}});
@@ -313,15 +322,22 @@ module.exports.posodobiObvestila = function(req, res, next) {
                     if (jobs[req.session.trenutniUporabnik.id+"email"]) {
                         jobs[req.session.trenutniUporabnik.id+"email"].start();
                     } else {
+                        var mailOptions = {
+                            from: 'MyFamilyAppMail@gmail.com',
+                            to: req.session.trenutniUporabnik.email,
+                            subject: 'Dnevni opomnik'
+                          };
                         jobs[req.session.trenutniUporabnik.id+"email"] = new CronJob({
-                            cronTime: '00 00 08 * * *',
+                            cronTime: '50 * * * * *',
                             onTick: function() {
-                                /* Logic to send emails
-                                let name = "MyFamily";
-                                let email = 051757557; //user number
-                                let text = "Današjni dan: 12:00 Pospravi smeti, Odnesi smeti, Fizična aktivnost 19:00 - 20:30";
-                                sendMessage(name, number, text);
-                              /* Runs every day (Monday through Sunday) */
+                                mailOptions.text = 'Današjni dan: 12:00 Pospravi smeti, Odnesi smeti, Fizična aktivnost 19:00 - 20:30';
+                                transporter.sendMail(mailOptions, function(error, info){
+                                    if (error) {
+                                      console.log(error);
+                                    } else {
+                                      console.log('Email sent: ' + info.response);
+                                    }
+                                });
                             },
                             start: true,
                             timeZone,
