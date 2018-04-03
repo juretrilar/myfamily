@@ -1,29 +1,36 @@
 let router = require('express').Router();
-let requestHandler = require('../controllers/esController');
+let mainHandler = require('../controllers/esController');
+let subscriptionHandler = require('../controllers/webpushController');
 
-router.get('/', requestHandler.naslovnaStran);
+router.get('/', mainHandler.naslovnaStran);
 
-router.post('/prijava', requestHandler.prijaviUporabnika);
+router.post('/prijava', mainHandler.prijaviUporabnika);
 
-router.get('/prijava', requestHandler.prijava);
+router.get('/prijava', mainHandler.prijava);
 
-router.post('/registracija', requestHandler.ustvariUporabnika);
+router.post('/registracija', mainHandler.ustvariUporabnika);
 
-router.post('/ustvari_nalogo', requestHandler.ustvariNalogo);
+router.post('/ustvari_nalogo', mainHandler.ustvariNalogo);
 
-router.post('/prikazi_naloge', requestHandler.prikaziNaloge);
+router.post('/prikazi_naloge', mainHandler.prikaziNaloge);
 /*
-router.get('/uredi_cilj', requestHandler.urediCilj);
+router.get('/uredi_cilj', mainHandler.urediCilj);
 */
-router.post('/ustvari_cilj', requestHandler.ustvariCilj);
+router.post('/ustvari_cilj', mainHandler.ustvariCilj);
 
-router.get('/koledar/:koledarId', requestHandler.prikaziKoledar);
+router.get('/koledar/:koledarId', mainHandler.prikaziKoledar);
 
-router.post('/settings', requestHandler.posodobiOsebnePodatke);
+router.post('/settings', mainHandler.posodobiOsebnePodatke);
 
-router.post('/notifications', requestHandler.posodobiObvestila);
+router.post('/notifications', mainHandler.posodobiObvestila);
 
-router.get('/odjava', requestHandler.odjava);
+router.get('/odjava', mainHandler.odjava);
+
+router.post('/api/save-subscription', subscriptionHandler.dodajObvestila);
+
+router.post('/api/disable-subscription', subscriptionHandler.odstraniObvestila);
+
+
 /*
 // BAZA
 

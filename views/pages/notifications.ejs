@@ -7,17 +7,17 @@
             </div>
             <div class="mdl-card__supporting-text mdl-grid overflow-visible padding-top-16">
                 <form method="POST" action="/notifications" id="notif_sms_mail" class="middle-align">
-                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchSms">
+                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchSms" name="switchSms" <% if(currSession.trenutniUporabnik.notf_email) {  %> checked <% } %>>
                         <input type="checkbox" id="switchSms" class="mdl-switch__input" >
                         <span class="mdl-switch__label">Obveščanje preko SMS sporočil</span>
                     </label>
                     <div class="padding-top-16"></div>
                     <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchMail">
-                        <input type="checkbox" id="switchMail" class="mdl-switch__input">
+                        <input type="checkbox" id="switchMail" name="switchMail" class="mdl-switch__input" <% if(currSession.trenutniUporabnik.notf_email) {  %> checked <% } %> >
                         <span class="mdl-switch__label">Obveščanje preko E-pošte</span>
                     </label>
                     <div class="mdl-cell mdl-cell--12-col send-button" align="center">
-                        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored" id="shraniNotif">
+                        <button type="submit" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored" id="shraniNotif">
                             Shrani spremembe
                         </button>
                     </div>

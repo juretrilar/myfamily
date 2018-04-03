@@ -1,14 +1,13 @@
 let fs = require('fs');
 let join = require('path').join;
-let path = require('path');
 let mongoose = require("mongoose");
 let express = require('express');
-let cookieParser = require('cookie-parser');
 let favicon = require('serve-favicon');
 let logger = require('morgan');
 let bodyParser = require('body-parser');
 let session = require("express-session");
 let MongoStore = require("connect-mongo")(session);
+var gulp = require('gulp');
 
 
 const models = join(__dirname, './models');
@@ -17,12 +16,13 @@ fs.readdirSync(models)
     .forEach(file => require(join(models, file)));
 
 
-let routes = require('./routes/routes');
-
 let app = express();
+app.use(favicon(join(__dirname, 'favicon.ico')));
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
+
+let routes = require('./routes/routes');
 
 //demo seja
 uporabnik_seja = {
@@ -31,12 +31,10 @@ uporabnik_seja = {
     admin : true
 };
 
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(join(__dirname, 'public')));
 app.use('/npm', express.static(__dirname + '/node_modules/'));
 app.use(session({
     secret : "THISISASECRETSTRING",
@@ -70,6 +68,10 @@ app.use(function(err, req, res, next) {
     res.status(err.status || 500);
     res.render('pages/error');
 });
+
+gulp.task('default', function() {
+    // place code for your default task here
+  });
 
 app.listen(process.env.PORT || 3000);
 

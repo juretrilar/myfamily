@@ -28,17 +28,18 @@ let successfulPost = 0;
 let jobsCounter = 0;
 let jobs = {};
 
+/*
 smsapi.authentication
     .login(process.env.SMSAPI_user, process.env.SMSAPI_pass)
     .then(sendMessage)
     .then(displayResult)
-    .catch(displayError);
+    .catch(displayError); */
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.mailUser,
-        pass: process.env.mailPass
+        pass:  process.env.mailPass
     }
 });
 
@@ -168,7 +169,7 @@ module.exports.naslovnaStran = function (req, res) {
                 }
                 //console.log(result.cilji[i].vezani_uporabniki, "vezan");
             }
-            //console.log("2");
+            console.log(req.session);
             posodobiJson(obj, session);
             res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             //console.log("3");
@@ -182,10 +183,8 @@ module.exports.prijava = function(req, res, next) {
     res.redirect("/");
 };
 
-
 //** POST /priava
 module.exports.prijaviUporabnika = function(req, res, next){
-    let session = req.session;
     let email = req.body.email;
     let geslo = req.body.password;
     Uporabnik.find(function(err, uporabniki){
@@ -204,7 +203,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
                 //ce se email in geslo ujemata
                 if(uporabniki[i].email === email && uporabniki[i].geslo === geslo){
                     //shrani podatke v sejo
-                    session.trenutniUporabnik = {
+                    req.session.trenutniUporabnik = {
                         email : uporabniki[i].email,
                         ime : uporabniki[i].ime,
                         telefon : uporabniki[i].telefon,
@@ -213,18 +212,20 @@ module.exports.prijaviUporabnika = function(req, res, next){
                         druzina : uporabniki[i].druzina,
                         admin : uporabniki[i].admin,
                         slika : uporabniki[i].slika,
-                        vrsta : uporabniki[i].vrsta
+                        vrsta : uporabniki[i].vrsta,
+                        notf_email : uporabniki[i].notf_email,
+                        notf_telefon :  uporabniki[i].notf_telefon
                     };
                     Uporabnik.findByIdAndUpdate(req.session.trenutniUporabnik.id, {last_login : new Date()}).catch(err => {
                         vrniNapako(res, err);
                     });
-                    session.trenutniUporabnik.last_login = new Date();
+                    req.session.trenutniUporabnik.last_login = new Date();
                     break;
                 }
             }
-            console.log(session.trenutniUporabnik);
+            //console.log(req.session.trenutniUporabnik);
 
-            if(session.trenutniUporabnik){
+            if(req.session.trenutniUporabnik){
                res.redirect("/");
             } else {
                 res.render("pages/prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!", uporabnik : ""});
@@ -246,6 +247,8 @@ module.exports.ustvariUporabnika = function(req, res, next) {
         geslo: req.body.reg_password,
         email: req.body.reg_email,
         telefon: req.body.reg_phone,
+        notf_email: false,
+        notf_telefon: false,
         vrsta: 0,
         admin: false,
         slika: ""+req.body.avatar,
@@ -285,81 +288,93 @@ module.exports.posodobiOsebnePodatke = function(req, res, next) {
 
 //** POST /notifications
 module.exports.posodobiObvestila = function(req, res, next) {
+    let mail = false, tel = false;
+    if (req.body.switchMail) mail = true;
+    if (req.body.switchSms) tel = true;
+    console.log(req.session.trenutniUporabnik.id);
     let conditions = { _id: req.session.trenutniUporabnik.id };
-    Uporabnik.find(conditions,{ notf_telefon: 1, notf_email: 1 }, { $maxTimeMS: 10000 }).then(notif => {
-        if (err) {
-            console.log(err);
-            vrniNapako(res, err);
-        } else {
-            let updateUporabnik = {};
-            if (notif.notf_telefon != req.body.switchSms) {
-                updateUporabnik.notf_telefon = req.body.switchSms;
-                if( req.body.switchSms == true) {
-                    if (jobs[req.session.trenutniUporabnik.id+"sms"]) {
-                        jobs[req.session.trenutniUporabnik.id+"sms"].start();
-                    } else {
-                        jobs[req.session.trenutniUporabnik.id+"sms"] = new CronJob({
-                            cronTime: '00 00 08 * * *',
-                            onTick: function() {
-                                let name = "MyFamily";
-                                let number = 051757557; //user number
-                                let text = "Današjni dan: 12:00 Pospravi smeti, Odnesi smeti, Fizična aktivnost 19:00 - 20:30";
-                                sendMessage(name, number, text);
-                              /* Runs every day (Monday through Sunday) */
-                            },
-                            start: true,
-                            timeZone,
-                            context: {jobName: req.session.trenutniUporabnik.id}
-                          });
-                    }                    
+    Uporabnik.find(conditions, { notf_telefon: 1, notf_email: 1 }).then(notif => {
+        console.log("test");
+        let updateUporabnik = {};
+        if (notif[0].notf_telefon != tel) {
+            updateUporabnik.notf_telefon = tel;
+            if(tel == true) {
+                if (jobs[req.session.trenutniUporabnik.id+"sms"]) {
+                    req.session.trenutniUporabnik.notf_telefon = false;
+                    jobs[req.session.trenutniUporabnik.id+"sms"].start();
                 } else {
+                    console.log("cron sms");
+                    jobs[req.session.trenutniUporabnik.id+"sms"] = new CronJob({
+                        cronTime: '00 00 08 * * *',
+                        onTick: function() {
+                            let name = "MyFamily";
+                            let number = 051757557; //user number
+                            let text = "Današjni dan: 12:00 Pospravi smeti, Odnesi smeti, Fizična aktivnost 19:00 - 20:30";
+                            sendMessage(name, number, text);
+                            /* Runs every day (Monday through Sunday) */
+                        },
+                        start: true,
+                        timeZone,
+                        context: {jobName: req.session.trenutniUporabnik.id}
+                        });
+                }                    
+            } else {
+                if (jobs[req.session.trenutniUporabnik.id+"sms"]) {
+                    req.session.trenutniUporabnik.notf_telefon = false;
                     jobs[req.session.trenutniUporabnik.id+"sms"].stop();
-                }
-            }            
-            if (notif.notf_email !=  req.body.switchMail) { 
-                updateUporabnik.notf_email = req.body.switchMail;
-                if( req.body.notf_email == true) {
-                    if (jobs[req.session.trenutniUporabnik.id+"email"]) {
-                        jobs[req.session.trenutniUporabnik.id+"email"].start();
-                    } else {
-                        var mailOptions = {
-                            from: 'MyFamilyAppMail@gmail.com',
-                            to: req.session.trenutniUporabnik.email,
-                            subject: 'Dnevni opomnik'
-                          };
-                        jobs[req.session.trenutniUporabnik.id+"email"] = new CronJob({
-                            cronTime: '50 * * * * *',
-                            onTick: function() {
-                                mailOptions.text = 'Današjni dan: 12:00 Pospravi smeti, Odnesi smeti, Fizična aktivnost 19:00 - 20:30';
-                                transporter.sendMail(mailOptions, function(error, info){
-                                    if (error) {
-                                      console.log(error);
-                                    } else {
-                                      console.log('Email sent: ' + info.response);
-                                    }
-                                });
-                            },
-                            start: true,
-                            timeZone,
-                            context: {jobName: req.session.trenutniUporabnik.id}
-                          });
-                    }                    
-                } else {
-                    jobs[req.session.trenutniUporabnik.id+"email"].stop();
-                } 
-            }   
-            if(updateUporabnik) {
-                Uporabnik.findOneAndUpdate(conditions, updateUporabnik,{upsert: false, runValidators: true}, function (err, doc) { // callback
-                    if (err) {
-                        console.log(err);
-                        vrniNapako(res, err);
-                    } else {
-                        //successfulPost = 1;
-                        res.redirect('/')
-                    }
-                });
+                }                
             }
+        }            
+        if (notif[0].notf_email != mail) { 
+            updateUporabnik.notf_email = mail;
+            if(mail == true) {
+                if (jobs[req.session.trenutniUporabnik.id+"email"]) {
+                    req.session.trenutniUporabnik.notf_email = true;
+                    jobs[req.session.trenutniUporabnik.id+"email"].start();
+                } else {
+                    var mailOptions = {
+                        from: 'MyFamilyAppMail@gmail.com',
+                        to: req.session.trenutniUporabnik.email,
+                        subject: 'Dnevni opomnik'
+                        };
+                    jobs[req.session.trenutniUporabnik.id+"email"] = new CronJob({
+                        cronTime: "00 30 08 * *",
+                        onTick: function() {
+                            console.log("sending mail");
+                            mailOptions.text = 'Današjni dan: 12:00 Pospravi smeti, Odnesi smeti, Fizična aktivnost 19:00 - 20:30';
+                            transporter.sendMail(mailOptions, function(error, info){
+                            if (error) {
+                                console.log(error);
+                            } else {
+                                console.log('Email sent: ' + info.response);                            }
+                            });
+                                                      
+                        },
+                        start: true,
+                        context: {jobName: req.session.trenutniUporabnik.id}
+                        });
+                }                 
+            } else {
+                if (jobs[req.session.trenutniUporabnik.id+"email"]) {
+                    console.log("job exists");
+                    jobs[req.session.trenutniUporabnik.id+"email"].stop(); 
+                }
+                req.session.trenutniUporabnik.notf_email = false;
+            } 
         }
+        if(updateUporabnik) {
+            Uporabnik.findOneAndUpdate(conditions, updateUporabnik,{upsert: false, runValidators: true}, function (err, doc) { // callback
+                if (err) {
+                    console.log(err);
+                    vrniNapako(res, err);
+                } else {
+                    //successfulPost = 1;
+                    res.redirect('/')
+                }
+            });
+        }    
+    }).catch(err => {
+        vrniNapako(res, err);
     });   
 };
 
@@ -553,6 +568,8 @@ module.exports.odjava = function (req, res, next) {
     req.session.destroy();
     res.redirect('/');
 };
+
+
 
 /*
 module.exports = function (app) {

@@ -10,7 +10,7 @@ jQuery(function($) {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
         console.log('Service Worker and Push is supported');
 
-        navigator.serviceWorker.register('/scripts/sw.js')
+        navigator.serviceWorker.register('sw.js')
             .then(function(swReg) {
                 console.log('Service Worker is registered', swReg);
 
@@ -400,18 +400,25 @@ function subscribeUser() {
 }
 
 function updateSubscriptionOnServer(subscription) {
-    // TODO: Send subscription to application server
-/*
-    const subscriptionJson = document.querySelector('.js-subscription-json');
-    const subscriptionDetails =
-        document.querySelector('.js-subscription-details');
-
-    if (subscription) {
-        subscriptionJson.textContent = JSON.stringify(subscription);
-        subscriptionDetails.classList.remove('is-invisible');
-    } else {
-        subscriptionDetails.classList.add('is-invisible');
-    }*/
+    console.log(JSON.stringify(subscription));
+    return fetch('/api/save-subscription/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(subscription)
+      })
+      .then(function(response) {
+        if (!response.ok) {
+          throw new Error('Bad status code from server.');
+        }    
+        return response.json();
+      })
+      .then(function(responseData) {
+        if (!(responseData.data && responseData.data.success)) {
+          throw new Error('Bad response from server.');
+        }
+      });
 }
 
 function unsubscribeUser() {
@@ -450,12 +457,18 @@ function urlB64ToUint8Array(base64String) {
 }
 
 function updateBtn() {
+    if (Notification.permission === 'denied') {
+        pushButton.textContent = 'Obvestila so blokirana';
+        pushButton.disabled = true;
+        updateSubscriptionOnServer(null);
+        return;
+      }
+    
     if (isSubscribed) {
-        $("#pushButton").text('Disable Push Messaging');
+        $("#pushButton").text('Izklopi obvestila v brskalniku');
     } else {
-        $("#pushButton").text('Enable Push Messaging');
+        $("#pushButton").text('Vklopi obvestila v brskalniku');
     }
-
     $("#pushButton").removeAttr("disabled");
 }
 
