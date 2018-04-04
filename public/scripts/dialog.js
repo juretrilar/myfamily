@@ -1,6 +1,6 @@
 let validation = 0;
 
-const applicationServerPublicKey = "BNVzh877MvprwKdzl90ARgaI9A77Sv6i_2ego2-etTeILUXvNIX_Kr09sl9uVOKz0lTVcKMacOu_VSYrLDYoItM";
+const applicationServerPublicKey = 'BGa5M248kds3Uw6AkR6igb3aq4OQw1zFmSBNuFj10kwdsqZ8DXoYtvLUPCMsUIpMKQiPzdOY-s-3mkVnPhRUiQg';
 let isSubscribed = false;
 let swRegistration = null;
 
@@ -366,7 +366,7 @@ function initializeUI() {
         .then(function(subscription) {
             isSubscribed = !(subscription === null);
 
-            updateSubscriptionOnServer(subscription);
+            //updateSubscriptionOnServer(subscription);
 
             if (isSubscribed) {
                 console.log('User IS subscribed.');
@@ -385,9 +385,9 @@ function subscribeUser() {
         applicationServerKey: applicationServerKey
     })
         .then(function(subscription) {
-            console.log('User is subscribed.');
-
             updateSubscriptionOnServer(subscription);
+
+            console.log('User is subscribed.');
 
             isSubscribed = true;
 
@@ -400,17 +400,18 @@ function subscribeUser() {
 }
 
 function updateSubscriptionOnServer(subscription) {
-    console.log(JSON.stringify(subscription));
-    return fetch('/api/save-subscription/', {
+    return fetch('/api/save-subscription', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
         },
         body: JSON.stringify(subscription)
       })
       .then(function(response) {
         if (!response.ok) {
           throw new Error('Bad status code from server.');
+         
         }    
         return response.json();
       })

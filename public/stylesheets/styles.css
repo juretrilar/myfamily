@@ -1,3 +1,5 @@
+/* STILI KI VELJAJO NA VSEH STRANEH */
+
 html, body {
     font-family: 'Roboto', sans-serif!important;
     font-weight: 300;
@@ -45,7 +47,7 @@ html, body {
     margin-left: 5px;
 }
 
-.mdl-chip__text {
+.mdl-chip-small .mdl-chip__text {
     font-size: 10px;
 }
 
@@ -78,9 +80,12 @@ html, body {
 margin: auto;
 }
 
+
 /*        */
 
 /* DIALOG */
+
+/* Spodnje metode služijo pri izgledu dialog elementa, ki se nahaja na strani index */
 
 .mdl-dialog__actions {
     z-index: 1;
@@ -89,12 +94,6 @@ margin: auto;
     right: 30px;
     bottom: 5px;
     transform: translateX(0);
-    /*
-    position: fixed;
-    bottom: 3.5%;
-    right: 29.5%;
-    z-index: 1;
-    */
 }
 
 .dialog-content-div {
@@ -152,6 +151,8 @@ margin: auto;
 
 /* CHECKBOXES */
 
+/* Izgled checkboxov */
+
 .mdl-checkbox .mdl-checkbox__focus-helper {
     background-color: white;
 
@@ -183,6 +184,8 @@ margin: auto;
 
 /* HEADER */
 
+/* Izgled glave na vseh straneh */
+
 .mdl-header .circle-container {
     width: 48px;
     height: 48px;
@@ -202,9 +205,6 @@ margin: auto;
     .mdl-layout__header-row {
         padding-left: 24px;
     }
-}
-.mdl-layout__header-row {
-
 }
 
 .mdl-layout__tab-bar-button {
@@ -232,6 +232,8 @@ margin: auto;
 
 /* DASHBOARD */
 
+/* izgled strani dashboard */
+
 .text-container {
     max-width: 4000px;
     width: calc(100% - 16px);
@@ -253,22 +255,13 @@ margin: auto;
 }
 
 .section__text {
-    rgba(0,0,0,0)
+    color: rgba(0,0,0,0);
 }
 
 .mdl-textfield__status {
-    position:relative;width: 70%;float: left;
-}
-
-.circle-containerFamily {
     position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 350px;
-    padding: 0px; /*= 2em * 1.4 (2em = half the width of an img, 1.4 = sqrt(2))*/
-    margin: 0 auto 0;
-    background: url("/uploads/1.png") no-repeat center;
-    background-size: 128px 128px;
+    width: 70%;
+    float: left;
 }
 
 .tri-card:after {
@@ -293,7 +286,7 @@ margin: auto;
     margin: 20px 15px;
 }
 
-.container a{
+.container a {
     padding: 0;
     min-width: 59px;
 }
@@ -311,7 +304,6 @@ margin: auto;
     width: 250px;
     height: 140px;
     min-height: 140px;
-    /*transform: translate(50px);*/
     text-align: center;
     z-index: 9999;
 }
@@ -320,9 +312,19 @@ margin: auto;
     color: lightgrey;
 }
 
+.button-action {
+    position: relative;
+    display: inline-block;
+    overflow: hidden;    
+    line-height: 0;
+    vertical-align: middle;
+}
+
 /*        */
 
 /* FOOTER */
+
+/* Izgled noge na vseh straneh */
 
 .mdl-mini-footer {
     align-items: center;
@@ -342,6 +344,8 @@ margin: auto;
 
 /* NALOGE */
 
+/* Izgled strani naloge */
+
 .mdl-card-naloge {
     margin-top: -50px;
     overflow: visible;
@@ -359,9 +363,9 @@ margin: auto;
 }
 
 .textfield-search {
-    width: 15%;
-    margin-left: 4px;
-    margin-right: 4px;
+    width: 15.7%;
+    margin-left: 0.2em;
+    margin-right: 0.2em;
 }
 
 .mdl-card__supporting-text {
@@ -370,7 +374,7 @@ margin: auto;
 
 .mdl-chip-naloge {
     float: right;
-    margin-top: 5px;"
+    margin-top: 5px;
 }
 
 .naloge-title_type {
@@ -387,7 +391,11 @@ margin: auto;
     margin-right: -16px;
 }
 .chip-no-margin {
-    margin-top: 10px;
+    margin: 0;
+}
+
+.chip-naloge .mdl-chip__text {
+    font-size: 15px;
 }
 
 .mdl-typography--subhead {
@@ -399,6 +407,7 @@ margin: auto;
     padding: 0 10px 0 10px;
 }
 
+.chip-no-margin > .mdl-chip__contact {opacity: 0;}
 .chip-no-margin > .mdl-chip__contact:nth-of-type(1) {opacity: 1;}
 .chip-no-margin > .mdl-chip__contact:nth-of-type(2) {opacity: 0.8;}
 .chip-no-margin > .mdl-chip__contact:nth-of-type(3) {opacity: 0.6;}
@@ -425,12 +434,26 @@ margin: auto;
     line-height: 32px;
 }
 
+.clani-naloge--container {
+    height: 100px;
+    padding: 0 10px 10px 10px;
+}
+
+.ime-opis-naloge--container {
+    padding: 10px 10px 0 10px;
+}
+
 /*       */
 
 /* CILJI */
 
+.table-wrapper {
+    overflow: scroll;
+}
+
 .table-cilj {
-    width: 100%
+    width: 100%;
+
 }
 
 .padding-zero {
@@ -465,75 +488,11 @@ margin: auto;
     background-color: red;
 }
 
-/*                   */
-
-/* RESPONSIVE DESIGN */
-
-@media screen and (max-width: 900px) {
-    .textfield-search {
-        width: 30%;
-    }
-}
-
-@media screen and (max-width: 840px) {
-    .mdl-hide-small {
-        display: none!important;
-    }
-
-    .mdl-layout__tab-bar {
-        padding-left: 20px;
-    }
-
-    .dialog-main {
-        width: 60%;
-    }
-}
-
-@media screen and (min-width: 840px) {
-    .mdl-cell.mdl-cell--3-col {
-        width: calc(27.777777777% - 16px);
-    }
-}
-
-@media screen and (min-width: 1440px) {
-    .mdl-cell.mdl-cell--3-col {
-        width: calc(20.8333333325% - 16px);
-    }
-
-    .mdl-cell--hide-hd {
-        display: none!important;
-    }
-
-    .mdl-cell-show-hd {
-        display: block!important;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .mdl-cell--3-col, .mdl-cell--3-col-phone.mdl-cell--3-col-phone {
-        width: 100%;
-    }
-
-    .dialog-main {
-        width: 80%;
-    }
-}
-
-@media screen and (max-width: 372px) {
-    .textfield-search {
-        width: 46%;
-    }
-    .dialog-main {
-        width: 100%;
-    }
-    .mdl-list__item--two-line {
-        height: 92px;
-    }
-}
-
 /*         */
 
 /* PRIJAVA */
+
+/* Izgled strani prijava */
 
 .util-center {
     margin: auto;
@@ -591,11 +550,89 @@ margin: auto;
     border: 2px solid black;
 }
 
+/*                   */
 
-/* HD RESPONSIVE */
+/* RESPONSIVE DESIGN */
+
+/* Različne izjeme za različne velikosti ekranov, nastavitve so po velikosti */
+
+@media screen and (max-width: 372px) {
+    .dialog-main {
+        width: 100%;
+    }
+    .mdl-list__item--two-line {
+        height: 92px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .textfield-search {
+        width: 100%;
+    }
+    .mdl-cell--3-col, .mdl-cell--3-col-phone.mdl-cell--3-col-phone {
+        width: 100%;
+    }
+
+    .dialog-main {
+        width: 80%;
+    }
+}
+
+@media screen and (min-width: 481px) and (max-width: 689px) {
+    .textfield-search {
+        width: 48%;
+    }
+}
+
+
+@media screen and (max-width: 840px) {
+    .mdl-hide-small {
+        display: none!important;
+    }
+
+    .mdl-layout__tab-bar {
+        padding-left: 20px;
+    }
+
+    .dialog-main {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 840px) {
+    .mdl-cell.mdl-cell--3-col {
+        width: calc(27.777777777% - 16px);
+    }
+}
+
+@media screen and (min-width: 690px) and (max-width: 1000px) {
+    .textfield-search {
+        width: 48.7%;
+    }
+}
+
+@media screen and (min-width: 1001px) and (max-width: 1300px) {
+    .textfield-search {
+        width: 32.2%;
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .mdl-cell.mdl-cell--3-col {
+        width: calc(20.8333333325% - 16px);
+    }
+
+    .mdl-cell--hide-hd {
+        display: none!important;
+    }
+
+    .mdl-cell-show-hd {
+        display: block!important;
+    }
+}
+
 @media (min-width: 1440px) {
     .mdl-cell--3-hd {
         width: calc(20.8333333325% - 16px)!important;
     }
 }
-

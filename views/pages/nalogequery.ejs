@@ -18,33 +18,30 @@
                 </div>
             </div>
             <div class="mdl-card__supporting-text padding-zero overflow-visible">
-                <ul class="'mdl-list padding-zero margin-zero">
-                    <li class="mdl-list__item mdl-list__item--three-line padding-10">
-                        <span class="mdl-list__item-primary-content">
-                            <span class="mdl-color-text--black"><%= naloge[i].ime %></span>
-                            <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[i].opis %></span>
-                        </span>
-                    </li>
-                </ul>
-                <ul class="'mdl-list padding-zero margin-zero naloge-person">
-                    <li class="mdl-list__item mdl-list__item--three-line padding-10">
+                <div class="mdl-list__item mdl-list__item--three-line ime-opis-naloge--container">
                     <span class="mdl-list__item-primary-content">
-                    <span class="mdl-color-text--grey">Za:</span>
-                        <span class="mdl-chip--contact chip-no-margin">
-                            <% for (let j = 0; j<naloge[i].vezani_uporabniki.length;j++) { %>
-                            <img class="mdl-chip__contact" src="<%= slika[naloge[i].vezani_uporabniki[j]][0] %>" alt="<%= slika[naloge[i].vezani_uporabniki[j]][2] %>" title="<%= slika[naloge[i].vezani_uporabniki[j]][2] %>">
-                            <input type="hidden" value="<%= slika[naloge[i].vezani_uporabniki[j]][1] %>" class="udelezenecNaloga">
-                            <% } %>
+                        <span class="mdl-color-text--black"><%= naloge[0].ime %></span>
+                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[0].opis %></span>
+                    </span>
+                </div>
+                <div class="mdl-list__item mdl-list__item--three-line clani-naloge--container naloge-person">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--grey">Udeleženci naloge:</span>
+                        <span class="mdl-list__item-text-body chip-no-margin">
+                                <% for (let j = 0; j<naloge[i].vezani_uporabniki.length;j++) { %>
+                                <img class="mdl-chip__contact author-chip" src="<%= slika[naloge[i].vezani_uporabniki[j]][0] %>" title="<%= slika[naloge[i].vezani_uporabniki[j]][2] %>">
+                                <input type="hidden" value="<%= slika[naloge[i].vezani_uporabniki[j]][1] %>" class="udelezenecNaloga">
+                                <% } %>
                         </span>
                     </span>
-                    <span class="mdl-list__item-secondary-content block">
-                        <span class="mdl-color-text--grey">Od:</span>
-                        <span class="mdl-chip--contact">
-                            <img class="mdl-chip__contact author-chip margin-zero" src="/uploads/1.png" alt="<%= slika[naloge[i].avtor][2] %>" title="<%= slika[naloge[i].avtor][2] %>">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--grey">Avtor:</span>
+                        <span class="mdl-list__item-text-body">
+                                <img class="mdl-chip__contact author-chip" src="<%= slika[naloge[i].avtor][0] %>" title="<%= slika[naloge[i].avtor][2] %>">
+
                         </span>
                     </span>
-                    </li>
-                </ul>
+                </div>
                 <ul class="'mdl-list padding-zero margin-zero">
                     <li class="mdl-list__item padding-10">
                         <span class="mdl-list__item-primary-content">

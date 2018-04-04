@@ -25,15 +25,15 @@
                     </button>
                 </div>
             </div>
-            <div class="mdl-card__supporting-text padding-zero">
+            <div class="mdl-card__supporting-text padding-zero table-wrapper">
                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji">
                     <thead>
                     <tr>
                         <th style="text-align: left;">Ime in opis</th>
                         <th style="text-align: center;">Trenutne/vse točke</th>
-                        <th style="text-align: center;" class="mdl-cell--hide-phone">Točke udeležencev</th>
-                        <th style="text-align: center;" class="mdl-cell--hide-phone">Ustvarjen</th>
-                        <th style="text-align: center;" class="mdl-cell--hide-phone">Zadnja posodobitev</th>
+                        <th style="text-align: center;" >Točke udeležencev</th>
+                        <th style="text-align: center;" >Ustvarjen</th>
+                        <th style="text-align: center;" >Zadnja posodobitev</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -42,11 +42,11 @@
                         <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
                         <tr>
                             <td class="mdl-data-table__cell--non-numeric padding-zero">
-                                <div class="mdl-list__item mdl-list__item--two-line">
+                                <div class="mdl-list__item mdl-list__item--three-line">
                                     <div class="circle-container-main mdl-color--grey"></div>
                                     <span class="mdl-list__item-primary-content">
                                         <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
-                                        <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= cilji[i].opis %></span>
+                                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= cilji[i].opis %></span>
                                         <input type="hidden" value="<%= cilji[i].maxXp %>" name="maxXp">
                                         <input type="hidden" value="<%= cilji[i].skupni_cilj %>" name="jeSkupen">
                                         <input type="hidden" value="<%= cilji[i]._id %>" name="idCilj">
@@ -73,8 +73,6 @@
                     <% } %>
                     </tbody>
             </table>
-            <span for="table-cilji" class="mdl-tooltip mdl-cell--hide-desktop"><i class="material-icons">mode_edit</i></span>
-            <span for="table-cilji" class="mdl-tooltip mdl-tooltip--right mdl-cell--hide-tablet mdl-cell--hide-phone"><i class="material-icons">mode_edit</i></span>
             </div>
         </div>
     </div>
@@ -85,15 +83,15 @@
             <div class="mdl-card__title mdl-color--blue-400">
                 <h2 class="mdl-card__title-text mdl-color-text--white">Zaključeni cilji družine</h2>
             </div>
-            <div class="mdl-card__supporting-text padding-zero">
+            <div class="mdl-card__supporting-text padding-zero table-wrapper">
                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji-end">
                     <thead>
                     <tr>
                         <th style="text-align: left;">Opis cilja</th>
                         <th style="text-align: center;">Trenutne/vse točke</th>
-                        <th style="text-align: center;" class="mdl-cell--hide-phone">Točke udeležencev</th>
-                        <th style="text-align: center;" class="mdl-cell--hide-phone">Ustvarjen</th>
-                        <th style="text-align: center;" class="mdl-cell--hide-phone">Zaključen</th>
+                        <th style="text-align: center;" >Točke udeležencev</th>
+                        <th style="text-align: center;" >Ustvarjen</th>
+                        <th style="text-align: center;" >Zaključen</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -102,11 +100,11 @@
                         <% if(cilji[i].maxXp <= cilji[i].xp) { %>
                         <tr>
                             <td class="mdl-data-table__cell--non-numeric padding-zero">
-                                <div class="mdl-list__item mdl-list__item--two-line">
+                                <div class="mdl-list__item mdl-list__item--three-line">
                                     <div class="circle-container-main mdl-color--grey"></div>
                                     <span class="mdl-list__item-primary-content">
                                         <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
-                                        <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= cilji[i].opis %></span>
+                                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= cilji[i].opis %></span>
                                         <input type="hidden" value="<%= cilji[i].maxXp %>" name="maxXp">
                                         <input type="hidden" value="<%= cilji[i].skupni_cilj %>" name="jeSkupen">
                                         <input type="hidden" value="<%= cilji[i]._id %>" name="idCilj">
@@ -130,8 +128,6 @@
                     <% } %>
                     </tbody>
                 </table>
-                <span for="table-cilji" class="mdl-tooltip mdl-cell--hide-desktop"><i class="material-icons">mode_edit</i></span>
-                <span for="table-cilji" class="mdl-tooltip mdl-tooltip--right mdl-cell--hide-tablet mdl-cell--hide-phone"><i class="material-icons">mode_edit</i></span>
             </div>
         </div>
     </div>

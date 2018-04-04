@@ -64,11 +64,9 @@ module.exports.naslovnaStran = function (req, res) {
         async.parallel({
             uporabniki: function (cb) {
                 Uporabnik.find().exec(cb);
-                console.log("u");
                 },
             cilji: function (cb) {
                 Cilji.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
-                console.log("c");
                  },
             docs: function (cb) {
                 Naloge.find({$query: {},$maxTimeMS: 10000 }).then(naloga => {
@@ -103,7 +101,7 @@ module.exports.naslovnaStran = function (req, res) {
                             let urKon = moment(naloga[i].konec).format('HH:mm');
                             if(!validator.matches(urZac ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urZac = "00:00";
                             if(!validator.matches(urKon ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urKon = "23:59";
-                            obj.monthly.push({
+                            obj.monthly.push({ //Dodaj nalogo v koledar
                                 id: naloga[i].id,
                                 name: naloga[i].ime,
                                 startdate: moment(naloga[i].zacetek).format('YYYY-MM-DD'),
@@ -113,29 +111,25 @@ module.exports.naslovnaStran = function (req, res) {
                                 color: color[naloga[i].kategorija],
                                 url: "/koledar/" + naloga[i].id
                             });
-                            //console.log(zac, now);
-                            //console.log(dateCheck(zac, kon, now));
-                            if (zac == now || dateCheck(zac, kon, now)) {
+                            if (zac == now || dateCheck(zac, kon, now)) { // Če je naloga na današnji dan jo dodaj v opomnike
                                 idx.push(naloga[i]);
                             }
                         }
                     }
-                    //console.log(idx, "vse naloge");
-                    if (idx.length == 0) {
-                        //console.log("Za današnji dan ni nobene naloge.");
+                    if (idx.length == 0) { //Če je dolžina 0, za ta datum ni opomnikov
                         cb();
                     }
-                    for(let i=0;i<idx.length;i++) {
-                        Uporabnik.findOne({_id: naloga[i].avtor}).then(avtor => {
+                    let m = idx.length;
+                    while (m-- > 0) {
+                        Uporabnik.findOne({_id: idx[0].avtor}).then(avtor => {
                             opomnik.push({
-                                ime: idx[i].ime,
-                                xp: idx[i].xp,
+                                ime: idx[0].ime,
+                                xp: idx[0].xp,
                                 avtor: avtor.ime,
-                                status: idx[i].status
+                                status: idx[0].status
                             });
                             idx.shift();
                             if (idx.length == 0) {
-                                //console.log("n");
                                 cb();
                             }
                         }).catch(err => {
@@ -156,12 +150,12 @@ module.exports.naslovnaStran = function (req, res) {
                 //console.log("k");
             },
         }, function (err, result) {
-            console.log(result.cilji, result.kategorija, result.docs);
+            //console.log(result.cilji, result.kategorija, result.docs);
             if (err) {
                 //console.log(err);
                 vrniNapako(err,res);
             }
-            console.log("1");
+            //console.log("1");
             let sCilji = [];
             for (let i=0;i<result.cilji.length;i++) {
                 if(result.cilji[i].skupni_cilj == true) {
@@ -169,7 +163,7 @@ module.exports.naslovnaStran = function (req, res) {
                 }
                 //console.log(result.cilji[i].vezani_uporabniki, "vezan");
             }
-            console.log(req.session);
+            //console.log(req.session);
             posodobiJson(obj, session);
             res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             //console.log("3");
@@ -356,7 +350,7 @@ module.exports.posodobiObvestila = function(req, res, next) {
                 }                 
             } else {
                 if (jobs[req.session.trenutniUporabnik.id+"email"]) {
-                    console.log("job exists");
+                    //console.log("job exists");
                     jobs[req.session.trenutniUporabnik.id+"email"].stop(); 
                 }
                 req.session.trenutniUporabnik.notf_email = false;
@@ -378,22 +372,22 @@ module.exports.posodobiObvestila = function(req, res, next) {
     });   
 };
 
-
-
 //** POST /koledar/:koledarId
 module.exports.prikaziKoledar = function(req, res, next) {
     currentTab = 1;
-    Naloge.find({_id: req.params.koledarId}, {
-    }, function(err, docs){
-        if (err) throw err;
-        all_items = docs;
-        console.log(all_items);
-        Kategorija.find({_id: all_items[0].kategorija}).then(kategorija => {
-            console.log(kategorija);
-            res.render("pages/nalogakoledar", {naloge: all_items, moment : moment, kategorija : kategorija[0].ime});
+    return queryNaloge({_id: req.params.koledarId}, {}).then(function(naloge) {
+        return queryKategorija({_id: naloge[0].kategorija}, {}).then(function(kategorija) {
+            naloge[0].vezani_uporabniki.unshift(naloge[0].avtor);
+            return queryUporabniki({_id: naloge[0].vezani_uporabniki}, {slika: 1, ime: 1}).then(function(users) {
+                res.render("pages/nalogakoledar", {naloge: naloge, moment : moment, kategorija : kategorija[0].ime, vezani: users});
+            }).catch(err => {
+                vrniNapako(res, err);
+            });
         }).catch(err => {
             vrniNapako(res, err);
         });
+    }).catch(err => {
+        vrniNapako(res, err);
     });
 };
 
@@ -480,12 +474,13 @@ module.exports.ustvariNalogo = function(req, res, next) {
     if(req.body.dateZacetek == "") novaNaloga.zacetek = dateNow();
     if(req.body.dateKonec == "") novaNaloga.konec = novaNaloga.zacetek;
     let conditions = { ime: req.body.imeDialog};
-    Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runVlidators: true, returnNewDocument: true}, function (err, doc) { // callback
+    Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runVlidators: true}, {returnNewDocument: true}, function (err, doc) { // callback
         if (err) {
             vrniNapako(res, err);
             console.log(err);
             return;
         } else {
+            //Iščem cilj, pod katerega je bila dodana naloga, uporabnikom prištejem vrednost za naloge, ki so jih naredili
             Cilji.findOne({_id: req.body.sampleCilj}, function(err, cilj) {
                 if(!err) {
                     let obj = cilj.vezani_uporabniki.map(value => String(value.id_user));
@@ -493,12 +488,17 @@ module.exports.ustvariNalogo = function(req, res, next) {
                     for(let i = 0; i<novaNaloga.vezani_uporabniki.length; i++) {
                         let index = obj.indexOf(String(novaNaloga.vezani_uporabniki[i]));
                         if (index > -1) {
+                            //prištejem točke
                             cilj.vezani_uporabniki[index].xp_user += currXp;
                         } else {
+                            //Če uporabnik še ni v cilju, ga dodam
                             cilj.vezani_uporabniki.push({"id_user" : novaNaloga.vezani_uporabniki[i], "xp_user" : currXp});
                         }
                     }
                     obj = cilj.vezane_naloge.map(value => String(value.id_nal));
+                    console.log(doc, "doc");
+                    console.log(doc._id, "id");
+
                     let nalId = doc._id;
                     if(req.body.newDialog) nalId = req.body.newDialog;
                     if (obj) {
@@ -662,4 +662,40 @@ function displayResult(result){
 
 function displayError(err){
     console.error(err);
+}
+
+function queryNaloge(query, fields) {
+    return new Promise(function(resolve, reject) {
+        Naloge.find(query, fields, function(err, result){
+            if (err) {
+                throw err;
+                reject(err);
+            }
+            resolve(result);
+        });
+    });
+}
+
+function queryKategorija(query, fields) {
+    return new Promise(function(resolve, reject) {
+        Kategorija.find(query, fields, function(err, result){
+            if (err) {
+                throw err;
+                reject(err);
+            }
+            resolve(result);
+        });
+    });
+}
+
+function queryUporabniki(query, fields) {
+    return new Promise(function(resolve, reject) {
+        Uporabnik.find(query, fields, function(err, result){
+            if (err) {
+                throw err;
+                reject(err);
+            }
+            resolve(result);
+        });
+    });
 }

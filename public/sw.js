@@ -25,9 +25,9 @@ self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
 
-    const title = 'Push Codelab';
+    const title = event.data.json().title;
     const options = {
-        body: 'Pozdravljeni v aplikaciji MyFamily.',
+        body: event.data.json().body,
         icon: 'images/f.ico',
         badge: 'images/e.png'
     };

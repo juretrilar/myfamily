@@ -14,28 +14,25 @@
         </div>
     </div>
     <div class="mdl-card__supporting-text padding-zero overflow-visible">
-        <div class="mdl-list__item mdl-list__item--three-line padding-10">
+        <div class="mdl-list__item mdl-list__item--three-line ime-opis-naloge--container">
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-color-text--black"><%= naloge[0].ime %></span>
                 <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[0].opis %></span>
             </span>
         </div>
-        <div class="mdl-list__item mdl-list__item--three-line padding-10">
+        <div class="mdl-list__item mdl-list__item--three-line clani-naloge--container">
             <span class="mdl-list__item-primary-content">
-                <span class="mdl-color-text--grey">Za:</span>
-                <span class="mdl-list__item-text-body chip-no-margin" style="margin-top: 10px;">
-                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">A</span>
-                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">B</span>
-                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">C</span>
-                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span>
-                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">E</span>
-                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">F</span>
+                <span class="mdl-color-text--grey">Udeleženci naloge:</span>
+                <span class="mdl-list__item-text-body chip-no-margin">
+                    <% for(let i=1;i< vezani.length;i++) { %>
+                    <img title="<%= vezani[i].ime %>" class="mdl-chip__contact author-chip" src="<%= vezani[i].slika %>"></img>
+                    <% } %>
                 </span>
             </span>
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-color-text--grey">Avtor:</span>
-                <span class="mdl-list__item-text-body" style="margin-top: 10px;">
-                    <span class="mdl-chip__contact mdl-color--teal mdl-color-text--white">D</span>
+                <span class="mdl-list__item-text-body">
+                    <img title="<%= vezani[0].ime %>" class="mdl-chip__contact author-chip" src="<%= vezani[0].slika %>"></img>
                 </span>
             </span>
         </div>
