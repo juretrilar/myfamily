@@ -341,16 +341,27 @@ function cleanNav() {
 function openSettings() {
     cleanNav();
     $("#notifications").removeClass("is-active");
+    $("#druzina").removeClass("is-active");
     $("#settings").addClass("is-active");
 }
 
 function openNotifications() {
     cleanNav();
+    $("#druzina").removeClass("is-active");
     $("#settings").removeClass("is-active");
     $("#notifications").addClass("is-active");
 }
 
-//SERVER WORKER
+function openDruzina() {
+    cleanNav();
+    $("#settings").removeClass("is-active");
+    $("#notifications").removeClass("is-active");
+    $("#druzina").addClass("is-active");
+}
+
+
+
+//PUSH NOTIFICATIONS
 function initializeUI() {
     pushButton.addEventListener('click', function() {
         pushButton.disabled = true;

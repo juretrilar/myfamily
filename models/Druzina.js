@@ -12,5 +12,3 @@ let druzinaSchema = new mongoose.Schema({
 });
 
 mongoose.model('Druzina', druzinaSchema, 'Druzina');
-
-

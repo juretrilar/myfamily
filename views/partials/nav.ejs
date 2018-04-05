@@ -15,7 +15,7 @@
             for="menu-lower-right">
             <li onclick="openSettings()" class="mdl-menu__item">Uporabniške nastavitve</li>
             <li onclick="openNotifications()" class="mdl-menu__item">Nastavitve sporočanja</li>
-            <li onclick="openFamily()" class="mdl-menu__item">Dodaj družinskega člana</li>
+            <li onclick="openDruzina()" class="mdl-menu__item">Dodaj družinskega člana</li>
             <li class="mdl-menu__item">Dodaj novo nalogo</li>
             <li class="mdl-menu__item">Dodaj nov cilj</li>
             <li onclick="location.href='/odjava'" class="mdl-menu__item">Odjava</li>
@@ -30,6 +30,7 @@
         <a id="menuCilj" href="#cilj" class="mdl-layout__tab mdl-color-text--grey <% if(tab == 3) { %> is-active <% } %>">Cilji</a>
         <a href="#settings"></a>
         <a href="#notifications"></a>
+        <a href="#druzina"></a>
     </div>
     <% } %>
     <div class="mdl-layout__header-row"></div>

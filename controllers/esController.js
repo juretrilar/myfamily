@@ -3,7 +3,6 @@ let mongoose = require('mongoose');
 let Uporabnik = mongoose.model("Uporabnik");
 let Cilji = mongoose.model("Cilji");
 let Naloge = mongoose.model("Naloge");
-let Druzina = mongoose.model("Druzina");
 let Kategorija = mongoose.model("Kategroija");
 
 let express = require('express');
@@ -58,18 +57,18 @@ module.exports.naslovnaStran = function (req, res) {
         });
     } else {
         let opomnik = [];
-        let session = req.session;
         let obj = {monthly: []};
         let idx = [];
+        console.log(req.session.trenutniUporabnik.druzina);
         async.parallel({
             uporabniki: function (cb) {
-                Uporabnik.find().exec(cb);
+                Uporabnik.find({druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)}).exec(cb);
                 },
             cilji: function (cb) {
-                Cilji.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
+                Cilji.find({$query: {druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)},$maxTimeMS: 10000 }).exec(cb);
                  },
             docs: function (cb) {
-                Naloge.find({$query: {},$maxTimeMS: 10000 }).then(naloga => {
+                Naloge.find({$query: {druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)},$maxTimeMS: 10000 }).then(naloga => {
                     if(naloga.length == 0) {
                         cb();
                         return;
@@ -95,7 +94,7 @@ module.exports.naslovnaStran = function (req, res) {
                         let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
                         let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
                         let now = moment(Date.now()).format('MM-DD-YYYY');
-                        if (naloga[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
+                        if (naloga[i].vezani_uporabniki.indexOf(req.session.trenutniUporabnik.id) > -1) {
                             j = i;
                             let urZac = moment(naloga[i].zacetek).format('HH:mm');
                             let urKon = moment(naloga[i].konec).format('HH:mm');
@@ -150,7 +149,8 @@ module.exports.naslovnaStran = function (req, res) {
                 //console.log("k");
             },
         }, function (err, result) {
-            //console.log(result.cilji, result.kategorija, result.docs);
+            console.log(result.cilji, result.kategorija, result.docs);
+            console.log("end of result");
             if (err) {
                 //console.log(err);
                 vrniNapako(err,res);
@@ -164,7 +164,7 @@ module.exports.naslovnaStran = function (req, res) {
                 //console.log(result.cilji[i].vezani_uporabniki, "vezan");
             }
             //console.log(req.session);
-            posodobiJson(obj, session);
+            posodobiJson(obj, req.session);
             res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
             //console.log("3");
             currentTab = 0;
@@ -395,6 +395,7 @@ module.exports.prikaziKoledar = function(req, res, next) {
 module.exports.prikaziNaloge = function(req, res, next) {
     currentTab = 2;
     let where_search = {};
+    where_search.druzina = mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina);
     if (req.body.avtor) where_search.avtor =  req.body.avtor;
     if (req.body.kategorija) where_search.kategorija = req.body.kategorija;
     if (req.body.status) where_search.status = (req.body.status == 'true');
@@ -407,11 +408,10 @@ module.exports.prikaziNaloge = function(req, res, next) {
             where_search.zacetek = null;
         }
     }
-    //console.log(where_search);
     async.parallel({
         docs: function (cb) { Naloge.find(where_search).exec(cb);},
         kategorija: function (cb) { Kategorija.find().exec(cb); },
-        uporabnik: function (cb) { Uporabnik.find().select("slika ime").exec(cb); },
+        uporabnik: function (cb) { Uporabnik.find({druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)}).select("slika ime").exec(cb); },
     },
     function(err, results) {
         if (err) {
@@ -459,7 +459,8 @@ module.exports.ustvariNalogo = function(req, res, next) {
         xp: req.body.xpNaloge,
         vezan_cilj: req.body.sampleCilj,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
-        status: req.body.newStatus
+        status: req.body.newStatus,
+        druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina),
     };
     if(mongoose.Types.ObjectId.isValid(req.body.person)) {
         novaNaloga.vezani_uporabniki.push(req.body.person);
@@ -473,7 +474,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
             //
     if(req.body.dateZacetek == "") novaNaloga.zacetek = dateNow();
     if(req.body.dateKonec == "") novaNaloga.konec = novaNaloga.zacetek;
-    let conditions = { ime: req.body.imeDialog};
+    let conditions = { _id: req.body.newDialog};
     Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runVlidators: true}, {returnNewDocument: true}, function (err, doc) { // callback
         if (err) {
             vrniNapako(res, err);
@@ -541,7 +542,8 @@ module.exports.ustvariCilj = function(req, res, next) {
         opis: req.body.opisDialog,
         last_updated: updated,
         skupni_cilj: req.body.skupnaNaloga,
-        maxXp: req.body.xpNaloge
+        maxXp: req.body.xpNaloge,
+        druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)
     };
     if(req.body.newDialog) {
         if(req.body.stanje) {
@@ -551,7 +553,7 @@ module.exports.ustvariCilj = function(req, res, next) {
         novCilj.zacetek = updated;
     }
 
-    let conditions = { ime: req.body.imeDialog };
+    let conditions = { _id: req.body.newDialog };
     Cilji.findOneAndUpdate(conditions, novCilj,{upsert: true, runValidators: true}, function (err, doc) { // callback
         if (err) {
             vrniNapako(res, err);
@@ -600,7 +602,6 @@ function validatenaloga(req,res) {
 }
 
 function validateImeOpisId(req,res) {
-    //console.log(req.body.newDialog);
     if(req.body.newDialog != "") {if(!validator.isMongoId(req.body.newDialog)) {vrniNapako(res, "Id za posodobitev je napačen. "+req.body.newDialog);return false;}}
     if(!validator.matches(req.body.imeDialog ,/^[A-ZČĆŽŠĐ0-9.,\s]+$/i)) {vrniNapako(res, "Za ime so bili uporabljeni napačni znaki. "+req.body.imeDialog);return false;}
     if(!validator.matches(req.body.opisDialog ,/^[A-ZČĆŽŠĐ0-9.,\s]+$/i)) {vrniNapako(res, "Za opis so bili uporabljeni napačni znaki. "+req.body.opisDialog);return false;}

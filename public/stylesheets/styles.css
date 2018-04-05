@@ -6,6 +6,11 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: lightgray;
+    background-image: url("/images/header4.svg");
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    background-attachment: fixed;
+
 }
 
 .hide-element {
@@ -80,6 +85,27 @@ html, body {
 margin: auto;
 }
 
+.krivulja-1 {
+    background-image: url("/images/header1.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.krivulja-2 {
+    background-image: url("/images/header2.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.krivulja-3 {
+    background-image: url("/images/header3.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;}
+
+.krivulja-4 {
+    background-image: url("/images/header4.svg");
+    background-size: 100%;
+    background-repeat: no-repeat;}
 
 /*        */
 
@@ -448,7 +474,7 @@ margin: auto;
 /* CILJI */
 
 .table-wrapper {
-    overflow: scroll;
+    overflow: auto;
 }
 
 .table-cilj {
