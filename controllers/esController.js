@@ -573,7 +573,7 @@ module.exports.povabiUporabnika = function (req, res, next) {
     };
 
     console.log("sending mail");
-    mailOptions.html = 'Pozdravljen,<br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Prijavi se v aplikacijo in klikni na spodnjo povezavo.<br/><br/><a hreflocalhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'></a>';
+    mailOptions.html = 'Pozdravljen,<br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Prijavi se v aplikacijo in klikni na spodnjo povezavo.<br/><br/><a href="localhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'">localhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'</a>';
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log(error);
