@@ -24,6 +24,8 @@ router.post('/settings', mainHandler.posodobiOsebnePodatke);
 
 router.post('/notifications', mainHandler.posodobiObvestila);
 
+router.post('/invite', mainHandler.povabiUporabnika);
+
 router.get('/odjava', mainHandler.odjava);
 
 router.post('/api/save-subscription', subscriptionHandler.dodajObvestila);

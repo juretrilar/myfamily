@@ -149,7 +149,6 @@ module.exports.naslovnaStran = function (req, res) {
                 //console.log("k");
             },
         }, function (err, result) {
-            console.log(result.cilji, result.kategorija, result.docs);
             console.log("end of result");
             if (err) {
                 //console.log(err);
@@ -218,7 +217,6 @@ module.exports.prijaviUporabnika = function(req, res, next){
                 }
             }
             //console.log(req.session.trenutniUporabnik);
-
             if(req.session.trenutniUporabnik){
                res.redirect("/");
             } else {
@@ -497,8 +495,8 @@ module.exports.ustvariNalogo = function(req, res, next) {
                         }
                     }
                     obj = cilj.vezane_naloge.map(value => String(value.id_nal));
-                    console.log(doc, "doc");
-                    console.log(doc._id, "id");
+                    //console.log(doc, "doc");
+                    //console.log(doc._id, "id");
 
                     let nalId = doc._id;
                     if(req.body.newDialog) nalId = req.body.newDialog;
@@ -510,7 +508,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
                             cilj.vezane_naloge.push({"id_nal" : nalId, "stanje" : req.body.newStatus});
                         }
                     }
-                    console.log(cilj);
+                    //console.log(cilj);
                     cilj.save(function (err) {
                         if(!err) {
                             res.redirect("/");
@@ -564,34 +562,34 @@ module.exports.ustvariCilj = function(req, res, next) {
     });
 };
 
+//** POST /invite
+module.exports.povabiUporabnika = function (req, res, next) {
+    if(!validator.isEmail(req.body.invite_email)) {vrniNapako(res, "Vpisan email ni ustrezen. "+req.body.invite_email);return false;}
+    console.log(req.body.invite_email);
+    var mailOptions = {
+        from: 'MyFamilyAppMail@gmail.com',
+        to: req.body.invite_email,
+        subject: 'MyFamily family invite'
+    };
+
+    console.log("sending mail");
+    mailOptions.html = 'Pozdravljen,<br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Prijavi se v aplikacijo in klikni na spodnjo povezavo.<br/><br/><a hreflocalhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'></a>';
+    transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+            console.log(error);
+        } else {
+            console.log('Email sent: ' + info.response);                           
+        }
+    });
+    res.redirect('/');
+};
+
 //** GET /odjava
 
 module.exports.odjava = function (req, res, next) {
     req.session.destroy();
     res.redirect('/');
 };
-
-
-
-/*
-module.exports = function (app) {
-
-    app.get('/', function (req, res) {
-        res.render('pages/index', {person: 'Alenka'});
-        console.log("works");
-
-    });
-
-    app.post('/', urlencodedParser, function (req, res) {
-        res.json('');
-    });
-
-    app.get('/:name', function (req, res) {
-        res.render('pages/index', {person: req.params.name});
-        dodajUporabnika(req,res);
-    });
-
-}; */
 
 function validatenaloga(req,res) {
     if(!validateImeOpisId(req,res)) return false;
