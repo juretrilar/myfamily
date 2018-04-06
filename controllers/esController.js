@@ -38,7 +38,7 @@ let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         user: process.env.mailUser,
-        pass:  process.env.mailPass
+        pass: process.env.mailPass
     }
 });
 
@@ -573,15 +573,42 @@ module.exports.povabiUporabnika = function (req, res, next) {
     };
 
     console.log("sending mail");
-    mailOptions.html = 'Pozdravljen,<br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Prijavi se v aplikacijo in klikni na spodnjo povezavo.<br/><br/><a href="localhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'">Pridruži se družini</a>';
+    mailOptions.html = '<p>Pozdravljen,<br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Prijavi se v aplikacijo in klikni na spodnjo povezavo.<br/><br/><a href="http://localhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'">Pridruži se družini</a></p><a href="https://www.w3schools.com">Visit W3Schools</a>';
+    console.log(mailOptions.html);
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-            console.log(error);
+            console.log(error, "error");
         } else {
             console.log('Email sent: ' + info.response);                           
         }
+        console.log(info, "info");
     });
+    console.log("what");
     res.redirect('/');
+};
+
+
+//** GET /invite/:druzinaId
+module.exports.spremeniDruzino = function (req, res, next) {
+    if(!req.session.trenutniUporabnik) {
+        console.log("not logged");
+        res.render('pages/prijava', {
+            uporabnik: "",
+            sporociloPrijava : "",
+            currSession:  "",
+        });
+    } else {
+        req.session.trenutniUporabnik.druzina = req.params.druzinaId;
+        Uporabnik.findOne({_id:  req.params.druzinaId}).then(user => {
+            user.druzina = req.params.druzinaId;
+            user.save;         
+            res.redirect('/');
+        }).catch(err => {
+            console.log(err);
+            vrniNapako(res, err);
+            return;
+        });
+    }
 };
 
 //** GET /odjava
