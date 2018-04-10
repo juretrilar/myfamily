@@ -4,6 +4,24 @@
 <body>
     <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <%- include('../partials/nav') -%>
+        <div class="mdl-card card-info mdl-shadow--2dp overflow-visible hide-element tri-card-no-status podatki-user">
+            <div class="mdl-dialog__content padding-10 align-center">
+                <h4 id="userCard" class="align-center margin-zero"></h4>
+                <span class="mdl-chip mdl-color--green mdl-color-text--white mdl-chip-small">
+                    <span class="mdl-chip__text">+100 xp</span>
+                </span>
+                <span class="mdl-chip mdl-color--red mdl-color-text--white mdl-chip-small">
+                    <span class="mdl-chip__text">-100 xp</span>
+                </span>
+                <p id="status" style="margin: 0"></p>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a id="phoneCall"class="button-action mdl-js-button"><i class="icon material-icons">phone</i></a>
+                <a id="smsSend" class="button-action mdl-js-button"><i class="icon material-icons">sms</i></a>
+                <a id="mailSend"  class="button-action mdl-js-button"><i class="icon material-icons">mail</i></a>
+                <a id="viberOpen" class="button-action mdl-js-button"><img align="middle" src="http://icons.iconarchive.com/icons/bokehlicia/captiva/256/web-viber-icon.png"></a>
+            </div>
+        </div>
         <main class="mdl-layout__content">
             <section id="dashboard" class="mdl-layout__tab-panel <% if(tab == 0) { %> is-active <% } %>">
                 <%- include('../pages/dashboard') -%>
@@ -146,24 +164,6 @@
     <div id="mainToast" class="mdl-js-snackbar mdl-snackbar">
         <div class="mdl-snackbar__text"></div>
         <button class="mdl-snackbar__action" type="button"></button>
-    </div>
-    <div class="mdl-card card-info mdl-shadow--2dp overflow-visible hide-element tri-card-no-status podatki-user">
-        <div class="mdl-dialog__content padding-10 align-center">
-            <h4 id="userCard" class="align-center margin-zero"></h4>
-            <span class="mdl-chip mdl-color--green mdl-color-text--white mdl-chip-small">
-                <span class="mdl-chip__text">+100 xp</span>
-            </span>
-            <span class="mdl-chip mdl-color--red mdl-color-text--white mdl-chip-small">
-                <span class="mdl-chip__text">-100 xp</span>
-            </span>
-            <p id="status" style="margin: 0"></p>
-        </div>
-        <div class="mdl-card__actions mdl-card--border">
-            <a id="phoneCall"class="button-action mdl-js-button"><i class="icon material-icons">phone</i></a>
-            <a id="smsSend" class="button-action mdl-js-button"><i class="icon material-icons">sms</i></a>
-            <a id="mailSend"  class="button-action mdl-js-button"><i class="icon material-icons">mail</i></a>
-            <a id="viberOpen" class="button-action mdl-js-button"><img align="middle" src="http://icons.iconarchive.com/icons/bokehlicia/captiva/256/web-viber-icon.png" style="width: 32px;height: 32px;"></a>
-        </div>
     </div>
     <%- include('../partials/script') -%>
     <%- include('../partials/scriptLogged') -%>

@@ -301,8 +301,6 @@ margin: auto;
     height: 0;
     left: 100px;
     right: 0;
-    top: 144px;
-    bottom: 0;
     border: 25px solid;
     border-color: white transparent transparent transparent;
 }
@@ -314,8 +312,6 @@ margin: auto;
     height: 0;
     left: 100px;
     right: 0;
-    top: 119px;
-    bottom: 0;
     border: 25px solid;
     border-color: white transparent transparent transparent;
 }
@@ -331,11 +327,16 @@ margin: auto;
 }
 
 .card-info .mdl-card__actions{
-    padding: 8px 0 0 0;
+    padding: 5px 0;
+}
+
+.card-info .material-icons {
+    font-size: 32px;
 }
 
 #viberOpen img{
-    margin: 0 14px 0 0;
+    width: 32px;
+    height: 32px;
 }
 
 .card-info {
@@ -344,6 +345,8 @@ margin: auto;
     min-height: 120px;
     text-align: center;
     z-index: 9999;
+    height: auto;
+    align-self: initial;
 }
 
 .icon {
@@ -644,6 +647,38 @@ margin: auto;
 @media screen and (min-width: 481px) and (max-width: 689px) {
     .textfield-search {
         width: 48%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .podatki-user .mdl-card__actions {
+        display: block;
+    }
+
+    .card-info .material-icons {
+        font-size: 40px;
+    }
+
+    .podatki-user a {
+        padding: 5px 5px;
+    }
+
+    #viberOpen img {
+        width: 40px;
+        height: 40px;
+        margin: 0;
+    }
+
+    .card-info {
+        width: 160px;
+    }
+
+    .tri-card-no-status:after {
+        left: 55px;
+    }
+
+    .tri-card-status:after {
+        left: 55px;
     }
 }
 

@@ -4,6 +4,9 @@ const applicationServerPublicKey = 'BGa5M248kds3Uw6AkR6igb3aq4OQw1zFmSBNuFj10kwd
 let isSubscribed = false;
 let swRegistration = null;
 
+let pageWidth = $(document).width();
+let pageHeight = $(document).height();
+
 let colors = ["#00FF00", "#6699ff", "#ff6600", "#FF25FF", "#FF6C6A", "#53ff1a", "#00C8FF", "#ff66ff","#ff9900"];
 
 jQuery(function($) {
@@ -51,14 +54,16 @@ jQuery(function($) {
         if(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling) {
             $("#status").html(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.children[0].innerHTML);
             $(".tri-card-no-status").removeClass("tri-card-no-status").addClass("tri-card-status");
-            $(".card-info").attr("style","display: block;").offset({ top: pos.top-145, left: pos.left-93 });
-            card.css("height", "145px");
         } else {   
             $("#status").html("");   
             $(".tri-card-status").addClass("tri-card-no-status").removeClass("tri-card-status");
-            $(".card-info").attr("style","display: block;").offset({ top: pos.top-120, left: pos.left-93 });
-            card.css("height", "120px");
         }
+        if (pageWidth > 600) {
+            $(".card-info").css({"top": distanceX(img) - parseFloat(card.css("height")),  "left": pos.left-93, "display": "block"});
+        } else {
+            $(".card-info").css({"top": distanceX(img) - parseFloat(card.css("height")) ,  "left": pos.left-50, "display": "block"});
+        }
+        
     });
 
     $('#mycalendar').monthly({
@@ -516,4 +521,20 @@ function tockeUdelezencev(stCiljev, prg, razmerje) {
 
 function zapriNalogo() {
     $("#NalogaPopUp").css("display", "none");
+}
+
+function distanceX(elem) {
+    // Get an element's distance from the top of the page
+    var getElemDistance = function ( elem ) {
+        var location = 0;
+        if (elem.offsetParent) {
+            do {
+                location += elem.offsetTop;
+                elem = elem.offsetParent;
+            } while (elem);
+        }
+        return location >= 0 ? location : 0;
+    };
+    var location = getElemDistance( elem );
+    return(location);
 }
