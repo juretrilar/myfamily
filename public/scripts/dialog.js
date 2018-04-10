@@ -28,7 +28,7 @@ jQuery(function($) {
     document.onclick = zapriVse();
 
     document.onmouseup = (function(e)    {
-        let container = $(".tri-card");
+        let container = $(".card-info");
 
         if($(container).is(":visible")) {
             if (!container.is(e.target) && container.has(e.target).length === 0)        {
@@ -40,21 +40,25 @@ jQuery(function($) {
     tockeUdelezencev($('#table-cilji').find('tr').length-1, "progress", "razmerje");
     tockeUdelezencev($('#table-cilji-end').find('tr').length-1, "progressE", "razmerjeE");
 
-    // TODO
-    /*Dobim slike in jih zapišem v img, sliko prijavljenega uporabnika dam za ozadje.
-    V skripti preštejem slike in jim na podlagi števila naredim izris.
-
-    Če bo potrebno bom dodal večje ikone na večjih ekranih. Potrebno je preveriti kaj se zgodi če imamo preveč uporabnikov.
-     */
-
-    onUserClick("container", function (img){
+    onUserClick("container", function (img){      
         let pos = img.getBoundingClientRect();
-        $(".tri-card").attr("style","display: block;").offset({ top: pos.top-145, left: pos.left-90 });
+        let card = $(".card-info");        
         $("#userCard").text(img.nextElementSibling.value);
         $("#phoneCall").attr("href","tel:"+img.nextElementSibling.nextElementSibling.value);
         $("#smsSend").attr("href","sms:"+img.nextElementSibling.nextElementSibling.value);
         $("#mailSend").attr("href","mailto:"+img.nextElementSibling.nextElementSibling.nextElementSibling.value);
         $("#viberOpen").attr("href","viber://chats?number="+img.nextElementSibling.nextElementSibling.value);
+        if(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling) {
+            $("#status").html(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.children[0].innerHTML);
+            $(".tri-card-no-status").removeClass("tri-card-no-status").addClass("tri-card-status");
+            $(".card-info").attr("style","display: block;").offset({ top: pos.top-145, left: pos.left-93 });
+            card.css("height", "145px");
+        } else {   
+            $("#status").html("");   
+            $(".tri-card-status").addClass("tri-card-no-status").removeClass("tri-card-status");
+            $(".card-info").attr("style","display: block;").offset({ top: pos.top-120, left: pos.left-93 });
+            card.css("height", "120px");
+        }
     });
 
     $('#mycalendar').monthly({

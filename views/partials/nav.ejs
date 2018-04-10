@@ -7,6 +7,7 @@
         <div class="mdl-layout-spacer"></div>
         <h6 class="mdl-color-text--grey mdl-typography--font-light mdl-cell--hide-phone">Živjo,&nbsp</h6>
         <h6 class="mdl-color-text--black mdl-typography--font-light"><%= currSession.trenutniUporabnik.ime %></h6>
+        <input type="hidden" id="trenutniUporabnik" value="<%= currSession.trenutniUporabnik.id %>">
         <button id="menu-lower-right"
                 class="mdl-button mdl-js-button mdl-button--icon mdl-button--primary">
             <i class="material-icons">more_vert</i>

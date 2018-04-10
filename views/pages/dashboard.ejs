@@ -13,7 +13,7 @@
                     <span class="mdl-list__item-primary-content">
                         <span class="mdl-color-text--white "><%= opomniki[i].ime %></span>
                         <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
-                            <span class="mdl-chip__text">+100 xp</span>
+                            <span class="mdl-chip__text">100 xp</span>
                         </span>
                         <span class="mdl-list__item-sub-title"><%= opomniki[i].avtor %></span>
                     </span>
@@ -37,81 +37,97 @@
         </div>
         <div class="mdl-card section__text mdl-cell mdl-color--primary mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet overflow-visible">
             <div class="mdl-textfield mdl-js-textfield mdl-color-text--white" style="width: 100%">
-                <input class="mdl-textfield__input mdl-textfield__status" id="tt1" type="text" id="sample1">
-                <label class="mdl-textfield__label mdl-color-text--white" for="sample1">Danes je kar bizi dan</label>
-                <div class="mdl-tooltip mdl-color-text--white" style="background: transparent;" data-mdl-for="tt1">
-                    Moj status
-                </div>
-                <label class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--blue-800" for="sample-input" style="position:relative;float: right; width: 20%; bottom: 10px;">
-                    <i class="material-icons">done</i>&nbsp&nbspObjavi</label>
+                    <input class="mdl-textfield__input mdl-textfield__status not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" maxlength="35">
+                    <label class="mdl-textfield__label mdl-color-text--grey" for="sample3">Moj status</label>
+                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--blue-800" onclick="objaviStatus()" style="position:relative;float: right; width: 20%; bottom: 10px;">
+                        <i class="material-icons">done</i>&nbspObjavi
+                    </button>
             </div>
             <div class="container">
-                <div class="mdl-card card-info mdl-shadow--2dp overflow-visible hide-element tri-card">
-                    <div class="mdl-dialog__content padding-10 align-center">
-                        <h4 id="userCard" class="align-center margin-zero"></h4>
-                        <span class="mdl-chip mdl-color--green mdl-color-text--white">
-                        <span class="mdl-chip__text">+100 xp</span>
-                    </span>
-                        <span class="mdl-chip mdl-color--red mdl-color-text--white">
-                        <span class="mdl-chip__text">-100 xp</span>
-                    </span>
-                    </div>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a id="phoneCall"class="button-action mdl-js-button"><i class="icon material-icons">phone</i></a>
-                        <a id="smsSend" class="button-action mdl-js-button"><i class="icon material-icons">sms</i></a>
-                        <a id="mailSend"  class="button-action mdl-js-button"><i class="icon material-icons">mail</i></a>
-                        <a id="viberOpen" class="button-action mdl-js-button"><img align="middle" src="http://icons.iconarchive.com/icons/bokehlicia/captiva/256/web-viber-icon.png" style="width: 32px;height: 32px;"></a>
-                    </div>
-                </div>
                 <div class="row">
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 7) { %>
-                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">
+                        <div class="item">
+                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">  
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
+                        <% if(uporabniki[j].status) { %>
+                            <span class="mdl-chip caption">
+                                    <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                            </span>
+                        <% } %>
+                    </div>
                     <% } %>
                 <% } %>
                 </div>
                 <div class="row">
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 6) { %>
+                        <div class="item">
                         <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level6 user">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
+                        <% if(uporabniki[j].status) { %>
+                            <span class="mdl-chip caption">
+                                    <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                            </span>
+                        <% } %>
+                    </div>
                     <% } %>
                 <% } %>
                 </div>
                 <div class="row">
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 5) { %>
+                        <div class="item">
                         <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level5 user">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
+                        <% if(uporabniki[j].status) { %>
+                            <span class="mdl-chip caption">
+                                    <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                            </span>
+                        <% } %>
+                    </div>
                     <% } %>
                 <% } %>
                 </div>
                 <div class="row">
-                <% for(let j=0; j<uporabniki.length;j++) {%>
-                    <% if(uporabniki[j].vrsta == 4) { %>
-                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level4 user">
-                        <input type="hidden" value="<%= uporabniki[j].ime %>">
-                        <input type="hidden" value="<%= uporabniki[j].telefon %>">
-                        <input type="hidden" value="<%= uporabniki[j].email %>">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].vrsta == 4) { %>
+                            <div class="item">
+                            <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level4 user">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
+                            <% if(uporabniki[j].status) { %>
+                                <span class="mdl-chip caption">
+                                        <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                                </span>
+                            <% } %> 
+                        </div>
+                        <% } %>
                     <% } %>
-                <% } %>
                 </div>
                 <div class="row">
-                <% for(let j=0; j<uporabniki.length;j++) {%>
-                    <% if(uporabniki[j].vrsta == 3) { %>
-                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level3 user">
-                        <input type="hidden" value="<%= uporabniki[j].ime %>">
-                        <input type="hidden" value="<%= uporabniki[j].telefon %>">
-                        <input type="hidden" value="<%= uporabniki[j].email %>">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].vrsta == 3) { %>
+                            <div class="item">
+                            <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level3 user">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
+                            <% if(uporabniki[j].status) { %>
+                                <span class="mdl-chip caption">
+                                        <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                                </span>
+                            <% } %>
+                        </div>
+                        <% } %>
                     <% } %>
-                <% } %>
                 </div>
             </div>
         </div>
@@ -162,7 +178,7 @@
                             <span class="mdl-list__item-primary-content">
                                 <span class="mdl-color-text--black mdl-typography--font-bold" id="ime_aktivnosti">Moški večer</span>
                                     <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
-                                        <span class="mdl-chip__text">+100 xp</span>
+                                        <span class="mdl-chip__text">100 xp</span>
                                     </span>
                             </span>
                 </div>

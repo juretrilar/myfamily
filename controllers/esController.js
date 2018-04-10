@@ -48,128 +48,120 @@ function vrniNapako(res, err){
 
 //** GET /
 module.exports.naslovnaStran = function (req, res) {
-    if(!req.session.trenutniUporabnik) {
-        console.log("not logged");
-        res.render('pages/prijava', {
-            uporabnik: "",
-            sporociloPrijava : "",
-            currSession:  "",
-        });
-    } else {
-        let opomnik = [];
-        let obj = {monthly: []};
-        let idx = [];
-        console.log(req.session.trenutniUporabnik.druzina);
-        async.parallel({
-            uporabniki: function (cb) {
-                Uporabnik.find({druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)}).exec(cb);
+    if (checkIfLogged(res, req) != 0) return;    
+    let opomnik = [];
+    let obj = {monthly: []};
+    let idx = [];
+    console.log(req.session.trenutniUporabnik.druzina);
+    async.parallel({
+        uporabniki: function (cb) {
+            Uporabnik.find({druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)}).exec(cb);
+            },
+        cilji: function (cb) {
+            Cilji.find({$query: {druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)},$maxTimeMS: 10000 }).exec(cb);
                 },
-            cilji: function (cb) {
-                Cilji.find({$query: {druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)},$maxTimeMS: 10000 }).exec(cb);
-                 },
-            docs: function (cb) {
-                Naloge.find({$query: {druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)},$maxTimeMS: 10000 }).then(naloga => {
-                    if(naloga.length == 0) {
-                        cb();
-                        return;
-                    }
-                    let j=0,o=0;
-/*
-    for (i = 0; i < cilji.length; i++) {
-        if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
-            j++;
-            obj.monthly.push({
-                id: cilji[i].id,
-                name: cilji[i].name,
-                startdate: moment(cilji[i].zacetek).format('YYYY-MM-DD'),
-                enddate: moment(cilji[i].konec).format('YYYY-MM-DD'),
-                starttime: "",
-                endtime: "",
-                color: "#EF44EF",
-                url: ""
-            });
-        }
-    }*/
-                    for (let i = 0; i < naloga.length; i++) {
-                        let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
-                        let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
-                        let now = moment(Date.now()).format('MM-DD-YYYY');
-                        if (naloga[i].vezani_uporabniki.indexOf(req.session.trenutniUporabnik.id) > -1) {
-                            j = i;
-                            let urZac = moment(naloga[i].zacetek).format('HH:mm');
-                            let urKon = moment(naloga[i].konec).format('HH:mm');
-                            if(!validator.matches(urZac ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urZac = "00:00";
-                            if(!validator.matches(urKon ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urKon = "23:59";
-                            obj.monthly.push({ //Dodaj nalogo v koledar
-                                id: naloga[i].id,
-                                name: naloga[i].ime,
-                                startdate: moment(naloga[i].zacetek).format('YYYY-MM-DD'),
-                                enddate: moment(naloga[i].konec).format('YYYY-MM-DD'),
-                                starttime: urZac,
-                                endtime: urKon,
-                                color: color[naloga[i].kategorija],
-                                url: "/koledar/" + naloga[i].id
-                            });
-                            if (zac == now || dateCheck(zac, kon, now)) { // Če je naloga na današnji dan jo dodaj v opomnike
-                                idx.push(naloga[i]);
-                            }
-                        }
-                    }
-                    if (idx.length == 0) { //Če je dolžina 0, za ta datum ni opomnikov
-                        cb();
-                    }
-                    let m = idx.length;
-                    while (m-- > 0) {
-                        Uporabnik.findOne({_id: idx[0].avtor}).then(avtor => {
-                            opomnik.push({
-                                ime: idx[0].ime,
-                                xp: idx[0].xp,
-                                avtor: avtor.ime,
-                                status: idx[0].status
-                            });
-                            idx.shift();
-                            if (idx.length == 0) {
-                                cb();
-                            }
-                        }).catch(err => {
-                            console.log(err);
-                            vrniNapako(res, err);
-                            return;
-                        });
-                    }
-                }).catch(err => {
-                    console.log(err);
-                    vrniNapako(res, err);
+        docs: function (cb) {
+            Naloge.find({$query: {druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)},$maxTimeMS: 10000 }).then(naloga => {
+                if(naloga.length == 0) {
+                    cb();
                     return;
-                });
-                //console.log("m");
-            },
-            kategorija: function (cb) {
-                Kategorija.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
-                //console.log("k");
-            },
-        }, function (err, result) {
-            console.log("end of result");
-            if (err) {
-                //console.log(err);
-                vrniNapako(err,res);
-            }
-            //console.log("1");
-            let sCilji = [];
-            for (let i=0;i<result.cilji.length;i++) {
-                if(result.cilji[i].skupni_cilj == true) {
-                    sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp})
                 }
-                //console.log(result.cilji[i].vezani_uporabniki, "vezan");
-            }
-            //console.log(req.session);
-            posodobiJson(obj, req.session);
-            res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
-            //console.log("3");
-            currentTab = 0;
-            successfulPost = 0;
+                let j=0,o=0;
+/*
+for (i = 0; i < cilji.length; i++) {
+    if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
+        j++;
+        obj.monthly.push({
+            id: cilji[i].id,
+            name: cilji[i].name,
+            startdate: moment(cilji[i].zacetek).format('YYYY-MM-DD'),
+            enddate: moment(cilji[i].konec).format('YYYY-MM-DD'),
+            starttime: "",
+            endtime: "",
+            color: "#EF44EF",
+            url: ""
         });
     }
+}*/
+                for (let i = 0; i < naloga.length; i++) {
+                    let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
+                    let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
+                    let now = moment(Date.now()).format('MM-DD-YYYY');
+                    if (naloga[i].vezani_uporabniki.indexOf(req.session.trenutniUporabnik.id) > -1) {
+                        j = i;
+                        let urZac = moment(naloga[i].zacetek).format('HH:mm');
+                        let urKon = moment(naloga[i].konec).format('HH:mm');
+                        if(!validator.matches(urZac ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urZac = "00:00";
+                        if(!validator.matches(urKon ,/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g)) urKon = "23:59";
+                        obj.monthly.push({ //Dodaj nalogo v koledar
+                            id: naloga[i].id,
+                            name: naloga[i].ime,
+                            startdate: moment(naloga[i].zacetek).format('YYYY-MM-DD'),
+                            enddate: moment(naloga[i].konec).format('YYYY-MM-DD'),
+                            starttime: urZac,
+                            endtime: urKon,
+                            color: color[naloga[i].kategorija],
+                            url: "/koledar/" + naloga[i].id
+                        });
+                        if (zac == now || dateCheck(zac, kon, now)) { // Če je naloga na današnji dan jo dodaj v opomnike
+                            idx.push(naloga[i]);
+                        }
+                    }
+                }
+                if (idx.length == 0) { //Če je dolžina 0, za ta datum ni opomnikov
+                    cb();
+                }
+                let m = idx.length;
+                while (m-- > 0) {
+                    Uporabnik.findOne({_id: idx[0].avtor}).then(avtor => {
+                        opomnik.push({
+                            ime: idx[0].ime,
+                            xp: idx[0].xp,
+                            avtor: avtor.ime,
+                            status: idx[0].status
+                        });
+                        idx.shift();
+                        if (idx.length == 0) {
+                            cb();
+                        }
+                    }).catch(err => {
+                        console.log(err);
+                        vrniNapako(res, err);
+                        return;
+                    });
+                }
+            }).catch(err => {
+                console.log(err);
+                vrniNapako(res, err);
+                return;
+            });
+            //console.log("m");
+        },
+        kategorija: function (cb) {
+            Kategorija.find({$query: {},$maxTimeMS: 10000 }).exec(cb);
+            //console.log("k");
+        },
+    }, function (err, result) {
+        console.log("end of result");
+        if (err) {
+            //console.log(err);
+            vrniNapako(err,res);
+        }
+        //console.log("1");
+        let sCilji = [];
+        for (let i=0;i<result.cilji.length;i++) {
+            if(result.cilji[i].skupni_cilj == true) {
+                sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp})
+            }
+            //console.log(result.cilji[i].vezani_uporabniki, "vezan");
+        }
+        //console.log(req.session);
+        posodobiJson(obj, req.session);
+        res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
+        //console.log("3");
+        currentTab = 0;
+        successfulPost = 0;
+    });
 };
 
 module.exports.prijava = function(req, res, next) {
@@ -228,8 +220,6 @@ module.exports.prijaviUporabnika = function(req, res, next){
 
 //** POST /registracija
 module.exports.ustvariUporabnika = function(req, res, next) {
-    console.log(req.body.avatar);
-    console.log(req.body);
     let family = ustvariKljuc();
     if(req.body.family) family=req.body.family;
     let noviUporabnik = {
@@ -256,7 +246,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
 
 //** POST /settings
 module.exports.posodobiOsebnePodatke = function(req, res, next) {
-    console.log(req.body);
+    if (checkIfLogged(res, req) != 0) return; 
     let updateUporabnik = {
         ime: req.body.set_name,
         email: req.body.set_email,
@@ -280,10 +270,10 @@ module.exports.posodobiOsebnePodatke = function(req, res, next) {
 
 //** POST /notifications
 module.exports.posodobiObvestila = function(req, res, next) {
+    if (checkIfLogged(res, req) != 0) return;   
     let mail = false, tel = false;
     if (req.body.switchMail) mail = true;
     if (req.body.switchSms) tel = true;
-    console.log(req.session.trenutniUporabnik.id);
     let conditions = { _id: req.session.trenutniUporabnik.id };
     Uporabnik.find(conditions, { notf_telefon: 1, notf_email: 1 }).then(notif => {
         console.log("test");
@@ -372,6 +362,7 @@ module.exports.posodobiObvestila = function(req, res, next) {
 
 //** POST /koledar/:koledarId
 module.exports.prikaziKoledar = function(req, res, next) {
+    if (checkIfLogged(res, req) != 0) return;  
     currentTab = 1;
     return queryNaloge({_id: req.params.koledarId}, {}).then(function(naloge) {
         return queryKategorija({_id: naloge[0].kategorija}, {}).then(function(kategorija) {
@@ -391,6 +382,7 @@ module.exports.prikaziKoledar = function(req, res, next) {
 
 //** POST /prikazi_naloge
 module.exports.prikaziNaloge = function(req, res, next) {
+    if (checkIfLogged(res, req) != 0) return;  
     currentTab = 2;
     let where_search = {};
     where_search.druzina = mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina);
@@ -422,13 +414,14 @@ module.exports.prikaziNaloge = function(req, res, next) {
         for(let i=0;i<results.uporabnik.length;i++) {
             usr[results.uporabnik[i].id] = [results.uporabnik[i].slika, results.uporabnik[i].id, results.uporabnik[i].ime];
         }
-        //console.log(usr);
+        console.log(usr);
         res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr});
     });
 };
 
 //** POST /ustvari_nalogo
 module.exports.ustvariNalogo = function(req, res, next) {
+    if (checkIfLogged(res, req) != 0) return;
     currentTab = 2;
     if(!validatenaloga(req,res)) return;
     if(!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', {year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short"});
@@ -531,6 +524,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
 
 //** POST /ustvari_cilj
 module.exports.ustvariCilj = function(req, res, next) {
+    if (checkIfLogged(res, req) != 0) return;    
     currentTab = 3;
     validateImeOpisId(req,res);
     if(!validator.isInt(req.body.xpNaloge)) {vrniNapako(res, "Dovoljene so samo cele številke.");return false;}
@@ -573,7 +567,7 @@ module.exports.povabiUporabnika = function (req, res, next) {
     };
 
     console.log("sending mail");
-    mailOptions.html = '<p>Pozdravljen,<br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Prijavi se v aplikacijo in klikni na spodnjo povezavo.<br/><br/><a href="http://localhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'">Pridruži se družini</a></p><a href="https://www.w3schools.com">Visit W3Schools</a>';
+    mailOptions.html = '<p>Pozdravljen,<br/><br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Prijavi se v aplikacijo in klikni na spodnjo povezavo.<br/><br/><a href="http://localhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'">Pridruži se družini</a></p>';
     console.log(mailOptions.html);
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
@@ -588,28 +582,39 @@ module.exports.povabiUporabnika = function (req, res, next) {
 };
 
 
-//** GET /invite/:druzinaId
+//** GET /api/:druzinaId
 module.exports.spremeniDruzino = function (req, res, next) {
-    if(!req.session.trenutniUporabnik) {
-        console.log("not logged");
-        res.render('pages/prijava', {
-            uporabnik: "",
-            sporociloPrijava : "",
-            currSession:  "",
-        });
-    } else {
-        req.session.trenutniUporabnik.druzina = req.params.druzinaId;
-        Uporabnik.findOne({_id:  req.params.druzinaId}).then(user => {
-            user.druzina = req.params.druzinaId;
-            user.save;         
-            res.redirect('/');
-        }).catch(err => {
-            console.log(err);
-            vrniNapako(res, err);
-            return;
+    if (checkIfLogged(res, req) != 0) return;  
+    req.session.trenutniUporabnik.druzina = req.params.druzinaId;
+    Uporabnik.findOne({_id:  req.params.druzinaId}).then(user => {
+        user.druzina = req.params.druzinaId;
+        user.save;         
+        res.redirect('/');
+    }).catch(err => {
+        console.log(err);
+        vrniNapako(res, err);
+        return;
+    });
+
+};
+
+//** POST /status
+module.exports.shraniStatus = function (req, res, next) {
+    if (checkIfLogged(res, req) != 0) return;   
+    if(req.body.currStatus) {
+        Uporabnik.findOneAndUpdate({_id: req.session.trenutniUporabnik.id}, {status: req.body.currStatus}, { upsert: true}, function(err,doc) {     
+            if (err) {
+                res.status(400).end();
+            } else {
+                res.status(200).end();
+            }
         });
     }
 };
+
+
+
+
 
 //** GET /odjava
 
@@ -724,4 +729,17 @@ function queryUporabniki(query, fields) {
             resolve(result);
         });
     });
+}
+
+function checkIfLogged(res, req) {
+    if(!req.session.trenutniUporabnik) {
+        console.log("User is not logged!");
+        res.render('pages/prijava', {
+            uporabnik: "",
+            sporociloPrijava : "",
+            currSession:  "",
+        });
+        return 1;
+    }
+    return 0;
 }

@@ -12,7 +12,7 @@
                     <input type="hidden" value="<%= naloge[i]._id %>" class="idNaloga">
                     <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">Skupni cilj družine
                         <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge mdl-chip-small">
-                            <span class="mdl-chip__text xpNaloga">+<%= naloge[i].xp %> xp</span>
+                            <span class="mdl-chip__text xpNaloga"><%= naloge[i].xp %> xp</span>
                         </span>
                     </div>
                 </div>
@@ -28,10 +28,12 @@
                     <span class="mdl-list__item-primary-content">
                         <span class="mdl-color-text--grey">Udeleženci naloge:</span>
                         <span class="mdl-list__item-text-body chip-no-margin">
-                                <% for (let j = 0; j<naloge[i].vezani_uporabniki.length;j++) { %>
+                            <% for (let j = 0; j<naloge[i].vezani_uporabniki.length;j++) { %>
+                                <% if(slika[naloge[i].vezani_uporabniki[j]]) { %>
                                 <img class="mdl-chip__contact author-chip" src="<%= slika[naloge[i].vezani_uporabniki[j]][0] %>" title="<%= slika[naloge[i].vezani_uporabniki[j]][2] %>">
                                 <input type="hidden" value="<%= slika[naloge[i].vezani_uporabniki[j]][1] %>" class="udelezenecNaloga">
                                 <% } %>
+                            <% } %>
                         </span>
                     </span>
                     <span class="mdl-list__item-primary-content">

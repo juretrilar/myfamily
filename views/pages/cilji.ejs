@@ -53,7 +53,7 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;" id="razmerje<%= m %>"></td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerje<%= m %>"></td>
                             <td class=mdl-data-table__cell--non-numeric"><!--
                                 <div class="mdl-tooltip clani-naloge" data-mdl-for="<%= i+"c"%>">
                                    <img src="https://www.gravatar.com/avatar/02f02fcd0e0adfd6f5d5d1d594a8953c?s=32&d=identicon&r=PG">
@@ -64,9 +64,9 @@
                                     <% } %>
                                 </div>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
                             </td>
                         </tr>
                         <% } %>
@@ -87,7 +87,7 @@
                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji-end">
                     <thead>
                     <tr>
-                        <th style="text-align: left;">Opis cilja</th>
+                        <th style="text-align: left;">Ime in opis</th>
                         <th style="text-align: center;">Trenutne/vse točke</th>
                         <th style="text-align: center;" >Točke udeležencev</th>
                         <th style="text-align: center;" >Ustvarjen</th>
@@ -111,7 +111,7 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;" id="razmerjeE<%= m %>"></td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerjeE<%= m %>"></td>
                             <td>
                                 <div class="progress progressE<%= m++ %>">
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
@@ -119,9 +119,9 @@
                                     <% } %>
                                 </div>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero mdl-cell--hide-phone" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
                             </td>
                         </tr>
                         <% } %>

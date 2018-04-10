@@ -75,6 +75,7 @@ jQuery(function($) {
             //contentType: 'application/json',
             data: post_data,
             success: function (response) {
+                console.log(response);
                 $('#nalogeGrid').html(response);
                 updateItems();
                 function onCardClick(cardId, callback) {
@@ -135,17 +136,19 @@ jQuery(function($) {
                     $('#xpNaloge').val(card.getElementsByClassName("xpNaloga")[0].innerHTML.match(/\d/g).join("")).parent().addClass("is-dirty");
                     let usr = card.getElementsByClassName("udelezenecNaloga");
                     let chckbox = $("input:checkbox[name='person']");
-                    let u=0;
                     $("#checkboxVsi").parent()[0].MaterialCheckbox.uncheck();
                     if(chckbox.length-1==usr.length) {
                         $("#checkboxVsi").parent()[0].MaterialCheckbox.check();
                     }
+                    let u=0;
                     for(let i=1;i<chckbox.length;i++) {
                         let curr = $("#"+chckbox[i].id).parent()[0].MaterialCheckbox;
                         curr.uncheck();
                         if(usr[u].value == chckbox[i].value) {
+                            console.log(usr);
                             curr.check();
                             u++;
+                            if(u => usr.length) break;
                         }
                     }
 
@@ -184,3 +187,29 @@ function clearField(i, chip) {
     chip.style.display = 'none'
 }
 
+function objaviStatus() {
+    let curr = $("#trenutniUporabnik").val();
+    let query = "#status"+curr;    
+    $(query).html($("#currStatus").val());
+    if($("#currStatus").val() != "") {
+        let save = {"currStatus": $("#currStatus").val()};
+        $.ajax({
+            url: '/status',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(save),
+            success: function(){
+                $("#currStatus").val("");
+                let data = {message: "Status je bil uspešno posodobljen!"};
+                let snackbarContainer = document.querySelector('#mainToast');            
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            },
+            error: function( jqXhr, textStatus, errorThrown){
+                let data = {message: "Prišlo je do napake, status ni bil shranjen!"};                
+                let snackbarContainer = document.querySelector('#mainToast');             
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            }
+            
+        });
+    }
+}

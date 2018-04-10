@@ -13,6 +13,7 @@ let uporabnikSchema = new mongoose.Schema({
     notf_email: Boolean,
     admin: Boolean,
     slika: String,
+    status: String,
     created_at: Date,
     last_login: Date
 });

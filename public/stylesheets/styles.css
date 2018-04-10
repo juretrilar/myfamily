@@ -47,13 +47,13 @@ html, body {
 .mdl-chip-small {
     height: 20px;
     padding: 0 5px;
-    line-height: 16px;
+    line-height: 18px;
     font-size: unset;
     margin-left: 5px;
 }
 
 .mdl-chip-small .mdl-chip__text {
-    font-size: 10px;
+    font-size: 12px;
 }
 
 .mdl-list__item--two-line .mdl-list__item-primary-content .mdl-list__item-sub-title {
@@ -106,6 +106,10 @@ margin: auto;
     background-image: url("/images/header4.svg");
     background-size: 100%;
     background-repeat: no-repeat;}
+
+.not-empty {
+    border-color: white!important;
+}
 
 /*        */
 
@@ -290,14 +294,27 @@ margin: auto;
     float: left;
 }
 
-.tri-card:after {
+.tri-card-status:after {
     content: ' ';
     position: absolute;
     width: 0;
     height: 0;
     left: 100px;
     right: 0;
-    top: 139px;
+    top: 144px;
+    bottom: 0;
+    border: 25px solid;
+    border-color: white transparent transparent transparent;
+}
+
+.tri-card-no-status:after {
+    content: ' ';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 100px;
+    right: 0;
+    top: 119px;
     bottom: 0;
     border: 25px solid;
     border-color: white transparent transparent transparent;
@@ -308,11 +325,7 @@ margin: auto;
     text-align: center;
 }
 
-.container .row img {
-    margin: 20px 15px;
-}
-
-.container a {
+.podatki-user a {
     padding: 0;
     min-width: 59px;
 }
@@ -328,8 +341,7 @@ margin: auto;
 .card-info {
     position: absolute;
     width: 250px;
-    height: 140px;
-    min-height: 140px;
+    min-height: 120px;
     text-align: center;
     z-index: 9999;
 }
@@ -344,6 +356,31 @@ margin: auto;
     overflow: hidden;    
     line-height: 0;
     vertical-align: middle;
+}
+
+.item {
+    /* To correctly align image, regardless of content height: */
+    vertical-align: top;
+    display: inline-block;
+    width: 64px;
+    margin: 5px 15px;
+}
+
+.caption {
+    text-align: center;
+    margin-left: -100%;
+    margin-right: -100%;
+}
+
+.item .mdl-chip {
+    padding: 0 6px;
+}
+
+.caption .mdl-chip__text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 6em;
 }
 
 /*        */
@@ -661,4 +698,13 @@ margin: auto;
     .mdl-cell--3-hd {
         width: calc(20.8333333325% - 16px)!important;
     }
+
+    .caption .mdl-chip__text {
+        max-width: 8em;
+    }
+
+    .item {
+        margin: 5px 30px;
+    }
+
 }

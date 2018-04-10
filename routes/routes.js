@@ -28,6 +28,10 @@ router.post('/invite', mainHandler.povabiUporabnika);
 
 router.get('/odjava', mainHandler.odjava);
 
+router.post('/status', mainHandler.shraniStatus);
+
+router.get('/api/:druzinaId', mainHandler.spremeniDruzino);
+
 router.post('/api/save-subscription', subscriptionHandler.dodajObvestila);
 
 router.post('/api/disable-subscription', subscriptionHandler.odstraniObvestila);
