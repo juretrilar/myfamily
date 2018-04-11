@@ -1,5 +1,5 @@
 var ctx = document.getElementById('myChart').getContext('2d');
-let pageWidth = $(document).width();
+//let pageWidth = $(document).width();
 var chart = new Chart(ctx, {
     // The type of chart we want to create
     type: 'line',
