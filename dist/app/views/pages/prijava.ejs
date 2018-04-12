@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+    <%- include('../partials/head') -%>
+    <body>
+        <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header" >
+            <%- include('../partials/nav') -%>
+            <main class="mdl-layout__content">
+                <div class="mdl-grid text-main card-500">
+                    <div class="mdl-card mdl-shadow--16dp util-center" id="prijava">
+                        <div class="mdl-card__title mdl-color--orange-800">
+                            <h2 class="mdl-card__title-text mdl-color-text--white">Prijavno okno</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-grid">
+                            <b class="mdl-color-text--accent"></b>
+                            <form method="POST" action="/prijava" id="prijavaForm">
+                                <input type="hidden" name="action" value="login"/>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col <% if (sporociloPrijava) { %>is-invalid<% } %>">
+                                    <label class="mdl-textfield__label" for="textfield_email">E-mail</label>
+                                    <input class="mdl-textfield__input" type="email" id="textfield_email" name="email" autocomplete="on"/>
+                                    <span class="mdl-textfield__error"></span>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col <% if (sporociloPrijava) { %>is-invalid<% } %>">
+                                    <label class="mdl-textfield__label" for="textfield_password">Geslo</label>
+                                    <input class="mdl-textfield__input" type="password" id="textfield_password" name="password" autocomplete="current-password"/>
+                                    <span class="mdl-textfield__error">Uporabniško ime in geslo se ne ujemata.</span>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                                    <button type="submit" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored mdl-color--primary">
+                                        Prijava
+                                    </button>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col" align="center">
+                                    <a onclick="prikaziRegistracija()">Registracija</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="mdl-card mdl-shadow--16dp util-center" id="registracija" style="display: none;">
+                        <div class="mdl-card__title mdl-color--teal-500">
+                            <h2 class="mdl-card__title-text mdl-color-text--white">Podatki za registracijo</h2>
+                        </div>
+                        <div class="mdl-card__supporting-text mdl-grid">
+                            <b class="mdl-color-text--accent"></b>
+                            <form method="POST" action="/registracija" id="registracijaForm" onsubmit="return validateRegistracija()">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                    <label class="mdl-textfield__label" for="reg_name">Ime</label>
+                                    <input class="mdl-textfield__input" type="text" id="reg_name" name="reg_name"/>
+                                    <span class="mdl-textfield__error" id="errIme">Polje mora biti izpolnjeno</span>
+                                </div>
+                                <input type="hidden" name="action" value="register"/>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                    <label class="mdl-textfield__label" for="reg_email">E-mail</label>
+                                    <input class="mdl-textfield__input" type="email" id="reg_email" name="reg_email"/>
+                                    <span class="mdl-textfield__error" id="errEmail">Vpisani e-poštni naslov je napačen</span>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                    <label class="mdl-textfield__label" for="reg_password">Geslo</label>
+                                    <input class="mdl-textfield__input" type="password" id="reg_password" name="reg_password"
+                                           pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})"/>
+                                    <span class="mdl-textfield__error" id="errPass">6-20 znakov z vsaj eno številko, velike in male črke, posebni znaki @#$%</span>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                    <label class="mdl-textfield__label" for="reg_password_confirm">Potrditev gesla</label>
+                                    <input class="mdl-textfield__input" type="password" id="reg_password_confirm" name="reg_password_confirm"/>
+                                    <span class="mdl-textfield__error" id="errPass2">Gesli se ne ujemata!</span>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                    <label class="mdl-textfield__label" for="reg_phone">Telefon</label>
+                                    <input class="mdl-textfield__input" type="text" id="reg_phone" name="reg_phone" pattern="^(?:\+\d{1,3}|0\d{1,3}|00\d{1,2})?(?:\s?\(\d+\))?(?:[-\/\s.]|\d)+$"/>
+                                    <span class="mdl-textfield__error" id="errTel">Telefonska številka vsebuje napačne znake!</span>
+                                </div>
+                                <!--
+                                <div class="mdl-cell mdl-cell--12-col" align="center">
+                                    <a class="mdl-color-text--grey mdl-color--grey-200 padding-10" onclick="ustvariKljuc()">Ustvari ključ</a>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                    <label class="mdl-textfield__label" for="reg_family">Ključ za pridružitev družini</label>
+                                    <input class="mdl-textfield__input" type="text" id="reg_family" name="reg_family"/>
+                                </div>
+                                    -->
+                                <div id="avatars">
+                                    <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
+                                    <% for(let i=1;i<8;i++) { %>
+                                    <label class="avatars">
+                                        <input type="radio" name="avatar" value="public/images/uploads/<%= i %>.png" hidden/>
+                                        <img src="public/images/uploads/<%= i %>.png" alt=""/>
+                                    </label>
+                                    <% } %>
+                                </div>
+                                <!--
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--file mdl-cell mdl-cell--12-col">
+                                    <label class="mdl-textfield__label" for="reg_slika_ime">Prikazna slika</label>
+                                    <input class="mdl-textfield__input" type="text" id="reg_slika_ime" readonly />
+                                    <div class="mdl-button mdl-button--icon mdl-button--file">
+                                        <i class="material-icons">attach_file</i>
+                                        <input type="file" accept="image/*" name="reg_slika" id="reg_slika" onchange="updatePic(this)" />
+                                    </div>
+                                    <span class="mdl-textfield__error" id="errSlika">Datoteka ni v pravilnem formatu!</span>
+                                </div>-->
+                                <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                                    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored" id="login">
+                                        Registracija
+                                    </button>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col" align="center">
+                                    <a onclick="prikaziPrijava()">Prijava</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <%- include('../partials/footer') -%>
+            </main>
+        </div>
+        <%- include('../partials/script') -%>
+        <script defer src="public/js/prijava.js"></script>
+        <dialog id="dialog" class="mdl-dialog dialog-main">
+            <div class="dialog-content-div" id="dialog-div">
+                <h3 id="dialog-title" class="mdl-dialog__title"></h3>
+                <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
+                </div>
+            </div>
+        </dialog>
+    </body>
+</html>

@@ -1,0 +1,134 @@
+<div class="text-container mdl-grid">
+    <% if (success) { %>
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone hideOnClick"></div>
+    <div class="mdl-cell mdl-cell--10-col hideOnClick">
+        <div class="mdl-card mdl-card-obvestilo mdl-shadow--2dp text-main">
+            <div class="mdl-card__title mdl-color--orange-300 mdl-color-text--white">
+                <h2 class="mdl-card__title-text">Obvestilo</h2>
+            </div>
+            <div name="sporocilo" class="mdl-card__supporting-text mdl-typography--text-center mdl-typography--headline mdl-color-text--black font-sporocilo">
+                Naloga je bila uspešno ustvarjena!
+            </div>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone hideOnClick"></div>
+    <% } %>
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+    <div  class="mdl-cell mdl-cell--10-col">
+        <div class="mdl-card mdl-shadow--2dp mdl-card-naloge <% if (success) { %> mdl-card-nal <% } %>">
+            <div class="mdl-card__title mdl-color--red-400 krivulja-1">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Cilji družine</h2>
+                <div class="mdl-card__actions">
+                    <button id="dodajcilj" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored align-right" onclick="dodajNovCilj()">
+                        DODAJ NOV CILJ
+                        <i class="material-icons">add</i>
+                    </button>
+                </div>
+            </div>
+            <div class="mdl-card__supporting-text padding-zero table-wrapper">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji">
+                    <thead>
+                    <tr>
+                        <th style="text-align: left;">Ime in opis</th>
+                        <th style="text-align: center;">Trenutne/vse točke</th>
+                        <th style="text-align: center;" >Točke udeležencev</th>
+                        <th style="text-align: center;" >Ustvarjen</th>
+                        <th style="text-align: center;" >Zadnja posodobitev</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% var m = 0 %>
+                    <% for (var i = 0; i < cilji.length; i++) { %>
+                        <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
+                        <tr>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero">
+                                <div class="mdl-list__item mdl-list__item--three-line">
+                                    <div class="circle-container-main mdl-color--grey"></div>
+                                    <span class="mdl-list__item-primary-content">
+                                        <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
+                                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= cilji[i].opis %></span>
+                                        <input type="hidden" value="<%= cilji[i].maxXp %>" name="maxXp">
+                                        <input type="hidden" value="<%= cilji[i].skupni_cilj %>" name="jeSkupen">
+                                        <input type="hidden" value="<%= cilji[i]._id %>" name="idCilj">
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerje<%= m %>"></td>
+                            <td class=mdl-data-table__cell--non-numeric"><!--
+                                <div class="mdl-tooltip clani-naloge" data-mdl-for="<%= i+"c"%>">
+                                   <img src="https://www.gravatar.com/avatar/02f02fcd0e0adfd6f5d5d1d594a8953c?s=32&d=identicon&r=PG">
+                                </div>-->
+                                <div class="progress progress<%= m++ %>">
+                                    <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
+                                    <span class="spanCilji"><%= cilji[i].vezani_uporabniki[j].xp_user %></span>
+                                    <% } %>
+                                </div>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
+                            </td>
+                        </tr>
+                        <% } %>
+                    <% } %>
+                    </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+    <div class="mdl-cell mdl-cell--10-col padding-top-16">
+        <div class="mdl-card mdl-shadow--2dp mdl-card-naloge mdl-card-nal">
+            <div class="mdl-card__title mdl-color--blue-400 krivulja-1">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Zaključeni cilji družine</h2>
+            </div>
+            <div class="mdl-card__supporting-text padding-zero table-wrapper">
+                <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji-end">
+                    <thead>
+                    <tr>
+                        <th style="text-align: left;">Ime in opis</th>
+                        <th style="text-align: center;">Trenutne/vse točke</th>
+                        <th style="text-align: center;" >Točke udeležencev</th>
+                        <th style="text-align: center;" >Ustvarjen</th>
+                        <th style="text-align: center;" >Zaključen</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <% m = 0 %>
+                    <% for (var i = 0; i < cilji.length; i++) { %>
+                        <% if(cilji[i].maxXp <= cilji[i].xp) { %>
+                        <tr>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero">
+                                <div class="mdl-list__item mdl-list__item--three-line">
+                                    <div class="circle-container-main mdl-color--grey"></div>
+                                    <span class="mdl-list__item-primary-content">
+                                        <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
+                                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= cilji[i].opis %></span>
+                                        <input type="hidden" value="<%= cilji[i].maxXp %>" name="maxXp">
+                                        <input type="hidden" value="<%= cilji[i].skupni_cilj %>" name="jeSkupen">
+                                        <input type="hidden" value="<%= cilji[i]._id %>" name="idCilj">
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerjeE<%= m %>"></td>
+                            <td>
+                                <div class="progress progressE<%= m++ %>">
+                                    <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
+                                    <span class="spanCilji"><%= cilji[i].vezani_uporabniki[j].xp_user %></span>
+                                    <% } %>
+                                </div>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
+                            </td>
+                        </tr>
+                        <% } %>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

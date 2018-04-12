@@ -1,12 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/views/pages/index.ejs" line="127" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/views/pages/index.ejs" line="148" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0385c574-b552-42e2-beda-6114b3d5017d" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/esController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/esController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.bin/uglifyjs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/.bin/uglifyjs.cmd" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-concat/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gulp-concat/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/LICENSE.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/LICENSE.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/strip-bom/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/strip-bom/license" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/strip-bom/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/strip-bom/readme.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/CHANGELOG.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/LICENSE" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/lib/cloneBuffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/lib/inspectStream.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/lib/isBuffer.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/lib/isNull.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/lib/isStream.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/node_modules/vinyl/package.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gulp-sourcemaps/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/gulp-util/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/gulp-util/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/application-server-key.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/charts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/dialog-polyfill.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/dialog-polyfill.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/dialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/jquery.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/jquery.simplePagination.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/jquery.simplePagination.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/monthly.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/monthly.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/prijava.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/prijava.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/querydb.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/querydb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/scripts/send-message.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/pages/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/pages/index.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/head.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/head.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/script.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/script.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/partials/scriptLogged.ejs" beforeDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,17 +62,26 @@
       <file leaf-file-name="settings.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/settings.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="340">
-              <caret line="58" column="26" lean-forward="true" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
+            <state relative-caret-position="986">
+              <caret line="58" column="26" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="esController.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="esController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/esController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="256" column="36" lean-forward="true" selection-start-line="256" selection-start-column="36" selection-end-line="256" selection-end-column="36" />
+            <state relative-caret-position="17">
+              <caret line="252" column="36" selection-start-line="252" selection-start-column="36" selection-end-line="252" selection-end-column="36" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="19" selection-start-column="19" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -41,8 +89,8 @@
       <file leaf-file-name="routes.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/routes/routes.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="61" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="61" />
+            <state relative-caret-position="578">
+              <caret line="34" column="61" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -51,7 +99,7 @@
         <entry file="file://$PROJECT_DIR$/views/pages/notifications.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="140" selection-start-line="19" selection-start-column="129" selection-end-line="19" selection-end-column="140" />
+              <caret line="19" column="154" selection-start-line="19" selection-start-column="143" selection-end-line="19" selection-end-column="154" />
             </state>
           </provider>
         </entry>
@@ -68,8 +116,8 @@
       <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+            <state relative-caret-position="918">
+              <caret line="54" column="37" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -87,7 +135,7 @@
         <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="1615">
-              <caret line="95" column="69" selection-start-line="95" selection-start-column="53" selection-end-line="95" selection-end-column="69" />
+              <caret line="95" column="69" selection-start-line="95" selection-start-column="69" selection-end-line="95" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -95,8 +143,8 @@
       <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1292">
-              <caret line="76" column="1" selection-start-line="76" selection-start-column="1" selection-end-line="76" selection-end-column="13" />
+            <state relative-caret-position="1411">
+              <caret line="83" column="1" selection-start-line="83" selection-start-column="1" selection-end-line="83" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -225,6 +273,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="NodeModulesDirectoryManager">
+    <handled-path value="$PROJECT_DIR$/dist/app/node_modules" />
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
@@ -399,6 +448,9 @@
       <workItem from="1522133152052" duration="21088000" />
       <workItem from="1522157092229" duration="122000" />
       <workItem from="1522230501062" duration="904000" />
+      <workItem from="1523447460612" duration="13000" />
+      <workItem from="1523522387058" duration="5000" />
+      <workItem from="1523533407234" duration="10000" />
     </task>
     <task id="LOCAL-00001" summary="Settings">
       <created>1522146003325</created>
@@ -425,7 +477,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="701162000" />
+    <option name="totallyTimeSpent" value="701190000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -521,13 +573,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/controllers/uporabnikController.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="30" column="33" selection-start-line="30" selection-start-column="33" selection-end-line="30" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/controllers/uporabnikController.js" />
     <entry file="file://$PROJECT_DIR$/views/pages/prijava.html" />
     <entry file="file://$USER_HOME$/Downloads/sp-streznik/app_server/routes/usmerjevalnikUporabniki.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -600,13 +646,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/calendar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="1" column="24" selection-start-line="1" selection-start-column="24" selection-end-line="1" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/calendar.js" />
     <entry file="file://$PROJECT_DIR$/public/scripts/monthly.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="26">
@@ -628,13 +668,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/partials/scriptLogged.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="5" column="41" selection-start-line="5" selection-start-column="41" selection-end-line="5" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partials/scriptLogged.ejs" />
     <entry file="file://$PROJECT_DIR$/views/pages/nalogakoledar.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="390">
@@ -653,13 +687,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
           <caret line="14" column="67" selection-start-line="14" selection-start-column="67" selection-end-line="14" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
         </state>
       </provider>
     </entry>
@@ -719,13 +746,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/prijava.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="12" selection-start-line="6" selection-start-column="12" selection-end-line="6" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/prijava.js" />
     <entry file="file://$PROJECT_DIR$/models/db.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -733,27 +754,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/sw.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="28" column="21" lean-forward="true" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/cilji.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="76" selection-start-line="16" selection-start-column="76" selection-end-line="16" selection-end-column="76" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/querydb.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3">
-          <caret line="152" column="19" selection-start-line="152" selection-start-column="19" selection-end-line="152" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/sw.js" />
+    <entry file="file://$PROJECT_DIR$/public/scripts/cilji.js" />
+    <entry file="file://$PROJECT_DIR$/public/scripts/querydb.js" />
     <entry file="file://$PROJECT_DIR$/views/pages/nalogequery.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -763,29 +766,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1292">
-          <caret line="76" column="1" selection-start-line="76" selection-start-column="1" selection-end-line="76" selection-end-column="13" />
+        <state relative-caret-position="1411">
+          <caret line="83" column="1" selection-start-line="83" selection-start-column="1" selection-end-line="83" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="33" column="37" selection-start-line="33" selection-start-column="37" selection-end-line="33" selection-end-column="37" />
+        <state relative-caret-position="918">
+          <caret line="54" column="37" selection-start-line="54" selection-start-column="37" selection-end-line="54" selection-end-column="37" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/notifications.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="19" column="140" selection-start-line="19" selection-start-column="129" selection-end-line="19" selection-end-column="140" />
+          <caret line="19" column="154" selection-start-line="19" selection-start-column="143" selection-end-line="19" selection-end-column="154" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1615">
-          <caret line="95" column="69" selection-start-line="95" selection-start-column="53" selection-end-line="95" selection-end-column="69" />
+          <caret line="95" column="69" selection-start-line="95" selection-start-column="69" selection-end-line="95" selection-end-column="69" />
         </state>
       </provider>
     </entry>
@@ -798,29 +801,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/routes/routes.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="61" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/scripts/dialog.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="558">
-          <caret line="316" column="44" selection-start-line="316" selection-start-column="44" selection-end-line="316" selection-end-column="44" />
+        <state relative-caret-position="578">
+          <caret line="34" column="61" selection-start-line="34" selection-start-column="61" selection-end-line="34" selection-end-column="61" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/settings.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="58" column="26" lean-forward="true" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
+        <state relative-caret-position="986">
+          <caret line="58" column="26" selection-start-line="58" selection-start-column="26" selection-end-line="58" selection-end-column="26" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/esController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="256" column="36" lean-forward="true" selection-start-line="256" selection-start-column="36" selection-end-line="256" selection-end-column="36" />
+        <state relative-caret-position="17">
+          <caret line="252" column="36" selection-start-line="252" selection-start-column="36" selection-end-line="252" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/scripts/dialog.js" />
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="19" selection-start-column="19" selection-end-column="19" />
         </state>
       </provider>
     </entry>
