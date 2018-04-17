@@ -112,12 +112,57 @@ margin: auto;
     border-color: white!important;
 }
 
+.mdl-button--fab {
+    height: 30px;
+    width: 30px;
+    min-width: 30px;
+}
+
 /*        */
 
 /* DIALOG */
 
 /* Spodnje metode služijo pri izgledu dialog elementa, ki se nahaja na strani index */
 
+dialog .mdl-card {
+    width: 100%;
+    overflow: visible;
+}
+
+dialog .mdl-card__title {
+    width: 100%;
+    overflow: visible;
+}
+
+dialog .mdl-dialog__content {
+    padding: 0;
+}
+
+dialog .mdl-card__supporting-text {
+    max-height: 60vh;
+    overflow: auto;
+    width: auto;
+}
+
+.delete {
+    float: left;
+}
+
+.create {
+    float: right;
+}
+
+.mdl-dialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 0;
+    border-radius: 2px;
+    width: 40%;
+    background-color: transparent;
+}
+/*
 .mdl-dialog__actions {
     z-index: 1;
     background-color: white;
@@ -125,14 +170,14 @@ margin: auto;
     right: 30px;
     bottom: 5px;
     transform: translateX(0);
-}
+}*/
 
 .dialog-content-div {
     position: relative;
     width: 100%;
     overflow-y: auto;
 }
-
+/*
 .mdl-dialog__title {
     position: fixed;
     z-index: 1;
@@ -144,11 +189,10 @@ margin: auto;
 
 .dialog-main {
     position: fixed;
-    width: 40%;
-    height: auto;
-    max-height: 90%;
+    
     transform: translateZ(0);
-}
+    
+}*/
 
 .dialog-sub {
     color: rgb(63,81,181)!important;
@@ -447,6 +491,7 @@ margin: auto;
     margin-left: 0.2em;
     margin-right: 0.2em;
 }
+
 
 .mdl-card__supporting-text {
     width: auto;

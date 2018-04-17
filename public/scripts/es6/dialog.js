@@ -218,11 +218,11 @@ function posodobiNalogo() {
 function dodajNovCilj() {
     clearData();
     fillCilji();
-    document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
-    document.getElementById("ustvari").innerHTML = "Ustvari";
-    $('#newDialog').val("");
+    //document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
+    //document.getElementById("ustvari").innerHTML = "Ustvari";
+    //$('#newDialog').val("");
     dialog.showModal();
-    $("#dialog-div").attr('style', 'height: auto');
+    //$("#dialog-div").attr('style', 'height: auto');
 }
 
 function dodajNovoNalogo() {
@@ -409,6 +409,7 @@ function openDruzina() {
 function initializeUI() {
     pushButton.addEventListener('click', function() {
         pushButton.disabled = true;
+        $("#pushButton").parent().addClass("is-disabled");
         if (isSubscribed) {
             unsubscribeUser();
         } else {
@@ -514,18 +515,20 @@ function urlB64ToUint8Array(base64String) {
 
 function updateBtn() {
     if (Notification.permission === 'denied') {
-        pushButton.textContent = 'Obvestila so blokirana';
+        pushButton.nextElementSibling.textContent = 'Obvestila so blokirana';
         pushButton.disabled = true;
+        $("#pushButton").parent().addClass("is-disabled");
         updateSubscriptionOnServer(null);
         return;
       }
     
     if (isSubscribed) {
-        $("#pushButton").text('Izklopi obvestila v brskalniku');
+        pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
     } else {
-        $("#pushButton").text('Vklopi obvestila v brskalniku');
+        pushButton.nextElementSibling.textContent = 'Vklopi obvestila v brskalniku';
     }
-    $("#pushButton").removeAttr("disabled");
+        $("#pushButton").removeAttr("disabled");
+        $("#pushButton").parent().removeClass("is-disabled");
 }
 
 function tockeUdelezencev(stCiljev, prg, razmerje) {

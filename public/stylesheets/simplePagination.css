@@ -202,9 +202,9 @@ span.ellipse.clickable {
 	cursor: default;
 }
 
-#buttonClose {
+#closeBtn {
 	position: absolute;
 	top: 0;
-	right: -18px;
-	transform: translate(0px, -18px);
+	right: -10px;
+	transform: translate(0px, -10px);
 }

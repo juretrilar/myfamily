@@ -116,8 +116,14 @@ for (i = 0; i < cilji.length; i++) {
                     Uporabnik.findOne({_id: idx[0].avtor}).then(avtor => {
                         opomnik.push({
                             ime: idx[0].ime,
+                            opis: idx[0].opis,
+                            kategorija:idx[0].kategorija,
+                            zacetek: idx[0].zacetek,
+                            konec: idx[0].konec,
+                            vezani_uporabniki: idx[0].vezani_uporabniki,
                             xp: idx[0].xp,
-                            avtor: avtor.ime,
+                            vezan_cilj: idx[0].vezan_cilj,
+                            avtor: idx[0].avtor,
                             status: idx[0].status
                         });
                         idx.shift();

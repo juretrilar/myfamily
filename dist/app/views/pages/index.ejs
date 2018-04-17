@@ -47,118 +47,126 @@
         </main>
         <%- include('../partials/footer') -%>
     </div>
-    <dialog id="dialog" class="mdl-dialog dialog-main">
-        <div class="dialog-content-div" id="dialog-div">
-            <h3 id="dialog-title" class="mdl-dialog__title"></h3>
-            <form id="update_dialog">
-                <input type="hidden" name="newDialog" id="newDialog">
-                <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible;margin-bottom: 30px;">
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                        <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog" maxlength="20"/>
-                        <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
-                        <span class="mdl-textfield__error" id="imeDialogErr"></span>
-                    </div>
-                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                        <input class="mdl-textfield__input" type="text" id="opisDialog" name="opisDialog"/>
-                        <label class="mdl-textfield__label" for="opisDialog" id="oDialog"></label>
-                        <span class="mdl-textfield__error" id="opisDialogErr"></span>
-                    </div>
-                    <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                        <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
-                        <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"></label>
-                        <input type="hidden" name="dateZacetek" id="dateZacetek">
-                        <span class="mdl-textfield__error">Zapis datuma je napačen.</span>
-                    </div>
-                    <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                        <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
-                        <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
-                        <input type="hidden" name="dateKonec" id="dateKonec">
-                        <span class="mdl-textfield__error" id="dateKonecErr">Zapis datuma je napačen.</span>
-                    </div>
-                    <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
-                        <input type="text" class="mdl-textfield__input" id="vezanCilj" readonly required/>
-                        <input type="hidden" name="sampleCilj">
-                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                        <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
-                        <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-cilj">
-                            <% for (var i = 0; i < cilji.length; i++) { %>
-                            <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
-                            <% } %>
-                        </ul>
-                    </div>
-                    <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
-                        <input type="text" class="mdl-textfield__input" id="kategorija" readonly required/>
-                        <input type="hidden" name="sampleKategorija" id="sampleKategorija">
-                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                        <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
-                        <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-kategorija" data-selected="true">
-                            <% for (var i = 0; i < kategorija.length; i++) { %>
-                            <li class="mdl-menu__item" data-val="<%= kategorija[i].id %>"><%= kategorija[i].ime %></li>
-                            <% } %>
-                        </ul>
-                    </div>
-                    <ul class="mdl-list margin-zero padding-zero" id="xpStatus">
-                        <li class="mdl-list__item padding-zero overflow-visible dialog-duo">
-                            <div class="mdl-list__item-primary-content" style="padding-right: 10px">
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                                    <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" title="Število točk potrebnih dokončanje cilja.">
-                                    <label class="mdl-textfield__label" for="xpNaloge">XP naloge</label>
-                                    <span class="mdl-textfield__error">Polje je obvezno!</span>
+    <dialog id="dialog" class="mdl-dialog dialog-main ">
+        <div class="mdl-card mdl-shadow--2dp">
+            <button id="closeBtn" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--grey-400">
+                <i class="material-icons mdl-color-text--grey-200" role="presentation">close</i>
+                <span class="visuallyhidden">add</span>
+            </button>
+            <div class="mdl-card__title mdl-color--blue-300" >
+                <h3 id="dialog-title" class="mdl-card__title-text mdl-color-text--white"></h2>
+            </div>
+            <div class="mdl-card__supporting-text">
+                <form id="update_dialog">
+                    <input type="hidden" name="newDialog" id="newDialog">
+                    <div class="mdl-dialog__content">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog" maxlength="20"/>
+                            <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
+                            <span class="mdl-textfield__error" id="imeDialogErr"></span>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input" type="text" id="opisDialog" name="opisDialog"/>
+                            <label class="mdl-textfield__label" for="opisDialog" id="oDialog"></label>
+                            <span class="mdl-textfield__error" id="opisDialogErr"></span>
+                        </div>
+                        <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
+                            <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"></label>
+                            <input type="hidden" name="dateZacetek" id="dateZacetek">
+                            <span class="mdl-textfield__error">Zapis datuma je napačen.</span>
+                        </div>
+                        <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
+                            <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
+                            <input type="hidden" name="dateKonec" id="dateKonec">
+                            <span class="mdl-textfield__error" id="dateKonecErr">Zapis datuma je napačen.</span>
+                        </div>
+                        <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
+                            <input type="text" class="mdl-textfield__input" id="vezanCilj" readonly required/>
+                            <input type="hidden" name="sampleCilj">
+                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
+                            <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-cilj">
+                                <% for (var i = 0; i < cilji.length; i++) { %>
+                                <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
+                            <input type="text" class="mdl-textfield__input" id="kategorija" readonly required/>
+                            <input type="hidden" name="sampleKategorija" id="sampleKategorija">
+                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
+                            <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-kategorija" data-selected="true">
+                                <% for (var i = 0; i < kategorija.length; i++) { %>
+                                <li class="mdl-menu__item" data-val="<%= kategorija[i].id %>"><%= kategorija[i].ime %></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <ul class="mdl-list margin-zero padding-zero" id="xpStatus">
+                            <li class="mdl-list__item padding-zero overflow-visible dialog-duo">
+                                <div class="mdl-list__item-primary-content" style="padding-right: 10px">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                                        <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" title="Število točk potrebnih dokončanje cilja.">
+                                        <label class="mdl-textfield__label" for="xpNaloge">XP naloge</label>
+                                        <span class="mdl-textfield__error">Polje je obvezno!</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="mdl-list__item-primary-content" style="padding-left: 10px">
-                                <div id="ciljiVsi">
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
-                                        <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
-                                        <span class="mdl-checkbox__label" id="vsiCiljiLabel">Dodaj med skupne cilje</span>
-                                    </label>
+                                <div class="mdl-list__item-primary-content" style="padding-left: 10px">
+                                    <div id="ciljiVsi">
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
+                                            <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
+                                            <span class="mdl-checkbox__label" id="vsiCiljiLabel">Dodaj med skupne cilje</span>
+                                        </label>
+                                    </div>
+                                    <div id="dialogStatus" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
+                                        <input type="text" value="" class="mdl-textfield__input" id="statusNaloge" readonly>
+                                        <input type="hidden" value="" name="newStatus">
+                                        <input type="hidden" value="false" name="oldStatus">
+                                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                        <label for="statusNaloge" class="mdl-textfield__label">Status naloge</label>
+                                        <ul for="statusNaloge" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                            <li class="mdl-menu__item" data-val="true">Opravljeno</li>
+                                            <li class="mdl-menu__item" data-val="false">Neopravljeno</li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div id="dialogStatus" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
-                                    <input type="text" value="" class="mdl-textfield__input" id="statusNaloge" readonly>
-                                    <input type="hidden" value="" name="newStatus">
-                                    <input type="hidden" value="false" name="oldStatus">
-                                    <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                                    <label for="statusNaloge" class="mdl-textfield__label">Status naloge</label>
-                                    <ul for="statusNaloge" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                        <li class="mdl-menu__item" data-val="true">Opravljeno</li>
-                                        <li class="mdl-menu__item" data-val="false">Neopravljeno</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </li>
-                    </ul>
-                    <div id="claniNaloge">
-                        <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
-                        <ul class="mdl-list" style="margin: 0;" id="listClani">
-                            <li class="mdl-list__item mdl-list__item--no-padding">
-                                <span class="mdl-list__item-primary-content">Označi/odznači vse člane družine</span>
-                                <span class="mdl-list__item-secondary-action">
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="checkboxVsi">
-                                        <input type="checkbox" id="checkboxVsi" name="person" class="mdl-checkbox__input checkbox-modal"/>
-                                    </label>
-                                </span>
+    
                             </li>
-                            <% for (var i = 0; i < uporabniki.length; i++) { %>
-                            <li class="mdl-list__item mdl-list__item--no-padding">
-                                <span class="mdl-list__item-primary-content">
-                                <i class="material-icons mdl-list__item-avatar">person</i><%= uporabniki[i].ime %>
-                                </span>
-                                <span class="mdl-list__item-secondary-action">
-                                    <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person<%= i %>">
-                                        <input type="checkbox" id="person<%= i %>" name="person" value="<%= uporabniki[i].id %>" class="mdl-checkbox__input checkbox-modal"/>
-                                    </label>
-                                </span>
-                            </li>
-                            <% } %>
                         </ul>
+                        <div id="claniNaloge">
+                            <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
+                            <ul class="mdl-list" style="margin: 0;" id="listClani">
+                                <li class="mdl-list__item mdl-list__item--no-padding">
+                                    <span class="mdl-list__item-primary-content">Označi/odznači vse člane družine</span>
+                                    <span class="mdl-list__item-secondary-action">
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="checkboxVsi">
+                                            <input type="checkbox" id="checkboxVsi" name="person" class="mdl-checkbox__input checkbox-modal"/>
+                                        </label>
+                                    </span>
+                                </li>
+                                <% for (var i = 0; i < uporabniki.length; i++) { %>
+                                <li class="mdl-list__item mdl-list__item--no-padding">
+                                    <span class="mdl-list__item-primary-content">
+                                    <i class="material-icons mdl-list__item-avatar">person</i><%= uporabniki[i].ime %>
+                                    </span>
+                                    <span class="mdl-list__item-secondary-action">
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person<%= i %>">
+                                            <input type="checkbox" id="person<%= i %>" name="person" value="<%= uporabniki[i].id %>" class="mdl-checkbox__input checkbox-modal"/>
+                                        </label>
+                                    </span>
+                                </li>
+                                <% } %>
+                            </ul>
+                        </div>
                     </div>
-                </div>
-                <div class="mdl-dialog__actions">
-                    <button id="closeBtn" type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
-                    <button id="ustvari" type="button" value="submit" class="mdl-button mdl-color--grey-400"></button>
-                </div>
-            </form>
+                </form>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <button id="izbrisi" type="button" class="mdl-button close mdl-color--red-400 delete">Izbriši</button>
+                <button id="ustvari" type="button" value="submit" class="mdl-button mdl-color--grey-400 create"></button>
+            </div>
         </div>
     </dialog>
     <div id="mainToast" class="mdl-js-snackbar mdl-snackbar">
