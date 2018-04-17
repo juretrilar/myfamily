@@ -28,14 +28,13 @@ gulp.task('default',  ['js', 'uglify'],() => {
     './node_modules/getmdl-select/src/js/getmdl-select.js',
     './node_modules/draggabilly/dist/draggabilly.pkgd.js',
     './node_modules/md-date-time-picker/dist/js/mdDateTimePicker.js',
-    './public/scripts/jquery.simplePagination.js',
-    './public/scripts/monthly.js',
-    './public/scripts/dialog-polyfill.js',
-    './public/scripts/querydb.js',
-    './public/scripts/dialog.js',
-    './public/scripts/dialog.js',
-    './public/scripts/firebaseConfig.js',
-    './node_modules/chart.js/src/chart.js'], ['js']);
+    './public/scripts/es6/jquery.simplePagination.js',
+    './public/scripts/es6/monthly.js',
+    './public/scriptses6//dialog-polyfill.js',
+    './public/scripts/es6/querydb.js',
+    './public/scripts/es6/dialog.js',
+    './public/scripts/es6/firebaseConfig.js',
+    './node_modules/chart.js/src/chart.js'], ['uglify', 'js']);
 });
 
 gulp.task('useref', function(){
@@ -51,23 +50,27 @@ gulp.task('useref', function(){
         // we have an error
         console.log(error);
         })))
-    /*
-    .pipe(useref().on('error', errorHandler))
-    .pipe(minifyejs())    */
-    
     .pipe(gulpIf('public/**/*.css', cssnano()))
-    .pipe(replace(/\/images\/header/g, 'public/images/images/header'))  
+    .pipe(replace(/<%= uporabniki\[j\]\.slika %>/g, 'public/images<%= uporabniki[j].slika %>'))  
+    .pipe(replace(/<%= slika\[naloge\[i\]\.vezani_uporabniki\[j\]\]\[0\]/g, 'public/images<%= slika[naloge[i].vezani_uporabniki[j]][0]')) 
+    .pipe(replace(/<%= slika\[naloge\[i\]\.avtor\]\[0\]/g, 'public/images<%= slika[naloge[i].avtor][0]'))          
+    .pipe(replace(/\/images\/header/g, '../images/images/header'))  
     .pipe(gulp.dest('dist/app'))
 });
 
 gulp.task('sw', function(){
     return gulp.src('public/sw.js')
-    .pipe(gulp.dest('dist/app/public'))
+    .pipe(gulp.dest('dist/app'))
 });
 
 gulp.task('login', function(){
     return gulp.src('public/scripts/prijava.js')
     .pipe(gulp.dest('dist/app/public/js'))
+});
+
+gulp.task('mdpicker', function(){
+    return gulp.src('./node_modules/md-date-time-picker/dist/images/*')
+    .pipe(gulp.dest('dist/app/public/images'))
 });
 
 gulp.task('images', function(){
@@ -82,7 +85,7 @@ gulp.task('clean:dist', function() {
 
 gulp.task('build', function (callback) {
     runSequence('clean:dist', 
-        ['useref', 'images', 'login', 'sw'],    
+        ['useref', 'images', 'login', 'sw', 'mdpicker'],    
         callback
     )
 })
@@ -113,15 +116,16 @@ gulp.task('uglify', () => {
 gulp.task('js', () => {
     return gulp.src(['./node_modules/getmdl-select/getmdl-select.min.js',    
     './node_modules/draggabilly/dist/draggabilly.pkgd.min.js',
-    './node_modules/md-date-time-picker/dist/js/mdDateTimePicker.min.js',
+    './node_modules/md-date-time-picker/dist/js/mdDateTimePicker.js',
     './node_modules/chart.js/dist/Chart.min.js'])
+    /*
         .pipe(babel({
             presets: ['env'],
             plugins: ["transform-member-expression-literals", 
             "transform-merge-sibling-variables", 
             "transform-minify-booleans", 
             "transform-property-literals"]
-        }))
+        }))*/
         .pipe(gulp.dest('./public/scripts'));
 });
 

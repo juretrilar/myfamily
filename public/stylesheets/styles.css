@@ -6,10 +6,11 @@ html, body {
     margin: 0;
     padding: 0;
     background-color: lightgray;
-    background-image: url("/images/header4.svg");
+    background-image: url("/images/header6.svg");
     background-repeat: no-repeat;
     background-position: left bottom;
     background-attachment: fixed;
+    background-size: auto;
 
 }
 
@@ -155,7 +156,15 @@ margin: auto;
     top: 4px;
     visibility: visible;
     margin: 0;
+}
+
+#avatars .mdl-typography--subhead {
     font-weight: 400;
+}
+
+#avatars {
+   margin: 8px;
+   padding: 0 0 12px 0;
 }
 
 .monthly-pop .monthly-header-title {
@@ -256,6 +265,11 @@ margin: auto;
 
 .mdl-layout__header-row button {
     margin-bottom: 25px;
+}
+
+.mdl-menu__item .material-icons{
+    vertical-align: middle;
+    padding-right: 10px;
 }
 
 /*           */
@@ -509,6 +523,10 @@ margin: auto;
     padding: 10px 10px 0 10px;
 }
 
+#pagination {
+    display: none;
+}
+
 /*       */
 
 /* CILJI */
@@ -560,6 +578,10 @@ margin: auto;
 
 /* Izgled strani prijava */
 
+.send-button {
+    margin: 8px 0 16px 0;
+}
+
 .util-center {
     margin: auto;
 }
@@ -580,7 +602,7 @@ margin: auto;
     position: absolute;
     top: 0;
     width: 300px;
-    z-index: 4;
+    /*z-index: 4;*/
 }
 
 .mdl-textfield--file .mdl-textfield__input {
@@ -700,6 +722,14 @@ margin: auto;
 @media screen and (min-width: 840px) {
     .mdl-cell.mdl-cell--3-col {
         width: calc(27.777777777% - 16px);
+    }
+
+    .mdl-layout__tab-bar {
+        padding-left: calc(8.33333333% + 8px);
+    }
+
+    .mdl-layout__header-row {
+        padding-left: calc(8.33333333% + 8px);
     }
 }
 

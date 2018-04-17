@@ -2,30 +2,33 @@
     <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
     <div class="text-main text-content mdl-color--primary mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col mdl-grid">
         <div class="mdl-cell mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-grid--no-spacing">
-        <div class="mdl-card section__text mdl-color--primary" style="width: 100%">
-            <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text mdl-color-text--white">Opomniki</h2>
-            </div>
-            <ul class=" mdl-list margin-zero padding-zero">
-                <% for(let i=0;i<opomniki.length;i++) { %>
-                <li class="mdl-list__item mdl-list__item--two-line">
-                    <div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--white "><%= opomniki[i].ime %></span>
-                        <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
-                            <span class="mdl-chip__text">100 xp</span>
+            <div class="mdl-card section__text mdl-color--primary" style="width: 100%">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text mdl-color-text--white">Opomniki</h2>
+                </div>
+                <ul class=" mdl-list margin-zero padding-zero">
+                    <% for(let i=0;i<opomniki.length;i++) { %>
+                    <li class="mdl-list__item mdl-list__item--two-line">
+                        <div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>
+                        <span class="mdl-list__item-primary-content">
+                            <span class="mdl-color-text--white "><%= opomniki[i].ime %></span>
+                            <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
+                                <span class="mdl-chip__text">100 xp</span>
+                            </span>
+                            <span class="mdl-list__item-sub-title"><%= opomniki[i].avtor %></span>
                         </span>
-                        <span class="mdl-list__item-sub-title"><%= opomniki[i].avtor %></span>
-                    </span>
-                    <span class="mdl-list__item-secondary-content">
-                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="opomnik<%= i %>">
-                            <input type="checkbox" id="opomnik<%= i %>" name="checkbox" class="mdl-checkbox__input" <% if (opomniki[i].status == true) { %>checked="checked" <% } %>/>
-                        </label>
-                    </span>
-                </li>
-                <% } %>
-            </ul>
-        </div>
+                        <span class="mdl-list__item-secondary-content">
+                            <!--
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="opomnik<%= i %>">
+                                <input type="checkbox" id="opomnik<%= i %>" name="checkbox" class="mdl-checkbox__input" <% if (opomniki[i].status == true) { %>checked="checked" <% } %>/>
+                            </label>
+                            -->
+                        </span>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        <!--
         <div class="mdl-card section__text mdl-color--primary" style="width: 100%">
             <div class="mdl-card__title">
                 <h2 class="mdl-card__title-text mdl-color-text--white">Fizična aktivnost moje družine</h2>
@@ -34,6 +37,7 @@
                 <canvas id="myChart" style="min-height: 300px"></canvas>
             </div>
         </div>
+        -->
         </div>
         <div class="mdl-card section__text mdl-cell mdl-color--primary mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet overflow-visible">
             <div class="mdl-textfield mdl-js-textfield mdl-color-text--white" style="width: 100%">
@@ -48,7 +52,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 7) { %>
                         <div class="item">
-                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">  
+                        <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">  
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -65,7 +69,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 6) { %>
                         <div class="item">
-                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level6 user">
+                        <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level6 user">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -82,7 +86,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 5) { %>
                         <div class="item">
-                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level5 user">
+                        <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level5 user">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -99,7 +103,7 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 4) { %>
                             <div class="item">
-                            <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level4 user">
+                            <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level4 user">
                             <input type="hidden" value="<%= uporabniki[j].ime %>">
                             <input type="hidden" value="<%= uporabniki[j].telefon %>">
                             <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -116,7 +120,7 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 3) { %>
                             <div class="item">
-                            <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level3 user">
+                            <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level3 user">
                             <input type="hidden" value="<%= uporabniki[j].ime %>">
                             <input type="hidden" value="<%= uporabniki[j].telefon %>">
                             <input type="hidden" value="<%= uporabniki[j].email %>">

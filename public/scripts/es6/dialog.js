@@ -1,4 +1,3 @@
-let validation = 0;
 const applicationServerPublicKey = 'BGa5M248kds3Uw6AkR6igb3aq4OQw1zFmSBNuFj10kwdsqZ8DXoYtvLUPCMsUIpMKQiPzdOY-s-3mkVnPhRUiQg';
 let isSubscribed = false;
 let swRegistration = null;
@@ -68,7 +67,7 @@ jQuery(function($) {
     $('#mycalendar').monthly({
         mode: 'event',
         dataType: 'json',
-        jsonUrl: id+"/data/events.json"
+        jsonUrl: '/public/calendar/'+id+"/events.json"
     });
     switch(window.location.protocol) {
         case 'http:':
@@ -171,7 +170,7 @@ function fillNaloge() {
     $('#claniNaloge').attr('style',"display: block!important");
     $('#dialogCilj').attr('style',"display: block!important");
     $('#dialogStatus').attr('style',"display: block!important");
-    $('#update_dialog').attr('action',"/ustvari_nalogo").attr('onsubmit',"return validateNaloga()");
+    $('#ustvari').attr('onclick',"validateNaloga(event, 0)");
 }
 
 function fillCilji() {
@@ -186,7 +185,7 @@ function fillCilji() {
     $('#claniNaloge').attr('style',"display: none!important");
     $('#dialogCilj').attr('style',"display: none!important");
     $('#dialogStatus').attr('style',"display: none!important");
-    $('#update_dialog').attr('action',"/ustvari_cilj").attr('onsubmit'," return validateCilj()");
+    $('#ustvari').attr('onclick',"validateNaloga(event, 1)");
 }
 
 function posodobiCilj(row) {
@@ -236,12 +235,7 @@ function dodajNovoNalogo() {
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
 }
 
-function validateCilj() {
-    validation = 1;
-    validateNaloga();
-}
-
-function validateNaloga() {
+function validateNaloga(event, t) {
     if (document.forms["update_dialog"]["imeDialog"].value == "") {
         $("#imeDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
@@ -258,7 +252,7 @@ function validateNaloga() {
     } else {
         $('#sporocilo').innerText = "Cilj je bil uspešno posodobljen.";
     }
-    if (validation==0) {
+    if (t==0) {
         let dZac = document.forms["update_dialog"]["dateZacetek"].value;
         let dKon = document.forms["update_dialog"]["dateKonec"].value;
         if (dZac != "") {
@@ -286,7 +280,49 @@ function validateNaloga() {
         }
         console.log("cilj");
     }
-    validation = 0;
+    if(t == 0) {
+        let save = $( "#update_dialog" ).serialize();
+        event.preventDefault();
+        $.ajax({
+            url: '/ustvari_nalogo',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: save,
+            success: function(response){
+                console.log(response);
+                let data = {message: "Naloga je bila uspešno posodobljena!"};
+                let snackbarContainer = document.querySelector('#mainToast');            
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            },
+            error: function( jqXhr, textStatus, errorThrown){
+                let data = {message: "Prišlo je do napake, naloga ni bila shranjena!"};                
+                let snackbarContainer = document.querySelector('#mainToast');             
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            }
+            
+        });
+    } else {
+        let save = $( "#update_dialog" ).serialize();
+        event.preventDefault();
+        $.ajax({
+            url: '/ustvari_cilj',
+            type: 'POST',
+            contentType: 'application/x-www-form-urlencoded',
+            data: save,
+            success: function(response){
+                console.log(response);
+                let data = {message: response};
+                let snackbarContainer = document.querySelector('#mainToast');            
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            },
+            error: function( jqXhr, textStatus, errorThrown){
+                let data = {message: "Prišlo je do napake, cilj ni bil shranjen!"};                
+                let snackbarContainer = document.querySelector('#mainToast');             
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+            }            
+        });
+        
+    }
 }
 
 function registerDateTimePicker(elementId, picker, inputId, inputDateId, pickerTime) {

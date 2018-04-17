@@ -48,9 +48,40 @@
         <%- include('../partials/footer') -%>
     </div>
     <dialog id="dialog" class="mdl-dialog dialog-main">
+            <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet">
+                    <div class="mdl-card__title mdl-color--blue-300">
+                        <h2 class="mdl-card__title-text mdl-color-text--white">Predlog za aktivnost</h2>
+                        <div class="mdl-card__actions">
+                            <button id="dodajnalogo" class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored align-right">
+                                DODAJ MED NALOGE
+                                <i class="material-icons">add</i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                        <div class="mdl-list">
+                            <div class="mdl-list__item">
+                                        <span class="mdl-list__item-primary-content">
+                                            <span class="mdl-color-text--black mdl-typography--font-bold" id="ime_aktivnosti">Moški večer</span>
+                                                <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
+                                                    <span class="mdl-chip__text">100 xp</span>
+                                                </span>
+                                        </span>
+                            </div>
+                        </div>
+                        <p style="padding-left: 16px;" id="opis_aktivnosti">
+                            Druženje očetov in sinov vseh generacij bistevno prispeva k
+                            lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
+                            et faucibus risus. DOnes eusmod metus ac massa eleifend malesuada.
+                            Phasellus venenatis sit amet est nec finibus.
+                        </p>
+                        <h6 class="mdl-color-text--black" id="clani_aktivnosti" style="padding-left: 16px;">Za: moški del družine (Janez, Jan, Janko)</h6>
+                    </div>
+                </div>
+        <!--
         <div class="dialog-content-div" id="dialog-div">
             <h3 id="dialog-title" class="mdl-dialog__title"></h3>
-            <form action="" method="POST" id="update_dialog" onsubmit="">
+            <form id="update_dialog">
                 <input type="hidden" name="newDialog" id="newDialog">
                 <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible;margin-bottom: 30px;">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
@@ -156,10 +187,10 @@
                 </div>
                 <div class="mdl-dialog__actions">
                     <button id="closeBtn" type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
-                    <button id="ustvari" type="submit" value="submit" class="mdl-button mdl-color--grey-400" ></button>
+                    <button id="ustvari" type="button" value="submit" class="mdl-button mdl-color--grey-400"></button>
                 </div>
             </form>
-        </div>
+        </div>-->
     </dialog>
     <div id="mainToast" class="mdl-js-snackbar mdl-snackbar">
         <div class="mdl-snackbar__text"></div>

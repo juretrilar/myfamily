@@ -19,7 +19,7 @@ fs.readdirSync(models)
 let app = express();
 app.use(favicon(join(__dirname, 'favicon.ico')));
 
-app.set('views', __dirname + '/dist/app/views');
+app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 
 let routes = require('./routes/routes');
@@ -34,7 +34,7 @@ uporabnik_seja = {
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static(join(__dirname, 'public')));
+app.use(express.static(join(__dirname, 'public/')));
 app.use(session({
     secret : "THISISASECRETSTRING",
     saveUninitialized : true,

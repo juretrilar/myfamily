@@ -50,7 +50,7 @@
     <dialog id="dialog" class="mdl-dialog dialog-main">
         <div class="dialog-content-div" id="dialog-div">
             <h3 id="dialog-title" class="mdl-dialog__title"></h3>
-            <form action="" method="POST" id="update_dialog" onsubmit="">
+            <form id="update_dialog">
                 <input type="hidden" name="newDialog" id="newDialog">
                 <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible;margin-bottom: 30px;">
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
@@ -156,7 +156,7 @@
                 </div>
                 <div class="mdl-dialog__actions">
                     <button id="closeBtn" type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
-                    <button id="ustvari" type="submit" value="submit" class="mdl-button mdl-color--grey-400" ></button>
+                    <button id="ustvari" type="button" value="submit" class="mdl-button mdl-color--grey-400"></button>
                 </div>
             </form>
         </div>

@@ -1,6 +1,6 @@
 jQuery(function($) {
     let items;
-    let perPage = 8;
+    let perPage = 24;
 
     $('#osebaSearch').get(0).onchange = function() {
         $("#chipOseba").attr('style',"display: inline-block;").find("span:first-child").text($(this).val()); // get the current value of the input field.
@@ -53,6 +53,7 @@ jQuery(function($) {
             $paginator.pagination("getPagesCount")
         );
         $paginator.pagination("selectPage", page);
+        if (items.length > 24) $("#pagination").attr("style", "display: list-view")
     }
 
     $("#filter").click(function() {

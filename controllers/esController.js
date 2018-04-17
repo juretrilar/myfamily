@@ -504,7 +504,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
                     //console.log(cilj);
                     cilj.save(function (err) {
                         if(!err) {
-                            res.redirect("/");
+                            res.status(200).end();
                             successfulPost = 1;
                         }
                         else {
@@ -525,6 +525,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
 //** POST /ustvari_cilj
 module.exports.ustvariCilj = function(req, res, next) {
     if (checkIfLogged(res, req) != 0) return;    
+    console.log(req.body);
     currentTab = 3;
     validateImeOpisId(req,res);
     if(!validator.isInt(req.body.xpNaloge)) {vrniNapako(res, "Dovoljene so samo cele številke.");return false;}
@@ -548,10 +549,12 @@ module.exports.ustvariCilj = function(req, res, next) {
     let conditions = { _id: req.body.newDialog };
     Cilji.findOneAndUpdate(conditions, novCilj,{upsert: true, runValidators: true}, function (err, doc) { // callback
         if (err) {
-            vrniNapako(res, err);
+            console.log(err);
+            res.status(400).end("Prišlo je do napake!");
         } else {
             successfulPost = 1;
-            res.redirect('/')
+            if (doc) res.status(200).end("Cilj je bil uspešno posodobljen!");
+            res.status(200).end("Cilj je bil uspešno ustvarjen!");
         }
     });
 };
@@ -659,9 +662,9 @@ function poisciCilj() {
 
 function posodobiJson(obj, session) {
     let json = JSON.stringify(obj);
-    mkdirp('public/' + session.trenutniUporabnik.id + '/data', function (err) {
+    mkdirp('dist/app/public/calendar/' + session.trenutniUporabnik.id, function (err) {
         if (err) throw err;
-        fs.writeFile('public/' + session.trenutniUporabnik.id + '/data/events.json', json, 'utf8', function (err) {
+        fs.writeFile('dist/app/public/calendar/' + session.trenutniUporabnik.id + '/events.json', json, 'utf8', function (err) {
             if (err) throw err;
         });
     });
