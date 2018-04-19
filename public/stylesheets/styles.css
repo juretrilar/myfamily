@@ -572,6 +572,11 @@ dialog .mdl-card__supporting-text {
     display: none;
 }
 
+.naloge-okno {
+    z-index: 6;
+    width: 100%;
+}
+
 /*       */
 
 /* CILJI */

@@ -53,7 +53,8 @@ gulp.task('useref', function(){
     .pipe(gulpIf('public/**/*.css', cssnano()))
     .pipe(replace(/<%= uporabniki\[j\]\.slika %>/g, 'public/images<%= uporabniki[j].slika %>'))  
     .pipe(replace(/<%= slika\[naloge\[i\]\.vezani_uporabniki\[j\]\]\[0\]/g, 'public/images<%= slika[naloge[i].vezani_uporabniki[j]][0]')) 
-    .pipe(replace(/<%= slika\[naloge\[i\]\.avtor\]\[0\]/g, 'public/images<%= slika[naloge[i].avtor][0]'))          
+    .pipe(replace(/<%= slika\[naloge\[i\]\.avtor\]\[0\]/g, 'public/images<%= slika[naloge[i].avtor][0]'))    
+    .pipe(replace(/<%= opomniki\[i\]\.vezani_uporabniki\[j\]\.slika/g, 'public/images<%= opomniki[i].vezani_uporabniki[j].slika'))       
     .pipe(replace(/\/images\/header/g, '../images/images/header'))  
     .pipe(gulp.dest('dist/app'))
 });

@@ -35,6 +35,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(join(__dirname, 'public/')));
+app.use('/npm', express.static(__dirname + '/node_modules/'));
 app.use(session({
     secret : "THISISASECRETSTRING",
     saveUninitialized : true,

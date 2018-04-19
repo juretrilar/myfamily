@@ -67,7 +67,7 @@ jQuery(function($) {
     $('#mycalendar').monthly({
         mode: 'event',
         dataType: 'json',
-        jsonUrl: '/public/calendar/'+id+"/events.json"
+        jsonUrl: /*'/public/calendar/'+id+"/events.json"*/id+"/data/events.json"
     });
     switch(window.location.protocol) {
         case 'http:':
@@ -85,6 +85,23 @@ jQuery(function($) {
     dialog.querySelector('.close').onclick = function() {
         dialog.close();
     };
+
+    function onOpomnikClick(opomnikiList, callback) {
+        let list = document.getElementById(opomnikiList),
+            rows = list.getElementsByTagName("li"),i;
+        for (i = 0; i < rows.length; i++) {
+            rows[i].onclick = function (row) {
+                return function () {
+                    callback(row);
+                };
+                console.log(row, "row");
+            }(rows[i]);
+        }
+    }
+
+    onOpomnikClick("opomnikiList", function (row){
+        napolniNalogo(row);
+    });
 
     function onRowClick(tableId, callback) {
         let table = document.getElementById(tableId),
@@ -575,4 +592,43 @@ function distanceX(elem) {
     };
     var location = getElemDistance( elem );
     return(location);
+}
+
+
+function napolniNalogo(elem) {
+    deleteShowNaloga(elem);
+    console.log(elem);
+    console.log(elem.lastElementChild.children[0].value);
+    $("#opomnikKategorija").text(elem.lastElementChild.children[0].value);
+    $("#opomnikZacetek").text(elem.lastElementChild.children[1].value);
+    $("#opomnikKonec").text(elem.lastElementChild.children[2].value);    
+    $("#opomnikCilj").append(elem.lastElementChild.children[3].value);
+    $("#opomnikStatus").text(elem.lastElementChild.children[4].value);
+
+    $("#opomnikIme").text(elem.children[0].children[0].innerHTML);
+    $("#opomnikOpis").text(elem.children[0].children[2].innerHTML);  
+    $("#opomnikXp").text("+"+elem.children[0].children[1].children[0].innerHTML);  
+
+    let m = elem.lastElementChild.children[5].cloneNode(true);
+    let n = elem.lastElementChild.children[6].cloneNode(true);
+    n.classList.remove("hide-element");
+    m.classList.remove("hide-element")
+    document.getElementById("opomnikVezani").appendChild(m);
+    document.getElementById("opomnikAvtor").appendChild(n);
+
+    $("#opomnikBrezDatuma").removeClass("hide-element");
+}
+
+function deleteShowNaloga(elem) {
+    $("#opomnikKategorija").text("");
+    $("#opomnikXp").text("");
+    $("#opomnikIme").text("");
+    $("#opomnikOpis").text("");
+    $("#opomnikVezani").empty();
+    $("#opomnikAvtor").empty();
+    $("#opomnikKategorija").text("");
+    $("#opomnikZacetek").text("");
+    $("#opomnikKonec").text("");
+    $("#opomnikBrezDatuma").addClass("hide-element");
+    console.log("removed all previous instances");
 }

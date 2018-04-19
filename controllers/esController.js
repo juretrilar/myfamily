@@ -112,29 +112,23 @@ for (i = 0; i < cilji.length; i++) {
                     cb();
                 }
                 let m = idx.length;
-                while (m-- > 0) {
-                    Uporabnik.findOne({_id: idx[0].avtor}).then(avtor => {
-                        opomnik.push({
-                            ime: idx[0].ime,
-                            opis: idx[0].opis,
-                            kategorija:idx[0].kategorija,
-                            zacetek: idx[0].zacetek,
-                            konec: idx[0].konec,
-                            vezani_uporabniki: idx[0].vezani_uporabniki,
-                            xp: idx[0].xp,
-                            vezan_cilj: idx[0].vezan_cilj,
-                            avtor: idx[0].avtor,
-                            status: idx[0].status
-                        });
-                        idx.shift();
-                        if (idx.length == 0) {
-                            cb();
-                        }
-                    }).catch(err => {
-                        console.log(err);
-                        vrniNapako(res, err);
-                        return;
+                while (m-- > 0) {                   
+                    opomnik.push({
+                        ime: idx[0].ime,
+                        opis: idx[0].opis,
+                        kategorija:idx[0].kategorija,
+                        zacetek: idx[0].zacetek,
+                        konec: idx[0].konec,
+                        xp: idx[0].xp,
+                        vezani_uporabniki: idx[0].vezani_uporabniki,
+                        vezan_cilj: idx[0].vezan_cilj,
+                        avtor: idx[0].avtor,
+                        status: idx[0].status
                     });
+                    idx.shift();
+                    if (idx.length == 0) {
+                        cb();
+                    }
                 }
             }).catch(err => {
                 console.log(err);
@@ -161,7 +155,24 @@ for (i = 0; i < cilji.length; i++) {
             }
             //console.log(result.cilji[i].vezani_uporabniki, "vezan");
         }
-        //console.log(req.session);
+        for(let i=0;i<opomnik.length;i++) {
+            let temp = [];
+            let kat = result.kategorija.find(x => x.id == opomnik[i].kategorija);
+            let avt = result.uporabniki.find(x => x.id == opomnik[i].avtor);
+            opomnik[i].kategorija = kat.ime;           
+            opomnik[i].avtor = [avt.slika,avt.ime]
+            for (let j=0;j<opomnik[i].vezani_uporabniki.length;j++) {
+                let search = opomnik[i].vezani_uporabniki[j];
+                let pic = result.uporabniki.find(x => x.id == opomnik[i].vezani_uporabniki[j]);
+                temp.push([pic.slika,pic.ime]);
+                
+            }
+            opomnik[i].vezani_uporabniki = temp;
+            console.log(opomnik[i].vezan_cilj)
+            let vcilj =  result.cilji.find(x => x.id == opomnik[i].vezan_cilj);
+            console.log(vcilj);
+            opomnik[i].vezan_cilj = vcilj.ime;
+        }            
         posodobiJson(obj, req.session);
         res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
         //console.log("3");
