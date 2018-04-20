@@ -30,6 +30,10 @@ router.get('/odjava', mainHandler.odjava);
 
 router.post('/status', mainHandler.shraniStatus);
 
+router.post('/delete-cilj', mainHandler.izbrisiCilj);
+
+router.post('/delete-naloga', mainHandler.izbrisiNalogo);
+
 router.get('/api/:druzinaId', mainHandler.spremeniDruzino);
 
 router.post('/api/save-subscription', subscriptionHandler.dodajObvestila);
@@ -38,21 +42,5 @@ router.post('/api/disable-subscription', subscriptionHandler.odstraniObvestila);
 
 router.post('/api/trigger-push-msg', subscriptionHandler.posljiObvestila);
 
-
-
-
-/*
-// BAZA
-
-router.get("/db", krmilnikNavigacija.upravljajZBazo);
-
-router.post("/db/napolni", krmilnikNavigacija.napolniPodatke);
-
-router.post("/db/izbrisi", krmilnikNavigacija.izbrisiPodatke);
-
-router.get("/db/test", krmilnikNavigacija.testirajBazo);
-
-router.post("/db/dodaj", krmilnikNavigacija.dodajPodatek);
-*/
 
 module.exports = router;

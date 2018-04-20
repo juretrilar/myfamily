@@ -78,9 +78,25 @@ jQuery(function($) {
             alert('Just a heads-up, events will not work when run locally.');
     }
 
+    document.querySelector('#izbrisi').onclick = function() {
+
+        let action = "Ali res želite izbirisati nalogo? S pritiskom na gumb Izbriši bo naloga dokočno izbrisana in do nje ne boste mogli več dostopati!";
+        if (document.getElementById("dialog-title").innerHTML == "Uredi cilj")action = "Ali res želite izbirisati cilj? S pritiskom na gumb Izbriši bo vaš cilj dokočno izbrisan in do njega ne boste mogli več dostopati!";     
+        let m = confirm(action);
+        console.log(m);
+        if(m) potrdiIzbris();
+    }
+
     let dialog = document.querySelector('dialog');
     if (! dialog.showModal) {
         dialogPolyfill.registerDialog(dialog);
+    }
+
+    let closeBtn = document.querySelectorAll('.closeX');
+    for( let x = 0;x < closeBtn.length; x++) {        
+        closeBtn[x].onclick = function() {
+            closeBtn[x].parentNode.classList.add("hide-element");
+        }
     }
     dialog.querySelector('.close').onclick = function() {
         dialog.close();
@@ -162,6 +178,35 @@ jQuery(function($) {
     registerDateTimePicker("dialogKonec", dk, "targetKonec", "dateKonec", tk);
     dialog.appendChild(document.getElementById("mddtp-picker__time"));
     dialog.appendChild(document.getElementById("mddtp-picker__date"));
+
+    let data = {};
+    let snackbarContainer = document.querySelector('#mainToast');            
+    
+
+    switch(success) {
+        case 11:
+            data = {message: "Cilj je bil uspešno posodobljen!"};
+            break;
+        case 12:
+            data = {message: "Cilj je bil uspešno ustvarjen!"};
+            break;
+        case 13:
+            data = {message: "Cilj je bil uspešno izbrisan!"};
+            break;
+        case 21:
+            data = {message: "Naloga je bila uspešno posodobljena!"};
+            break;
+        case 22:
+            data = {message: "Naloga je bila uspešno ustvarjena!"};
+            break;       
+        case 23: 
+            data = {message: "Naloga je bil uspešno izbrisana!"};
+            break;
+    }
+
+    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+
+
 });
 
 function clearData() {
@@ -235,8 +280,8 @@ function posodobiNalogo() {
 function dodajNovCilj() {
     clearData();
     fillCilji();
-    //document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
-    //document.getElementById("ustvari").innerHTML = "Ustvari";
+    document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
+    document.getElementById("ustvari").innerHTML = "Ustvari";
     //$('#newDialog').val("");
     dialog.showModal();
     //$("#dialog-div").attr('style', 'height: auto');
@@ -295,7 +340,7 @@ function validateNaloga(event, t) {
         } else {
             $('#sporocilo').innerText = "Naloga je bila uspešno posodobljena.";
         }
-        console.log("cilj");
+        //console.log("cilj");
     }
     if(t == 0) {
         let save = $( "#update_dialog" ).serialize();
@@ -327,12 +372,9 @@ function validateNaloga(event, t) {
             contentType: 'application/x-www-form-urlencoded',
             data: save,
             success: function(response){
-                console.log(response);
-                let data = {message: response};
-                let snackbarContainer = document.querySelector('#mainToast');            
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
             },
             error: function( jqXhr, textStatus, errorThrown){
+                console.log(errorThrown);
                 let data = {message: "Prišlo je do napake, cilj ni bil shranjen!"};                
                 let snackbarContainer = document.querySelector('#mainToast');             
                 snackbarContainer.MaterialSnackbar.showSnackbar(data);
@@ -558,7 +600,7 @@ function tockeUdelezencev(stCiljev, prg, razmerje) {
         });
         //curr.text(sumXP+"/"+$("."+prg+i).prev().find("input[name=person]").val());
         $("#"+razmerje+i).text(sumXP+"/"+$("."+prg+i).parent().prev().prev().find("input[name=maxXp]").val());
-        console.log($("."+prg+i).parent().prev().prev().find("input[name=maxXp]"));
+        //console.log($("."+prg+i).parent().prev().prev().find("input[name=maxXp]"));
         if(stUporabnikov==0) {
             $("."+prg+i).attr('style',"display: none!important");
         } else if (stUporabnikov == 1) {
@@ -597,11 +639,13 @@ function distanceX(elem) {
 
 function napolniNalogo(elem) {
     deleteShowNaloga(elem);
-    console.log(elem);
-    console.log(elem.lastElementChild.children[0].value);
+    $("#dashboardNaloga").removeClass("hide-element");
     $("#opomnikKategorija").text(elem.lastElementChild.children[0].value);
-    $("#opomnikZacetek").text(elem.lastElementChild.children[1].value);
-    $("#opomnikKonec").text(elem.lastElementChild.children[2].value);    
+    let dz = elem.lastElementChild.children[1].value;
+    $("#opomnikZacetek").text(moment(dz).format('DD-MM-YYYY') +" ob "+ moment(dz).format('HH:mm'));
+    let dk = elem.lastElementChild.children[2].value;
+    $("#opomnikKonec").text(moment(dk).format('DD-MM-YYYY') +" ob "+ moment(dk).format('HH:mm'));
+    
     $("#opomnikCilj").append(elem.lastElementChild.children[3].value);
     $("#opomnikStatus").text(elem.lastElementChild.children[4].value);
 
@@ -616,7 +660,9 @@ function napolniNalogo(elem) {
     document.getElementById("opomnikVezani").appendChild(m);
     document.getElementById("opomnikAvtor").appendChild(n);
 
-    $("#opomnikBrezDatuma").removeClass("hide-element");
+    if (dz == "" || dk == "") {
+        $("#opomnikBrezDatuma").removeClass("hide-element");
+    }    
 }
 
 function deleteShowNaloga(elem) {
@@ -630,5 +676,29 @@ function deleteShowNaloga(elem) {
     $("#opomnikZacetek").text("");
     $("#opomnikKonec").text("");
     $("#opomnikBrezDatuma").addClass("hide-element");
-    console.log("removed all previous instances");
+    $("#opomnikCilj").html( $("#opomnikCilj").children());
 }
+
+function potrdiIzbris () {
+    let url = "/delete-naloga";
+    if (document.getElementById("dialog-title").innerHTML == "Uredi cilj") url = "/delete-cilj";
+    let save = "id="+document.forms["update_dialog"]["newDialog"].value;
+    $.ajax({
+        url: url,
+        type: 'POST',
+        contentType: 'application/x-www-form-urlencoded',
+        data: save,
+        success: function(response){
+            /*
+            let snackbarContainer = document.querySelector('#mainToast');            
+            snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
+            dialog.close();*/
+            window.location.reload();
+        },
+        error: function( jqXhr, textStatus, errorThrown, response){         
+            let snackbarContainer = document.querySelector('#mainToast');             
+            snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
+        }            
+    });
+}
+   

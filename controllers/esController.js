@@ -387,13 +387,13 @@ module.exports.prikaziKoledar = function(req, res, next) {
             return queryUporabniki({_id: naloge[0].vezani_uporabniki}, {slika: 1, ime: 1}).then(function(users) {
                 res.render("pages/nalogakoledar", {naloge: naloge, moment : moment, kategorija : kategorija[0].ime, vezani: users});
             }).catch(err => {
-                vrniNapako(res, err);
+                return vrniNapako(res, err);
             });
         }).catch(err => {
-            vrniNapako(res, err);
+            return vrniNapako(res, err);
         });
     }).catch(err => {
-        vrniNapako(res, err);
+        return vrniNapako(res, err);
     });
 };
 
@@ -418,11 +418,12 @@ module.exports.prikaziNaloge = function(req, res, next) {
     async.parallel({
         docs: function (cb) { Naloge.find(where_search).exec(cb);},
         kategorija: function (cb) { Kategorija.find().exec(cb); },
+        cilji: function (cb) { Cilji.find({druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)}).select("ime").exec(cb); },
         uporabnik: function (cb) { Uporabnik.find({druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)}).select("slika ime").exec(cb); },
     },
     function(err, results) {
         if (err) {
-            vrniNapako(err,res);
+            return vrniNapako(err,res);
         }
         let kat = {},usr = {};
         for(let i=0;i<results.kategorija.length;i++) {
@@ -431,8 +432,13 @@ module.exports.prikaziNaloge = function(req, res, next) {
         for(let i=0;i<results.uporabnik.length;i++) {
             usr[results.uporabnik[i].id] = [results.uporabnik[i].slika, results.uporabnik[i].id, results.uporabnik[i].ime];
         }
-        console.log(usr);
-        res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr});
+        let imeCilj = [];
+        for(let i=0;i<results.docs.length;i++) {
+            let ime = results.cilji.find(x => x.id == results.docs[i].vezan_cilj);
+            if(ime) {imeCilj.push(ime.ime);} 
+            else {imeCilj.push("Samostojna naloga");}
+        }       
+        res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr, imeCilj: imeCilj});
     });
 };
 
@@ -448,8 +454,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
     let dKon = req.body.dateKonec;
     if (dZac != "") {
         if (dKon != "" && dZac > dKon) {
-            vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+dZac+" "+dKon);
-            return;
+            return vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+dZac+" "+dKon);
         }
     }
     let currXp = req.body.xpNaloge;
@@ -555,23 +560,29 @@ module.exports.ustvariCilj = function(req, res, next) {
         maxXp: req.body.xpNaloge,
         druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)
     };
+    let conditions = { _id : new mongoose.mongo.ObjectId() };
     if(req.body.newDialog) {
+        conditions = { _id: req.body.newDialog };
         if(req.body.stanje) {
             novCilj.konec = updated;
         }
     } else {
         novCilj.zacetek = updated;
-    }
-
-    let conditions = { _id: req.body.newDialog };
+    }    
     Cilji.findOneAndUpdate(conditions, novCilj,{upsert: true, runValidators: true}, function (err, doc) { // callback
         if (err) {
             console.log(err);
-            res.status(400).end("Prišlo je do napake!");
-        } else {
-            successfulPost = 1;
-            if (doc) res.status(200).end("Cilj je bil uspešno posodobljen!");
-            res.status(200).end("Cilj je bil uspešno ustvarjen!");
+            res.status(400).end();
+        } else {            
+            if (doc) {
+                console.log("posodobitev");
+                successfulPost = 11; // 11 Cilj je bil uspešno posodobljen
+                res.redirect(200, '/');
+            } else {
+                console.log("ustvarjen");
+                successfulPost = 12; // 12 Cilj je bil uspešno ustvarjen
+                res.redirect(200, '/');
+            }
         }
     });
 };
@@ -624,16 +635,47 @@ module.exports.shraniStatus = function (req, res, next) {
     if(req.body.currStatus) {
         Uporabnik.findOneAndUpdate({_id: req.session.trenutniUporabnik.id}, {status: req.body.currStatus}, { upsert: true}, function(err,doc) {     
             if (err) {
-                res.status(400).end();
+                res.status(400).end("Napaka! Status ni bil posodobljen.");
             } else {
-                res.status(200).end();
+                res.status(200).end("Status je bil uspešno posodobljen.");
             }
         });
     }
 };
 
+//** POST /delete-naloga
+module.exports.izbrisiNalogo = function (req, res, next) {
+    if (checkIfLogged(res, req) != 0) return; 
+    console.log(req.body);  
+    if(req.body.id) {
+        Naloge.findOneAndRemove({ _id: req.body.id }, function(err) {
+            if (err) {
+                res.status(400).end("Napaka! Naloga ni bila izbrisana.");
+            }
+            else {
+                successfulPost = 23;
+                res.redirect(200, '/');
+            }
+        });
+    }
+};
 
-
+//** POST /delete-cilj
+module.exports.izbrisiCilj = function (req, res, next) {
+    if (checkIfLogged(res, req) != 0) return;   
+    if(req.body.id) {
+        Cilji.findOneAndRemove({ _id: req.body.id }, function(err) {
+            if (err) {
+                res.status(400).end("Napaka! Cilj ni bil izbrisan.");
+            }
+            else {
+                successfulPost = 13;
+                Naloge.update({ vezan_cilj: req.body.id },{ vezan_cilj: null }, {multi: true});
+                res.redirect(200, '/');
+            }
+        });
+    }
+};
 
 
 //** GET /odjava

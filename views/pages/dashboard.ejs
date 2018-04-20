@@ -23,7 +23,7 @@
                             <input type="hidden" value="<%= opomniki[i].konec %>">
                             <input type="hidden" value="<%= opomniki[i].vezan_cilj %>">
                             <input type="hidden" value="<%= opomniki[i].status %>">
-                            <div class="hide-element">
+                            <div class="hide-element chip-no-margin">
                             <% for(let j=0;j<opomniki[i].vezani_uporabniki.length;j++) { %>
                                 <img class="mdl-chip__contact author-chip" src="<%= opomniki[i].vezani_uporabniki[j][0] %>" title="<%= opomniki[i].vezani_uporabniki[j][1] %>">
                             <% } %>  
@@ -208,8 +208,8 @@
         </div>
     </div>
 </div>
-<div class="mdl-card mdl-shadow--2dp overflow-visible naloge-okno">
-        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--grey" id="buttonClose" onclick="zapriNalogo()">
+<div id="dashboardNaloga" class="mdl-card mdl-shadow--2dp overflow-visible naloge-okno hide-element">
+        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--grey-400 closeX closeDialog" id="buttonClose">
             <i class="material-icons mdl-color-text--white" role="presentation">close</i>
             <span class="visuallyhidden">add</span>
         </button>
