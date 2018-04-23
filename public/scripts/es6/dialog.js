@@ -5,6 +5,8 @@ let swRegistration = null;
 let pageWidth = $(document).width();
 let pageHeight = $(document).height();
 
+let currentElement;
+
 let colors = ["#00FF00", "#6699ff", "#ff6600", "#FF25FF", "#FF6C6A", "#53ff1a", "#00C8FF", "#ff66ff","#ff9900"];
 
 jQuery(function($) {
@@ -67,7 +69,8 @@ jQuery(function($) {
     $('#mycalendar').monthly({
         mode: 'event',
         dataType: 'json',
-        jsonUrl: /*'/public/calendar/'+id+"/events.json"*/id+"/data/events.json"
+        jsonUrl: '/public/calendar/'+id+'/events.json' 
+        //id+"/data/events.json"
     });
     switch(window.location.protocol) {
         case 'http:':
@@ -79,7 +82,6 @@ jQuery(function($) {
     }
 
     document.querySelector('#izbrisi').onclick = function() {
-
         let action = "Ali res želite izbirisati nalogo? S pritiskom na gumb Izbriši bo naloga dokočno izbrisana in do nje ne boste mogli več dostopati!";
         if (document.getElementById("dialog-title").innerHTML == "Uredi cilj")action = "Ali res želite izbirisati cilj? S pritiskom na gumb Izbriši bo vaš cilj dokočno izbrisan in do njega ne boste mogli več dostopati!";     
         let m = confirm(action);
@@ -181,31 +183,6 @@ jQuery(function($) {
 
     let data = {};
     let snackbarContainer = document.querySelector('#mainToast');            
-    
-
-    switch(success) {
-        case 11:
-            data = {message: "Cilj je bil uspešno posodobljen!"};
-            break;
-        case 12:
-            data = {message: "Cilj je bil uspešno ustvarjen!"};
-            break;
-        case 13:
-            data = {message: "Cilj je bil uspešno izbrisan!"};
-            break;
-        case 21:
-            data = {message: "Naloga je bila uspešno posodobljena!"};
-            break;
-        case 22:
-            data = {message: "Naloga je bila uspešno ustvarjena!"};
-            break;       
-        case 23: 
-            data = {message: "Naloga je bil uspešno izbrisana!"};
-            break;
-    }
-
-    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-
 
 });
 
@@ -252,7 +229,7 @@ function fillCilji() {
 
 function posodobiCilj(row) {
     clearData();
-    fillCilji();
+    fillCilji();    
     document.getElementById("dialog-title").innerHTML = "Uredi cilj";
     document.getElementById("ustvari").innerHTML = "Posodobi";
     $('#imeDialog').val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[0].innerHTML)
@@ -265,26 +242,29 @@ function posodobiCilj(row) {
     $("#newDialog").val(row.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[4].value);
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: auto');
-
+    $("#izbrisi").removeClass("hide-element");
+    currentElement = row;
 }
 
-function posodobiNalogo() {
+function posodobiNalogo() {    
     clearData();
-    fillNaloge();
+    fillNaloge();    
     document.getElementById("dialog-title").innerHTML = "Uredi nalogo";
     document.getElementById("ustvari").innerHTML = "Posodobi";
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
+    $("#izbrisi").removeClass("hide-element");
 }
 
 function dodajNovCilj() {
     clearData();
-    fillCilji();
+    fillCilji();    
     document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
     document.getElementById("ustvari").innerHTML = "Ustvari";
     //$('#newDialog').val("");
     dialog.showModal();
     //$("#dialog-div").attr('style', 'height: auto');
+    $("#izbrisi").addClass("hide-element");
 }
 
 function dodajNovoNalogo() {
@@ -295,6 +275,7 @@ function dodajNovoNalogo() {
     $('#newDialog').val("");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
+    $("#izbrisi").addClass("display: none;");
 }
 
 function validateNaloga(event, t) {
@@ -308,11 +289,6 @@ function validateNaloga(event, t) {
     }
     if(document.forms["update_dialog"]["xpNaloge"].value == "") {
         return false;
-    }
-    if($('#newDialog').val()) {
-        $('#sporocilo').innerText = "Cilj je bil uspešno ustvarjen.";
-    } else {
-        $('#sporocilo').innerText = "Cilj je bil uspešno posodobljen.";
     }
     if (t==0) {
         let dZac = document.forms["update_dialog"]["dateZacetek"].value;
@@ -335,11 +311,6 @@ function validateNaloga(event, t) {
             alert("Status naloge mora biti izbran.");
             return false;
         }
-        if($('#newDialog').val()) {
-            $('#sporocilo').innerText = "Naloga je bila uspešno ustvarjena.";
-        } else {
-            $('#sporocilo').innerText = "Naloga je bila uspešno posodobljena.";
-        }
         //console.log("cilj");
     }
     if(t == 0) {
@@ -351,15 +322,13 @@ function validateNaloga(event, t) {
             contentType: 'application/x-www-form-urlencoded',
             data: save,
             success: function(response){
-                console.log(response);
-                let data = {message: "Naloga je bila uspešno posodobljena!"};
                 let snackbarContainer = document.querySelector('#mainToast');            
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
+                queryNaloge();
             },
-            error: function( jqXhr, textStatus, errorThrown){
-                let data = {message: "Prišlo je do napake, naloga ni bila shranjena!"};                
+            error: function( jqXhr, textStatus, errorThrown, response){            
                 let snackbarContainer = document.querySelector('#mainToast');             
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
             }
             
         });
@@ -372,12 +341,18 @@ function validateNaloga(event, t) {
             contentType: 'application/x-www-form-urlencoded',
             data: save,
             success: function(response){
-            },
-            error: function( jqXhr, textStatus, errorThrown){
-                console.log(errorThrown);
-                let data = {message: "Prišlo je do napake, cilj ni bil shranjen!"};                
                 let snackbarContainer = document.querySelector('#mainToast');             
-                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
+                if($("#newDialog").val()) {
+                    currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[0].innerHTML = document.forms["update_dialog"]["imeDialog"].value;
+                    currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[1].innerHTML = document.forms["update_dialog"]["opisDialog"].value
+                    let temp = currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[2].innerHTML.split(" ");
+                    currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[2].innerHTML = temp[0]+"/"+document.forms["update_dialog"]["xpNaloge"].value;
+                }
+            },
+            error: function( jqXhr, textStatus, errorThrown, response){               
+                let snackbarContainer = document.querySelector('#mainToast');             
+                snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
             }            
         });
         
@@ -689,11 +664,12 @@ function potrdiIzbris () {
         contentType: 'application/x-www-form-urlencoded',
         data: save,
         success: function(response){
-            /*
             let snackbarContainer = document.querySelector('#mainToast');            
             snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
-            dialog.close();*/
-            window.location.reload();
+            dialog.close();
+            if (url === "/delete-naloga") {
+                queryNaloge();
+            }
         },
         error: function( jqXhr, textStatus, errorThrown, response){         
             let snackbarContainer = document.querySelector('#mainToast');             

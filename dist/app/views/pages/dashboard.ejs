@@ -15,18 +15,21 @@
                             <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
                                 <span class="mdl-chip__text">100 xp</span>
                             </span>
-                            <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= opomniki[i].avtor %></span>
+                            <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= opomniki[i].avtor[1] %></span>
                         </span>
                         <span class="mdl-list__item-secondary-content">
                             <input type="hidden" value="<%= opomniki[i].kategorija %>">
                             <input type="hidden" value="<%= opomniki[i].zacetek %>">
                             <input type="hidden" value="<%= opomniki[i].konec %>">
-                            <input type="hidden" value="<%= opomniki[i].xp %>">
                             <input type="hidden" value="<%= opomniki[i].vezan_cilj %>">
                             <input type="hidden" value="<%= opomniki[i].status %>">
-                            <% for(let j=0;j<opomniki.length;j++) { %>
-                                <img title="<%= opomniki[i].vezani_uporabniki[j].ime %>" class="mdl-chip__contact author-chip" src="public/images<%= opomniki[i].vezani_uporabniki[j].slika %>"></img>
-                            <% } %>                            <!--
+                            <div class="hide-element chip-no-margin">
+                            <% for(let j=0;j<opomniki[i].vezani_uporabniki.length;j++) { %>
+                                <img class="mdl-chip__contact author-chip" src="public<%= opomniki[i].vezani_uporabniki[j][0] %>" title="<%= opomniki[i].vezani_uporabniki[j][1] %>">
+                            <% } %>  
+                            </div> 
+                            <img class="mdl-chip__contact author-chip hide-element" src="public<%= opomniki[i].avtor[0] %>" title="<%= opomniki[i].avtor[1] %>">
+                                                     <!--
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="opomnik<%= i %>">
                                 <input type="checkbox" id="opomnik<%= i %>" name="checkbox" class="mdl-checkbox__input" <% if (opomniki[i].status == true) { %>checked="checked" <% } %>/>
                             </label>
@@ -60,7 +63,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 7) { %>
                         <div class="item">
-                        <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">  
+                        <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">  
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -77,7 +80,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 6) { %>
                         <div class="item">
-                        <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level6 user">
+                        <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level6 user">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -94,7 +97,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 5) { %>
                         <div class="item">
-                        <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level5 user">
+                        <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level5 user">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -111,7 +114,7 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 4) { %>
                             <div class="item">
-                            <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level4 user">
+                            <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level4 user">
                             <input type="hidden" value="<%= uporabniki[j].ime %>">
                             <input type="hidden" value="<%= uporabniki[j].telefon %>">
                             <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -128,7 +131,7 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 3) { %>
                             <div class="item">
-                            <img src="public/images<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level3 user">
+                            <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level3 user">
                             <input type="hidden" value="<%= uporabniki[j].ime %>">
                             <input type="hidden" value="<%= uporabniki[j].telefon %>">
                             <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -205,15 +208,15 @@
         </div>
     </div>
 </div>
-<div class="mdl-card mdl-shadow--2dp overflow-visible naloge-okno">
-        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--grey" id="buttonClose" onclick="zapriNalogo()">
+<div id="dashboardNaloga" class="mdl-card mdl-shadow--2dp overflow-visible naloge-okno hide-element">
+        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--grey-400 closeX closeDialog" id="buttonClose">
             <i class="material-icons mdl-color-text--white" role="presentation">close</i>
             <span class="visuallyhidden">add</span>
         </button>
         <div class="mdl-card__title mdl-color--orange-300 padding-10">
             <div class="naloge-title_type">
                 <div class="mdl-card__subtitle-text mdl-color-text--black" id="opomnikKategorija"></div>
-                <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">Skupni cilji družine
+                <div class="mdl-card__title-text mdl-color-text--white" id="opomnikCilj" style="display: block;">
                     <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge mdl-chip-small">
                         <span class="mdl-chip__text" id="opomnikXp"></span>
                     </span>

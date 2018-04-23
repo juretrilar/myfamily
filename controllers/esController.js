@@ -23,7 +23,6 @@ let color = {"5a78505d19ac7744c8175d18": "#ff9933", "5a785125e7c9722aa0e1e8ac": 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 let currentTab = 0;
-let successfulPost = 0;
 let jobsCounter = 0;
 let jobs = {};
 
@@ -174,10 +173,9 @@ for (i = 0; i < cilji.length; i++) {
             opomnik[i].vezan_cilj = vcilj.ime;
         }            
         posodobiJson(obj, req.session);
-        res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment, success: successfulPost});
+        res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment});
         //console.log("3");
         currentTab = 0;
-        successfulPost = 0;
     });
 };
 
@@ -278,7 +276,6 @@ module.exports.posodobiOsebnePodatke = function(req, res, next) {
             console.log(err);
             vrniNapako(res, err);
         } else {
-            //successfulPost = 1;
             res.redirect('/')
         }
     });
@@ -367,7 +364,6 @@ module.exports.posodobiObvestila = function(req, res, next) {
                     console.log(err);
                     vrniNapako(res, err);
                 } else {
-                    //successfulPost = 1;
                     res.redirect('/')
                 }
             });
@@ -490,7 +486,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
     let conditions = { _id: req.body.newDialog};
     Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runVlidators: true}, {returnNewDocument: true}, function (err, doc) { // callback
         if (err) {
-            vrniNapako(res, err);
+            res.status(400).end("Pri shranjevanju cilja je prišlo do napake!");
             console.log(err);
             return;
         } else {
@@ -526,15 +522,21 @@ module.exports.ustvariNalogo = function(req, res, next) {
                     //console.log(cilj);
                     cilj.save(function (err) {
                         if(!err) {
-                            res.status(200).end();
-                            successfulPost = 1;
+                            if (doc) {
+                                res.status(200).end("Naloga je bila uspešno posodobljena!");
+                            } else {
+                                res.status(200).end("Naloga je bila uspešno ustvarjena!");
+                            }
                         }
                         else {
-                            vrniNapako(res,err);
+                            res.status(400).end("Pri shranjevanju cilja je prišlo do napake!");
                             console.log(err);
                             return;
                         }
                     });
+                } else {
+                    res.status(400).end("Pri shranjevanju cilja je prišlo do napake!");
+                    console.log(err);
                 }
             });
         }
@@ -572,16 +574,12 @@ module.exports.ustvariCilj = function(req, res, next) {
     Cilji.findOneAndUpdate(conditions, novCilj,{upsert: true, runValidators: true}, function (err, doc) { // callback
         if (err) {
             console.log(err);
-            res.status(400).end();
+            res.status(400).end("Pri shranjvanju cilja je prišlo do napake!");
         } else {            
             if (doc) {
-                console.log("posodobitev");
-                successfulPost = 11; // 11 Cilj je bil uspešno posodobljen
-                res.redirect(200, '/');
+                res.status(200).end( "Cilj je bil uspešno posodobljen!");
             } else {
-                console.log("ustvarjen");
-                successfulPost = 12; // 12 Cilj je bil uspešno ustvarjen
-                res.redirect(200, '/');
+                res.status(200).end( "Cilj je bil uspešno ustvarjen!");
             }
         }
     });
@@ -653,8 +651,7 @@ module.exports.izbrisiNalogo = function (req, res, next) {
                 res.status(400).end("Napaka! Naloga ni bila izbrisana.");
             }
             else {
-                successfulPost = 23;
-                res.redirect(200, '/');
+                res.status(200).end("Naloga je bila uspešno izbrisana!");
             }
         });
     }
@@ -669,9 +666,8 @@ module.exports.izbrisiCilj = function (req, res, next) {
                 res.status(400).end("Napaka! Cilj ni bil izbrisan.");
             }
             else {
-                successfulPost = 13;
                 Naloge.update({ vezan_cilj: req.body.id },{ vezan_cilj: null }, {multi: true});
-                res.redirect(200, '/');
+                res.status(200).end("Cilj je bil uspešno izbrisan!");
             }
         });
     }
@@ -721,9 +717,9 @@ function poisciCilj() {
 
 function posodobiJson(obj, session) {
     let json = JSON.stringify(obj);
-    mkdirp('dist/app/public/calendar/' + session.trenutniUporabnik.id, function (err) {
+    mkdirp('app/public/calendar/' + session.trenutniUporabnik.id, function (err) {
         if (err) throw err;
-        fs.writeFile('dist/app/public/calendar/' + session.trenutniUporabnik.id + '/events.json', json, 'utf8', function (err) {
+        fs.writeFile('app/public/calendar/' + session.trenutniUporabnik.id + '/events.json', json, 'utf8', function (err) {
             if (err) throw err;
         });
     });

@@ -84,8 +84,8 @@
                                     <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
                                     <% for(let i=1;i<8;i++) { %>
                                     <label class="avatars">
-                                        <input type="radio" name="avatar" value="public/images/uploads/<%= i %>.png" hidden/>
-                                        <img src="public/images/uploads/<%= i %>.png" alt=""/>
+                                        <input type="radio" name="avatar" value="public/uploads/<%= i %>.png" hidden/>
+                                        <img src="public/uploads/<%= i %>.png" alt=""/>
                                     </label>
                                     <% } %>
                                 </div>
@@ -117,7 +117,7 @@
             </main>
         </div>
         <%- include('../partials/script') -%>
-        <script defer src="public/js/prijava.js"></script>
+        <script defer src="js/prijava.js"></script>
         <dialog id="dialog" class="mdl-dialog dialog-main">
             <div class="dialog-content-div" id="dialog-div">
                 <h3 id="dialog-title" class="mdl-dialog__title"></h3>

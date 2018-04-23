@@ -24,14 +24,18 @@
 self.addEventListener('push', function(event) {
     console.log('[Service Worker] Push Received.');
     console.log(`[Service Worker] Push had this data: "${event.data.text()}"`);
+    console.log(event.data.json());
 
     const title = event.data.json().title;
     const options = {
         body: event.data.json().body,
         icon: 'images/f.ico',
-        badge: 'images/e.png'
+        vibrate: [60, 30, 60],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+          }
     };
-
     event.waitUntil(self.registration.showNotification(title, options));
 });
 

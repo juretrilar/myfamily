@@ -131,8 +131,7 @@
                                             <li class="mdl-menu__item" data-val="false">Neopravljeno</li>
                                         </ul>
                                     </div>
-                                </div>
-    
+                                </div>    
                             </li>
                         </ul>
                         <div id="claniNaloge">
@@ -149,7 +148,8 @@
                                 <% for (var i = 0; i < uporabniki.length; i++) { %>
                                 <li class="mdl-list__item mdl-list__item--no-padding">
                                     <span class="mdl-list__item-primary-content">
-                                    <i class="material-icons mdl-list__item-avatar">person</i><%= uporabniki[i].ime %>
+                                    <img class="mdl-chip__contact author-chip" src="<%= uporabniki[i].slika %>">
+                                    <%= uporabniki[i].ime %>
                                     </span>
                                     <span class="mdl-list__item-secondary-action">
                                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person<%= i %>">
