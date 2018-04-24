@@ -125,86 +125,90 @@ function queryNaloge() {
         type: 'POST',
         //contentType: 'application/json',
         data: post_data,
-        success: function (response) {
-            $('#nalogeGrid').html(response);
-            updateItems();
-            function onCardClick(cardId, callback) {
-                let parent = document.getElementById("nalogeGrid"),
-                    card = parent.getElementsByClassName("mdl-card"),i;
-                for (i = 0; i < card.length; i++) {
-                    card[i].onclick = function (card) {
-                        return function () {
-                            callback(card, event);
-                        };
-                    }(card[i]);
-                }
-            } onCardClick("nalogeGrid", function (card, event) {
-                currentElement = card;
-                posodobiNalogo();
-                //
-                $('#newDialog').val(card.getElementsByClassName("idNaloga")[0].value);
-                $('#imeDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].previousElementSibling.innerHTML)
-                    .parent().addClass("is-dirty");
-                $('#opisDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].innerHTML)
-                    .parent().addClass("is-dirty");
-                let dateZ,dateK;
-                try {
-                     dateZ = card.getElementsByClassName("dateNaloga")[0].innerHTML;
-                     dateK = card.getElementsByClassName("dateNaloga")[1].innerHTML;
-                } catch(err) {
-                    console.log(err);
-                }
-                if (dateZ) {
-                    $('#targetZacetek').val(dateZ).parent().addClass("is-dirty");
-                    $('#dateZacetek').val(moment(dateZ.replace(' ob ',' '), 'DD-MM-Y HH:mm').format('Y-MM-DD HH:mm'));
-                }
-                if (dateK) {
-                    $('#targetKonec') .val(dateK).parent().addClass("is-dirty");
-                    $('#dateKonec').val(moment(dateK.replace(' ob ',' '), 'DD-MM-Y HH:mm').format('Y-MM-DD HH:mm'));
-                }
-                let kat = card.getElementsByClassName("kategorijaNaloga")[0].value;
-                $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val="+kat+"]").get(0).textContent.trim();
-                $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val="+kat+"]").attr('data-selected','true');
-                getmdlSelect.init("#dialogKategorija");
-                let cl = card.getElementsByClassName("ciljNaloga")[0].value;
-                $('#vezanCilj').get(0).placeholder = $(".list-cilj").find("[data-val="+cl+"]").get(0).textContent.trim();
-                $("input[name='sampleCilj']").parent().addClass("is-dirty").find("li[data-val="+cl+"]").attr('data-selected','true');
-                getmdlSelect.init("#dialogCilj");
-                let status = card.getElementsByClassName("statusNaloga")[0].innerHTML;
-                $('#statusNaloge').get(0).placeholder = status;
-                if(status == "Neopravljena") {
-                    $("#statusNaloge").parent().addClass("is-dirty")
-                        .find("li[data-val=false]").attr('data-selected','true');
-                    $("input[name='oldStatus']").val("false");
-                    $("input[name='newStatus']").val("false");
-                } else {
-                    $("#statusNaloge").parent().addClass("is-dirty")
-                        .find("li[data-val=true]").attr('data-selected','true');
-                    $("input[name='oldStatus']").val("true");
-                    $("input[name='newStatus']").val("true");
-                }
-                getmdlSelect.init("#dialogStatus");
-                $('#xpNaloge').val(card.getElementsByClassName("xpNaloga")[0].innerHTML.match(/\d/g).join("")).parent().addClass("is-dirty");
-                let usr = card.getElementsByClassName("udelezenecNaloga");
-                let chckbox = $("input:checkbox[name='person']");
-                $("#checkboxVsi").parent()[0].MaterialCheckbox.uncheck();
-                if(chckbox.length-1==usr.length) {
-                    $("#checkboxVsi").parent()[0].MaterialCheckbox.check();
-                }
-                let u=0;
-                for(let i=1;i<chckbox.length;i++) {
-                    let curr = $("#"+chckbox[i].id).parent()[0].MaterialCheckbox;
-                    curr.uncheck();
-                    if(usr[u].value == chckbox[i].value) {
-                        //console.log(usr);
-                        curr.check();
-                        u++;
-                        if(u => usr.length) break;
+        success: function (response, xhr) {
+            if (response.includes("<!doctype html>")) {
+                window.location.reload();
+            } else {
+                $('#nalogeGrid').html(response);
+                updateItems();
+                function onCardClick(cardId, callback) {
+                    let parent = document.getElementById("nalogeGrid"),
+                        card = parent.getElementsByClassName("mdl-card"),i;
+                    for (i = 0; i < card.length; i++) {
+                        card[i].onclick = function (card) {
+                            return function () {
+                                callback(card, event);
+                            };
+                        }(card[i]);
                     }
-                }
-
-                event.stopPropagation();
-            });
+                } onCardClick("nalogeGrid", function (card, event) {
+                    currentElement = card;
+                    posodobiNalogo();
+                    //
+                    $('#newDialog').val(card.getElementsByClassName("idNaloga")[0].value);
+                    $('#imeDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].previousElementSibling.innerHTML)
+                        .parent().addClass("is-dirty");
+                    $('#opisDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].innerHTML)
+                        .parent().addClass("is-dirty");
+                    let dateZ,dateK;
+                    try {
+                         dateZ = card.getElementsByClassName("dateNaloga")[0].innerHTML;
+                         dateK = card.getElementsByClassName("dateNaloga")[1].innerHTML;
+                    } catch(err) {
+                        console.log(err);
+                    }
+                    if (dateZ) {
+                        $('#targetZacetek').val(dateZ).parent().addClass("is-dirty");
+                        $('#dateZacetek').val(moment(dateZ.replace(' ob ',' '), 'DD-MM-Y HH:mm').format('Y-MM-DD HH:mm'));
+                    }
+                    if (dateK) {
+                        $('#targetKonec') .val(dateK).parent().addClass("is-dirty");
+                        $('#dateKonec').val(moment(dateK.replace(' ob ',' '), 'DD-MM-Y HH:mm').format('Y-MM-DD HH:mm'));
+                    }
+                    let kat = card.getElementsByClassName("kategorijaNaloga")[0].value;
+                    $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val="+kat+"]").get(0).textContent.trim();
+                    $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val="+kat+"]").attr('data-selected','true');
+                    getmdlSelect.init("#dialogKategorija");
+                    let cl = card.getElementsByClassName("ciljNaloga")[0].value;
+                    $('#vezanCilj').get(0).placeholder = $(".list-cilj").find("[data-val="+cl+"]").get(0).textContent.trim();
+                    $("input[name='sampleCilj']").parent().addClass("is-dirty").find("li[data-val="+cl+"]").attr('data-selected','true');
+                    getmdlSelect.init("#dialogCilj");
+                    let status = card.getElementsByClassName("statusNaloga")[0].innerHTML;
+                    $('#statusNaloge').get(0).placeholder = status;
+                    if(status == "Neopravljena") {
+                        $("#statusNaloge").parent().addClass("is-dirty")
+                            .find("li[data-val=false]").attr('data-selected','true');
+                        $("input[name='oldStatus']").val("false");
+                        $("input[name='newStatus']").val("false");
+                    } else {
+                        $("#statusNaloge").parent().addClass("is-dirty")
+                            .find("li[data-val=true]").attr('data-selected','true');
+                        $("input[name='oldStatus']").val("true");
+                        $("input[name='newStatus']").val("true");
+                    }
+                    getmdlSelect.init("#dialogStatus");
+                    $('#xpNaloge').val(card.getElementsByClassName("xpNaloga")[0].innerHTML.match(/\d/g).join("")).parent().addClass("is-dirty");
+                    let usr = card.getElementsByClassName("udelezenecNaloga");
+                    let chckbox = $("input:checkbox[name='person']");
+                    $("#checkboxVsi").parent()[0].MaterialCheckbox.uncheck();
+                    if(chckbox.length-1==usr.length) {
+                        $("#checkboxVsi").parent()[0].MaterialCheckbox.check();
+                    }
+                    let u=0;
+                    for(let i=1;i<chckbox.length;i++) {
+                        let curr = $("#"+chckbox[i].id).parent()[0].MaterialCheckbox;
+                        curr.uncheck();
+                        if(usr[u].value == chckbox[i].value) {
+                            //console.log(usr);
+                            curr.check();
+                            u++;
+                            if(u => usr.length) break;
+                        }
+                    }
+    
+                    event.stopPropagation();
+                });
+            }            
         },
         error: function (xhr, ajaxOptions, thrownError) {
             alert(xhr.status);

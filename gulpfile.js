@@ -43,7 +43,7 @@ gulp.task('useref', function(){
     .pipe(replace(/--><!--/g, '-->'))
     .pipe(gulpRemoveHtml())
     //.pipe(replace(/\/uploads\//g, 'public/uploads/'))
-    .pipe(replace(/\/scripts\/prijava.js/g, 'js/prijava.js'))           
+    .pipe(replace(/\/scripts\/prijava.js/g, '/public/js/prijava.js'))           
     .pipe(useref({}, lazypipe().pipe(sourcemaps.init)))
         .pipe(sourcemaps.mapSources(function(sourcePath, file) {
             return '' + sourcePath;
@@ -56,6 +56,7 @@ gulp.task('useref', function(){
     .pipe(gulpIf('public/**/*.css', cssnano()))
     //.pipe(replace(/public\/css\//g, 'css/'))
     //.pipe(replace(/public\/js\//g, 'js/')) 
+    /*
     .pipe(replace(/<%= uporabniki\[j\]\.slika %>/g, 'public/<%= uporabniki[j].slika %>'))  
     .pipe(replace(/<%= uporabniki\[i\]\.slika %>/g, 'public<%= uporabniki[i].slika %>'))
     .pipe(replace(/<%= slika\[naloge\[i\]\.vezani_uporabniki\[j\]\]\[0\]/g, 'public/<%= slika[naloge[i].vezani_uporabniki[j]][0]')) 
@@ -63,8 +64,8 @@ gulp.task('useref', function(){
     .pipe(replace(/<%= opomniki\[i\]\.vezani_uporabniki\[j\]\.slika/g, 'public/<%= opomniki[i].vezani_uporabniki[j].slika'))
     .pipe(replace(/<%= opomniki\[i\]\.vezani_uporabniki\[j\]\.slika/g, 'public/<%= opomniki[i].vezani_uporabniki[j].slika'))
     .pipe(replace(/<%= opomniki\[i]\.vezani_uporabniki\[j]\[0] %>/g, 'public<%= opomniki[i].vezani_uporabniki[j][0] %>'))    
-    .pipe(replace(/<%= opomniki\[i]\.avtor\[0] %>/g, 'public<%= opomniki[i].avtor[0] %>')) 
-    .pipe(replace(/\/uploads\/<%= i %>.png/g, 'public/uploads/<%= i %>.png'))    
+    .pipe(replace(/<%= opomniki\[i]\.avtor\[0] %>/g, 'public<%= opomniki[i].avtor[0] %>')) */
+    .pipe(replace(/\/uploads\/<%= i %>.png/g, 'public/uploads/<%= i %>.png'))
     .pipe(replace(/\/images\/header/g, '../images/header'))  
     .pipe(gulp.dest('dist/app'))
 });

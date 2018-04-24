@@ -38,7 +38,9 @@ function validateRegistracija() {
         $("#errTel").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
     }
+    /*
     if (document.forms["registracijaForm"]["reg_slika_ime"].value != "") {
+        
         if (document.forms["registracijaForm"]["reg_slika"].files.length > 0) {
             if (!isImage(document.forms["registracijaForm"]["reg_slika"].files[0])) {
                 $("#errSlika").parent().addClass("is-invalid");
@@ -48,7 +50,7 @@ function validateRegistracija() {
             $("#errSlika").parent().addClass("is-invalid");
             return false;
         }
-    }
+    } */
 }
 
 function updatePic(pic) { //update picture name, if action is canceled leave blank

@@ -275,7 +275,7 @@ function dodajNovoNalogo() {
     $('#newDialog').val("");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
-    $("#izbrisi").addClass("display: none;");
+    $("#izbrisi").addClass("hide-element");
 }
 
 function validateNaloga(event, t) {
@@ -299,10 +299,11 @@ function validateNaloga(event, t) {
                 return false;
             }
         }
+        /*
         if (document.forms["update_dialog"]["vezanCilj"].value == "") {
             alert("Vezan cilj mora biti izbran.");
             return false;
-        }
+        }*/
         if (document.forms["update_dialog"]["sampleKategorija"].value == "") {
             alert("Kategorija mora biti izbrana.");
             return false;
@@ -325,6 +326,7 @@ function validateNaloga(event, t) {
                 let snackbarContainer = document.querySelector('#mainToast');            
                 snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
                 queryNaloge();
+                dialog.close();
             },
             error: function( jqXhr, textStatus, errorThrown, response){            
                 let snackbarContainer = document.querySelector('#mainToast');             
@@ -349,6 +351,7 @@ function validateNaloga(event, t) {
                     let temp = currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[2].innerHTML.split(" ");
                     currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[2].innerHTML = temp[0]+"/"+document.forms["update_dialog"]["xpNaloge"].value;
                 }
+                dialog.close();
             },
             error: function( jqXhr, textStatus, errorThrown, response){               
                 let snackbarContainer = document.querySelector('#mainToast');             
@@ -667,8 +670,10 @@ function potrdiIzbris () {
             let snackbarContainer = document.querySelector('#mainToast');            
             snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
             dialog.close();
-            if (url === "/delete-naloga") {
+            if (url == "/delete-naloga") {
                 queryNaloge();
+            } else {                
+                currentElement.classList.add("hide-element");
             }
         },
         error: function( jqXhr, textStatus, errorThrown, response){         

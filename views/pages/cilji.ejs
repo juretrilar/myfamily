@@ -24,6 +24,31 @@
                     </thead>
                     <tbody>
                     <% var m = 0 %>
+                    <% if (cilji.length == 0) { %>
+                        <tr>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero">
+                                <div class="mdl-list__item mdl-list__item--three-line">
+                                    <div class="circle-container-main mdl-color--grey"></div>
+                                    <span class="mdl-list__item-primary-content">
+                                        <span class="mdl-color-text--black">Primer cilja</span>
+                                        <span class="mdl-list__item-text-body mdl-color-text--grey">Tole je opis cilja</span>
+                                        <input type="hidden" value="100" name="maxXp">
+                                        <input type="hidden" value="default" name="idCilj">
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerjeDef">0/100</td>
+                            <td class="mdl-data-table__cell--non-numeric">
+                                div class="mdl-tooltip clani-naloge" data-mdl-for="<%= i+"c"%>">
+                                   <img src="https://www.gravatar.com/avatar/02f02fcd0e0adfd6f5d5d1d594a8953c?s=32&d=identicon&r=PG">
+                                </div>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(Date.now()).format('DD-MM-YYYY')%>
+                            </td>
+                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(Date.now()).format('DD-MM-YYYY')%>
+                            </td>
+                        </tr>
+                    <% } %>
                     <% for (var i = 0; i < cilji.length; i++) { %>
                         <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
                         <tr>
@@ -40,14 +65,16 @@
                                 </div>
                             </td>
                             <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerje<%= m %>"></td>
-                            <td class=mdl-data-table__cell--non-numeric"><!--
-                                <div class="mdl-tooltip clani-naloge" data-mdl-for="<%= i+"c"%>">
-                                   <img src="https://www.gravatar.com/avatar/02f02fcd0e0adfd6f5d5d1d594a8953c?s=32&d=identicon&r=PG">
-                                </div>-->
-                                <div class="progress progress<%= m++ %>">
+                            <td class="mdl-data-table__cell--non-numeric">
+                                <div class="progress progress<%= m %>" id="progress<%= m %>" >
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
                                     <span class="spanCilji"><%= cilji[i].vezani_uporabniki[j].xp_user %></span>
                                     <% } %>
+                                </div>
+                                <div class="mdl-tooltip clani-naloge" data-mdl-for="progress<%= m++ %>">
+                                    <% for (var j = 0; j < cilji[i].slika.length; j++) { %>
+                                        <img class="mdl-chip__contact" src="<%= cilji[i].slika[j] %>">
+                                    <% } %>                                   
                                 </div>
                             </td>
                             <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
@@ -99,11 +126,16 @@
                             </td>
                             <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerjeE<%= m %>"></td>
                             <td>
-                                <div class="progress progressE<%= m++ %>">
+                                <div class="progress progressE<%= m %>" id="progressE<%= m %>" >
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
                                     <span class="spanCilji"><%= cilji[i].vezani_uporabniki[j].xp_user %></span>
                                     <% } %>
                                 </div>
+                                <div class="mdl-tooltip clani-naloge" data-mdl-for="progressE<%= m++ %>">
+                                    <% for (var j = 0; j < cilji[i].slika.length; j++) { %>
+                                        <img class="mdl-chip__contact" src="<%= cilji[i].slika[j] %>">
+                                    <% } %>                                   
+                                 </div>
                             </td>
                             <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                             </td>

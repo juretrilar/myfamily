@@ -2,7 +2,7 @@ let mongoose = require("mongoose");
 
 let nalogeSchema = new mongoose.Schema({
     _id : {type : mongoose.Schema.Types.ObjectId, required : true},
-    ime: { type:String, unique: true},
+    ime: { type:String, required: true},
     opis: String,
     kategorija: {type : mongoose.Schema.Types.ObjectId, ref : "Kategorija"},
     zacetek: Date,

@@ -66,22 +66,6 @@ module.exports.naslovnaStran = function (req, res) {
                     return;
                 }
                 let j=0,o=0;
-/*
-for (i = 0; i < cilji.length; i++) {
-    if (cilji[i].vezani_uporabniki.indexOf(session.trenutniUporabnik.id) > -1) {
-        j++;
-        obj.monthly.push({
-            id: cilji[i].id,
-            name: cilji[i].name,
-            startdate: moment(cilji[i].zacetek).format('YYYY-MM-DD'),
-            enddate: moment(cilji[i].konec).format('YYYY-MM-DD'),
-            starttime: "",
-            endtime: "",
-            color: "#EF44EF",
-            url: ""
-        });
-    }
-}*/
                 for (let i = 0; i < naloga.length; i++) {
                     let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
                     let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
@@ -149,10 +133,17 @@ for (i = 0; i < cilji.length; i++) {
         //console.log("1");
         let sCilji = [];
         for (let i=0;i<result.cilji.length;i++) {
-            if(result.cilji[i].skupni_cilj == true) {
-                sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp})
+            let temp = [];
+            for (let j=0; j<result.cilji[i].vezani_uporabniki.length;j++) {
+                let usr = result.uporabniki.find(x => x.id == result.cilji[i].vezani_uporabniki[j].id_user);
+                temp.push(usr.slika);
             }
-            //console.log(result.cilji[i].vezani_uporabniki, "vezan");
+            if(result.cilji[i].skupni_cilj == true) {
+                sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp});
+                
+            }
+            result.cilji[i].slika = temp;
+            //console.log(result.cilji[i].vezani_uporabniki, "vezan"); 
         }
         for(let i=0;i<opomnik.length;i++) {
             let temp = [];
@@ -163,11 +154,11 @@ for (i = 0; i < cilji.length; i++) {
             for (let j=0;j<opomnik[i].vezani_uporabniki.length;j++) {
                 let search = opomnik[i].vezani_uporabniki[j];
                 let pic = result.uporabniki.find(x => x.id == opomnik[i].vezani_uporabniki[j]);
-                temp.push([pic.slika,pic.ime]);
-                
+                temp.push([pic.slika,pic.ime]);                
             }
             opomnik[i].vezani_uporabniki = temp;
             console.log(opomnik[i].vezan_cilj)
+            
             let vcilj =  result.cilji.find(x => x.id == opomnik[i].vezan_cilj);
             console.log(vcilj);
             opomnik[i].vezan_cilj = vcilj.ime;
@@ -194,7 +185,8 @@ module.exports.prijaviUporabnika = function(req, res, next){
                 isLoggedIn: false,
                 uporabniki: 0,
                 uporabnik: "",
-                sporociloPrijava : "Napačen e-mail in/ali geslo!"
+                sporociloPrijava : "Napačen e-mail in/ali geslo!",
+                currSession:  "",
             });
         }
         else {
@@ -235,8 +227,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
 
 //** POST /registracija
 module.exports.ustvariUporabnika = function(req, res, next) {
-    let family = ustvariKljuc();
-    if(req.body.family) family=req.body.family;
+    if(!req.body.avatar) req.body.avatar="public/uploads/default.png";
     let noviUporabnik = {
         _id : new ObjectId(),
         ime: req.body.reg_name,
@@ -262,6 +253,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
 //** POST /settings
 module.exports.posodobiOsebnePodatke = function(req, res, next) {
     if (checkIfLogged(res, req) != 0) return; 
+    currentTab = 4;
     let updateUporabnik = {
         ime: req.body.set_name,
         email: req.body.set_email,
@@ -285,6 +277,7 @@ module.exports.posodobiOsebnePodatke = function(req, res, next) {
 //** POST /notifications
 module.exports.posodobiObvestila = function(req, res, next) {
     if (checkIfLogged(res, req) != 0) return;   
+    currentTab = 5;
     let mail = false, tel = false;
     if (req.body.switchMail) mail = true;
     if (req.body.switchSms) tel = true;
@@ -486,7 +479,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
     let conditions = { _id: req.body.newDialog};
     Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runVlidators: true}, {returnNewDocument: true}, function (err, doc) { // callback
         if (err) {
-            res.status(400).end("Pri shranjevanju cilja je prišlo do napake!");
+            res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
             console.log(err);
             return;
         } else {
@@ -529,13 +522,13 @@ module.exports.ustvariNalogo = function(req, res, next) {
                             }
                         }
                         else {
-                            res.status(400).end("Pri shranjevanju cilja je prišlo do napake!");
+                            res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
                             console.log(err);
                             return;
                         }
                     });
                 } else {
-                    res.status(400).end("Pri shranjevanju cilja je prišlo do napake!");
+                    res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
                     console.log(err);
                 }
             });
@@ -574,7 +567,7 @@ module.exports.ustvariCilj = function(req, res, next) {
     Cilji.findOneAndUpdate(conditions, novCilj,{upsert: true, runValidators: true}, function (err, doc) { // callback
         if (err) {
             console.log(err);
-            res.status(400).end("Pri shranjvanju cilja je prišlo do napake!");
+            res.status(400).end("Pri shranjevanju cilja je prišlo do napake!");
         } else {            
             if (doc) {
                 res.status(200).end( "Cilj je bil uspešno posodobljen!");
@@ -614,6 +607,7 @@ module.exports.povabiUporabnika = function (req, res, next) {
 //** GET /api/:druzinaId
 module.exports.spremeniDruzino = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;  
+    currentTab = 6;
     req.session.trenutniUporabnik.druzina = req.params.druzinaId;
     Uporabnik.findOne({_id:  req.params.druzinaId}).then(user => {
         user.druzina = req.params.druzinaId;
@@ -630,7 +624,8 @@ module.exports.spremeniDruzino = function (req, res, next) {
 //** POST /status
 module.exports.shraniStatus = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;   
-    if(req.body.currStatus) {
+    currentTab = 0;
+    if(req.body.currStatus) {        
         Uporabnik.findOneAndUpdate({_id: req.session.trenutniUporabnik.id}, {status: req.body.currStatus}, { upsert: true}, function(err,doc) {     
             if (err) {
                 res.status(400).end("Napaka! Status ni bil posodobljen.");
@@ -644,6 +639,7 @@ module.exports.shraniStatus = function (req, res, next) {
 //** POST /delete-naloga
 module.exports.izbrisiNalogo = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return; 
+    currentTab = 2;
     console.log(req.body);  
     if(req.body.id) {
         Naloge.findOneAndRemove({ _id: req.body.id }, function(err) {
@@ -660,6 +656,7 @@ module.exports.izbrisiNalogo = function (req, res, next) {
 //** POST /delete-cilj
 module.exports.izbrisiCilj = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;   
+    currentTab = 3;
     if(req.body.id) {
         Cilji.findOneAndRemove({ _id: req.body.id }, function(err) {
             if (err) {

@@ -25,10 +25,10 @@
                             <input type="hidden" value="<%= opomniki[i].status %>">
                             <div class="hide-element chip-no-margin">
                             <% for(let j=0;j<opomniki[i].vezani_uporabniki.length;j++) { %>
-                                <img class="mdl-chip__contact author-chip" src="public<%= opomniki[i].vezani_uporabniki[j][0] %>" title="<%= opomniki[i].vezani_uporabniki[j][1] %>">
+                                <img class="mdl-chip__contact author-chip" src="<%= opomniki[i].vezani_uporabniki[j][0] %>" title="<%= opomniki[i].vezani_uporabniki[j][1] %>">
                             <% } %>  
                             </div> 
-                            <img class="mdl-chip__contact author-chip hide-element" src="public<%= opomniki[i].avtor[0] %>" title="<%= opomniki[i].avtor[1] %>">
+                            <img class="mdl-chip__contact author-chip hide-element" src="<%= opomniki[i].avtor[0] %>" title="<%= opomniki[i].avtor[1] %>">
                                                      <!--
                             <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="opomnik<%= i %>">
                                 <input type="checkbox" id="opomnik<%= i %>" name="checkbox" class="mdl-checkbox__input" <% if (opomniki[i].status == true) { %>checked="checked" <% } %>/>
@@ -63,7 +63,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 7) { %>
                         <div class="item">
-                        <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">  
+                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">  
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -80,7 +80,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 6) { %>
                         <div class="item">
-                        <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level6 user">
+                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level6 user">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -97,7 +97,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].vrsta == 5) { %>
                         <div class="item">
-                        <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level5 user">
+                        <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level5 user">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -114,7 +114,7 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 4) { %>
                             <div class="item">
-                            <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level4 user">
+                            <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level4 user">
                             <input type="hidden" value="<%= uporabniki[j].ime %>">
                             <input type="hidden" value="<%= uporabniki[j].telefon %>">
                             <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -131,7 +131,7 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].vrsta == 3) { %>
                             <div class="item">
-                            <img src="public/<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level3 user">
+                            <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level3 user">
                             <input type="hidden" value="<%= uporabniki[j].ime %>">
                             <input type="hidden" value="<%= uporabniki[j].telefon %>">
                             <input type="hidden" value="<%= uporabniki[j].email %>">

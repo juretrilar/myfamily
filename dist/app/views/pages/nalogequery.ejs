@@ -30,7 +30,7 @@
                         <span class="mdl-list__item-text-body chip-no-margin">
                             <% for (let j = 0; j<naloge[i].vezani_uporabniki.length;j++) { %>
                                 <% if(slika[naloge[i].vezani_uporabniki[j]]) { %>
-                                <img class="mdl-chip__contact author-chip" src="public/<%= slika[naloge[i].vezani_uporabniki[j]][0] %>" title="<%= slika[naloge[i].vezani_uporabniki[j]][2] %>">
+                                <img class="mdl-chip__contact author-chip" src="<%= slika[naloge[i].vezani_uporabniki[j]][0] %>" title="<%= slika[naloge[i].vezani_uporabniki[j]][2] %>">
                                 <input type="hidden" value="<%= slika[naloge[i].vezani_uporabniki[j]][1] %>" class="udelezenecNaloga">
                                 <% } %>
                             <% } %>
@@ -39,7 +39,7 @@
                     <span class="mdl-list__item-primary-content">
                         <span class="mdl-color-text--grey">Avtor:</span>
                         <span class="mdl-list__item-text-body">
-                                <img class="mdl-chip__contact author-chip" src="public/<%= slika[naloge[i].avtor][0] %>" title="<%= slika[naloge[i].avtor][2] %>">
+                                <img class="mdl-chip__contact author-chip" src="<%= slika[naloge[i].avtor][0] %>" title="<%= slika[naloge[i].avtor][2] %>">
                         </span>
                     </span>
                 </div>

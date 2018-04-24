@@ -515,6 +515,11 @@ dialog .mdl-card__supporting-text {
 .chip-no-margin .mdl-chip__contact {
     margin-right: -16px;
 }
+
+.mdl-tooltop .mdl-chip__contact {
+    margin-right: 0px;
+}
+
 .chip-no-margin {
     margin: 0;
 }

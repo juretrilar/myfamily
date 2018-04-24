@@ -58,8 +58,8 @@
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                                     <label class="mdl-textfield__label" for="reg_password">Geslo</label>
                                     <input class="mdl-textfield__input" type="password" id="reg_password" name="reg_password"
-                                           pattern="((?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})"/>
-                                    <span class="mdl-textfield__error" id="errPass">6-20 znakov z vsaj eno številko, velike in male črke, posebni znaki @#$%</span>
+                                           pattern="^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])[\w~@#$%^&*+=`|{}:;!.?\()\[\]-]{6,20}$"/>
+                                    <span class="mdl-textfield__error" id="errPass">6-20 znakov z vsaj eno številko, in veliko črko. Dovoljeni so posebni znaki, razen " in '.</span>
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                                     <label class="mdl-textfield__label" for="reg_password_confirm">Potrditev gesla</label>
@@ -68,18 +68,10 @@
                                 </div>
                                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                                     <label class="mdl-textfield__label" for="reg_phone">Telefon</label>
-                                    <input class="mdl-textfield__input" type="text" id="reg_phone" name="reg_phone" pattern="^(?:\+\d{1,3}|0\d{1,3}|00\d{1,2})?(?:\s?\(\d+\))?(?:[-\/\s.]|\d)+$"/>
+                                    <input class="mdl-textfield__input" type="text" id="reg_phone" name="reg_phone" pattern="^(?:\d){9}$" title="Primer: 123456789"/>
+                                    <!--^(?:\+\d{1,3}|0\d{1,3}|00\d{1,2})?(?:\s?\(\d+\))?(?:[-\/\s.]|\d)+$-->
                                     <span class="mdl-textfield__error" id="errTel">Telefonska številka vsebuje napačne znake!</span>
                                 </div>
-                                <!--
-                                <div class="mdl-cell mdl-cell--12-col" align="center">
-                                    <a class="mdl-color-text--grey mdl-color--grey-200 padding-10" onclick="ustvariKljuc()">Ustvari ključ</a>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                                    <label class="mdl-textfield__label" for="reg_family">Ključ za pridružitev družini</label>
-                                    <input class="mdl-textfield__input" type="text" id="reg_family" name="reg_family"/>
-                                </div>
-                                    -->
                                 <div id="avatars">
                                     <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
                                     <% for(let i=1;i<8;i++) { %>
@@ -116,17 +108,7 @@
                 <%- include('../partials/footer') -%>
             </main>
         </div>
-        <%- include('../partials/script') -%>
-        <script defer src="/scripts/prijava.js"></script>
-        <dialog id="dialog" class="mdl-dialog dialog-main">
-            <div class="dialog-content-div" id="dialog-div">
-                <h3 id="dialog-title" class="mdl-dialog__title"></h3>
-                <div class="mdl-dialog__content" style="overflow-y: auto;padding-top: 50px;overflow-x: visible">
-                </div>
-                <div class="mdl-dialog__actions">
-                    <button type="button" class="mdl-button close mdl-color--red-400">Zapri</button>
-                </div>
-            </div>
-        </dialog>
+        <%- include('../partials/scriptp') -%>
+        <script src="/scripts/prijava.js"></script>
     </body>
 </html>
