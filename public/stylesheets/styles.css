@@ -5,13 +5,12 @@ html, body {
     font-weight: 300;
     margin: 0;
     padding: 0;
-    background-color: lightgray;
+    background-color: #ECEFF4;
     background-image: url("/images/header6.svg");
     background-repeat: no-repeat;
     background-position: left bottom;
     background-attachment: fixed;
-    background-size: auto;
-
+    background-size: 100%;
 }
 
 .hide-element {
@@ -86,27 +85,44 @@ html, body {
 margin: auto;
 }
 
+.color-transparent {
+    background-color: transparent;
+}
+
 .krivulja-1 {
     background-image: url("/images/header1.svg");
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
 .krivulja-2 {
     background-image: url("/images/header2.svg");
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
 .krivulja-3 {
     background-image: url("/images/header3.svg");
-    background-size: 100%;
+    background-size: cover;
     background-repeat: no-repeat;}
 
 .krivulja-4 {
     background-image: url("/images/header4.svg");
     background-size: 100%;
-    background-repeat: no-repeat;}
+    background-repeat: no-repeat;
+}
+
+.krivulja-5 {
+    background-image: url("/images/header5.svg");
+    background-size: auto;
+    background-repeat: no-repeat;
+}
+
+.krivulja-6 {
+    background-image: url("/images/header6.svg");
+    background-size: auto;
+    background-repeat: no-repeat;
+}
 
 .not-empty {
     border-color: white!important;
@@ -116,6 +132,46 @@ margin: auto;
     height: 30px;
     width: 30px;
     min-width: 30px;
+}
+
+.shadow-text {
+    text-shadow: 1px 1px 5px #445870;
+}
+
+.color-dark {
+    background-color: #445870!important;
+}
+
+.color-red {
+   background-color:  #EF8680;
+}
+
+.color-dark-red {
+    background-color: #B35F5F;
+}
+
+.color-cyan {
+    background-color: 	#56CACA;
+}
+
+.color-dark-cyan {
+    background-color: #369D9C;
+}
+
+.color-dark-blue {
+    background-color: #4491BD
+}
+
+.color-blue {
+    background-color: 	#66C0F5;
+}
+
+.color-grey {
+    background-color: 	#ECEFF4;
+}
+
+.mdl-chip {
+    background-color: #ECEFF4;
 }
 
 /*        */
@@ -331,7 +387,6 @@ dialog .mdl-card__supporting-text {
 .text-content {
     border-radius: 2px;
     padding: 0px 16px;
-    background-color: blue;
 }
 
 .mdl-card__title > h2 {
@@ -628,7 +683,24 @@ dialog .mdl-card__supporting-text {
 .spanOnly {
     border-radius: 20px;
     width: 100%;
-    background-color: red;
+    background-color: 	#BCD4F8;
+}
+
+.2Mr-B5 {
+    background-color: #FEC3BF;
+}
+
+.ELu_B5 {
+    background-color: #FFDDB9;
+
+}
+
+.IAf-B5 {
+   background-color:  #97EBED;
+}
+
+.DYz-B5 {
+    background-color: #A5D8F3;
 }
 
 /*         */

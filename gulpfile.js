@@ -119,6 +119,7 @@ gulp.task('controllers', function (callback) {
 
 gulp.task('move', function (callback) {
     return gulp.src(['prod.js', 'package.json', 'package-lock.json', 'manifest.json', 'favicon.ico'])
+    .pipe(replace(/node app\.js/g, 'node app.js')) 
     .pipe(gulp.dest('dist/'))
 })
 

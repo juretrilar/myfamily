@@ -7,7 +7,7 @@ let pageHeight = $(document).height();
 
 let currentElement;
 
-let colors = ["#00FF00", "#6699ff", "#ff6600", "#FF25FF", "#FF6C6A", "#53ff1a", "#00C8FF", "#ff66ff","#ff9900"];
+let colors = ["#FEC3BF","#FFDDB9","#A5D8F3","#97EBED","#FEC3BF","#FFDDB9","#A5D8F3","#FEC3BF","#FFDDB9","#A5D8F3"];
 
 jQuery(function($) {
     if ('serviceWorker' in navigator && 'PushManager' in window) {
@@ -210,6 +210,7 @@ function fillNaloge() {
     $('#dialogCilj').attr('style',"display: block!important");
     $('#dialogStatus').attr('style',"display: block!important");
     $('#ustvari').attr('onclick',"validateNaloga(event, 0)");
+    $("#closeBtn").next().removeClass("color-cyan").addClass("color-red");
 }
 
 function fillCilji() {
@@ -225,6 +226,7 @@ function fillCilji() {
     $('#dialogCilj').attr('style',"display: none!important");
     $('#dialogStatus').attr('style',"display: none!important");
     $('#ustvari').attr('onclick',"validateNaloga(event, 1)");
+    $("#closeBtn").next().removeClass("color-red").addClass("color-cyan");
 }
 
 function posodobiCilj(row) {
@@ -584,12 +586,12 @@ function tockeUdelezencev(stCiljev, prg, razmerje) {
         } else if (stUporabnikov == 1) {
             $("."+prg+i+" :nth-child(1)").addClass("spanOnly");
         } else {
-            $("."+prg+i+" :nth-child(1)").attr('style',"width: "+(curr[0].innerHTML/sumXP)*100+"%; background-color: #FF8C1A").addClass("spanFirst");
+            $("."+prg+i+" :nth-child(1)").attr('style',"width: "+(curr[0].innerHTML/sumXP)*100+"%; background-color: #BCD4F8").addClass("spanFirst");
             for (let j=2; j<stUporabnikov; j++) {
                 let span = $("."+prg+i+" :nth-child("+j+")");
                 span.attr('style',"width: "+(curr[j-1].innerHTML/sumXP)*100+"%; background-color: "+colors[j-2]+";");
             }
-            $("."+prg+i+" :nth-child("+stUporabnikov+")").attr('style',"width: "+(curr[stUporabnikov-1].innerHTML/sumXP)*100+"%; background-color: yellow;").addClass("spanLast");
+            $("."+prg+i+" :nth-child("+stUporabnikov+")").attr('style',"width: "+(curr[stUporabnikov-1].innerHTML/sumXP)*100+"%; background-color: #96ECED;").addClass("spanLast");
         }
     }
 }

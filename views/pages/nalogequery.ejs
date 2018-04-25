@@ -4,7 +4,7 @@
     <% } %>
     <div class="mdl-cell mdl-cell--3-hd mdl-cell--5-col-desktop mdl-cell--4-col-tablet paginate" id="card<%= i %>">
         <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 6;" >
-            <div class="mdl-card__title mdl-color--orange-300 padding-10">
+            <div class="mdl-card__title <%= shortId(naloge[i].kategorija) %> padding-10">
                 <div class="naloge-title_type">
                     <div class="mdl-card__subtitle-text mdl-color-text--black"><%= kategorija[naloge[i].kategorija] %></div>
                     <input type="hidden" value="<%= naloge[i].kategorija %>" class="kategorijaNaloga">

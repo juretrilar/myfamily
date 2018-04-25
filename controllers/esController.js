@@ -17,8 +17,9 @@ let validator = require('validator');
 let SMSAPI = require('smsapicom'), smsapi = new SMSAPI();
 let CronJob = require('cron').CronJob;
 let nodemailer = require('nodemailer');
+let shortId = require('short-mongo-id');
 
-let color = {"5a78505d19ac7744c8175d18": "#ff9933", "5a785125e7c9722aa0e1e8ac": "#0099ff", "5a785157425a883c30b08b7a": "#33cc33", "5a785178900a3b278c196667": "#ff00ff"};
+let color = {"5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5a785157425a883c30b08b7a": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3"};
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -237,7 +238,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
         telefon: req.body.reg_phone,
         notf_email: false,
         notf_telefon: false,
-        vrsta: 0,
+        vrsta: 7,
         admin: false,
         slika: ""+req.body.avatar,
         created_at: Date.now()
@@ -253,7 +254,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
 //** POST /settings
 module.exports.posodobiOsebnePodatke = function(req, res, next) {
     if (checkIfLogged(res, req) != 0) return; 
-    currentTab = 4;
+    currentTab=0; 
     let updateUporabnik = {
         ime: req.body.set_name,
         email: req.body.set_email,
@@ -277,7 +278,6 @@ module.exports.posodobiOsebnePodatke = function(req, res, next) {
 //** POST /notifications
 module.exports.posodobiObvestila = function(req, res, next) {
     if (checkIfLogged(res, req) != 0) return;   
-    currentTab = 5;
     let mail = false, tel = false;
     if (req.body.switchMail) mail = true;
     if (req.body.switchSms) tel = true;
@@ -427,7 +427,7 @@ module.exports.prikaziNaloge = function(req, res, next) {
             if(ime) {imeCilj.push(ime.ime);} 
             else {imeCilj.push("Samostojna naloga");}
         }       
-        res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr, imeCilj: imeCilj});
+        res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr, imeCilj: imeCilj, shortId: shortId});
     });
 };
 
@@ -585,11 +585,15 @@ module.exports.povabiUporabnika = function (req, res, next) {
     var mailOptions = {
         from: 'MyFamilyAppMail@gmail.com',
         to: req.body.invite_email,
-        subject: 'MyFamily family invite'
+        subject: 'MyFamily povabilo'
     };
 
     console.log("sending mail");
-    mailOptions.html = '<p>Pozdravljen,<br/><br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Prijavi se v aplikacijo in klikni na spodnjo povezavo.<br/><br/><a href="http://localhost:3000/invite/'+req.session.trenutniUporabnik.druzina+'">Pridruži se družini</a></p>';
+    mailOptions.html = '<p><h1>Pozdravljen!</h1>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Najprej se registriraj na'+
+    '<a href="https://dashboard.heroku.com">spletni strani</a>, nato se prijavi v aplikacijo in klikni na spodnjo povezavo.<br/><br/>'+
+    '<a href="https://dashboard.heroku.com/invite/'+req.session.trenutniUporabnik.druzina+'">'+
+    'Pridruži se družini</a><br/><br/>Po uspešni včlanitvi si izberi svojo vlogo v družini. Najdeš jo v zgornjem desnem meniju pod možnostjo Osebne nastavitve.'+
+    '<br/><br/>Lep pozdrav,<br/>'+req.session.trenutniUporabnik.ime+'</p>';
     console.log(mailOptions.html);
     transporter.sendMail(mailOptions, function(error, info){
         if (error) {
@@ -597,17 +601,15 @@ module.exports.povabiUporabnika = function (req, res, next) {
         } else {
             console.log('Email sent: ' + info.response);                           
         }
-        console.log(info, "info");
     });
-    console.log("what");
     res.redirect('/');
 };
 
 
 //** GET /api/:druzinaId
 module.exports.spremeniDruzino = function (req, res, next) {
-    if (checkIfLogged(res, req) != 0) return;  
-    currentTab = 6;
+    if (checkIfLogged(res, req) != 0) return;
+    currentTab=4;  
     req.session.trenutniUporabnik.druzina = req.params.druzinaId;
     Uporabnik.findOne({_id:  req.params.druzinaId}).then(user => {
         user.druzina = req.params.druzinaId;

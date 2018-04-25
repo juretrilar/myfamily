@@ -10,9 +10,6 @@
                 <span class="mdl-chip mdl-color--green mdl-color-text--white mdl-chip-small">
                     <span class="mdl-chip__text">+100 xp</span>
                 </span>
-                <span class="mdl-chip mdl-color--red mdl-color-text--white mdl-chip-small">
-                    <span class="mdl-chip__text">-100 xp</span>
-                </span>
                 <p id="status" style="margin: 0"></p>
             </div>
             <div class="mdl-card__actions mdl-card--border">
@@ -35,7 +32,7 @@
             <section id="cilj" class="mdl-layout__tab-panel <% if(tab == 3) { %> is-active <% } %>">
                 <%- include('../pages/cilji') -%>
             </section>
-            <section id="settings" class="mdl-layout__tab-panel">
+            <section id="settings" class="mdl-layout__tab-panel <% if(tab == 4) { %> is-active <% } %>">
                 <%- include('../pages/settings') -%>
             </section>
             <section id="notifications" class="mdl-layout__tab-panel">
@@ -49,11 +46,11 @@
     </div>
     <dialog id="dialog" class="mdl-dialog dialog-main ">
         <div class="mdl-card mdl-shadow--2dp">
-            <button id="closeBtn" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-color--grey-400 close closeDialog">
+            <button id="closeBtn" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab color-dark close closeDialog">
                 <i class="material-icons mdl-color-text--grey-200" role="presentation">close</i>
                 <span class="visuallyhidden">add</span>
             </button>
-            <div class="mdl-card__title mdl-color--blue-300" >
+            <div class="mdl-card__title krivulja-3" >
                 <h3 id="dialog-title" class="mdl-card__title-text mdl-color-text--white"></h2>
             </div>
             <div class="mdl-card__supporting-text">
@@ -165,7 +162,7 @@
             </div>
             <div class="mdl-card__actions mdl-card--border">
                 <button id="izbrisi" type="button" class="mdl-button mdl-color--red-400 delete">Izbriši</button>
-                <button id="ustvari" type="button" value="submit" class="mdl-button mdl-color--grey-400 create"></button>
+                <button id="ustvari" type="button" value="submit" class="mdl-button color-dark-cyan create mdl-color-text--white"></button>
             </div>
         </div>
     </dialog>
