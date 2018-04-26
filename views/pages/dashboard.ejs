@@ -1,21 +1,21 @@
 <div class="text-container mdl-grid">
     <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
-    <div class="text-main text-content color-dark krivulja-3 mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col mdl-grid">
+    <div class="text-main text-content color-cyan krivulja-6 mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col mdl-grid">
         <div class="mdl-cell mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-grid--no-spacing">
             <div class="mdl-card section__text color-transparent" style="width: 100%">
                 <div class="mdl-card__title">
-                    <h2 class="mdl-card__title-text mdl-color-text--white">Opomniki</h2>
+                    <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Opomniki</h2>
                 </div>
                 <ul class=" mdl-list margin-zero padding-zero" id="opomnikiList">
                     <% for(let i=0;i<opomniki.length;i++) { %>
                     <li id="opomnikiDashboard" class="mdl-list__item mdl-list__item--two-line">
                         <!--<div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>-->
                         <span class="mdl-list__item-primary-content">
-                            <span class="mdl-color-text--white"><%= opomniki[i].ime %></span>
-                            <span class="mdl-chip mdl-color--orange mdl-color-text--white mdl-chip-small">
+                            <span class="mdl-color-text--white shadow-text"><%= opomniki[i].ime %></span>
+                            <span class="mdl-chip mdl-color-text--white color-red mdl-chip-small">
                                 <span class="mdl-chip__text">100 xp</span>
                             </span>
-                            <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= opomniki[i].avtor[1] %></span>
+                            <span class="mdl-list__item-sub-title color-dark-text"><%= opomniki[i].avtor[1] %></span>
                         </span>
                         <span class="mdl-list__item-secondary-content">
                             <input type="hidden" value="<%= opomniki[i].kategorija %>">
@@ -51,13 +51,15 @@
         -->
         </div>
         <div class="mdl-card section__text mdl-cell color-transparent mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet overflow-visible">
-            <div class="mdl-textfield mdl-js-textfield mdl-color-text--white" style="width: 100%">
-                    <input class="mdl-textfield__input mdl-textfield__status not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" maxlength="120">
-                    <label class="mdl-textfield__label mdl-color-text--grey" for="sample3">Moj status</label>
-                    <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored mdl-color--blue-800" onclick="objaviStatus()" style="position:relative;float: right; width: 20%; bottom: 10px;">
-                        <i class="material-icons">done</i>&nbspObjavi
-                    </button>
+            <div class="flex-container">
+                <div class="mdl-textfield mdl-js-textfield mdl-color-text--white shadow-text mdl-textfield__status">
+                    <input class="mdl-textfield__input not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" maxlength="120">
+                    <label class="mdl-textfield__label mdl-color-text--white shadow-text" for="currStatus">Moj status</label>
             </div>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored color-dark-cyan button-objava" onclick="objaviStatus()">
+                <i class="material-icons">done</i>&nbspObjavi
+            </button>
+            </div>           
             <div class="container">
                 <div class="row">
                 <% for(let j=0; j<uporabniki.length;j++) {%>
@@ -69,7 +71,7 @@
                         <input type="hidden" value="<%= uporabniki[j].email %>">
                         <% if(uporabniki[j].status) { %>
                             <span class="mdl-chip caption">
-                                    <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                                    <span class="mdl-chip__text color-dark-text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
                             </span>
                         <% } %>
                     </div>
@@ -86,7 +88,7 @@
                         <input type="hidden" value="<%= uporabniki[j].email %>">
                         <% if(uporabniki[j].status) { %>
                             <span class="mdl-chip caption">
-                                    <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                                    <span class="mdl-chip__text color-dark-text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
                             </span>
                         <% } %>
                     </div>
@@ -103,7 +105,7 @@
                         <input type="hidden" value="<%= uporabniki[j].email %>">
                         <% if(uporabniki[j].status) { %>
                             <span class="mdl-chip caption">
-                                    <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                                    <span class="mdl-chip__text color-dark-text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
                             </span>
                         <% } %>
                     </div>
@@ -120,7 +122,7 @@
                             <input type="hidden" value="<%= uporabniki[j].email %>">
                             <% if(uporabniki[j].status) { %>
                                 <span class="mdl-chip caption">
-                                        <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                                        <span class="mdl-chip__text color-dark-text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
                                 </span>
                             <% } %> 
                         </div>
@@ -137,7 +139,7 @@
                             <input type="hidden" value="<%= uporabniki[j].email %>">
                             <% if(uporabniki[j].status) { %>
                                 <span class="mdl-chip caption">
-                                        <span class="mdl-chip__text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
+                                        <span class="mdl-chip__text color-dark-text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
                                 </span>
                             <% } %>
                         </div>
@@ -151,10 +153,10 @@
 <div class="text-container mdl-grid">
     <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
     <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet">
-        <div class="mdl-card__title color-cyan krivulja-2">
+        <div class="mdl-card__title color-blue krivulja-2">
             <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Skupni cilji družine</h2>
             <div class="mdl-card__actions">
-                <button id="dodajcilj" class="mdl-button mdl-js-button mdl-button--raised color-dark-cyan align-right mdl-color-text--white" onclick="dodajNovCilj()">
+                <button id="dodajcilj" class="mdl-button mdl-js-button mdl-button--raised color-dark-blue align-right mdl-color-text--white" onclick="dodajNovCilj()">
                     DODAJ NOV CILJ
                     <i class="material-icons">add</i>
                 </button>
@@ -163,7 +165,7 @@
         <ul class=" mdl-list" id="skupniCilji">
             <% for(let i=0;i<skupniCilji.length;i++) { %>
             <li class="mdl-list__item mdl-list__item--two-line">
-                <div class="circle-container-main mdl-color--grey"></div>
+                <!--<div class="circle-container-main mdl-color--grey"></div>-->
                 <span class="mdl-list__item-primary-content">
                     <span class="mdl-color-text--black"><%= skupniCilji[i].ime %></span>
                     <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= skupniCilji[i].opis %></span>

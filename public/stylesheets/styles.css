@@ -142,36 +142,48 @@ margin: auto;
     background-color: #445870!important;
 }
 
+.color-dark-text {
+    color: #445870!important;
+}
+
 .color-red {
-   background-color:  #EF8680;
+   background-color:  #EF8680!important;
 }
 
 .color-dark-red {
-    background-color: #B35F5F;
+    background-color: #B35F5F!important;
 }
 
 .color-cyan {
-    background-color: 	#56CACA;
+    background-color: 	#56CACA!important;
 }
 
 .color-dark-cyan {
-    background-color: #369D9C;
+    background-color: #369D9C!important;
 }
 
 .color-dark-blue {
-    background-color: #4491BD
+    background-color: #4491BD!important;
 }
 
 .color-blue {
-    background-color: 	#66C0F5;
+    background-color: 	#66C0F5!important;
 }
 
 .color-grey {
-    background-color: 	#ECEFF4;
+    background-color: 	#ECEFF4!important;
+}
+
+.color-orange {
+    background-color: 	#FFDDB9!important;
 }
 
 .mdl-chip {
     background-color: #ECEFF4;
+}
+
+.flex-container {
+    display: flex;
 }
 
 /*        */
@@ -251,7 +263,7 @@ dialog .mdl-card__supporting-text {
 }*/
 
 .dialog-sub {
-    color: rgb(63,81,181)!important;
+    color: #445870!important;
     font-size: 12px;
     top: 4px;
     visibility: visible;
@@ -402,9 +414,8 @@ dialog .mdl-card__supporting-text {
 }
 
 .mdl-textfield__status {
-    position: relative;
-    width: 70%;
-    float: left;
+    width: -webkit-fill-available; 
+    margin-right: 10px;
 }
 
 .tri-card-status:after {
@@ -499,6 +510,9 @@ dialog .mdl-card__supporting-text {
     max-width: 6em;
 }
 
+.button-objava {
+    margin-top: 10px;
+}
 /*        */
 
 /* FOOTER */
@@ -654,6 +668,11 @@ dialog .mdl-card__supporting-text {
 
 }
 
+.cilji-xp {
+    padding: 0!important;
+    font-size: 10px!important;
+}
+
 .padding-zero {
     padding: 0!important;
 }
@@ -665,7 +684,7 @@ dialog .mdl-card__supporting-text {
 
 .spanCilji {
     display: table-cell;
-    color: #000;
+    color: #445870;
     vertical-align: middle;
     text-align: center;
     height: 20px;
@@ -686,9 +705,10 @@ dialog .mdl-card__supporting-text {
     background-color: 	#BCD4F8;
 }
 
+/*
 .2Mr-B5 {
     background-color: #FEC3BF;
-}
+}*/
 
 .ELu_B5 {
     background-color: #FFDDB9;

@@ -9,7 +9,7 @@
         <h6 class="mdl-color-text--black mdl-typography--font-light"><%= currSession.trenutniUporabnik.ime %></h6>
         <input type="hidden" id="trenutniUporabnik" value="<%= currSession.trenutniUporabnik.id %>">
         <button id="menu-lower-right"
-                class="mdl-button mdl-js-button mdl-button--icon mdl-button--primary">
+                class="mdl-button mdl-js-button mdl-button--icon color-dark-text">
             <i class="material-icons">more_vert</i>
         </button>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
@@ -23,10 +23,10 @@
     </div>
     <%if (currSession) { %>
     <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--white">
-        <a id="menuDashboard" href="#dashboard" class="mdl-layout__tab mdl-color-text--grey <% if(tab == 0) { %> is-active <% } %>">Dashboard</a>
-        <a id="menuKoledar" href="#koledar" class="mdl-layout__tab mdl-color-text--grey <% if(tab == 1) { %> is-active <% } %>">Koledar</a>
-        <a id="menuNaloge" href="#naloge" class="mdl-layout__tab mdl-color-text--grey <% if(tab == 2) { %> is-active <% } %>">Naloge</a>
-        <a id="menuCilj" href="#cilj" class="mdl-layout__tab mdl-color-text--grey <% if(tab == 3) { %> is-active <% } %>">Cilji</a>
+        <a id="menuDashboard" href="#dashboard" class="mdl-layout__tab color-dark-text <% if(tab == 0) { %> is-active <% } %>">Dashboard</a>
+        <a id="menuKoledar" href="#koledar" class="mdl-layout__tab color-dark-text <% if(tab == 1) { %> is-active <% } %>">Koledar</a>
+        <a id="menuNaloge" href="#naloge" class="mdl-layout__tab color-dark-text <% if(tab == 2) { %> is-active <% } %>">Naloge</a>
+        <a id="menuCilj" href="#cilj" class="mdl-layout__tab color-dark-text <% if(tab == 3) { %> is-active <% } %>">Cilji</a>
         <a href="#settings"></a>
         <a href="#notifications"></a>
         <a href="#druzina"></a>

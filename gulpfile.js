@@ -35,7 +35,8 @@ gulp.task('default',  ['js', 'uglify'],() => {
     './public/scripts/es6/querydb.js',
     './public/scripts/es6/dialog.js',
     './public/scripts/es6/firebaseConfig.js',
-    './node_modules/chart.js/src/chart.js'], ['uglify', 'js']);
+    './node_modules/chart.js/src/chart.js',
+    './public/scripts/es6/hotjar.js'], ['uglify', 'js']);
 });
 
 gulp.task('useref', function(){
@@ -130,7 +131,8 @@ gulp.task('uglify', () => {
     './public/scripts/es6/querydb.js',
     './public/scripts/es6/dialog.js',
     './public/scripts/es6/firebaseConfig.js',
-    './public/scripts/es6/prijava.js'])
+    './public/scripts/es6/prijava.js',
+    './public/scripts/es6/hotjar.js'])
         .pipe(babel({
             presets: ['env'],
             plugins: ["transform-member-expression-literals", 
