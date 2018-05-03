@@ -1,9 +1,9 @@
 <div class="mdl-card mdl-shadow--2dp overflow-visible naloge-okno">
-    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-color--grey" id="buttonClose" onclick="zapriNalogo()">
+    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab mdl-button--mini-fab color-dark-text" id="buttonClose" onclick="zapriNalogo()">
         <i class="material-icons mdl-color-text--white" role="presentation">close</i>
         <span class="visuallyhidden">add</span>
     </button>
-    <div class="mdl-card__title mdl-color--orange-300 padding-10">
+    <div class="mdl-card__title <%= shortId(naloge[i].kategorija) %> padding-10">
         <div class="naloge-title_type">
             <div class="mdl-card__subtitle-text mdl-color-text--black"><%= kategorija %></div>
             <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">Skupni cilji družine

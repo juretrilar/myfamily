@@ -10,9 +10,10 @@
                     <input type="hidden" value="<%= naloge[i].kategorija %>" class="kategorijaNaloga">
                     <input type="hidden" value="<%= naloge[i].vezan_cilj %>" class="ciljNaloga">
                     <input type="hidden" value="<%= naloge[i]._id %>" class="idNaloga">
-                    <div class="mdl-card__title-text mdl-color-text--white" style="display: block;"><%= imeCilj[i] %>
+                    <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">
+                        <span class="shadow-text"><%= imeCilj[i] %></span>
                         <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge mdl-chip-small">
-                            <span class="mdl-chip__text xpNaloga"><%= naloge[i].xp %> xp</span>
+                            <span class="mdl-chip__text mdl-color-text--primary xpNaloga"><%= naloge[i].xp %> xp</span>
                         </span>
                     </div>
                 </div>

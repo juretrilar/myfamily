@@ -53,7 +53,7 @@
         <div class="mdl-card section__text mdl-cell color-transparent mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet overflow-visible">
             <div class="flex-container">
                 <div class="mdl-textfield mdl-js-textfield mdl-color-text--white shadow-text mdl-textfield__status">
-                    <input class="mdl-textfield__input not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" maxlength="120">
+                    <input class="mdl-textfield__input not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" maxlength="120" autocomplete="false">
                     <label class="mdl-textfield__label mdl-color-text--white shadow-text" for="currStatus">Moj status</label>
             </div>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored color-dark-cyan button-objava" onclick="objaviStatus()">
@@ -163,7 +163,16 @@
             </div>
         </div>
         <ul class=" mdl-list" id="skupniCilji">
-            <% for(let i=0;i<skupniCilji.length;i++) { %>
+            <% if(skupniCilji.length == 0) { %>
+            <li class="mdl-list__item mdl-list__item--two-line">
+                <!--<div class="circle-container-main mdl-color--grey"></div>-->
+                <span class="mdl-list__item-primary-content">
+                    <span class="mdl-color-text--black">Družina še nima skupnih ciljev</span>
+                    <span class="mdl-list__item-sub-title mdl-color-text--grey">Med dodajanjem cilja označi polje skupni cilj za prikaz na dashboardu</span>
+                </span>
+            </li>
+            <% } %>
+            <% for(let i=0;i<skupniCilji.length;i++) { %>                
             <li class="mdl-list__item mdl-list__item--two-line">
                 <!--<div class="circle-container-main mdl-color--grey"></div>-->
                 <span class="mdl-list__item-primary-content">
@@ -183,7 +192,7 @@
         <div class="mdl-card__title color-red krivulja-1">
             <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Predlog za aktivnost</h2>
             <div class="mdl-card__actions">
-                <button id="dodajnalogo" class="mdl-button mdl-js-button mdl-button--raised color-dark-red align-right mdl-color-text--white">
+                <button id="dodajnalogo" class="mdl-button mdl-js-button mdl-button--raised color-dark-red align-right mdl-color-text--white" onclick="dodajPredlog()">
                     DODAJ MED NALOGE
                     <i class="material-icons">add</i>
                 </button>
@@ -200,13 +209,8 @@
                             </span>
                 </div>
             </div>
-            <p style="padding-left: 16px;" id="opis_aktivnosti">
-                Druženje očetov in sinov vseh generacij bistevno prispeva k
-                lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum
-                et faucibus risus. DOnes eusmod metus ac massa eleifend malesuada.
-                Phasellus venenatis sit amet est nec finibus.
-            </p>
-            <h6 class="mdl-color-text--black" id="clani_aktivnosti" style="padding-left: 16px;">Za: moški del družine (Janez, Jan, Janko)</h6>
+            <p style="padding-left: 16px;" id="opis_aktivnosti">Druženje očetov in sinov vseh generacij. Pohod med vinogradi.</p>
+            <!--<h6 class="mdl-color-text--black" id="clani_aktivnosti" style="padding-left: 16px;">Za: moški del družine (Janez, Jan, Janko)</h6>-->
         </div>
     </div>
 </div>
@@ -215,7 +219,7 @@
             <i class="material-icons mdl-color-text--white" role="presentation">close</i>
             <span class="visuallyhidden">add</span>
         </button>
-        <div class="mdl-card__title mdl-color--orange-300 padding-10">
+        <div class="mdl-card__title color-red krivulja-3 padding-10">
             <div class="naloge-title_type">
                 <div class="mdl-card__subtitle-text mdl-color-text--black" id="opomnikKategorija"></div>
                 <div class="mdl-card__title-text mdl-color-text--white" id="opomnikCilj" style="display: block;">

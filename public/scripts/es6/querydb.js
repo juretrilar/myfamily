@@ -75,8 +75,7 @@ function clearField(i, chip) {
 
 function objaviStatus() {
     let curr = $("#trenutniUporabnik").val();
-    let query = "#status"+curr;    
-    $(query).html($("#currStatus").val());
+    $("#status"+curr).text($("#currStatus").val());
     if($("#currStatus").val() != "") {
         let save = {"currStatus": $("#currStatus").val()};
         $.ajax({
@@ -126,8 +125,13 @@ function queryNaloge() {
         //contentType: 'application/json',
         data: post_data,
         success: function (response, xhr) {
+            console.log(response.length);
             if (response.includes("<!doctype html>")) {
                 window.location.reload();
+            } else if(response.length == 0) {
+                let data = {message: "Nobena naloga ne ustreza iskalnim parametrom!"};
+                let snackbarContainer = document.querySelector('#mainToast');            
+                snackbarContainer.MaterialSnackbar.showSnackbar(data);
             } else {
                 $('#nalogeGrid').html(response);
                 updateItems();

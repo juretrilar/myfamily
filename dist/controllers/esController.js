@@ -17,8 +17,9 @@ let validator = require('validator');
 let SMSAPI = require('smsapicom'), smsapi = new SMSAPI();
 let CronJob = require('cron').CronJob;
 let nodemailer = require('nodemailer');
+let shortId = require('short-mongo-id');
 
-let color = {"5a78505d19ac7744c8175d18": "#ff9933", "5a785125e7c9722aa0e1e8ac": "#0099ff", "5a785157425a883c30b08b7a": "#33cc33", "5a785178900a3b278c196667": "#ff00ff"};
+let color = {"5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3"};
 
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
@@ -136,7 +137,7 @@ module.exports.naslovnaStran = function (req, res) {
             let temp = [];
             for (let j=0; j<result.cilji[i].vezani_uporabniki.length;j++) {
                 let usr = result.uporabniki.find(x => x.id == result.cilji[i].vezani_uporabniki[j].id_user);
-                temp.push(usr.slika);
+                if(usr) temp.push(usr.slika);                
             }
             if(result.cilji[i].skupni_cilj == true) {
                 sCilji.push({ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, xp: result.cilji[i].xp});
@@ -179,13 +180,13 @@ module.exports.prijaviUporabnika = function(req, res, next){
     let email = req.body.email;
     let geslo = req.body.password;
     Uporabnik.find(function(err, uporabniki){
-        if(err) {
+        if(err) {           
             console.log(err);
             res.render('pages/prijava', {
                 isLoggedIn: false,
                 uporabniki: 0,
                 uporabnik: "",
-                sporociloPrijava : "Napačen e-mail in/ali geslo!",
+                sporociloPrijava : "Uporabniško ime in geslo se ne ujemata!",
                 currSession:  "",
             });
         }
@@ -217,9 +218,11 @@ module.exports.prijaviUporabnika = function(req, res, next){
             }
             //console.log(req.session.trenutniUporabnik);
             if(req.session.trenutniUporabnik){
+                console.log("prijavljam");
                res.redirect("/");
             } else {
-                res.render("pages/prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!", uporabnik : ""});
+                console.log("worng username or password")
+                res.render("pages/prijava", {sporociloPrijava : "Napačen e-mail in/ali geslo!", uporabnik : "", currSession: ""});
             }
         }
     });
@@ -373,7 +376,7 @@ module.exports.prikaziKoledar = function(req, res, next) {
         return queryKategorija({_id: naloge[0].kategorija}, {}).then(function(kategorija) {
             naloge[0].vezani_uporabniki.unshift(naloge[0].avtor);
             return queryUporabniki({_id: naloge[0].vezani_uporabniki}, {slika: 1, ime: 1}).then(function(users) {
-                res.render("pages/nalogakoledar", {naloge: naloge, moment : moment, kategorija : kategorija[0].ime, vezani: users});
+                res.render("pages/nalogakoledar", {naloge: naloge, moment : moment, kategorija : kategorija[0].ime, vezani: users, shortId: shortId});
             }).catch(err => {
                 return vrniNapako(res, err);
             });
@@ -426,7 +429,7 @@ module.exports.prikaziNaloge = function(req, res, next) {
             if(ime) {imeCilj.push(ime.ime);} 
             else {imeCilj.push("Samostojna naloga");}
         }       
-        res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr, imeCilj: imeCilj});
+        res.render("pages/nalogequery", {naloge: results.docs, moment : moment, kategorija: kat, slika: usr, imeCilj: imeCilj, shortId: shortId});
     });
 };
 
@@ -588,9 +591,9 @@ module.exports.povabiUporabnika = function (req, res, next) {
     };
 
     console.log("sending mail");
-    mailOptions.html = '<p><h1>Pozdravljen!</h1>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Najprej se registriraj na'+
-    '<a href="https://dashboard.heroku.com">spletni strani</a>, nato se prijavi v aplikacijo in klikni na spodnjo povezavo.<br/><br/>'+
-    '<a href="https://dashboard.heroku.com/invite/'+req.session.trenutniUporabnik.druzina+'">'+
+    mailOptions.html = '<p><h1>Pozdravljen!</h1>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Najprej se registriraj na '+
+    '<a href="https://ekosmartweb.herokuapp.com/prijava">spletni strani</a>, nato se prijavi v aplikacijo in klikni na spodnjo povezavo.<br/><br/>'+
+    '<a href="https://ekosmartweb.herokuapp.com/invite/'+req.session.trenutniUporabnik.druzina+'">'+
     'Pridruži se družini</a><br/><br/>Po uspešni včlanitvi si izberi svojo vlogo v družini. Najdeš jo v zgornjem desnem meniju pod možnostjo Osebne nastavitve.'+
     '<br/><br/>Lep pozdrav,<br/>'+req.session.trenutniUporabnik.ime+'</p>';
     console.log(mailOptions.html);
@@ -609,17 +612,18 @@ module.exports.povabiUporabnika = function (req, res, next) {
 module.exports.spremeniDruzino = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;
     currentTab=4;  
-    req.session.trenutniUporabnik.druzina = req.params.druzinaId;
-    Uporabnik.findOne({_id:  req.params.druzinaId}).then(user => {
-        user.druzina = req.params.druzinaId;
-        user.save;         
+    let druzina = mongoose.Types.ObjectId(req.params.druzinaId);    
+    Uporabnik.update({_id: req.session.trenutniUporabnik.id}, {
+        druzina: druzina, 
+    }, function(err, affected, resp) {
+        if(err) {
+            console.log(err);
+            vrniNapako(res, err);
+            return;
+        }    
+        req.session.trenutniUporabnik.druzina = druzina;  
         res.redirect('/');
-    }).catch(err => {
-        console.log(err);
-        vrniNapako(res, err);
-        return;
-    });
-
+    })
 };
 
 //** POST /status

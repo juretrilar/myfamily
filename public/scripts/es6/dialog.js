@@ -10,6 +10,7 @@ let currentElement;
 let colors = ["#FEC3BF","#FFDDB9","#A5D8F3","#97EBED","#FEC3BF","#FFDDB9","#A5D8F3","#FEC3BF","#FFDDB9","#A5D8F3"];
 
 jQuery(function($) {
+    setTimeout(function(){ alert("Vaša seja je potekla, za nadaljevanje se morate ponovno prijaviti!");  window.open('https://dashboard.heroku.com','_blank');  }, 3600000);
     if ('serviceWorker' in navigator && 'PushManager' in window) {
         console.log('Service Worker and Push is supported');
 
@@ -194,6 +195,7 @@ function clearData() {
     $('#targetKonec').val("").parent().removeClass("is-dirty");
     $('#oldStatus').val("");
     $('#newStatus').val("");
+    $('#xpNaloge').val("");
     //$('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
 }
 
@@ -280,6 +282,28 @@ function dodajNovoNalogo() {
     $("#izbrisi").addClass("hide-element");
 }
 
+function dodajPredlog() {
+    clearData();
+    fillNaloge();
+    document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
+    document.getElementById("ustvari").innerHTML = "Ustvari";
+    $('#newDialog').val("");
+    dialog.showModal();
+    $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
+    $("#izbrisi").addClass("hide-element");
+    $('#imeDialog').val($("#ime_aktivnosti").text()).parent().addClass("is-dirty");
+    $('#opisDialog').val($("#opis_aktivnosti").text()).parent().addClass("is-dirty");
+    $('#xpNaloge').val("100").parent().addClass("is-dirty");
+    $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val=5aeabcd8be609116280b4d9c]").get(0).textContent.trim();
+    $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val=5aeabcd8be609116280b4d9c]").attr('data-selected','true');
+    getmdlSelect.init("#dialogKategorija");
+    $('#statusNaloge').get(0).placeholder = "Neopravljena";
+    $("#statusNaloge").parent().addClass("is-dirty")
+        .find("li[data-val=false]").attr('data-selected','true');
+    $("input[name='oldStatus']").val("false");
+    $("input[name='newStatus']").val("false");
+}
+
 function validateNaloga(event, t) {
     if (document.forms["update_dialog"]["imeDialog"].value == "") {
         $("#imeDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
@@ -352,6 +376,8 @@ function validateNaloga(event, t) {
                     currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[1].innerHTML = document.forms["update_dialog"]["opisDialog"].value
                     let temp = currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[2].innerHTML.split(" ");
                     currentElement.getElementsByTagName("td")[0].lastElementChild.lastElementChild.children[2].innerHTML = temp[0]+"/"+document.forms["update_dialog"]["xpNaloge"].value;
+                } else {
+                    window.location.reload(false);
                 }
                 dialog.close();
             },
