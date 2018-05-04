@@ -511,8 +511,13 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                     type: "GET",
                     url: href,
                     success: function (response) {
-                        //$('#nalogeGrid').html(response);
-                        $("#NalogaPopUp").html(response).css("display", "inline-flex");
+						//$('#nalogeGrid').html(response);
+						if (response.includes("<!doctype html>")) {
+							window.location.reload();
+						} else {
+							$("#NalogaPopUp").html(response).css("display", "inline-flex");
+						}
+                        
 
                     },
                     error: function (xhr, ajaxOptions, thrownError) {

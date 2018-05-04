@@ -20,7 +20,6 @@ let nodemailer = require('nodemailer');
 let shortId = require('short-mongo-id');
 
 let color = {"5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3"};
-
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 let currentTab = 0;
@@ -368,14 +367,18 @@ module.exports.posodobiObvestila = function(req, res, next) {
     });   
 };
 
-//** POST /koledar/:koledarId
+//** GET /koledar/:koledarId
 module.exports.prikaziKoledar = function(req, res, next) {
     if (checkIfLogged(res, req) != 0) return;  
     currentTab = 1;
     return queryNaloge({_id: req.params.koledarId}, {}).then(function(naloge) {
-        return queryKategorija({_id: naloge[0].kategorija}, {}).then(function(kategorija) {
+        console.log(naloge);
+        return queryKategorija({_id: naloge[0].kategorija}, {ime: 1}).then(function(kategorija) {
             naloge[0].vezani_uporabniki.unshift(naloge[0].avtor);
+            console.log(naloge[0].kategorija);
+            console.log(kategorija[0].ime);
             return queryUporabniki({_id: naloge[0].vezani_uporabniki}, {slika: 1, ime: 1}).then(function(users) {
+                console.log(users);
                 res.render("pages/nalogakoledar", {naloge: naloge, moment : moment, kategorija : kategorija[0].ime, vezani: users, shortId: shortId});
             }).catch(err => {
                 return vrniNapako(res, err);
@@ -453,6 +456,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
     if(req.body.newDialog && req.body.newStatus==false) currXp = 0;
     if(!req.body.newDialog && req.body.newStatus==false) currXp = 0;
     if(req.body.newStatus==true && req.body.oldStatus==true) currXp = 0;
+    let vCilj = req.body.sampleCilj ? req.body.sampleCilj : null;
     let novaNaloga = {
         ime: req.body.imeDialog,
         opis: req.body.opisDialog,
@@ -461,7 +465,7 @@ module.exports.ustvariNalogo = function(req, res, next) {
         konec: dKon,
         vezani_uporabniki: [],
         xp: req.body.xpNaloge,
-        vezan_cilj: req.body.sampleCilj,
+        vezan_cilj: vCilj,
         avtor: ObjectId(req.session.trenutniUporabnik.id),
         status: req.body.newStatus,
         druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina),
@@ -469,71 +473,80 @@ module.exports.ustvariNalogo = function(req, res, next) {
     if(mongoose.Types.ObjectId.isValid(req.body.person)) {
         novaNaloga.vezani_uporabniki.push(req.body.person);
     } else {
-        for(let i=0;i<req.body.person.length;i++) {
-            if(mongoose.Types.ObjectId.isValid(req.body.person[i])) {
-                novaNaloga.vezani_uporabniki.push(mongoose.Types.ObjectId(req.body.person[i]));
+        if (req.body.person) {
+            for(let i=0;i<req.body.person.length;i++) {
+                if(mongoose.Types.ObjectId.isValid(req.body.person[i])) {
+                    novaNaloga.vezani_uporabniki.push(mongoose.Types.ObjectId(req.body.person[i]));
+                }
             }
         }
     }
             //
     if(req.body.dateZacetek == "") novaNaloga.zacetek = dateNow();
     if(req.body.dateKonec == "") novaNaloga.konec = novaNaloga.zacetek;
-    let conditions = { _id: req.body.newDialog};
-    Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runVlidators: true}, {returnNewDocument: true}, function (err, doc) { // callback
+    let conditions = { _id: req.body.newDialog ? req.body.newDialog : mongoose.Types.ObjectId()};
+    Naloge.findOneAndUpdate(conditions, novaNaloga,{upsert: true, runVlidators: true, returnNewDocument: true}, function (err, doc) { // callback
         if (err) {
             res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
             console.log(err);
             return;
         } else {
             //Iščem cilj, pod katerega je bila dodana naloga, uporabnikom prištejem vrednost za naloge, ki so jih naredili
-            Cilji.findOne({_id: req.body.sampleCilj}, function(err, cilj) {
-                if(!err) {
-                    let obj = cilj.vezani_uporabniki.map(value => String(value.id_user));
-                    if(!obj) obj = {};
-                    for(let i = 0; i<novaNaloga.vezani_uporabniki.length; i++) {
-                        let index = obj.indexOf(String(novaNaloga.vezani_uporabniki[i]));
-                        if (index > -1) {
-                            //prištejem točke
-                            cilj.vezani_uporabniki[index].xp_user += currXp;
-                        } else {
-                            //Če uporabnik še ni v cilju, ga dodam
-                            cilj.vezani_uporabniki.push({"id_user" : novaNaloga.vezani_uporabniki[i], "xp_user" : currXp});
-                        }
-                    }
-                    obj = cilj.vezane_naloge.map(value => String(value.id_nal));
-                    //console.log(doc, "doc");
-                    //console.log(doc._id, "id");
-
-                    let nalId = doc._id;
-                    if(req.body.newDialog) nalId = req.body.newDialog;
-                    if (obj) {
-                        let index = obj.indexOf(nalId);
-                        if(index > -1) {
-                            cilj.vezane_naloge[index].stanje = req.body.newStatus;
-                        } else {
-                            cilj.vezane_naloge.push({"id_nal" : nalId, "stanje" : req.body.newStatus});
-                        }
-                    }
-                    //console.log(cilj);
-                    cilj.save(function (err) {
-                        if(!err) {
-                            if (doc) {
-                                res.status(200).end("Naloga je bila uspešno posodobljena!");
+            if(vCilj) {
+                Cilji.findOne({_id: req.body.sampleCilj}, function(err, cilj) {
+                    if(!err) {
+                        let obj = cilj.vezani_uporabniki.map(value => String(value.id_user));
+                        if(!obj) obj = {};
+                        for(let i = 0; i<novaNaloga.vezani_uporabniki.length; i++) {
+                            let index = obj.indexOf(String(novaNaloga.vezani_uporabniki[i]));
+                            if (index > -1) {
+                                //prištejem točke
+                                cilj.vezani_uporabniki[index].xp_user += parseInt(currXp);
                             } else {
-                                res.status(200).end("Naloga je bila uspešno ustvarjena!");
+                                //Če uporabnik še ni v cilju, ga dodam
+                                cilj.vezani_uporabniki.push({"id_user" : novaNaloga.vezani_uporabniki[i], "xp_user" : currXp});
                             }
                         }
-                        else {
-                            res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
-                            console.log(err);
-                            return;
+                        obj = cilj.vezane_naloge.map(value => String(value.id_nal));
+                        //console.log(doc, "doc");
+                        //console.log(doc._id, "id");
+
+                        let nalId = conditions._id;
+                        if(req.body.newDialog) nalId = req.body.newDialog;
+                        if (obj) {
+                            let index = obj.indexOf(nalId);
+                            if(index > -1) {
+                                cilj.vezane_naloge[index].stanje = req.body.newStatus;
+                            } else {
+                                cilj.vezane_naloge.push({"id_nal" : nalId, "stanje" : req.body.newStatus});
+                            }
                         }
-                    });
-                } else {
-                    res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
-                    console.log(err);
-                }
-            });
+                        //console.log(cilj);
+                        cilj.save(function (err) {
+                            if(!err) {
+                                if (doc) {
+                                    res.status(200).end("Naloga je bila uspešno posodobljena!");
+                                } else {
+                                    res.status(200).end("Naloga je bila uspešno ustvarjena!");
+                                }
+                            }
+                            else {
+                                res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
+                                console.log(err);
+                                return;
+                            }
+                        });
+                    } else {
+                        res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
+                        console.log(err);
+                    }
+                });
+            }
+            if (doc) {
+                res.status(200).end("Naloga je bila uspešno posodobljena!");
+            } else {
+                res.status(200).end("Naloga je bila uspešno ustvarjena!");
+            }
         }
     });
 };
@@ -557,7 +570,7 @@ module.exports.ustvariCilj = function(req, res, next) {
         maxXp: req.body.xpNaloge,
         druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)
     };
-    let conditions = { _id : new mongoose.mongo.ObjectId() };
+    let conditions = { _id : mongoose.Types.ObjectId() };
     if(req.body.newDialog) {
         conditions = { _id: req.body.newDialog };
         if(req.body.stanje) {
@@ -593,7 +606,7 @@ module.exports.povabiUporabnika = function (req, res, next) {
     console.log("sending mail");
     mailOptions.html = '<p><h1>Pozdravljen!</h1>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Najprej se registriraj na '+
     '<a href="https://ekosmartweb.herokuapp.com/prijava">spletni strani</a>, nato se prijavi v aplikacijo in klikni na spodnjo povezavo.<br/><br/>'+
-    '<a href="https://ekosmartweb.herokuapp.com/invite/'+req.session.trenutniUporabnik.druzina+'">'+
+    '<a href="https://ekosmartweb.herokuapp.com/api/'+req.session.trenutniUporabnik.druzina+'">'+
     'Pridruži se družini</a><br/><br/>Po uspešni včlanitvi si izberi svojo vlogo v družini. Najdeš jo v zgornjem desnem meniju pod možnostjo Osebne nastavitve.'+
     '<br/><br/>Lep pozdrav,<br/>'+req.session.trenutniUporabnik.ime+'</p>';
     console.log(mailOptions.html);
@@ -687,7 +700,7 @@ function validatenaloga(req,res) {
     if(!validateImeOpisId(req,res)) return false;
     if(!validator.isMongoId(req.body.sampleKategorija)) {vrniNapako(res, "Za kategorijo so bili uporabljeni napačni znaki. "+req.body.sampleKategorija);return false;}
     if(!validator.isInt(req.body.xpNaloge, [{ min: 1, max: 100 }])) {vrniNapako(res, "Izbrana vrednost mora biti med 1 in 100 xp.");return false;}
-    if(!validator.isMongoId(req.body.sampleCilj)) {vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+req.body.sampleCilj);return false;}
+    if(req.body.sampleCilj) if(!validator.isMongoId(req.body.sampleCilj)) {vrniNapako(res, "Za vezan cilj so bili uporabljeni napačni znaki. "+req.body.sampleCilj);return false;}
     return true;
 }
 

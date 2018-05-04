@@ -186,6 +186,10 @@ margin: auto;
     display: flex;
 }
 
+.shadow-text .mdl-chip__text {
+    text-shadow: none;
+}
+
 /*        */
 
 /* DIALOG */
@@ -585,8 +589,8 @@ dialog .mdl-card__supporting-text {
     margin-right: -16px;
 }
 
-.mdl-tooltop .mdl-chip__contact {
-    margin-right: 0px;
+.clani-naloge .mdl-chip__contact {
+    margin: 0 2px;
 }
 
 .chip-no-margin {
@@ -648,16 +652,20 @@ dialog .mdl-card__supporting-text {
 
 .naloge-okno {
     z-index: 6;
-    width: 500px;
+    max-width: 500px;
     position: absolute;
     left: 50%;
-    top: 15%;
+    top: 17%;
     transform: translate(-50%, -50%);
 }
 
 /*       */
 
 /* CILJI */
+
+.mdl-tooltip {
+    max-width: 100%;
+}
 
 .table-wrapper {
     overflow: auto;

@@ -9,8 +9,22 @@ let currentElement;
 
 let colors = ["#FEC3BF","#FFDDB9","#A5D8F3","#97EBED","#FEC3BF","#FFDDB9","#A5D8F3","#FEC3BF","#FFDDB9","#A5D8F3"];
 
+
+r(function(){
+    if(localStorage.getItem("Status")) {
+        let snackbarContainer = document.querySelector('#mainToast');            
+        snackbarContainer.MaterialSnackbar.showSnackbar({message: localStorage.getItem("Status")});
+        localStorage.clear();
+    }
+});
+function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
+
 jQuery(function($) {
-    setTimeout(function(){ alert("Vaša seja je potekla, za nadaljevanje se morate ponovno prijaviti!");  window.open('https://dashboard.heroku.com','_blank');  }, 3600000);
+    
+    setTimeout(function(){ 
+        alert("Vaša seja je potekla, za nadaljevanje se morate ponovno prijaviti!");  
+        window.open('https://ekosmartweb.herokuapp.com/','_blank');  
+    }, 3600000);
     if ('serviceWorker' in navigator && 'PushManager' in window) {
         console.log('Service Worker and Push is supported');
 
@@ -181,10 +195,8 @@ jQuery(function($) {
     registerDateTimePicker("dialogKonec", dk, "targetKonec", "dateKonec", tk);
     dialog.appendChild(document.getElementById("mddtp-picker__time"));
     dialog.appendChild(document.getElementById("mddtp-picker__date"));
-
-    let data = {};
-    let snackbarContainer = document.querySelector('#mainToast');            
-
+    
+    //get it if Status key found
 });
 
 function clearData() {
@@ -195,8 +207,19 @@ function clearData() {
     $('#targetKonec').val("").parent().removeClass("is-dirty");
     $('#oldStatus').val("");
     $('#newStatus').val("");
-    $('#xpNaloge').val("");
-    //$('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
+    $('#xpNaloge').val("").parent().removeClass("is-dirty");
+    $('#vezanCilj').get(0).placeholder = "";
+    $("input[name='sampleCilj']").parent().removeClass("is-dirty").find("li").removeAttr('data-selected');
+    getmdlSelect.init("#dialogCilj");
+    $('#statusNaloge').val("").removeAttr('placeholder').parent().removeClass("is-dirty");
+    $('#kategorija').get(0).placeholder = "";
+    $("input[name='sampleKategorija']").parent().removeClass("is-dirty").find("li").attr('data-selected','');
+    getmdlSelect.init("#dialogKategorija");
+    $('#statusNaloge').get(0).placeholder = "";
+    $("#statusNaloge").parent().removeClass("is-dirty")
+        .find("li").attr('data-selected','');
+    getmdlSelect.init("#dialogStatus");
+    $('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
 }
 
 function fillNaloge() {
@@ -302,8 +325,8 @@ function dodajPredlog() {
         .find("li[data-val=false]").attr('data-selected','true');
     $("input[name='oldStatus']").val("false");
     $("input[name='newStatus']").val("false");
+    getmdlSelect.init("#dialogStatus");
 }
-
 function validateNaloga(event, t) {
     if (document.forms["update_dialog"]["imeDialog"].value == "") {
         $("#imeDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
@@ -349,14 +372,22 @@ function validateNaloga(event, t) {
             contentType: 'application/x-www-form-urlencoded',
             data: save,
             success: function(response){
+
+                localStorage.setItem("Status",response);
+                let stran = 2;                
+                localStorage.setItem("Stran", stran);
+                window.location.reload(true);
+
+                /*
                 let snackbarContainer = document.querySelector('#mainToast');            
                 snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
                 queryNaloge();
-                dialog.close();
+                dialog.close(); */
             },
-            error: function( jqXhr, textStatus, errorThrown, response){            
+            error: function(response, jqXhr, textStatus, errorThrown){            
                 let snackbarContainer = document.querySelector('#mainToast');             
                 snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
+                console.log(jqXhr, textStatus, errorThrown, response);
             }
             
         });
@@ -369,6 +400,12 @@ function validateNaloga(event, t) {
             contentType: 'application/x-www-form-urlencoded',
             data: save,
             success: function(response){
+                localStorage.setItem("Status",response);
+                let stran = 3;                
+                localStorage.setItem("Stran", stran);
+                window.location.reload(true);
+
+                /*
                 let snackbarContainer = document.querySelector('#mainToast');             
                 snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
                 if($("#newDialog").val()) {
@@ -380,6 +417,7 @@ function validateNaloga(event, t) {
                     window.location.reload(false);
                 }
                 dialog.close();
+                */
             },
             error: function( jqXhr, textStatus, errorThrown, response){               
                 let snackbarContainer = document.querySelector('#mainToast');             
@@ -695,6 +733,12 @@ function potrdiIzbris () {
         contentType: 'application/x-www-form-urlencoded',
         data: save,
         success: function(response){
+            localStorage.setItem("Status",response);
+            let stran = 3;
+            if (url=="/delete-naloga") {let stran =  2;}
+            localStorage.setItem("Stran", stran);
+            window.location.reload(true);
+            /*
             let snackbarContainer = document.querySelector('#mainToast');            
             snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
             dialog.close();
@@ -702,7 +746,7 @@ function potrdiIzbris () {
                 queryNaloge();
             } else {                
                 currentElement.classList.add("hide-element");
-            }
+            }*/
         },
         error: function( jqXhr, textStatus, errorThrown, response){         
             let snackbarContainer = document.querySelector('#mainToast');             
