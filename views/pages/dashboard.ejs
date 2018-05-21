@@ -180,9 +180,10 @@
                     <span class="mdl-list__item-sub-title mdl-color-text--grey"><%= skupniCilji[i].opis %></span>
                 </span>
                 <span class="mdl-list__item-secondary-content">
+                    <!--
                     <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupniCilji<%= i %>">
                         <input type="checkbox" id="skupniCilji<%= i %>" class="mdl-checkbox__input" <% if (skupniCilji[i].status == true) { %>checked="checked" <% } %>/>
-                    </label>
+                    </label>-->
                 </span>
             </li>
             <% } %>
@@ -248,9 +249,8 @@
                     </span>
                 </span>
             </div>
-            <i class="material-icons" style="padding-left: 10px;vertical-align: middle">event</i>
-            <span class="mdl-list__item-sub-title mdl-color-text--grey" id="opomnikZacetek"></span>
-            <span class="mdl-list__item-sub-title mdl-color-text--grey" id="opomnikKonec"></span>
+            <img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga" id="opomnikZacetek">
+            <img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga" id="opomnikKonec">
             <span class="mdl-list__item-sub-title mdl-color-text--grey hide-element" id="opomnikBrezDatuma">Datum za to nalogo ni definiran.</span>
         </div>
         <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">

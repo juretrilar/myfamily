@@ -61,6 +61,7 @@
 	background: #8b8b8b;
 	border: 1px solid #8b8b8b;
 	color: #fff;
+	text-shadow: 1px 1px 5px #445870;
 }
 .monthly-header-title a:active {
 	background: #222;
@@ -244,6 +245,7 @@
 /* Current day style */
 .monthly-today .monthly-day-number {
 	color: #FFF;
+	text-shadow: 1px 1px 5px #445870;
 	background: #56CACA;
 	border-radius: 0.75em;
 	top: 0.08em;
@@ -332,6 +334,7 @@
 .monthly-event-list .listed-event {
 	display: block;
 	color: #fff;
+	text-shadow: 1px 1px 5px #445870;
 	padding: 0.4em 1em;
 	border-radius: 0.2em;
 	margin-bottom: 0.5em;
@@ -433,6 +436,7 @@ establish the rules based on the calendar element width rather than the device w
 		width: auto;
 		margin: 0;
 		color: #fff;
+		text-shadow: 1px 1px 5px #445870;
 		padding: 0;
 		white-space: nowrap;
 		overflow: hidden;

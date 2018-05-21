@@ -64,6 +64,14 @@ jQuery(function($) {
         $('#ciljSearch').val("").parent().removeClass("is-dirty");
     });
 
+    queryNaloge();    
+    if ($( "#menuNaloge" ).hasClass( "is-active" )) {
+        $("#menuDashboard").addClass("is-active");
+        $("#dashboard").addClass("is-active");
+    }    
+    $("#menuNaloge").removeClass("is-active");
+    $("#naloge").removeClass("is-active");
+    
 });
 
 function clearField(i, chip) {
@@ -117,7 +125,7 @@ function queryNaloge() {
     if ($("input[name='kategorijaSearch']").val() != "") post_data.kategorija = $("input[name='kategorijaSearch']").val();
     if ($("input[name='avtorSearch']")  .val() != "") post_data.avtor = $("input[name='avtorSearch']").val();
     if ($('#koledarSearch').val() != "") post_data.koledar = $('#koledarSearch').val();
-    if ($('#ciljSearch').val() != "") post_data.cilj =  $('#ciljSearch').val();
+    if ($('#ciljSearch').val() != "") post_data.cilj =  $("#input[name='ciljSearch']").val();
 
     $.ajax({
         url: '/prikazi_naloge',
@@ -129,6 +137,7 @@ function queryNaloge() {
             if (response.includes("<!doctype html>")) {
                 window.location.reload();
             } else if(response.length == 0) {
+                console.log(response, xhr);
                 let data = {message: "Nobena naloga ne ustreza iskalnim parametrom!"};
                 let snackbarContainer = document.querySelector('#mainToast');            
                 snackbarContainer.MaterialSnackbar.showSnackbar(data);

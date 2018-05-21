@@ -13,6 +13,10 @@ html, body {
     background-size: 100%;
 }
 
+.index2 {
+    z-index: 2;
+}
+
 .hide-element {
     display: none;
 }
@@ -299,7 +303,6 @@ dialog .mdl-card__supporting-text {
     letter-spacing: inherit;
     line-height: inherit;
     color: inherit;
-    font-weight: 300;
 }
 
 /*            */
@@ -729,6 +732,10 @@ dialog .mdl-card__supporting-text {
 
 .DYz-B5 {
     background-color: #A5D8F3;
+}
+
+.TTRrTc {
+    background-color:#a3f7bf;
 }
 
 /*         */

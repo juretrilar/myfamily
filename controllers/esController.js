@@ -19,7 +19,7 @@ let CronJob = require('cron').CronJob;
 let nodemailer = require('nodemailer');
 let shortId = require('short-mongo-id');
 
-let color = {"5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3"};
+let color = {"5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3", "5aef78ab361f5244948ff58f" : "#a3f7bf"};
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 let currentTab = 0;
@@ -47,6 +47,8 @@ function vrniNapako(res, err){
 
 //** GET /
 module.exports.naslovnaStran = function (req, res) {
+    let t = mongoose.Types.ObjectId();
+    console.log(t, shortId(t));
     if (checkIfLogged(res, req) != 0) return;    
     let opomnik = [];
     let obj = {monthly: []};
@@ -161,7 +163,7 @@ module.exports.naslovnaStran = function (req, res) {
             
             let vcilj =  result.cilji.find(x => x.id == opomnik[i].vezan_cilj);
             console.log(vcilj);
-            opomnik[i].vezan_cilj = vcilj.ime;
+            if (vcilj) opomnik[i].vezan_cilj = vcilj.ime;            
         }            
         posodobiJson(obj, req.session);
         res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment});
@@ -270,6 +272,7 @@ module.exports.posodobiOsebnePodatke = function(req, res, next) {
             console.log(err);
             vrniNapako(res, err);
         } else {
+            req.session.trenutniUporabnik.vrsta = parseInt(req.body.izbranaVrsta);
             res.redirect('/')
         }
     });
@@ -372,11 +375,9 @@ module.exports.prikaziKoledar = function(req, res, next) {
     if (checkIfLogged(res, req) != 0) return;  
     currentTab = 1;
     return queryNaloge({_id: req.params.koledarId}, {}).then(function(naloge) {
-        console.log(naloge);
-        return queryKategorija({_id: naloge[0].kategorija}, {ime: 1}).then(function(kategorija) {
-            naloge[0].vezani_uporabniki.unshift(naloge[0].avtor);
-            console.log(naloge[0].kategorija);
-            console.log(kategorija[0].ime);
+        //console.log(naloge);
+        return queryKategorija({_id: mongoose.Types.ObjectId(naloge[0].kategorija)}, {ime: 1}).then(function(kategorija) {
+            naloge[0].vezani_uporabniki.unshift(naloge[0].avtor);            
             return queryUporabniki({_id: naloge[0].vezani_uporabniki}, {slika: 1, ime: 1}).then(function(users) {
                 console.log(users);
                 res.render("pages/nalogakoledar", {naloge: naloge, moment : moment, kategorija : kategorija[0].ime, vezani: users, shortId: shortId});
@@ -400,7 +401,7 @@ module.exports.prikaziNaloge = function(req, res, next) {
     if (req.body.avtor) where_search.avtor =  req.body.avtor;
     if (req.body.kategorija) where_search.kategorija = req.body.kategorija;
     if (req.body.status) where_search.status = (req.body.status == 'true');
-    if (req.body.cilj) where_search.cilj = req.body.cilj;
+    if (req.body.cilj) where_search.vezan_cilj = req.body.cilj;
     if (req.body.oseba) where_search.vezani_uporabniki = req.body.oseba;
     if (req.body.koledar) {
         if (req.body.koledar == "Da") {
@@ -409,6 +410,7 @@ module.exports.prikaziNaloge = function(req, res, next) {
             where_search.zacetek = null;
         }
     }
+    console.log(where_search);
     async.parallel({
         docs: function (cb) { Naloge.find(where_search).exec(cb);},
         kategorija: function (cb) { Kategorija.find().exec(cb); },
@@ -419,6 +421,7 @@ module.exports.prikaziNaloge = function(req, res, next) {
         if (err) {
             return vrniNapako(err,res);
         }
+        console.log(results.docs);
         let kat = {},usr = {};
         for(let i=0;i<results.kategorija.length;i++) {
             kat[results.kategorija[i].id] = results.kategorija[i].ime;
@@ -604,7 +607,7 @@ module.exports.povabiUporabnika = function (req, res, next) {
     };
 
     console.log("sending mail");
-    mailOptions.html = '<p><h1>Pozdravljen!</h1>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily. Najprej se registriraj na '+
+    mailOptions.html = '<p><h1>Pozdravljen!</h1>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily.<br/><br/>Najprej se registriraj na '+
     '<a href="https://ekosmartweb.herokuapp.com/prijava">spletni strani</a>, nato se prijavi v aplikacijo in klikni na spodnjo povezavo.<br/><br/>'+
     '<a href="https://ekosmartweb.herokuapp.com/api/'+req.session.trenutniUporabnik.druzina+'">'+
     'Pridruži se družini</a><br/><br/>Po uspešni včlanitvi si izberi svojo vlogo v družini. Najdeš jo v zgornjem desnem meniju pod možnostjo Osebne nastavitve.'+
