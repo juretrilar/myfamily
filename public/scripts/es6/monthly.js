@@ -476,6 +476,7 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				if(!options.linkCalendarToEventUrl) {
 					event.preventDefault();
 				}
+				prikaziPodatke(event.target.attributes[0].value);
 			// If picker, pick date
 			} else if (options.mode === "picker") {
 				var	setMonth = $(parent).data("setMonth"),
@@ -533,3 +534,30 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 	}
 	});
 }(jQuery));
+
+function prikaziPodatke(url) {
+	let href = href="/koledar/"+url;	
+	if(url) {
+		$.ajax({
+			type: "GET",
+			url: href,
+			success: function (response) {
+				//$('#nalogeGrid').html(response);
+				console.log(response);
+				if (response.includes("<!doctype html>")) {
+					window.location.reload();
+				} else {
+					$("#NalogaPopUp").html(response).css("display", "inline-flex");
+				}
+				
+
+			},
+			error: function (xhr, ajaxOptions, thrownError) {
+				alert(xhr.status);
+				alert(xhr.responseText);
+				alert(thrownError)
+			}
+		});
+	}
+	event.preventDefault();
+}

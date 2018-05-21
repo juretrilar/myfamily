@@ -9,6 +9,7 @@
                 <ul class=" mdl-list margin-zero padding-zero" id="opomnikiList">
                     <% for(let i=0;i<opomniki.length;i++) { %>
                     <li id="opomnikiDashboard" class="mdl-list__item mdl-list__item--two-line">
+                        <a href="javascript:void(0);">
                         <!--<div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>-->
                         <span class="mdl-list__item-primary-content">
                             <span class="mdl-color-text--white shadow-text"><%= opomniki[i].ime %></span>
@@ -35,6 +36,7 @@
                             </label>
                             -->
                         </span>
+                        </a>
                     </li>
                     <% } %>
                 </ul>

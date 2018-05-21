@@ -134,6 +134,7 @@ jQuery(function($) {
 
     onOpomnikClick("opomnikiList", function (row){
         napolniNalogo(row);
+        console.log(row);
     });
 
     function onRowClick(tableId, callback) {
@@ -223,8 +224,8 @@ function clearData() {
 }
 
 function fillNaloge() {
-    $('#iDialog').html("Ime naloge");
-    $('#oDialog').html("Opis naloge");
+    $('#iDialog').html("Ime naloge*");
+    $('#oDialog').html("Opis naloge*");
     $('#tZacetek').html("Začetek naloge");
     $('#tKonec').html("Konec naloge");
     $('#ciljiVsi').attr('style',"display: none!important");
@@ -239,10 +240,11 @@ function fillNaloge() {
 }
 
 function fillCilji() {
-    $('#iDialog').html("Ime cilja");
-    $('#oDialog').html("Opis cilja");
+    $('#iDialog').html("Ime cilja*");
+    $('#oDialog').html("Opis cilja*");
+    /*
     $('#tZacetek').html("Zacetek cilja");
-    $('#tKonec').html("Konec cilja");
+    $('#tKonec').html("Konec cilja");*/
     $('#ciljiVsi').attr('style',"display: block!important");
     $('#dialogKategorija').attr('style',"display: none!important");
     $('#dialogZacetek').attr('style',"display: none!important");
@@ -683,6 +685,7 @@ function distanceX(elem) {
 
 function napolniNalogo(elem) {
     deleteShowNaloga(elem);
+    elem = elem.children[0];
     $("#dashboardNaloga").removeClass("hide-element");
     $("#opomnikKategorija").text(elem.lastElementChild.children[0].value);
     let dz = elem.lastElementChild.children[1].value;

@@ -182,6 +182,10 @@ margin: auto;
     background-color: 	#FFDDB9!important;
 }
 
+.color-neutral {
+    color:rgba(0,0,0,.26);
+}
+
 .mdl-chip {
     background-color: #ECEFF4;
 }
@@ -193,6 +197,21 @@ margin: auto;
 .shadow-text .mdl-chip__text {
     text-shadow: none;
 }
+
+.editmode {
+    position: absolute;
+    opacity: 0.2;   
+	bottom: 10px;
+	right: 10px;
+}
+.editmode:hover {
+    opacity: 1;
+}
+
+.warning {
+    padding-left: 8px;
+}
+
 
 /*        */
 
@@ -271,7 +290,7 @@ dialog .mdl-card__supporting-text {
 }*/
 
 .dialog-sub {
-    color: #445870!important;
+    color: rgb(96,125,139)!important;
     font-size: 12px;
     top: 4px;
     visibility: visible;
@@ -283,7 +302,7 @@ dialog .mdl-card__supporting-text {
 }
 
 #avatars {
-   margin: 8px;
+   margin: 0 8px;
    padding: 0 0 12px 0;
 }
 
@@ -301,8 +320,6 @@ dialog .mdl-card__supporting-text {
 .dialog-duo {
     font-size: initial;
     letter-spacing: inherit;
-    line-height: inherit;
-    color: inherit;
 }
 
 /*            */
@@ -311,32 +328,34 @@ dialog .mdl-card__supporting-text {
 
 /* Izgled checkboxov */
 
+/*
 .mdl-checkbox .mdl-checkbox__focus-helper {
     background-color: white;
 
 }
 
+
 .mdl-checkbox.is-checked .mdl-checkbox__focus-helper {
-    background-color: black;
+    background-color: white;
     top: 4px;
     height: 14px;
-}
+}*/
 
 .mdl-checkbox.is-checked .mdl-checkbox__box-outline {
-    border: 2px lightgrey;
+    border: 2px #445870;
 }
 
 .mdl-checkbox .mdl-checkbox__box-outline {
-    border: 2px black;
+    border: 2px solid #445870;
 }
-
+/*
 .mdl-checkbox .mdl-checkbox__tick-outline {
     background-color: lightgrey;
 
-}
+} */
 
 .mdl-checkbox.is-checked .mdl-checkbox__tick-outline {
-    background-color: lightgrey;
+    background-color: #445870;
 }
 
 

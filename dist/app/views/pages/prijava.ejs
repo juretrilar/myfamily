@@ -8,7 +8,7 @@
                 <div class="mdl-grid text-main card-500">
                     <div class="mdl-card mdl-shadow--16dp util-center" id="prijava">
                         <div class="mdl-card__title color-blue krivulja-2">
-                            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Prijavno okno</h2>
+                            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Prijava v MyFamily</h2>
                         </div>
                         <form method="POST" action="/prijava" id="prijavaForm">
                             <div class="mdl-card__supporting-text mdl-grid">                          
@@ -30,15 +30,16 @@
                                         Prijava
                                     </button>
                                 </div>
-                                <div class="mdl-cell mdl-cell--12-col" align="center">
-                                    <a class="color-dark-text" onclick="prikaziRegistracija()">Registracija</a>
+                                <div class="mdl-cell mdl-cell--12-col mdl-typography--body-1" align="center">  
+                                    Še nimate svojega računa?                                     
+                                    <a href="javascript:void(0);" onclick="prikaziRegistracija()">Registrirajte se »</a>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div class="mdl-card mdl-shadow--16dp util-center" id="registracija" style="display: none;">
                         <div class="mdl-card__title color-cyan krivulja-1">
-                            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Podatki za registracijo</h2>
+                            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Ustvarite nov račun</h2>
                         </div>
                         <form method="POST" action="/registracija" id="registracijaForm" onsubmit="return validateRegistracija()">
                         <div class="mdl-card__supporting-text mdl-grid">
@@ -94,11 +95,12 @@
                         <div class="mdl-card__actions mdl-card--border" align="center">
                             <div class="mdl-cell mdl-cell--12-col send-button" align="center">
                                 <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-cyan mdl-color-text--white" id="login">
-                                    Registracija
+                                    Ustvari nov račun
                                 </button>
                             </div>
-                            <div class="mdl-cell mdl-cell--12-col" align="center">
-                                <a class="color-dark-text" onclick="prikaziPrijava()">Prijava</a>
+                            <div class="mdl-cell mdl-cell--12-col mdl-typography--body-1" align="center">
+                                Že imate svoj račun?    
+                                <a href="javascript:void(0);" onclick="prikaziPrijava()">Prijava »</a>
                             </div>
                         </div>
                     </form>

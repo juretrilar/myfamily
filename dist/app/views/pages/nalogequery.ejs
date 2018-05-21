@@ -59,6 +59,10 @@
                 <% if (naloge[i].status) { %><span class="mdl-typography--subhead mdl-color-text--grey statusNaloga">Opravljena</span>
                 <% } else { %><span class="mdl-typography--subhead mdl-color-text--grey statusNaloga">Neopravljena</span><% } %>
             </div>
+            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab color-dark closeDialog editmode">
+                <i class="material-icons mdl-color-text--white" role="presentation">edit</i>
+                <span class="visuallyhidden">add</span>
+            </button>
         </div>
     </div>
     <% if ((i+1)%4 == 0 || (i+1)%2 == 0) { %>

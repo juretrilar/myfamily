@@ -26,7 +26,6 @@ Strani do katerih lahko uporabnik dostopa in na njih izvaja različne ukaze. Vse
 ### Prijava
 
 Prijavna stran. Na strani se najprej izriše okno za vpis, v primeru, da uporabnik še ni registriran pa lahko z klikom na registracijo odpre okno za registracijo. Z klikom na gumb registracija se uporabnik registrira in se mu odpre okno za prijavo.
-TODO: Bolj jasen gumb za registracijo
 
 ### Pregled
 
@@ -35,7 +34,6 @@ Na dnu strani lahko uporabnik vidi skupne cilje družine in doda nov cilj. Zrave
 
 TODO:
 - naj se prikaže 5 najbljižjih opomnikov
-- ikone za sms in mail so nejasne
 
 ### Koledar
 
@@ -62,8 +60,6 @@ Uporabnik lahko na teji strani dostopa do vseh skupnih ciljev, ki jih ima druži
 
 Uporabnik lahko z klikom na gumb odpre okno za dodajanje novih ciljev. Z klikom na že obstoječ cilj pa se mu odpre okno in lahko spreminja izbran cilj.
 
-TODO:
-- bolj jazen indikator, da skupni cilj ni obkljukan
 
 ## Strani dostopne preko menija
 

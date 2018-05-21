@@ -121,11 +121,11 @@ function updateItems() {
 function queryNaloge() {
     let post_data = {};
     if ($("input[name='osebaSearch']").val() != "") post_data.oseba = $("input[name='osebaSearch']").val();
-    if ($('#statusSearch').val() != "") post_data.status = $("input[name='statusSearch']").val();
+    if ($("input[name='statusSearch']").val() != "") post_data.status = $("input[name='statusSearch']").val();
     if ($("input[name='kategorijaSearch']").val() != "") post_data.kategorija = $("input[name='kategorijaSearch']").val();
     if ($("input[name='avtorSearch']")  .val() != "") post_data.avtor = $("input[name='avtorSearch']").val();
-    if ($('#koledarSearch').val() != "") post_data.koledar = $('#koledarSearch').val();
-    if ($('#ciljSearch').val() != "") post_data.cilj =  $("#input[name='ciljSearch']").val();
+    if ($("input[name='koledarSearch']").val() != "") post_data.koledar = $('#koledarSearch').val();
+    if ($("input[name='ciljSearch']").val() != "") post_data.cilj =  $("#input[name='ciljSearch']").val();
 
     $.ajax({
         url: '/prikazi_naloge',
@@ -148,7 +148,7 @@ function queryNaloge() {
                     let parent = document.getElementById("nalogeGrid"),
                         card = parent.getElementsByClassName("mdl-card"),i;
                     for (i = 0; i < card.length; i++) {
-                        card[i].onclick = function (card) {
+                        card[i].getElementsByTagName('button')[0].onclick = function (card) {
                             return function () {
                                 callback(card, event);
                             };
