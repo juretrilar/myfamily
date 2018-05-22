@@ -9,14 +9,16 @@
                 <ul class=" mdl-list margin-zero padding-zero" id="opomnikiList">
                     <% for(let i=0;i<opomniki.length;i++) { %>
                     <li id="opomnikiDashboard" class="mdl-list__item mdl-list__item--two-line">
+                        <% if(moment().isBefore(opomniki[i].zacetek)) { %><div class="circle-container-main mdl-color--green mdl-cell--hide-phone mdl-cell--hide-tablet"></div><% } %>
+                        <% if(moment().isSame(opomniki[i].zacetek)) { %><div class="circle-container-main mdl-color--yellow mdl-cell--hide-phone mdl-cell--hide-tablet"></div><% } %>
+                        <% if(moment().isAfter(opomniki[i].zacetek)) { %><div class="circle-container-main mdl-color--red mdl-cell--hide-phone mdl-cell--hide-tablet"></div> <% } %>
                         <a href="javascript:void(0);">
-                        <!--<div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>-->
                         <span class="mdl-list__item-primary-content">
                             <span class="mdl-color-text--white shadow-text"><%= opomniki[i].ime %></span>
                             <span class="mdl-chip mdl-color-text--white color-red mdl-chip-small">
                                 <span class="mdl-chip__text"> <%= opomniki[i].xp %> točk</span>
                             </span>
-                            <span class="mdl-list__item-sub-title color-dark-text"><%= opomniki[i].avtor[1] %></span>
+                            <span class="mdl-list__item-sub-title color-dark-text">Začetek: <%= moment(opomniki[i].zacetek).format("DD. MM. YYYY") %></span>
                         </span>
                         <span class="mdl-list__item-secondary-content">
                             <input type="hidden" value="<%= opomniki[i].kategorija %>">

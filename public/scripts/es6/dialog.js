@@ -685,7 +685,7 @@ function distanceX(elem) {
 
 function napolniNalogo(elem) {
     deleteShowNaloga(elem);
-    elem = elem.children[0];
+    elem = elem.children[1];
     $("#dashboardNaloga").removeClass("hide-element");
     $("#opomnikKategorija").text(elem.lastElementChild.children[0].value);
     let dz = elem.lastElementChild.children[1].value;

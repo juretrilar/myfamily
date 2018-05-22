@@ -47,13 +47,13 @@ function vrniNapako(res, err){
 
 //** GET /
 module.exports.naslovnaStran = function (req, res) {
-    let t = mongoose.Types.ObjectId();
-    console.log(t, shortId(t));
+    //let t = mongoose.Types.ObjectId(); Short id za kategorije
+    //console.log(t, shortId(t));
     if (checkIfLogged(res, req) != 0) return;    
     let opomnik = [];
     let obj = {monthly: []};
-    let idx = [];
-    console.log(req.session.trenutniUporabnik.druzina);
+    let idx = {};
+    //console.log(req.session.trenutniUporabnik.druzina);
     async.parallel({
         uporabniki: function (cb) {
             Uporabnik.find({druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina)}).exec(cb);
@@ -72,6 +72,7 @@ module.exports.naslovnaStran = function (req, res) {
                     let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
                     let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
                     let now = moment(Date.now()).format('MM-DD-YYYY');
+                    //console.log("DANES JE: "+now)
                     if (naloga[i].vezani_uporabniki.indexOf(req.session.trenutniUporabnik.id) > -1) {
                         j = i;
                         let urZac = moment(naloga[i].zacetek).format('HH:mm');
@@ -88,33 +89,33 @@ module.exports.naslovnaStran = function (req, res) {
                             color: color[naloga[i].kategorija],
                             url: "/koledar/" + naloga[i].id
                         });
-                        if (zac == now || dateCheck(zac, kon, now)) { // Če je naloga na današnji dan jo dodaj v opomnike
-                            idx.push(naloga[i]);
+                        
+                        if (zac && naloga[i].status == false) { // Če je naloga na današnji dan jo dodaj v opomnike
+                            console.log(zac, now, moment.duration(moment(zac).diff(moment(now))));
+                            idx[Math.abs(moment.duration(moment(zac).diff(moment(now))))] = naloga[i];
                         }
                     }
                 }
-                if (idx.length == 0) { //Če je dolžina 0, za ta datum ni opomnikov
-                    cb();
-                }
-                let m = idx.length;
-                while (m-- > 0) {                   
+                for (let n = 0;n < Object.values(idx).length; n++) {                                      
                     opomnik.push({
-                        ime: idx[0].ime,
-                        opis: idx[0].opis,
-                        kategorija:idx[0].kategorija,
-                        zacetek: idx[0].zacetek,
-                        konec: idx[0].konec,
-                        xp: idx[0].xp,
-                        vezani_uporabniki: idx[0].vezani_uporabniki,
-                        vezan_cilj: idx[0].vezan_cilj,
-                        avtor: idx[0].avtor,
-                        status: idx[0].status
+                        ime: Object.values(idx)[n].ime,
+                        opis: Object.values(idx)[n].opis,
+                        kategorija:Object.values(idx)[n].kategorija,
+                        zacetek: Object.values(idx)[n].zacetek,
+                        konec: Object.values(idx)[n].konec,
+                        xp: Object.values(idx)[n].xp,
+                        vezani_uporabniki: Object.values(idx)[n].vezani_uporabniki,
+                        vezan_cilj: Object.values(idx)[n].vezan_cilj,
+                        avtor: Object.values(idx)[n].avtor,
+                        status: Object.values(idx)[n].status
                     });
-                    idx.shift();
-                    if (idx.length == 0) {
+                    if (n ==  8) {
+                        //console.log("y u no work");
                         cb();
-                    }
+                        return;
+                    }                     
                 }
+                cb();
             }).catch(err => {
                 console.log(err);
                 vrniNapako(res, err);
@@ -156,14 +157,14 @@ module.exports.naslovnaStran = function (req, res) {
             for (let j=0;j<opomnik[i].vezani_uporabniki.length;j++) {
                 let search = opomnik[i].vezani_uporabniki[j];
                 let pic = result.uporabniki.find(x => x.id == opomnik[i].vezani_uporabniki[j]);
-                temp.push([pic.slika,pic.ime]);                
+                if(pic)temp.push([pic.slika,pic.ime]);                
             }
             opomnik[i].vezani_uporabniki = temp;
-            console.log(opomnik[i].vezan_cilj)
+            //console.log(opomnik[i].vezan_cilj)
             
             let vcilj =  result.cilji.find(x => x.id == opomnik[i].vezan_cilj);
-            console.log(vcilj);
-            if (vcilj) opomnik[i].vezan_cilj = vcilj.ime;            
+            //console.log(vcilj);
+            if (vcilj) opomnik[i].vezan_cilj = vcilj.ime;         
         }            
         posodobiJson(obj, req.session);
         res.render("pages/index", {uporabniki : result.uporabniki, currSession : req.session, cilji : result.cilji, tab : currentTab, kategorija : result.kategorija, id : req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji,  moment : moment});

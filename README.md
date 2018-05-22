@@ -32,17 +32,12 @@ Prijavna stran. Na strani se najprej izriše okno za vpis, v primeru, da uporabn
 Osnovna stran, na njej lahko uporabnik vidi opomnike na dogodke za celotno družino. Prikazani so tudi vsi uporabniki, ki so del družine. Družinski člani lahko spremljajo fizično aktivnost družine in objavijo status, ki je viden vsem članom.
 Na dnu strani lahko uporabnik vidi skupne cilje družine in doda nov cilj. Zraven pa se mu izpisujejo predloge za nove naloge.
 
-TODO:
-- naj se prikaže 5 najbljižjih opomnikov
 
 ### Koledar
 
 Uporabik lahko na teji strani dostopa do koledarja, kjer ima označene datume naloge, ki jih morajo izpolniti člani družine. 
 Ob kliku na posamezen dan se uporabniku odprejo vsi dogodki na tisti dan. Ob kliku na posamezeno nalogo pa lahko pogleda podrobnosti naloge.
 
-TODO: 
-- v primeru klika na nalogo se ta avtomatsko odpre, sicer se odpre dan
-- bolj jasna navigacija po koledarju(dan, mesec, nazaj)
 
 ### Naloge
 
@@ -52,7 +47,6 @@ Uporabnik z klikom na gumb opre okno kjer lahko doda novo nalogo. Z klikom na to
 
 TODO: 
 - prikaz nalog se posodablja med izbiranjem
-- gumb ob strani, ki omogoča urejanje
 
 ### Cilji
 
@@ -67,9 +61,6 @@ Uporabnik lahko z klikom na gumb odpre okno za dodajanje novih ciljev. Z klikom 
 
 Uporabnik lahko na tej strani dostopa do vseh svojih osebnih podatkov, ki jih je vnesel že ob registraciji. Doda lahko še svoj položaj v družini.
 
-TODO:
-- geslo postaviti v drugo okno, nekateri misiljo, da ga morajo vnesti ponovno
-
 
 ### Nastavitve sporočanje
 
@@ -78,8 +69,6 @@ Uporabnik lahko na tej strani vklopi ali izklopi različne načine opozoril. Na 
 TODO splošno:
 - pomoč kot overlay na vseh straneh
 - znak da so stvari clickable(highlight)
-- ikona za settings namesto treh pikic?
 - link za prijavo k družini naj ponudi prijavo če uporabnik ni prijavljen
-- vsa polja, ki so obvezna naj bodo označena
 - klik na myfamily naj pelje nazaj na pregled
 - boljše dodajanje časa, alternativna izbira

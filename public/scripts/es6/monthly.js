@@ -476,7 +476,8 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 				if(!options.linkCalendarToEventUrl) {
 					event.preventDefault();
 				}
-				prikaziPodatke(event.target.attributes[0].value);
+				if(event.target.nodeName == "SPAN") { prikaziPodatke(event.target.parentElement.getAttribute('data-eventid'));
+				} else {prikaziPodatke(event.target.attributes[0].value); }
 			// If picker, pick date
 			} else if (options.mode === "picker") {
 				var	setMonth = $(parent).data("setMonth"),
