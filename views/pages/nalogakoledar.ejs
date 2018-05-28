@@ -37,9 +37,13 @@
                 </span>
             </span>
         </div>
-        <% if (naloge[0].zacetek) { %><img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[0].zacetek).format('DD-MM-YYYY') +" ob "+ moment(naloge[0].zacetek).format('HH:mm')  %></span><% } %>
-        <% if (naloge[0].konec) { %><img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[0].konec).format('DD-MM-YYYY') +" ob "+ moment(naloge[0].konec).format('HH:mm')  %></span><% } %>
-        <% if (!naloge[0].zacetek && !naloge[0].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10">Datum za to nalogo ni definiran.</span><% } %>
+        <ul class="'mdl-list padding-zero margin-zero">
+            <li class="mdl-list__item padding-10">
+                <% if (naloge[0].zacetek) { %><img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[0].zacetek).format('DD. MM. YYYY') +" "+ moment(naloge[0].zacetek).format('HH:mm')  %></span><% } %>
+                <% if (naloge[0].konec) { %><img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[0].konec).format('DD. MM. YYYY') +" "+ moment(naloge[0].konec).format('HH:mm')  %></span><% } %>
+                <% if (!naloge[0].zacetek && !naloge[0].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10">Datum za to nalogo ni definiran.</span><% } %>
+            </li>
+        </ul>
     </div>
     <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
         Status naloge:

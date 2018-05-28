@@ -43,54 +43,54 @@
                         </div>
                         <form method="POST" action="/registracija" id="registracijaForm" onsubmit="return validateRegistracija()">
                         <div class="mdl-card__supporting-text mdl-grid">
-                            <b class="mdl-color-text--accent"></b>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                                    <label class="mdl-textfield__label" for="reg_name">Ime</label>
-                                    <input class="mdl-textfield__input" type="text" id="reg_name" name="reg_name"/>
-                                    <span class="mdl-textfield__error" id="errIme">Polje mora biti izpolnjeno</span>
+                            <p class="margin-zero warning color-neutral mdl-typography--caption">Polja označena z * so obvezna!</p>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_name">Ime*</label>
+                                <input class="mdl-textfield__input" type="text" id="reg_name" name="reg_name"/>
+                                <span class="mdl-textfield__error" id="errIme">Polje mora biti izpolnjeno</span>
+                            </div>
+                            <input type="hidden" name="action" value="register"/>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_email">E-mail*</label>
+                                <input class="mdl-textfield__input" type="email" id="reg_email" name="reg_email"/>
+                                <span class="mdl-textfield__error" id="errEmail">Vpisani e-poštni naslov je napačen</span>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_password">Geslo*</label>
+                                <input class="mdl-textfield__input" type="password" id="reg_password" name="reg_password"
+                                        pattern="^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])[\w~@#$%^&*+=`|{}:;!.?\()\[\]-]{6,20}$"/>
+                                <span class="mdl-textfield__error" id="errPass">6-20 znakov z vsaj eno številko, in veliko črko. Dovoljeni so posebni znaki, razen " in '.</span>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_password_confirm">Potrditev gesla*</label>
+                                <input class="mdl-textfield__input" type="password" id="reg_password_confirm" name="reg_password_confirm"/>
+                                <span class="mdl-textfield__error" id="errPass2">Gesli se ne ujemata!</span>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_phone">Telefon*</label>
+                                <input class="mdl-textfield__input" type="tel" id="reg_phone" name="reg_phone" pattern="^(?:\d){9}$" title="Primer: 123456789"/>
+                                <!--^(?:\+\d{1,3}|0\d{1,3}|00\d{1,2})?(?:\s?\(\d+\))?(?:[-\/\s.]|\d)+$-->
+                                <span class="mdl-textfield__error" id="errTel">Telefonska številka je napačna!</span>
+                            </div>
+                            <div id="avatars">
+                                <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
+                                <% for(let i=1;i<8;i++) { %>
+                                <label class="avatars">
+                                    <input type="radio" name="avatar" value="public/uploads/<%= i %>.png" hidden/>
+                                    <img src="public/uploads/<%= i %>.png" alt=""/>
+                                </label>
+                                <% } %>
+                            </div>
+                            <!--
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--file mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_slika_ime">Prikazna slika</label>
+                                <input class="mdl-textfield__input" type="text" id="reg_slika_ime" readonly />
+                                <div class="mdl-button mdl-button--icon mdl-button--file">
+                                    <i class="material-icons">attach_file</i>
+                                    <input type="file" accept="image/*" name="reg_slika" id="reg_slika" onchange="updatePic(this)" />
                                 </div>
-                                <input type="hidden" name="action" value="register"/>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                                    <label class="mdl-textfield__label" for="reg_email">E-mail</label>
-                                    <input class="mdl-textfield__input" type="email" id="reg_email" name="reg_email"/>
-                                    <span class="mdl-textfield__error" id="errEmail">Vpisani e-poštni naslov je napačen</span>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                                    <label class="mdl-textfield__label" for="reg_password">Geslo</label>
-                                    <input class="mdl-textfield__input" type="password" id="reg_password" name="reg_password"
-                                           pattern="^(?=\D*\d)(?=[^a-z]*[a-z])(?=[^A-Z]*[A-Z])[\w~@#$%^&*+=`|{}:;!.?\()\[\]-]{6,20}$"/>
-                                    <span class="mdl-textfield__error" id="errPass">6-20 znakov z vsaj eno številko, in veliko črko. Dovoljeni so posebni znaki, razen " in '.</span>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                                    <label class="mdl-textfield__label" for="reg_password_confirm">Potrditev gesla</label>
-                                    <input class="mdl-textfield__input" type="password" id="reg_password_confirm" name="reg_password_confirm"/>
-                                    <span class="mdl-textfield__error" id="errPass2">Gesli se ne ujemata!</span>
-                                </div>
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
-                                    <label class="mdl-textfield__label" for="reg_phone">Telefon</label>
-                                    <input class="mdl-textfield__input" type="tel" id="reg_phone" name="reg_phone" pattern="^(?:\d){9}$" title="Primer: 123456789"/>
-                                    <!--^(?:\+\d{1,3}|0\d{1,3}|00\d{1,2})?(?:\s?\(\d+\))?(?:[-\/\s.]|\d)+$-->
-                                    <span class="mdl-textfield__error" id="errTel">Telefonska številka je napačna!</span>
-                                </div>
-                                <div id="avatars">
-                                    <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
-                                    <% for(let i=1;i<8;i++) { %>
-                                    <label class="avatars">
-                                        <input type="radio" name="avatar" value="public/uploads/<%= i %>.png" hidden/>
-                                        <img src="public/uploads/<%= i %>.png" alt=""/>
-                                    </label>
-                                    <% } %>
-                                </div>
-                                <!--
-                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--file mdl-cell mdl-cell--12-col">
-                                    <label class="mdl-textfield__label" for="reg_slika_ime">Prikazna slika</label>
-                                    <input class="mdl-textfield__input" type="text" id="reg_slika_ime" readonly />
-                                    <div class="mdl-button mdl-button--icon mdl-button--file">
-                                        <i class="material-icons">attach_file</i>
-                                        <input type="file" accept="image/*" name="reg_slika" id="reg_slika" onchange="updatePic(this)" />
-                                    </div>
-                                    <span class="mdl-textfield__error" id="errSlika">Datoteka ni v pravilnem formatu!</span>
-                                </div>-->
+                                <span class="mdl-textfield__error" id="errSlika">Datoteka ni v pravilnem formatu!</span>
+                            </div>-->
                         </div>
                         <div class="mdl-card__actions mdl-card--border" align="center">
                             <div class="mdl-cell mdl-cell--12-col send-button" align="center">

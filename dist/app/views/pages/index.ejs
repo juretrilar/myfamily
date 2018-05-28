@@ -54,9 +54,10 @@
                 <h3 id="dialog-title" class="mdl-card__title-text mdl-color-text--white"></h2>
             </div>
             <div class="mdl-card__supporting-text">
+                <p class="margin-zero color-neutral mdl-typography--caption">Polja označena z * so obvezna!</p>
                 <form id="update_dialog">
                     <input type="hidden" name="newDialog" id="newDialog">
-                    <div class="mdl-dialog__content">
+                    <div class="mdl-dialog__content relative">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                             <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog" maxlength="32"/>
                             <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
@@ -68,17 +69,19 @@
                             <span class="mdl-textfield__error" id="opisDialogErr"></span>
                         </div>
                         <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                            <input class="mdl-textfield__input " type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
+                            <input class="mdl-textfield__input" type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
                             <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"></label>
-                            <input type="hidden" name="dateZacetek" id="dateZacetek">
-                            <span class="mdl-textfield__error">Zapis datuma je napačen.</span>
+                            <input type="hidden" name="dateZacetek" id="dateZacetek" >
+                            <span class="mdl-textfield__error">Zapis datuma je napačen.</span>                         
                         </div>
+                        <div id="pickZac" class="datepicker-here hide-element" data-timepicker="true"></div>   
                         <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                             <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
                             <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
                             <input type="hidden" name="dateKonec" id="dateKonec">
                             <span class="mdl-textfield__error" id="dateKonecErr">Zapis datuma je napačen.</span>
                         </div>
+                        <div id="pickKon" class="datepicker-here hide-element" data-timepicker="true"></div>
                         <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
                             <input type="text" class="mdl-textfield__input" id="vezanCilj" readonly required/>
                             <input type="hidden" name="sampleCilj">
@@ -94,7 +97,7 @@
                             <input type="text" class="mdl-textfield__input" id="kategorija" readonly required/>
                             <input type="hidden" name="sampleKategorija" id="sampleKategorija">
                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                            <label for="kategorija" class="mdl-textfield__label">Kategorija</label>
+                            <label for="kategorija" class="mdl-textfield__label">Kategorija*</label>
                             <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-kategorija" data-selected="true">
                                 <% for (var i = 0; i < kategorija.length; i++) { %>
                                 <li class="mdl-menu__item" data-val="<%= kategorija[i].id %>"><%= kategorija[i].ime %></li>
@@ -106,7 +109,7 @@
                                 <div class="mdl-list__item-primary-content" style="padding-right: 10px">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                                         <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" title="Število točk potrebnih dokončanje cilja.">
-                                        <label class="mdl-textfield__label" for="xpNaloge">Točke naloge</label>
+                                        <label class="mdl-textfield__label" for="xpNaloge">Točke naloge*</label>
                                         <span class="mdl-textfield__error">Polje je obvezno!</span>
                                     </div>
                                 </div>
@@ -122,10 +125,10 @@
                                         <input type="hidden" value="" name="newStatus">
                                         <input type="hidden" value="false" name="oldStatus">
                                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                                        <label for="statusNaloge" class="mdl-textfield__label">Status naloge</label>
+                                        <label for="statusNaloge" class="mdl-textfield__label">Status naloge*</label>
                                         <ul for="statusNaloge" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
                                             <li class="mdl-menu__item" data-val="true">Opravljeno</li>
-                                            <li class="mdl-menu__item" data-val="false">Neopravljeno</li>
+                                            <li class="mdl-menu__item" data-val="false" data-selected="true" >Neopravljeno</li>
                                         </ul>
                                     </div>
                                 </div>    

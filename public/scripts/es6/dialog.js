@@ -9,6 +9,19 @@ let currentElement;
 
 let colors = ["#FEC3BF","#FFDDB9","#A5D8F3","#97EBED","#FEC3BF","#FFDDB9","#A5D8F3","#FEC3BF","#FFDDB9","#A5D8F3"];
 
+$.fn.datepicker.language['sl'] = {
+    days: ['Nedelja', 'Ponedeljek', 'Torek', 'Sreda', 'Četrtek', 'Petek', 'Sobota'],
+    daysShort: ['Ned', 'Pon', 'Tor', 'Sre', 'Čet', 'Pet', 'Sob'],
+    daysMin: ['Ne', 'Po', 'To', 'Sr', 'Če', 'Pe', 'So'],
+    months: ['Januar','Februar','Marec','April','Maj','Junij', 'Julij','Avgust','September','Oktober','November','December'],
+    monthsShort: ['Jan', 'Feb', 'Mar', 'Apr', 'Maj', 'Jun', 'Jul', 'Avg', 'Sep', 'Okt', 'Nov', 'Dec'],
+    today: 'Danes',
+    clear: 'Ponastavi',
+    dateFormat: 'dd. mm. yyyy',
+    timeFormat: 'hh:ii',
+    firstDay: 0
+};
+
 
 r(function(){
     if(localStorage.getItem("Status")) {
@@ -55,8 +68,9 @@ jQuery(function($) {
         }
     });
 
-    tockeUdelezencev($('#table-cilji').find('tr').length-1, "progress", "razmerje");
-    tockeUdelezencev($('#table-cilji-end').find('tr').length-1, "progressE", "razmerjeE");
+    tockeUdelezencev($('#table-cilji').find('tr').length-1, "progZ", "razmZ");
+    tockeUdelezencev($('#table-cilji-end').find('tr').length-1, "progK", "razmK");
+    tockeUdelezencev($('#table-skupni').find('tr').length-1, "progS", "razmS");
 
     onUserClick("container", function (img){      
         let pos = img.getBoundingClientRect();
@@ -176,28 +190,77 @@ jQuery(function($) {
         //DO YOUR THANG
     });
 
-    let dz = new mdDateTimePicker.default({
-        type: 'date',
-        past: moment().subtract(1, 'years'),
-        future: moment().add(1, 'years'),
+    $("#pickZac").datepicker({
+        language: 'sl',
+        timeFormat: "hh:ii",
+        clearButton: "true",
+        todayButton: new Date(), 
+        position: "right top",
+        onSelect: function onSelect(fd, date) {
+            $("#targetZacetek").val(fd);
+            $("#dateZacetek").val(date);
+            document.getElementById("dialogZacetek").MaterialTextfield.checkDirty();
+        }        
     });
-    let tz = new mdDateTimePicker.default({
-        type: 'time',
+
+    $("#pickKon").datepicker({
+        language: 'sl',
+        timeFormat: "hh:ii",
+        clearButton: "true",
+        todayButton: new Date(), 
+        onSelect: function onSelect(fd, date) {
+            $("#targetKonec").val(fd);
+            $("#dateKonec").val(date);
+            document.getElementById("dialogKonec").MaterialTextfield.checkDirty();
+        }        
     });
-    registerDateTimePicker("dialogZacetek", dz, "targetZacetek", "dateZacetek", tz);
-    let dk = new mdDateTimePicker.default({
-        type: 'date',
-        past: moment().subtract(1, 'years'),
-        future: moment().add(1, 'years'),
+
+    $("#dialogZacetek").click(function(e) {  
+        console.log("open");
+        let pickerZac = $("#pickZac");   
+        pickerZac.removeClass("hide-element");        
+        $(document).mouseup(function(e) {            
+            // if the target of the click isn't the container nor a descendant of the container
+            if (!pickerZac.is(e.target) && pickerZac.has(e.target).length === 0) 
+            {
+                pickerZac.addClass("hide-element");
+            }
+        });
     });
-    let tk = new mdDateTimePicker.default({
-        type: 'time',
+
+    $("#dialogKonec").click(function(e) {  
+        console.log("open");
+        let pickerZac = $("#pickKon");   
+        pickerZac.removeClass("hide-element");        
+        $(document).mouseup(function(e) {            
+            // if the target of the click isn't the container nor a descendant of the container
+            if (!pickerZac.is(e.target) && pickerZac.has(e.target).length === 0) 
+            {
+                pickerZac.addClass("hide-element");
+            }
+        });
     });
-    registerDateTimePicker("dialogKonec", dk, "targetKonec", "dateKonec", tk);
-    dialog.appendChild(document.getElementById("mddtp-picker__time"));
-    dialog.appendChild(document.getElementById("mddtp-picker__date"));
-    
-    //get it if Status key found
+
+    $("#nalogaDone").click(function(e) {  
+        $.ajax({
+            url: '/ustvari_nalogo',
+            type: 'POST',
+            contentType: 'application/json',
+            data: {"newDialog": $("#opomnikId").val(),
+                "status": "true"},
+            success: function(response){
+                localStorage.setItem("Status",response);
+                window.location.reload(true);
+            },
+            error: function(response, jqXhr, textStatus, errorThrown){            
+                let snackbarContainer = document.querySelector('#mainToast');             
+                snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
+                console.log(jqXhr, textStatus, errorThrown, response);
+            }
+            
+        });
+
+    });
 });
 
 function clearData() {
@@ -226,7 +289,7 @@ function clearData() {
 function fillNaloge() {
     $('#iDialog').html("Ime naloge*");
     $('#oDialog').html("Opis naloge*");
-    $('#tZacetek').html("Začetek naloge");
+    $('#tZacetek').html("Začetek naloge*");
     $('#tKonec').html("Konec naloge");
     $('#ciljiVsi').attr('style',"display: none!important");
     $('#dialogKategorija').attr('style',"display: block!important");
@@ -329,6 +392,7 @@ function dodajPredlog() {
     $("input[name='newStatus']").val("false");
     getmdlSelect.init("#dialogStatus");
 }
+
 function validateNaloga(event, t) {
     if (document.forms["update_dialog"]["imeDialog"].value == "") {
         $("#imeDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
@@ -429,7 +493,7 @@ function validateNaloga(event, t) {
         
     }
 }
-
+/*
 function registerDateTimePicker(elementId, picker, inputId, inputDateId, pickerTime) {
     let element = document.getElementById(elementId);
     element.addEventListener('click', function(e) {
@@ -458,7 +522,7 @@ function openTimePicker(elementId,picker, inputId, inputDateId, pickerTime) {
         input.parentNode.MaterialTextfield.checkDirty();
     });
 }
-
+*/
 function zapriVse(evt) {
     $('.hideOnClick').attr('style',"display: none!important");
     console.log("close all");
@@ -645,8 +709,7 @@ function tockeUdelezencev(stCiljev, prg, razmerje) {
             sumXP += parseInt($(this)[0].innerHTML);
         });
         //curr.text(sumXP+"/"+$("."+prg+i).prev().find("input[name=person]").val());
-        $("#"+razmerje+i).text(sumXP+"/"+$("."+prg+i).parent().prev().prev().find("input[name=maxXp]").val());
-        //console.log($("."+prg+i).parent().prev().prev().find("input[name=maxXp]"));
+        //$("#"+razmerje+i).text(sumXP+"/"+$("."+prg+i).parent().prev().prev().find("input[name=maxXp]").val());
         if(stUporabnikov==0) {
             $("."+prg+i).attr('style',"display: none!important");
         } else if (stUporabnikov == 1) {
@@ -658,6 +721,7 @@ function tockeUdelezencev(stCiljev, prg, razmerje) {
                 span.attr('style',"width: "+(curr[j-1].innerHTML/sumXP)*100+"%; background-color: "+colors[j-2]+";");
             }
             $("."+prg+i+" :nth-child("+stUporabnikov+")").attr('style',"width: "+(curr[stUporabnikov-1].innerHTML/sumXP)*100+"%; background-color: #96ECED;").addClass("spanLast");
+            //console.log($("."+prg+i+" :nth-child("+stUporabnikov+")"));
         }
     }
 }
@@ -686,15 +750,16 @@ function distanceX(elem) {
 function napolniNalogo(elem) {
     deleteShowNaloga(elem);
     elem = elem.children[1];
+    console.log(elem);
     $("#dashboardNaloga").removeClass("hide-element");
     $("#opomnikKategorija").text(elem.lastElementChild.children[0].value);
     let dz = elem.lastElementChild.children[1].value;
-    $("#opomnikZacetek").text(moment(dz).format('DD-MM-YYYY') +" ob "+ moment(dz).format('HH:mm'));
+    $("#opomnikZacetek").text(moment(dz).format('DD. MM. YYYY') +" "+ moment(dz).format('HH:mm'));
     let dk = elem.lastElementChild.children[2].value;
-    $("#opomnikKonec").text(moment(dk).format('DD-MM-YYYY') +" ob "+ moment(dk).format('HH:mm'));
+    $("#opomnikKonec").text(moment(dk).format('DD. MM. YYYY') +" "+ moment(dk).format('HH:mm'));
     
     $("#opomnikCilj").append(elem.lastElementChild.children[3].value);
-    $("#opomnikStatus").text(elem.lastElementChild.children[4].value);
+    $("#opomnikId").val(elem.lastElementChild.children[4].value);
 
     $("#opomnikIme").text(elem.children[0].children[0].innerHTML);
     $("#opomnikOpis").text(elem.children[0].children[2].innerHTML);  
@@ -757,4 +822,48 @@ function potrdiIzbris () {
         }            
     });
 }
-   
+function startIntroBasic(){
+    var intro = introJs();
+      intro.setOptions({
+        steps: [
+          { 
+            intro: "Pozdravljeni v aplikaciji MyFamily! Za vas smo pripravili kratko predstavitev aplikacije, s pomočjo katere boste lažje razumeli in uporabljali aplikacijo."
+            +"Predstavitev lahko kadarkoli prekinete."
+          },
+          {
+            element: document.querySelector('#dash1'),
+            intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+            +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
+          },
+          {
+            element: document.querySelector('#dash2'),
+            intro: "Tukaj so prikazani opomniki za naloge na katerih sodelujete. Prihajajoče naloge imajo pred sabo zelen krog, naloge, ki se dogajajo"
+            +" na današnji dan imajo zelen krog, naloge, ki so se že začele pa rdeč krog. Ob kliku na opomnik se prikažejo podrobnosti naloge.",
+            position: 'right'
+          },
+          {
+            element: '#dash3',
+            intro: 'Vaš trenutni status, s katerim lahko sporočite družini kaj počnete, kako se počutite, kdaj boste naredili nalogo...',
+            position: 'left'
+          },
+          {
+            element: '#dash4',
+            intro: "Družinsko drevo, člani družine so urejeni glede na položaj v družini. Najvišje so pradedki in prababice, nato dedki in babice, starši in otroci. Če oseba nima izbranega položaja v družini je prikazana na vrhu. Z klikom na avatar lahko vidite status osebe, različne možnosti sporočanja in število točk, ki jih je ta oseba danes zbrala.",
+            position: 'bottom'
+          },
+          {
+            element: '#dash5',
+            intro: "V tem oknu so prikazani skupni cilji družine, te cilje si družina izbere kot najpomembnejše in zato so prikazani na pregledu. Od leve proti desni so ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, ter točke prikazane za vsakega člana družine posebej."
+          },
+          {
+            element: '#dash6',
+            intro: "V tem oknu je prikazan predlog za novo nalogo, ki vam ga predlagamo mi. S klikom dodaj med nalogo se vam polja avtomatsko izpolnijo in lahko nalogo dodate pod svoj cilj."
+          },
+          {
+            element: '#dash7',
+            intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V menuju se nahajajo tud nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočil sms in obvestila na vašem pametnem telefonu. V meniju lahko k uporabi aplikacije povabite tudi druge družinske člane."
+          },
+        ]
+      });
+      intro.start();
+  }

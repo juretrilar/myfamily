@@ -83,8 +83,8 @@ function clearField(i, chip) {
 
 function objaviStatus() {
     let curr = $("#trenutniUporabnik").val();
-    $("#status"+curr).text($("#currStatus").val());
     if($("#currStatus").val() != "") {
+        $("#status"+curr).text($("#currStatus").val().removeClass("hide-element"));
         let save = {"currStatus": $("#currStatus").val()};
         $.ajax({
             url: '/status',
@@ -104,6 +104,8 @@ function objaviStatus() {
             }
             
         });
+    } else {
+        $("#status"+curr).parent.addClass("hide-element");
     }
 }
 
@@ -185,6 +187,7 @@ function queryNaloge() {
                     let cl = card.getElementsByClassName("ciljNaloga")[0].value;
                     $('#vezanCilj').get(0).placeholder = $(".list-cilj").find("[data-val="+cl+"]").get(0).textContent.trim();
                     $("input[name='sampleCilj']").parent().addClass("is-dirty").find("li[data-val="+cl+"]").attr('data-selected','true');
+                    $("input[name='oldCilj']").val(cl);
                     getmdlSelect.init("#dialogCilj");
                     let status = card.getElementsByClassName("statusNaloga")[0].innerHTML;
                     $('#statusNaloge').get(0).placeholder = status;

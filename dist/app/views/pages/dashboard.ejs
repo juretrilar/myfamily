@@ -9,13 +9,16 @@
                 <ul class=" mdl-list margin-zero padding-zero" id="opomnikiList">
                     <% for(let i=0;i<opomniki.length;i++) { %>
                     <li id="opomnikiDashboard" class="mdl-list__item mdl-list__item--two-line">
-                        <!--<div class="circle-container-main mdl-color--grey mdl-cell--hide-phone mdl-cell--hide-tablet"></div>-->
+                        <% if(moment().isBefore(opomniki[i].zacetek)) { %><div class="circle-container-main mdl-color--green mdl-cell--hide-phone"></div><% } %>
+                        <% if(moment().isSame(opomniki[i].zacetek)) { %><div class="circle-container-main mdl-color--yellow mdl-cell--hide-phone"></div><% } %>
+                        <% if(moment().isAfter(opomniki[i].zacetek)) { %><div class="circle-container-main mdl-color--red mdl-cell--hide-phone"></div> <% } %>
+                        <a href="javascript:void(0);">
                         <span class="mdl-list__item-primary-content">
                             <span class="mdl-color-text--white shadow-text"><%= opomniki[i].ime %></span>
                             <span class="mdl-chip mdl-color-text--white color-red mdl-chip-small">
                                 <span class="mdl-chip__text"> <%= opomniki[i].xp %> točk</span>
                             </span>
-                            <span class="mdl-list__item-sub-title color-dark-text"><%= opomniki[i].avtor[1] %></span>
+                            <span class="mdl-list__item-sub-title color-dark-text">Začetek: <%= moment(opomniki[i].zacetek).format("DD. MM. YYYY") %></span>
                         </span>
                         <span class="mdl-list__item-secondary-content">
                             <input type="hidden" value="<%= opomniki[i].kategorija %>">
@@ -35,6 +38,7 @@
                             </label>
                             -->
                         </span>
+                        </a>
                     </li>
                     <% } %>
                 </ul>
@@ -54,7 +58,7 @@
             <div class="flex-container">
                 <div class="mdl-textfield mdl-js-textfield mdl-color-text--white shadow-text mdl-textfield__status">
                     <input class="mdl-textfield__input not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" maxlength="120" autocomplete="false">
-                    <label class="mdl-textfield__label mdl-color-text--white shadow-text" for="currStatus">Moj status</label>
+                    <label class="mdl-textfield__label mdl-color-text--white shadow-text" for="currStatus">Status...</label>
             </div>
             <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored color-dark-cyan button-objava" onclick="objaviStatus()">
                 <i class="material-icons">done</i>&nbspObjavi
@@ -68,12 +72,10 @@
                         <img src="<%= uporabniki[j].slika %>" alt="" width="64" height="64" class="level7 user">  
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
-                        <input type="hidden" value="<%= uporabniki[j].email %>">
-                        <% if(uporabniki[j].status) { %>
-                            <span class="mdl-chip caption">
-                                    <span class="mdl-chip__text color-dark-text" id="status<%= uporabniki[j].id %>"><%= uporabniki[j].status %></span>
-                            </span>
-                        <% } %>
+                        <input type="hidden" value="<%= uporabniki[j].email %>">                        
+                            <span class="mdl-chip caption<% if(uporabniki[j].status) { %> hide-element"><% } %>
+                                <span class="mdl-chip__text color-dark-text" id="status<%= uporabniki[j].id %>"><% if(uporabniki[j].status) { %><%= uporabniki[j].status %><% } %></span>
+                            </span>                        
                     </div>
                     <% } %>
                 <% } %>
@@ -215,7 +217,7 @@
         </div>
     </div>
 </div>
-<div id="dashboardNaloga" class="mdl-card mdl-shadow--2dp overflow-visible naloge-okno hide-element">
+<div id="dashboardNaloga" class="mdl-card mdl-shadow--2dp overflow-visible hide-element naloge-okno">
         <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab color-dark closeX closeDialog">
             <i class="material-icons mdl-color-text--white" role="presentation">close</i>
             <span class="visuallyhidden">add</span>
@@ -249,12 +251,18 @@
                     </span>
                 </span>
             </div>
-            <img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga" id="opomnikZacetek">
-            <img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga" id="opomnikKonec">
-            <span class="mdl-list__item-sub-title mdl-color-text--grey hide-element" id="opomnikBrezDatuma">Datum za to nalogo ni definiran.</span>
+            <ul class="'mdl-list padding-zero margin-zero">
+                <li class="mdl-list__item padding-10">
+                    <img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek">
+                    <span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga" id="opomnikZacetek"></span>
+                    <img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec">
+                    <span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga" id="opomnikKonec"></span>
+                    <span class="mdl-list__item-sub-title mdl-color-text--grey hide-element" id="opomnikBrezDatuma">Datum za to nalogo ni definiran.</span>
+                </li>
+            </ul>
         </div>
-        <div class="mdl-card__supporting-text mdl-list__item-sub-title mdl-color-text--grey">
-            Status naloge:
-            <span name="status" class="mdl-list__item-sub-title mdl-color-text--grey" id="status"></span>
+        <div class="mdl-card__supporting-text mdl-color-text--grey padding-10">
+            <span name="status" class="mdl-typography--subhead mdl-color-text--grey" id="status">Status naloge:<br/><span class="mdl-typography--headline">Neopravljena</span></span>
+            <button type="button" value="submit" class="mdl-button color-dark-cyan create mdl-color-text--white">Opravljena</button>
         </div>
     </div>

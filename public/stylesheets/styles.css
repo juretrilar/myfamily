@@ -66,7 +66,7 @@ html, body {
 }
 
 .align-right {
-    float: right;;
+    float: right;
 }
 
 .overflow-visible {
@@ -118,13 +118,13 @@ margin: auto;
 
 .krivulja-5 {
     background-image: url("/images/header5.svg");
-    background-size: auto;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
 .krivulja-6 {
     background-image: url("/images/header6.svg");
-    background-size: auto;
+    background-size: cover;
     background-repeat: no-repeat;
 }
 
@@ -216,6 +216,17 @@ margin: auto;
     color: transparent;
 }
 
+.datepicker-here {
+    position: absolute;
+    z-index: 10;
+    margin-top: -1.4em
+}
+
+.help-list {
+    width: 100%;
+    margin: 0 8px;
+}
+
 /*        */
 
 /* DIALOG */
@@ -275,6 +286,7 @@ dialog .mdl-card__supporting-text {
     width: 100%;
     overflow-y: auto;
 }
+
 /*
 .mdl-dialog__title {
     position: fixed;
@@ -323,6 +335,10 @@ dialog .mdl-card__supporting-text {
 .dialog-duo {
     font-size: initial;
     letter-spacing: inherit;
+}
+
+.relative {
+    position: relative;
 }
 
 /*            */
@@ -401,7 +417,7 @@ dialog .mdl-card__supporting-text {
 }
 
 .mdl-layout__header-row h6 {
-    margin-bottom: 50px;
+    margin-bottom: 48px;
 }
 
 .mdl-layout__header-row button {
@@ -418,6 +434,23 @@ dialog .mdl-card__supporting-text {
 /* DASHBOARD */
 
 /* izgled strani dashboard */
+
+.dash-help {
+    position: absolute;
+    right: 3.4em;
+    top: -2.4em;
+    z-index: 10;
+}
+
+.dash-help .material-icons {
+    font-size: 32px;
+    width: 32px;
+    transform: translate(-16px,-12px);
+}
+
+.dash-help .material-icons:hover {
+    color: black;
+}
 
 .text-container {
     max-width: 4000px;
@@ -542,6 +575,18 @@ dialog .mdl-card__supporting-text {
 .button-objava {
     margin-top: 10px;
 }
+
+.font18 {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.buttonDone {
+    float: right;
+    margin-top: -1.2em;
+}
+
+
 /*        */
 
 /* FOOTER */
@@ -680,7 +725,7 @@ dialog .mdl-card__supporting-text {
     max-width: 500px;
     position: absolute;
     left: 50%;
-    top: 17%;
+    top: 225px;
     transform: translate(-50%, -50%);
 }
 
@@ -704,6 +749,11 @@ dialog .mdl-card__supporting-text {
 .cilji-xp {
     padding: 0!important;
     font-size: 10px!important;
+}
+
+.table-skupni .cilji-xp {
+    padding-right: 16px!important;
+    width: 100%;
 }
 
 .padding-zero {

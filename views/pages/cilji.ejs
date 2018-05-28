@@ -16,10 +16,10 @@
                     <thead>
                     <tr>
                         <th style="text-align: left;">Ime in opis</th>
-                        <th style="text-align: center;">Točke/maksimalne točke</th>
+                        <th style="text-align: center;">Trenutne/vse točke</th>
                         <th style="text-align: center;" >Točke udeležencev</th>
                         <th style="text-align: center;" >Ustvarjen</th>
-                        <th style="text-align: center;" >Zadnja posodobitev</th>
+                        <th style="text-align: center;" >Posodobljen</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -62,22 +62,22 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerje<%= m %>"></td>
+                            <td class="padding-zero" style="text-align: center;" id="razmZ<%= m %>"><%= cilji[i].xp %>/<%= cilji[i].maxXp %></td>
                             <td class="mdl-data-table__cell--non-numeric cilji-xp">
-                                <div class="progress progress<%= m %>" id="progress<%= m %>" >
+                                <div class="progress progZ<%= m %>" id="progZ<%= m %>" >
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
                                     <span class="spanCilji"><%= cilji[i].vezani_uporabniki[j].xp_user %></span>
                                     <% } %>
                                 </div>
-                                <div class="mdl-tooltip clani-naloge" data-mdl-for="progress<%= m++ %>">
+                                <div class="mdl-tooltip clani-naloge" data-mdl-for="progZ<%= m++ %>">
                                     <% for (var j = 0; j < cilji[i].slika.length; j++) { %>
                                         <img class="mdl-chip__contact" src="<%= cilji[i].slika[j] %>">
                                     <% } %>                                   
                                 </div>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
+                            <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
+                            <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
                             </td>
                         </tr>
                         <% } %>
@@ -122,22 +122,22 @@
                                     </span>
                                 </div>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero cilji-xp" style="text-align: center;" id="razmerjeE<%= m %>"></td>
-                            <td>
-                                <div class="progress progressE<%= m %>" id="progressE<%= m %>" >
+                            <td class="padding-zero" style="text-align: center;" id="razmK<%= m %>"><%= cilji[i].xp %>/<%= cilji[i].maxXp %></td>
+                            <td class="mdl-data-table__cell--non-numeric cilji-xp">
+                                <div class="progress progK<%= m %>" id="progK<%= m %>" >
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
                                     <span class="spanCilji"><%= cilji[i].vezani_uporabniki[j].xp_user %></span>
                                     <% } %>
                                 </div>
-                                <div class="mdl-tooltip clani-naloge" data-mdl-for="progressE<%= m++ %>">
+                                <div class="mdl-tooltip clani-naloge" data-mdl-for="progK<%= m++ %>">
                                     <% for (var j = 0; j < cilji[i].slika.length; j++) { %>
                                         <img class="mdl-chip__contact" src="<%= cilji[i].slika[j] %>">
                                     <% } %>                                   
                                  </div>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
+                            <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                             </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
+                            <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
                             </td>
                         </tr>
                         <% } %>

@@ -47,8 +47,8 @@
                 <ul class="'mdl-list padding-zero margin-zero">
                     <li class="mdl-list__item padding-10">
                         <span class="mdl-list__item-primary-content">                          
-                            <% if (naloge[i].zacetek) { %><img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[i].zacetek).format('DD-MM-YYYY') +" ob "+ moment(naloge[i].zacetek).format('HH:mm')  %></span><% } %>
-                            <% if (naloge[i].konec) { %><img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[i].konec).format('DD-MM-YYYY') +" ob "+ moment(naloge[i].konec).format('HH:mm')  %></span><% } %>
+                            <% if (naloge[i].zacetek) { %><img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[i].zacetek).format('DD. MM. YYYY') +" "+ moment(naloge[i].zacetek).format('HH:mm')  %></span><% } %>
+                            <% if (naloge[i].konec) { %><img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[i].konec).format('DD. MM. YYYY') +" "+ moment(naloge[i].konec).format('HH:mm')  %></span><% } %>
                             <% if (!naloge[i].zacetek && !naloge[i].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10">Datum za to nalogo ni definiran.</span><% } %>
                         </span>
                     </li>
@@ -59,8 +59,8 @@
                 <% if (naloge[i].status) { %><span class="mdl-typography--subhead mdl-color-text--grey statusNaloga">Opravljena</span>
                 <% } else { %><span class="mdl-typography--subhead mdl-color-text--grey statusNaloga">Neopravljena</span><% } %>
             </div>
-            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab color-dark closeDialog editmode">
-                <i class="material-icons mdl-color-text--white" role="presentation">edit</i>
+            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab editmode">
+                <i class="material-icons mdl-color-text--black" role="presentation">edit</i>
                 <span class="visuallyhidden">add</span>
             </button>
         </div>

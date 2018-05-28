@@ -1,11 +1,13 @@
 #NalogaPopUp {
 	width: 336px;
 	height: 315px;
-	position: relative;
+	position: static;
 	z-index: 15;
-	left: 50%;
-	transform: translate(-50%, -150%);
 	display: none;
+}
+
+#NalogaPopUp .naloge-okno {
+	top: 30em;
 }
 
 /* Overall wrapper */
@@ -443,14 +445,14 @@ establish the rules based on the calendar element width rather than the device w
 		text-overflow: ellipsis;
 	}
 }
-
+/*
 @media screen and (max-width: 600px) {
 	#NalogaPopUp {
 		left: 0;
 		transform: none;
 		margin-left: calc((100% - 358px)/2);
 	}
-}
+}*/
 
 /* Small screen */
 @media screen and (max-width: 375px) {
@@ -465,20 +467,21 @@ establish the rules based on the calendar element width rather than the device w
 	.monthly-event-list {
 		top: 2.5em;
 	}
+	/*
 	#NalogaPopUp {
 		left: 0;
 		width: calc(100% - 16px);
 		transform: none;
 		margin-left: 8px;
-	}
+	}*/
 
 }
-
+/*
 @media screen and (min-width: 1440px) {
 	#NalogaPopUp {
 		transform: translate(-50%, -200%);
 	}
-}
+}*/
 
 
 

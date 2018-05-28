@@ -24,19 +24,21 @@ const babel = require('gulp-babel');
 
 
 
-gulp.task('default',  ['js', 'uglify'],() => {
+gulp.task('default',  ['js', 'css', 'uglify'],() => {
     gulp.watch([
     './node_modules/getmdl-select/src/js/getmdl-select.js',
-    './node_modules/draggabilly/dist/draggabilly.pkgd.js',
-    './node_modules/md-date-time-picker/dist/js/mdDateTimePicker.js',
+    './node_modules/air-datepicker/dist/js/datepicker.js',
     './public/scripts/es6/jquery.simplePagination.js',
     './public/scripts/es6/monthly.js',
     './public/scriptses6//dialog-polyfill.js',
     './public/scripts/es6/querydb.js',
     './public/scripts/es6/dialog.js',
+    './public/scripts/es6/prijava.js',
     './public/scripts/es6/firebaseConfig.js',
     './node_modules/chart.js/src/chart.js',
-    './public/scripts/es6/hotjar.js'], ['uglify', 'js']);
+    './node_modules/intro.js/intro.js',
+    './node_modules/air-datepicker/dist/css/datepicker.css',
+    './public/scripts/es6/hotjar.js'], ['uglify', 'js', 'css']);
 });
 
 gulp.task('useref', function(){
@@ -81,11 +83,6 @@ gulp.task('login', function(){
     .pipe(gulp.dest('dist/app/public/js'))
 });
 
-gulp.task('mdpicker', function(){
-    return gulp.src('./node_modules/md-date-time-picker/dist/images/*')
-    .pipe(gulp.dest('dist/app/public/images'))
-});
-
 gulp.task('images', function(){
     return gulp.src('public/**/*.+(png|jpg|jpeg|gif|svg|ico)')
     .pipe(cache(imagemin()))
@@ -98,7 +95,7 @@ gulp.task('clean:dist', function() {
 
 gulp.task('build', function (callback) {
     runSequence('clean:dist',
-        ['useref', 'images', 'login', 'sw', 'mdpicker', 'models', 'routes', 'controllers', 'move'],    
+        ['useref', 'images', 'login', 'sw', 'models', 'routes', 'controllers', 'move'],    
         callback
     )
 })
@@ -132,7 +129,9 @@ gulp.task('uglify', () => {
     './public/scripts/es6/dialog.js',
     './public/scripts/es6/firebaseConfig.js',
     './public/scripts/es6/prijava.js',
-    './public/scripts/es6/hotjar.js'])
+    './public/scripts/es6/hotjar.js',
+    './public/scripts/datepicker.js',
+])
         .pipe(babel({
             presets: ['env'],
             plugins: ["transform-member-expression-literals", 
@@ -148,11 +147,11 @@ gulp.task('uglify', () => {
 });
 
 
-gulp.task('js', () => {
+gulp.task('js', () => {    
     return gulp.src(['./node_modules/getmdl-select/getmdl-select.min.js',    
-    './node_modules/draggabilly/dist/draggabilly.pkgd.min.js',
-    './node_modules/md-date-time-picker/dist/js/mdDateTimePicker.js',
-    './node_modules/chart.js/dist/Chart.min.js'])
+    './node_modules/air-datepicker/dist/js/datepicker.js',
+    './node_modules/chart.js/dist/Chart.min.js',
+    './node_modules/intro.js/intro.js'])
     /*.pipe(babel({
             presets: ['env'],
             plugins: ["transform-member-expression-literals", 
@@ -161,6 +160,13 @@ gulp.task('js', () => {
             "transform-property-literals"]
         }))*/
         .pipe(gulp.dest('./public/scripts'));
+});
+
+gulp.task('css', () => {
+    return gulp.src([
+        './node_modules/air-datepicker/dist/css/datepicker.css'
+    ])
+    .pipe(gulp.dest('./public/stylesheets'))
 });
 
 function errorHandler (error) {
