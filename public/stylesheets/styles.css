@@ -227,11 +227,31 @@ margin: auto;
     margin: 0 8px;
 }
 
+.display-inh {
+    display: inherit;
+}
+
+.display-inh a {
+    color: transparent;
+}
+
+.notransition {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -o-transition: none !important;
+    transition: none !important;
+  }
+
 /*        */
 
 /* DIALOG */
 
 /* Spodnje metode služijo pri izgledu dialog elementa, ki se nahaja na strani index */
+
+.introjs-hint {
+    z-index: 9999999 !important;
+}
+
 
 dialog .mdl-card {
     width: 100%;
@@ -251,6 +271,7 @@ dialog .mdl-card__supporting-text {
     max-height: 60vh;
     overflow: auto;
     width: auto;
+    position: relative;
 }
 
 .delete {
@@ -262,13 +283,13 @@ dialog .mdl-card__supporting-text {
 }
 
 .mdl-dialog {
-    position: fixed;
+    position: relative; /* was fixed */
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     padding: 0;
     border-radius: 2px;
-    width: 40%;
+    width: 50%;
     background-color: transparent;
 }
 /*
@@ -421,7 +442,7 @@ dialog .mdl-card__supporting-text {
 }
 
 .mdl-layout__header-row button {
-    margin-bottom: 25px;
+    margin-top: 20px;
 }
 
 .mdl-menu__item .material-icons{
@@ -429,11 +450,16 @@ dialog .mdl-card__supporting-text {
     padding-right: 10px;
 }
 
+#dash7 {
+    display: inherit;
+}
+
 /*           */
 
 /* DASHBOARD */
 
 /* izgled strani dashboard */
+
 
 .dash-help {
     position: absolute;
@@ -876,6 +902,10 @@ dialog .mdl-card__supporting-text {
     border: 2px solid black;
 }
 
+/* .body-prijava*/.mdl-layout__container {
+    position: relative;
+}
+
 /*                   */
 
 /* RESPONSIVE DESIGN */
@@ -883,9 +913,6 @@ dialog .mdl-card__supporting-text {
 /* Različne izjeme za različne velikosti ekranov, nastavitve so po velikosti */
 
 @media screen and (max-width: 372px) {
-    .dialog-main {
-        width: 100%;
-    }
     .mdl-list__item--two-line {
         height: 92px;
     }
@@ -900,7 +927,7 @@ dialog .mdl-card__supporting-text {
     }
 
     .dialog-main {
-        width: 80%;
+        width: 90%!important;
     }
 }
 

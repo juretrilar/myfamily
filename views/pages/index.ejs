@@ -21,9 +21,6 @@
         </div>
         <main class="mdl-layout__content">
             <section id="dashboard" class="mdl-layout__tab-panel <% if(tab == 0) { %> is-active <% } %>">
-                <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect dash-help" onclick="startIntroBasic()">
-                    <i class="material-icons mdl-color-text--grey-500">help_outline</i>
-                </button>
                 <%- include('../pages/dashboard') -%>
             </section>
             <section id="koledar" class="mdl-layout__tab-panel <% if(tab == 1) { %> is-active <% } %>">
@@ -57,8 +54,17 @@
             <div class="mdl-card__title krivulja-3" >
                 <h3 id="dialog-title" class="mdl-card__title-text mdl-color-text--white"></h2>
             </div>
-            <div class="mdl-card__supporting-text">
-                <p class="margin-zero color-neutral mdl-typography--caption">Polja označena z * so obvezna!</p>
+            <div class="mdl-card__supporting-text" id="hintNal">
+                <div class="mdl-list padding-zero help-list">
+                        <div class="mdl-list__item padding-zero">
+                            <span class="mdl-list__item-primary-content">
+                                <span class="margin-zero color-neutral mdl-typography--caption">Polja označena z * so obvezna!</span>
+                            </span>
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="dialog-hint" onclick="">
+                                <i class="material-icons mdl-color-text--grey-400">help_outline</i>
+                            </button>
+                        </div>                             
+                    </div>
                 <form id="update_dialog">
                     <input type="hidden" name="newDialog" id="newDialog">
                     <div class="mdl-dialog__content relative">
@@ -122,7 +128,7 @@
                                     <div id="ciljiVsi">
                                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
                                             <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
-                                            <span class="mdl-checkbox__label" id="vsiCiljiLabel">Skupni cilj</span>
+                                            <span class="mdl-checkbox__label" id="vsiCiljiLabel">Skupni cilj&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                                         </label>
                                     </div>
                                     <div id="dialogStatus" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">

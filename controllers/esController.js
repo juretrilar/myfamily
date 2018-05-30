@@ -176,7 +176,7 @@ module.exports.prijava = function(req, res, next) {
 //** POST /priava
 module.exports.prijaviUporabnika = function(req, res, next){
     let email = req.body.email;
-    let geslo = req.body.password;
+    let geslo = hash(req.body.password);
     Uporabnik.find(function(err, uporabniki){
         if(err) {           
             console.log(err);
@@ -192,7 +192,7 @@ module.exports.prijaviUporabnika = function(req, res, next){
             req.session.trenutniUporabnik = null;
             for(i in uporabniki){
                 //ce se email in geslo ujemata
-                if(uporabniki[i].email === email && uporabniki[i].geslo === geslo){
+                if(uporabniki[i].email == email && uporabniki[i].geslo == geslo){
                     //shrani podatke v sejo
                     req.session.trenutniUporabnik = {
                         email : uporabniki[i].email,
@@ -231,7 +231,7 @@ module.exports.ustvariUporabnika = function(req, res, next) {
         _id : new ObjectId(),
         ime: req.body.reg_name,
         druzina:  new ObjectId(),
-        geslo: req.body.reg_password,
+        geslo: hash(req.body.reg_password),
         email: req.body.reg_email,
         telefon: req.body.reg_phone,
         notf_email: false,
@@ -258,7 +258,7 @@ module.exports.posodobiOsebnePodatke = function(req, res, next) {
         telefon: req.body.set_phone,
         vrsta: parseInt(req.body.izbranaVrsta),
     };
-    if(req.body.reg_password) updateUporabnik.geslo = req.body.set_password;
+    if(req.body.reg_password) updateUporabnik.geslo = hash(req.body.set_password);
     if(req.body.avatar) updateUporabnik.slika = ""+req.body.avatar;
     let conditions = { _id: req.session.trenutniUporabnik.id };
     Uporabnik.findOneAndUpdate(conditions, updateUporabnik,{upsert: true, runValidators: true}, function (err, doc) { // callback
@@ -858,3 +858,14 @@ function checkIfLogged(res, req) {
     }
     return 0;
 }
+
+
+function hash(inp) {
+    let hs = 0, i, chr;
+    for (i = 0; i < inp.length; i++) {
+        chr   = inp.charCodeAt(i);
+        hs  = ((hs << 5) - hs) + chr;
+        hs |= 0; // Convert to 32bit integer
+    }
+    return hs;
+};

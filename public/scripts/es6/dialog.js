@@ -7,6 +7,10 @@ let pageHeight = $(document).height();
 
 let currentElement;
 
+let intro = introJs();
+let move = 0;
+let shown = 0;
+
 let colors = ["#FEC3BF","#FFDDB9","#A5D8F3","#97EBED","#FEC3BF","#FFDDB9","#A5D8F3","#FEC3BF","#FFDDB9","#A5D8F3"];
 
 $.fn.datepicker.language['sl'] = {
@@ -131,6 +135,7 @@ jQuery(function($) {
     }
     dialog.querySelector('.close').onclick = function() {
         dialog.close();
+        deleteHints();
     };
 
     function onOpomnikClick(opomnikiList, callback) {
@@ -300,6 +305,7 @@ function fillNaloge() {
     $('#dialogStatus').attr('style',"display: block!important");
     $('#ustvari').attr('onclick',"validateNaloga(event, 0)");
     $("#closeBtn").next().removeClass("color-cyan").addClass("color-red");
+    $("#dialog-hint").attr('onclick',"helpNaloga()");
 }
 
 function fillCilji() {
@@ -317,6 +323,7 @@ function fillCilji() {
     $('#dialogStatus').attr('style',"display: none!important");
     $('#ustvari').attr('onclick',"validateNaloga(event, 1)");
     $("#closeBtn").next().removeClass("color-red").addClass("color-cyan");
+    $("#dialog-hint").attr('onclick',"helpCilji()");
 }
 
 function posodobiCilj(row) {
@@ -822,9 +829,21 @@ function potrdiIzbris () {
         }            
     });
 }
-function startIntroBasic(){
-    var intro = introJs();
+
+function chooseHelp() {
+      if ($("#dashboard").hasClass("is-active")) {startIntroDashboard();console.log("dash");}
+      if ($("#koledar").hasClass("is-active"))  {startIntroKoledar();console.log("cal");}
+      if ($("#naloge").hasClass("is-active"))  {startIntroNaloge();console.log("nal");}
+      if ($("#cilj").hasClass("is-active"))  {startIntroCilj();console.log("cilj");}
+      if ($("#settings").hasClass("is-active"))  {startIntroSettings();console.log("set");}
+      if ($("#notifications").hasClass("is-active"))  {startIntroNotifications();console.log("notf");}
+      if ($("#druzina").hasClass("is-active"))  {startIntroDruzina();console.log("drz");}
+}
+
+function startIntroDashboard(){
+    intro = introJs();
       intro.setOptions({
+        tooltipPosition: "auto",
         steps: [
           { 
             intro: "Pozdravljeni v aplikaciji MyFamily! Za vas smo pripravili kratko predstavitev aplikacije, s pomočjo katere boste lažje razumeli in uporabljali aplikacijo."
@@ -839,17 +858,14 @@ function startIntroBasic(){
             element: document.querySelector('#dash2'),
             intro: "Tukaj so prikazani opomniki za naloge na katerih sodelujete. Prihajajoče naloge imajo pred sabo zelen krog, naloge, ki se dogajajo"
             +" na današnji dan imajo zelen krog, naloge, ki so se že začele pa rdeč krog. Ob kliku na opomnik se prikažejo podrobnosti naloge.",
-            position: 'right'
           },
           {
             element: '#dash3',
             intro: 'Vaš trenutni status, s katerim lahko sporočite družini kaj počnete, kako se počutite, kdaj boste naredili nalogo...',
-            position: 'left'
           },
           {
             element: '#dash4',
             intro: "Družinsko drevo, člani družine so urejeni glede na položaj v družini. Najvišje so pradedki in prababice, nato dedki in babice, starši in otroci. Če oseba nima izbranega položaja v družini je prikazana na vrhu. Z klikom na avatar lahko vidite status osebe, različne možnosti sporočanja in število točk, ki jih je ta oseba danes zbrala.",
-            position: 'bottom'
           },
           {
             element: '#dash5',
@@ -860,10 +876,244 @@ function startIntroBasic(){
             intro: "V tem oknu je prikazan predlog za novo nalogo, ki vam ga predlagamo mi. S klikom dodaj med nalogo se vam polja avtomatsko izpolnijo in lahko nalogo dodate pod svoj cilj."
           },
           {
-            element: '#dash7',
+            element: document.querySelector('#dash7'),
             intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V menuju se nahajajo tud nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočil sms in obvestila na vašem pametnem telefonu. V meniju lahko k uporabi aplikacije povabite tudi druge družinske člane."
           },
         ]
       });
       intro.start();
   }
+
+function startIntroKoledar(){
+    intro = introJs();
+    $('.monthly-header-title').attr('id', 'cal2');
+    $('.monthly-day-wrap').attr('id', 'cal3');
+        intro.setOptions({
+        tooltipPosition: "auto",
+        steps: [
+            {
+            element: '#cal1',
+            intro: "Tole je okno z koledarjem. Na njem so prikazane naloge, glede na začetni datum naloge.",
+            },
+            {
+            element: '#cal2',
+            intro: "Tole je navigacijska vrstica koledarja. S puščicama se lahko premikate po mesecih naprej ali nazaj. Gumb danes vrne pogled na današnji dan. Gumb mesec pa vrne pogled na mesec v katerem je dan na katerem se nahajate.",
+            },
+            {
+            element: '#cal3',
+            intro: "Posamezni dnevi v katerih so prikazane naloge. Če kliknete na nalogo se vam bo odprl podroben opis naloge. Če pa kliknete na dan se vam bo odrl pogled z vsemi nalogami, ki poteakjo na današnji dan.",
+            }
+        ]
+    });
+    intro.start();
+}
+
+function startIntroNaloge(){
+    intro = introJs();
+      intro.setOptions({        
+        tooltipPosition: "auto",
+        steps: [
+          {
+            element: '#nal1',
+            intro: "S pomočjo tega okna lahko iščete po nalogah. Izbirate lahko med različnimi parametri, ki vam bodo pomagali poiskati nalogo.\n\nVezan cilj - Cilj na katerega je vezana naloga.\nKategorija - kategorija v katero spada naloga.\nZa koga - komu je naloga namenjena.\nStatus - ali je naloga opravljena ali neopravljena.\nAvtor - avtor naloge.\nV koledarju - ali je naloga časovno definirana",
+            position: "bottom-right",
+        },
+          {
+            element: '#card0',
+            intro: "Rezultat iskanja. Naloge iz iste kategorije imajo zgornji del obarvan z isto barvo. Posamezen okvir predstavlja eno nalogo. Če kliknete na gumb v spodnjem desnem kotu lahko nalogo urejate.",
+          }
+        ]
+    });
+    intro.start();
+  }
+
+
+function helpNaloga(){
+    if (move == 0) {
+        intro.removeHints();
+        intro = introJs();
+        intro.setOptions({        
+        hintButtonLabel: 'Razumem!',
+        hintPosition: 'top-right',
+        hintAnimation: 'false',       
+        hints: [
+            {
+                element: '#imeDialog',
+                hint: "Prikazno ime naloge. Lahko vsebuje do 32 znakov.",
+                position: 'left'
+            },
+            {
+                element: '#opisDialog',
+                hint: "Opis naloge, kaj je potrebno narediti, da je naloga dosežena.",
+                position: 'left'
+            },
+            {
+                element: '#targetZacetek',
+                hint: "Datum začetka naloge. Od takrat se lahko nalogo naredi.",
+                position: 'left'
+            },
+            {
+                element: '#targetKonec',
+                hint: "Datum konca naloge. Datum do kdaj je potrebno nalogo narediti oziroma kdaj je bila končana.",
+                position: 'left'
+            },
+            {
+                element: '#vezanCilj',
+                hint: "Cilj na katerega je vezana naloga. Ko je naloga opravljena se pod ta cilj štejejo točke naloge.",
+                position: 'left'
+            },
+            {
+                element: '#kategorija',
+                hint: "Kategorija v katero spada naloga.",
+                position: 'left'
+            },
+            
+            {
+                element: '#xpNaloge',
+                hint: "Vrednost naloge, ko je opravljena se te naloge prištejejo k vezanemu cilju.",
+                position: 'left'
+            },
+            {
+                element: '#statusNaloge',
+                hint: "Status naloge, lahko je opravljena ali pa neopravljena.",
+                position: 'left'
+            },
+            {
+                element: '#claniNaloge',
+                hint: "Družinski člani, označite tiste katerim je naloga namenjena.",
+                position: 'left'
+            }
+            ]
+        });
+        intro.onhintsadded(function() {
+            console.log('all hints added');
+            if (move == 0) moveHints("#hintNal");
+        });
+        intro.onhintclick(function(hintElement, item, stepId) {
+            //console.log('hint clicked', hintElement, item, stepId);
+            setTimeout(function () { 
+                let element = $(".introjs-tooltipReferenceLayer");
+                element.appendTo($("#hintNal"));
+                let pos = $("#dialog").get(0).getBoundingClientRect();
+                element.addClass('notransition');
+                let top = $(hintElement).offset().top - $(hintElement).parent().offset().top - $(hintElement).parent().scrollTop()
+                element.css({"color" : "black", "top" : top+10, "left" : hintElement.getBoundingClientRect().left - pos.left});
+                
+            }, 1);
+
+        });
+        intro.onhintclose(function (stepId) {
+            console.log('hint closed', stepId);
+        });
+        intro.addHints();
+        
+        console.log("move 1");
+    }
+    else if (shown == 0) {
+        intro.showHints();
+        shown = 1;
+    }
+    else if (shown == 1) {
+        intro.hideHints();
+        shown = 0;
+    } 
+    move = 1;
+}
+
+  function helpCilji(){
+    if (move == 0) {
+        intro.removeHints();
+        intro = introJs();
+        intro.setOptions({  
+            hintButtonLabel: 'Razumem!',
+            hintPosition: 'top-right', 
+            hintAnimation: "false",     
+            hints: [
+            {
+                element: '#imeDialog',
+                hint: "Prikazno ime cilja. Lahko vsebuje do 32 znakov.",
+                position: "left"
+            },
+            {
+                element: '#opisDialog',
+                hint: "Opis aktivnosti, ki jih vsebuje cilj.",
+                position: "left"
+            },
+            {
+                element: '#xpNaloge',
+                hint: "Število točk potrebnih za dosego cilja.",
+                position: "left"
+            },
+            {
+                element: '#ciljiVsi',
+                hint: "Če je to okno obkljukano se bo cilj vsem članom družine prikazal na prvi strani med skupnimi cilji.",
+                position: "left"
+            }
+            ]
+        });
+        intro.onhintclose(function (stepId) {
+            console.log('hint closed', stepId);
+        });
+        intro.onhintsadded(function() {
+            console.log('all hints added');
+            if (move == 0) moveHints("#dialog");
+        });
+        intro.onhintclick(function(hintElement, item, stepId) {
+            console.log('hint clicked', hintElement, item, stepId);
+            setTimeout(function () { 
+                let element = $(".introjs-tooltipReferenceLayer");
+                element.appendTo($("#dialog"));
+                let pos = $(".introjs-hints").get(0).getBoundingClientRect();
+                element.addClass('notransition');
+                element.css({"top" : element.get(0).getBoundingClientRect().top - 2*pos.top, "left" : element.get(0).getBoundingClientRect().left - 2*pos.left});
+            }, 1);        
+        });
+        intro.addHints();
+        console.log("move 1");
+    }
+    else if (shown == 0) {
+        console.log("show 1");
+        intro.showHints();
+        shown = 1;
+    }
+    else if (shown == 1) {
+        console.log("hide 1");
+        intro.hideHints();
+        shown = 0;
+    }      
+    
+    move = 1;
+  }
+
+
+function pregled() {
+    let clean_uri = location.protocol + "//" + location.host + location.pathname;
+    window.history.replaceState({}, document.title, clean_uri);
+    localStorage.setItem("Stran", 1);
+    window.location.reload(true);
+}
+
+function moveHints(loc) {
+    shown = 1;
+    $(".introjs-hints").prependTo($(loc));     
+    let pos = $(loc).get(0).getBoundingClientRect();           
+    $( ".introjs-hint" ).each(function( index, element ) {            
+        //console.log(index, element);       
+        //console.log(element.getBoundingClientRect().left, element.getBoundingClientRect().top,"FIRST");  
+        //console.log(pos.left, pos.top,"FIRST");   
+        let x = element.getBoundingClientRect().left - 2*pos.left;
+        let y = element.getBoundingClientRect().top - 2*pos.top;   
+        element.setAttribute("style", "left: "+x+"px;top: "+y+"px;");
+        //console.log(element.getBoundingClientRect().left, element.getBoundingClientRect().top, "LAST"); 
+    });   
+}
+
+
+function deleteHints() {
+    move = 0;
+    shown = 0;
+    let container = document.querySelector(".introjs-hints");
+    if (container)
+        while (container.firstChild)
+            container.removeChild(container.firstChild);
+}

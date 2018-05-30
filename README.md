@@ -67,8 +67,4 @@ Uporabnik lahko na tej strani dostopa do vseh svojih osebnih podatkov, ki jih je
 Uporabnik lahko na tej strani vklopi ali izklopi različne načine opozoril. Na voljo ima opozorila v brskalniku, sms opozorila in opozorila preko epošte.
 
 TODO splošno:
-- pomoč kot overlay na vseh straneh
-- znak da so stvari clickable(highlight)
 - link za prijavo k družini naj ponudi prijavo če uporabnik ni prijavljen
-- klik na myfamily naj pelje nazaj na pregled
-- boljše dodajanje časa, alternativna izbira
