@@ -6,28 +6,27 @@
         <div class="mdl-card mdl-card-search mdl-shadow--2dp overflow-visible" style="z-index: 6;" >
             <div class="mdl-card__title <%= shortId(naloge[i].kategorija) %> padding-10">
                 <div class="naloge-title_type">
-                    <div class="mdl-card__subtitle-text mdl-color-text--black"><%= kategorija[naloge[i].kategorija] %></div>
+                    <div class="mdl-card__subtitle-text mdl-color-text--grey-800"><%= kategorija[naloge[i].kategorija] %></div>
                     <input type="hidden" value="<%= naloge[i].kategorija %>" class="kategorijaNaloga">
                     <input type="hidden" value="<%= naloge[i].vezan_cilj %>" class="ciljNaloga">
                     <input type="hidden" value="<%= naloge[i]._id %>" class="idNaloga">
                     <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">
-                        <span class="shadow-text"><%= imeCilj[i]  %></span>
+                        <span class="shadow-text queryIme"><%= naloge[i].ime %></span>
+                        <!--<span class="shadow-text"><%= imeCilj[i]  %></span>-->
                         <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge mdl-chip-small">
                             <span class="mdl-chip__text mdl-color-text--primary xpNaloga"><%= naloge[i].xp %> točk</span>
                         </span>
                     </div>
                 </div>
             </div>
-            <div class="mdl-card__supporting-text padding-zero overflow-visible">
-                <div class="mdl-list__item mdl-list__item--three-line ime-opis-naloge--container">
-                    <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--black"><%= naloge[i].ime %></span>
-                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= naloge[i].opis %></span>
-                    </span>
-                </div>
+            <div class="mdl-card__supporting-text padding-zero overflow-visible">         
+                <p class="mdl-card__supporting-text mdl-color-text--grey padding-10lr padding-top-16 margin-zero">Opis:</p>            
+                <p class="mdl-color-text--grey-700 mdl-typography--subhead margin-zero padding-10lr queryOpis"><%= naloge[i].opis %></p>
+                <p class="mdl-card__supporting-text mdl-color-text--grey padding-10lr padding-top-16 margin-zero">Cilj:</p>            
+                <p class="mdl-color-text--grey-700 mdl-typography--subhead margin-zero padding-10lr"><%= imeCilj[i]  %></p>
                 <div class="mdl-list__item mdl-list__item--three-line clani-naloge--container naloge-person">
                     <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--grey">Udeleženci naloge:</span>
+                        <span class="mdl-card__supporting-text mdl-color-text--grey padding-zero">Udeleženci naloge:</span>
                         <span class="mdl-list__item-text-body chip-no-margin">
                             <% for (let j = 0; j<naloge[i].vezani_uporabniki.length;j++) { %>
                                 <% if(slika[naloge[i].vezani_uporabniki[j]]) { %>
@@ -38,7 +37,7 @@
                         </span>
                     </span>
                     <span class="mdl-list__item-primary-content">
-                        <span class="mdl-color-text--grey">Avtor:</span>
+                        <span class="mdl-card__supporting-text mdl-color-text--grey padding-zero">Avtor:</span>
                         <span class="mdl-list__item-text-body">
                                 <img class="mdl-chip__contact author-chip" src="<%= slika[naloge[i].avtor][0] %>" title="<%= slika[naloge[i].avtor][2] %>">
                         </span>
@@ -47,17 +46,17 @@
                 <ul class="'mdl-list padding-zero margin-zero">
                     <li class="mdl-list__item padding-10">
                         <span class="mdl-list__item-primary-content">                          
-                            <% if (naloge[i].zacetek) { %><img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[i].zacetek).format('DD. MM. YYYY') +" "+ moment(naloge[i].zacetek).format('HH:mm')  %></span><% } %>
-                            <% if (naloge[i].konec) { %><img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec"><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10 dateNaloga"><%= moment(naloge[i].konec).format('DD. MM. YYYY') +" "+ moment(naloge[i].konec).format('HH:mm')  %></span><% } %>
-                            <% if (!naloge[i].zacetek && !naloge[i].konec) { %><span class="mdl-list__item-sub-title mdl-color-text--grey padding-10">Datum za to nalogo ni definiran.</span><% } %>
+                            <% if (naloge[i].zacetek) { %><img class="mdl-icon-toggle__label" src="public/images/event_launch_24px.svg" title="Začetek"><span class="mdl-color-text--grey-700 mdl-typography--subhead padding-10 dateNaloga"><%= moment(naloge[i].zacetek).format('DD. MM. YYYY') +" "+ moment(naloge[i].zacetek).format('HH:mm')  %></span><% } %>
+                            <% if (naloge[i].konec) { %><img class="mdl-icon-toggle__label" src="public/images/event_finish_24px.svg" title="Konec"><span class="mdl-color-text--grey-700 mdl-typography--subhead padding-10 dateNaloga"><%= moment(naloge[i].konec).format('DD. MM. YYYY') +" "+ moment(naloge[i].konec).format('HH:mm')  %></span><% } %>
+                            <% if (!naloge[i].zacetek && !naloge[i].konec) { %><span class="mdl-color-text--grey-700 mdl-typography--subhead padding-10">Datum za to nalogo ni definiran.</span><% } %>
                         </span>
                     </li>
                 </ul>
             </div>
-            <div class="mdl-card__supporting-text mdl-color-text--grey">
+            <div class="mdl-card__supporting-text mdl-color-text--grey padding-10">
                 Status naloge:
-                <% if (naloge[i].status) { %><span class="mdl-typography--subhead mdl-color-text--grey statusNaloga">Opravljena</span>
-                <% } else { %><span class="mdl-typography--subhead mdl-color-text--grey statusNaloga">Neopravljena</span><% } %>
+                <% if (naloge[i].status) { %><span class="mdl-color-text--grey-700 mdl-typography--subhead statusNaloga">Opravljena</span>
+                <% } else { %><span class="mdl-color-text--grey-700 mdl-typography--subhead statusNaloga">Neopravljena</span><% } %>
             </div>
             <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab editmode">
                 <i class="material-icons mdl-color-text--black" role="presentation">edit</i>

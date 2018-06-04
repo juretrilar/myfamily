@@ -8,7 +8,7 @@
             <div class="mdl-dialog__content padding-10 align-center">
                 <h4 id="userCard" class="align-center margin-zero"></h4>
                 <span class="mdl-chip mdl-color--green mdl-color-text--white mdl-chip-small">
-                    <span class="mdl-chip__text">+100 točk</span>
+                    <span class="mdl-chip__text" id="dayXp"></span>
                 </span>
                 <p id="status" style="margin: 0"></p>
             </div>
@@ -20,19 +20,19 @@
             </div>
         </div>
         <main class="mdl-layout__content">
-            <section id="dashboard" class="mdl-layout__tab-panel <% if(tab == 0) { %> is-active <% } %>">
+            <section id="dashboard" class="mdl-layout__tab-panel">
                 <%- include('../pages/dashboard') -%>
             </section>
-            <section id="koledar" class="mdl-layout__tab-panel <% if(tab == 1) { %> is-active <% } %>">
+            <section id="koledar" class="mdl-layout__tab-panel">
                 <%- include('../pages/koledar') -%>
             </section>
-            <section id="naloge" class="mdl-layout__tab-panel <% if(tab == 2) { %> is-active <% } %>">
+            <section id="naloge" class="mdl-layout__tab-panel">
                 <%- include('../pages/naloge') -%>
             </section>
-            <section id="cilj" class="mdl-layout__tab-panel <% if(tab == 3) { %> is-active <% } %>">
+            <section id="cilj" class="mdl-layout__tab-panel">
                 <%- include('../pages/cilji') -%>
             </section>
-            <section id="settings" class="mdl-layout__tab-panel <% if(tab == 4) { %> is-active <% } %>">
+            <section id="settings" class="mdl-layout__tab-panel">
                 <%- include('../pages/settings') -%>
             </section>
             <section id="notifications" class="mdl-layout__tab-panel">
@@ -138,8 +138,8 @@
                                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                         <label for="statusNaloge" class="mdl-textfield__label">Status naloge*</label>
                                         <ul for="statusNaloge" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                            <li class="mdl-menu__item" data-val="true">Opravljeno</li>
-                                            <li class="mdl-menu__item" data-val="false" data-selected="true" >Neopravljeno</li>
+                                            <li class="mdl-menu__item" data-val="true">Opravljena</li>
+                                            <li class="mdl-menu__item" data-val="false" data-selected="true" >Neopravljena</li>
                                         </ul>
                                     </div>
                                 </div>    

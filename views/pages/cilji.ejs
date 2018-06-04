@@ -49,7 +49,7 @@
                     <% } %>
                     <% for (var i = 0; i < cilji.length; i++) { %>
                         <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
-                        <tr>
+                        <tr id="tr<%= i %>" class="clickable">
                             <td class="mdl-data-table__cell--non-numeric padding-zero">
                                 <div class="mdl-list__item mdl-list__item--three-line">
                                     <!--<div class="circle-container-main mdl-color--grey"></div>-->
@@ -79,11 +79,12 @@
                             </td>
                             <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
                             </td>
+                            <div class="mdl-tooltip overflow-visible mdl-tooltip--right mdl-cell--hide-phone" data-mdl-for="tr<%= i %>"><i class="material-icons">edit</i></div>
                         </tr>
                         <% } %>
                     <% } %>
                     </tbody>
-            </table>
+            </table>            
             </div>
         </div>
     </div>
@@ -109,7 +110,7 @@
                     <% m = 0 %>
                     <% for (var i = 0; i < cilji.length; i++) { %>
                         <% if(cilji[i].maxXp <= cilji[i].xp) { %>
-                        <tr>
+                        <tr id="t<%= i %>" class="clickable">
                             <td class="mdl-data-table__cell--non-numeric padding-zero">
                                 <div class="mdl-list__item mdl-list__item--three-line">
                                     <!--<div class="circle-container-main mdl-color--grey"></div>-->
@@ -139,11 +140,12 @@
                             </td>
                             <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
                             </td>
+                            <div class="mdl-tooltip overflow-visible mdl-tooltip--right mdl-cell--hide-phone" data-mdl-for="t<%= i %>"><i class="material-icons">edit</i></div>
                         </tr>
                         <% } %>
                     <% } %>
                     </tbody>
-                </table>
+                </table>                
             </div>
         </div>
     </div>

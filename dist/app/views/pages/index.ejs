@@ -8,7 +8,7 @@
             <div class="mdl-dialog__content padding-10 align-center">
                 <h4 id="userCard" class="align-center margin-zero"></h4>
                 <span class="mdl-chip mdl-color--green mdl-color-text--white mdl-chip-small">
-                    <span class="mdl-chip__text">+100 točk</span>
+                    <span class="mdl-chip__text" id="dayXp"></span>
                 </span>
                 <p id="status" style="margin: 0"></p>
             </div>
@@ -20,19 +20,19 @@
             </div>
         </div>
         <main class="mdl-layout__content">
-            <section id="dashboard" class="mdl-layout__tab-panel <% if(tab == 0) { %> is-active <% } %>">
+            <section id="dashboard" class="mdl-layout__tab-panel">
                 <%- include('../pages/dashboard') -%>
             </section>
-            <section id="koledar" class="mdl-layout__tab-panel <% if(tab == 1) { %> is-active <% } %>">
+            <section id="koledar" class="mdl-layout__tab-panel">
                 <%- include('../pages/koledar') -%>
             </section>
-            <section id="naloge" class="mdl-layout__tab-panel <% if(tab == 2) { %> is-active <% } %>">
+            <section id="naloge" class="mdl-layout__tab-panel">
                 <%- include('../pages/naloge') -%>
             </section>
-            <section id="cilj" class="mdl-layout__tab-panel <% if(tab == 3) { %> is-active <% } %>">
+            <section id="cilj" class="mdl-layout__tab-panel">
                 <%- include('../pages/cilji') -%>
             </section>
-            <section id="settings" class="mdl-layout__tab-panel <% if(tab == 4) { %> is-active <% } %>">
+            <section id="settings" class="mdl-layout__tab-panel">
                 <%- include('../pages/settings') -%>
             </section>
             <section id="notifications" class="mdl-layout__tab-panel">
@@ -41,9 +41,10 @@
             <section id="druzina" class="mdl-layout__tab-panel">
                 <%- include('../pages/druzina') -%>
             </section>
-        </main>
-        <%- include('../partials/footer') -%>
+            <%- include('../partials/footer') -%>
+        </main>        
     </div>
+    <div id="NalogaPopUp"></div>
     <dialog id="dialog" class="mdl-dialog dialog-main ">
         <div class="mdl-card mdl-shadow--2dp">
             <button id="closeBtn" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab color-dark close closeDialog">
@@ -53,8 +54,17 @@
             <div class="mdl-card__title krivulja-3" >
                 <h3 id="dialog-title" class="mdl-card__title-text mdl-color-text--white"></h2>
             </div>
-            <div class="mdl-card__supporting-text">
-                <p class="margin-zero color-neutral mdl-typography--caption">Polja označena z * so obvezna!</p>
+            <div class="mdl-card__supporting-text" id="hintNal">
+                <div class="mdl-list padding-zero help-list">
+                        <div class="mdl-list__item padding-zero">
+                            <span class="mdl-list__item-primary-content">
+                                <span class="margin-zero color-neutral mdl-typography--caption">Polja označena z * so obvezna!</span>
+                            </span>
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="dialog-hint" onclick="">
+                                <i class="material-icons mdl-color-text--grey-400">help_outline</i>
+                            </button>
+                        </div>                             
+                    </div>
                 <form id="update_dialog">
                     <input type="hidden" name="newDialog" id="newDialog">
                     <div class="mdl-dialog__content relative">
@@ -93,6 +103,7 @@
                                 <% } %>
                             </ul>
                         </div>
+                        <input type="hidden" name="oldCilj">
                         <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
                             <input type="text" class="mdl-textfield__input" id="kategorija" readonly required/>
                             <input type="hidden" name="sampleKategorija" id="sampleKategorija">
@@ -117,7 +128,7 @@
                                     <div id="ciljiVsi">
                                         <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
                                             <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
-                                            <span class="mdl-checkbox__label" id="vsiCiljiLabel">Skupni cilj</span>
+                                            <span class="mdl-checkbox__label" id="vsiCiljiLabel">Skupni cilj&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
                                         </label>
                                     </div>
                                     <div id="dialogStatus" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
@@ -127,8 +138,8 @@
                                         <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                                         <label for="statusNaloge" class="mdl-textfield__label">Status naloge*</label>
                                         <ul for="statusNaloge" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                                            <li class="mdl-menu__item" data-val="true">Opravljeno</li>
-                                            <li class="mdl-menu__item" data-val="false" data-selected="true" >Neopravljeno</li>
+                                            <li class="mdl-menu__item" data-val="true">Opravljena</li>
+                                            <li class="mdl-menu__item" data-val="false" data-selected="true" >Neopravljena</li>
                                         </ul>
                                     </div>
                                 </div>    

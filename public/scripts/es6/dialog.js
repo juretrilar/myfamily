@@ -8,6 +8,7 @@ let pageHeight = $(document).height();
 let currentElement;
 
 let intro = introJs();
+
 let move = 0;
 let shown = 0;
 
@@ -33,11 +34,48 @@ r(function(){
         snackbarContainer.MaterialSnackbar.showSnackbar({message: localStorage.getItem("Status")});
         localStorage.clear();
     }
+
 });
 function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
 
 jQuery(function($) {
-    
+    if(localStorage.getItem("Stran")) {
+        let page = localStorage.getItem("Stran");
+        switch(page) {
+            case 0:
+            $("#menuDashboard").addClass("is-active");
+            $("#dashboard").addClass("is-active");    
+        break;
+            case 1:
+            $("#menuKoledar").addClass("is-active");
+            $("#koledar").addClass("is-active");   
+        break;
+            case 2:
+            $("#menuNaloge").addClass("is-active");
+            $("#naloge").addClass("is-active");   
+        break;
+            case 3:
+            $("#menuCilj").addClass("is-active");
+            $("#cilj").addClass("is-active");   
+        break;
+            case 4:
+            $("#menuSettings").addClass("is-active");
+            $("#settings").addClass("is-active");   
+        break;
+            case 5:
+            $("#menuNotifications").addClass("is-active");
+            $("#notifications").addClass("is-active");   
+        break;
+            case 6:
+            $("#menuDruzina").addClass("is-active");
+            $("#druzina").addClass("is-active");   
+        break;
+        default:
+            $("#menuDashboard").addClass("is-active");
+            $("#dashboard").addClass("is-active");        
+        }
+        localStorage.removeItem("Stran");
+    }
     setTimeout(function(){ 
         alert("Vaša seja je potekla, za nadaljevanje se morate ponovno prijaviti!");  
         window.open('https://ekosmartweb.herokuapp.com/','_blank');  
@@ -84,6 +122,10 @@ jQuery(function($) {
         $("#smsSend").attr("href","sms:"+img.nextElementSibling.nextElementSibling.value);
         $("#mailSend").attr("href","mailto:"+img.nextElementSibling.nextElementSibling.nextElementSibling.value);
         $("#viberOpen").attr("href","viber://chats?number="+img.nextElementSibling.nextElementSibling.value);
+        let val = img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.value;
+        if(!val) val = 0;
+        $("#dayXp").text("+ "+val+" točk");
+        
         if(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling) {
             $("#status").html(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.children[0].innerHTML);
             $(".tri-card-no-status").removeClass("tri-card-no-status").addClass("tri-card-status");
@@ -198,8 +240,7 @@ jQuery(function($) {
     $("#pickZac").datepicker({
         language: 'sl',
         timeFormat: "hh:ii",
-        clearButton: "true",
-        todayButton: new Date(), 
+        clearButton: "true", 
         position: "right top",
         onSelect: function onSelect(fd, date) {
             $("#targetZacetek").val(fd);
@@ -212,7 +253,6 @@ jQuery(function($) {
         language: 'sl',
         timeFormat: "hh:ii",
         clearButton: "true",
-        todayButton: new Date(), 
         onSelect: function onSelect(fd, date) {
             $("#targetKonec").val(fd);
             $("#dateKonec").val(date);
@@ -247,14 +287,15 @@ jQuery(function($) {
     });
 
     $("#nalogaDone").click(function(e) {  
+        let data = "newDialog="+$("#opomnikId").val()+"&status=true&mode=1";
         $.ajax({
             url: '/ustvari_nalogo',
             type: 'POST',
-            contentType: 'application/json',
-            data: {"newDialog": $("#opomnikId").val(),
-                "status": "true"},
+            contentType: 'application/x-www-form-urlencoded',
+            data: data,
             success: function(response){
                 localStorage.setItem("Status",response);
+                localStorage.setItem("Stran",0);
                 window.location.reload(true);
             },
             error: function(response, jqXhr, textStatus, errorThrown){            
@@ -439,16 +480,15 @@ function validateNaloga(event, t) {
     if(t == 0) {
         let save = $( "#update_dialog" ).serialize();
         event.preventDefault();
+        console.log(save);
         $.ajax({
             url: '/ustvari_nalogo',
             type: 'POST',
             contentType: 'application/x-www-form-urlencoded',
             data: save,
             success: function(response){
-
-                localStorage.setItem("Status",response);
-                let stran = 2;                
-                localStorage.setItem("Stran", stran);
+                localStorage.setItem("Status",response);          
+                localStorage.setItem("Stran", 2);
                 window.location.reload(true);
 
                 /*
@@ -474,8 +514,7 @@ function validateNaloga(event, t) {
             data: save,
             success: function(response){
                 localStorage.setItem("Status",response);
-                let stran = 3;                
-                localStorage.setItem("Stran", stran);
+                localStorage.setItem("Stran",3);           
                 window.location.reload(true);
 
                 /*
@@ -767,6 +806,7 @@ function napolniNalogo(elem) {
     
     $("#opomnikCilj").append(elem.lastElementChild.children[3].value);
     $("#opomnikId").val(elem.lastElementChild.children[4].value);
+    console.log(elem.lastElementChild.children[4].value);
 
     $("#opomnikIme").text(elem.children[0].children[0].innerHTML);
     $("#opomnikOpis").text(elem.children[0].children[2].innerHTML);  
@@ -843,6 +883,10 @@ function chooseHelp() {
 function startIntroDashboard(){
     intro = introJs();
       intro.setOptions({
+        nextLabel: 'Naprej &rarr;',
+        prevLabel: '&larr; Nazaj',
+        skipLabel: 'Zapri',
+        doneLabel: 'Konec',
         tooltipPosition: "auto",
         steps: [
           { 
@@ -855,7 +899,7 @@ function startIntroDashboard(){
             +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
           },
           {
-            element: document.querySelector('#dash2'),
+            element: document.querySelector('#opomnikiList'),
             intro: "Tukaj so prikazani opomniki za naloge na katerih sodelujete. Prihajajoče naloge imajo pred sabo zelen krog, naloge, ki se dogajajo"
             +" na današnji dan imajo zelen krog, naloge, ki so se že začele pa rdeč krog. Ob kliku na opomnik se prikažejo podrobnosti naloge.",
           },
@@ -889,6 +933,10 @@ function startIntroKoledar(){
     $('.monthly-header-title').attr('id', 'cal2');
     $('.monthly-day-wrap').attr('id', 'cal3');
         intro.setOptions({
+        nextLabel: 'Naprej &rarr;',
+        prevLabel: '&larr; Nazaj',
+        skipLabel: 'Zapri',
+        doneLabel: 'Konec',
         tooltipPosition: "auto",
         steps: [
             {
@@ -912,19 +960,141 @@ function startIntroNaloge(){
     intro = introJs();
       intro.setOptions({        
         tooltipPosition: "auto",
+        nextLabel: 'Naprej &rarr;',
+        prevLabel: '&larr; Nazaj',
+        skipLabel: 'Zapri',
+        doneLabel: 'Konec',
         steps: [
-          {
+        {
             element: '#nal1',
             intro: "S pomočjo tega okna lahko iščete po nalogah. Izbirate lahko med različnimi parametri, ki vam bodo pomagali poiskati nalogo.\n\nVezan cilj - Cilj na katerega je vezana naloga.\nKategorija - kategorija v katero spada naloga.\nZa koga - komu je naloga namenjena.\nStatus - ali je naloga opravljena ali neopravljena.\nAvtor - avtor naloge.\nV koledarju - ali je naloga časovno definirana",
             position: "bottom-right",
         },
-          {
+        {
             element: '#card0',
             intro: "Rezultat iskanja. Naloge iz iste kategorije imajo zgornji del obarvan z isto barvo. Posamezen okvir predstavlja eno nalogo. Če kliknete na gumb v spodnjem desnem kotu lahko nalogo urejate.",
-          }
+        },
+        {
+            element: document.querySelector('#dash1'),
+            intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+            +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
+        },
+        {
+            element: document.querySelector('#dash7'),
+            intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V meniju se nahajajo tudi nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočila sms in obvestila na vašem pametnem telefonu. V meniju je tudi povezava do strani kjer lahko k uporabi aplikacije povabite tudi druge družinske člane."
+        },
         ]
     });
     intro.start();
+  }
+
+  function startIntroCilj(){
+    intro = introJs();
+      intro.setOptions({
+        nextLabel: 'Naprej &rarr;',
+        prevLabel: '&larr; Nazaj',
+        skipLabel: 'Zapri',
+        doneLabel: 'Konec',
+        tooltipPosition: "auto",
+        steps: [
+        {
+            element: '#table-cilji',
+            intro: "V tem oknu so prikazani vsi nedoseženi cilji družine. Cilj lahko urejate z klikom na vrstico v tabeli. Od leve proti desni ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, točke prikazane za vsakega člana družine posebej, datum kdaj je bil cilj ustvarjen in kdaj je bil cilj nazadnje posodobljen."
+        },
+        {
+            element: '#table-cilji-end',
+            intro: "V tem oknu so prikazani vsi cilji družine, ki so že zaključeni. Cilj lahko urejate z klikom na vrstico v tabeli. Od leve proti desni ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, točke prikazane za vsakega člana družine posebej, datum kdaj je bil cilj ustvarjen in kdaj je bil cilj nazadnje posodobljen."
+        },
+        {
+            element: document.querySelector('#dash1'),
+            intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+            +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
+        },
+        {
+            element: document.querySelector('#dash7'),
+            intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V meniju se nahajajo tudi nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočila sms in obvestila na vašem pametnem telefonu. V meniju je tudi povezava do strani kjer lahko k uporabi aplikacije povabite tudi druge družinske člane."
+        },
+        ]
+      });
+      intro.start();
+  }
+
+  function startIntroSettings(){
+    intro = introJs();
+      intro.setOptions({
+        nextLabel: 'Naprej &rarr;',
+        prevLabel: '&larr; Nazaj',
+        skipLabel: 'Zapri',
+        doneLabel: 'Konec',
+        tooltipPosition: "auto",
+        steps: [
+        { 
+        intro:"Trenutno se nahajate na strani z osebnimi nastavitavami. Tukaj lahko spremenite svoje podatke o imenu, e-pošti, telefoni, svoj položaj v družini, prikazno sliko in svoje geslo za dostom do aplikacije. Za izhod iz osebnih nastavitev kliknite na izmed 4 strani v navigacijski vrstici.",
+        },
+        {
+        element: document.querySelector('#dash1'),
+        intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+        +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
+        },
+        {
+        element: document.querySelector('#dash7'),
+        intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V meniju se nahajajo tudi nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočila sms in obvestila na vašem pametnem telefonu. V meniju je tudi povezava do strani kjer lahko k uporabi aplikacije povabite tudi druge družinske člane."
+        },
+        ]
+      });
+      intro.start();
+  }
+
+  function startIntroNotifications(){
+    intro = introJs();
+      intro.setOptions({
+        nextLabel: 'Naprej &rarr;',
+        prevLabel: '&larr; Nazaj',
+        skipLabel: 'Zapri',
+        doneLabel: 'Konec',
+        tooltipPosition: "auto",
+        steps: [
+        { 
+        intro:"Trenutno se nahajate na strani z nastavitvami sporočanja. Obvestila iz aplikacije lahko prejmete na tri različne načine: SMS, e-pošta in push obvestila v brskalniku ali na telefonu.",
+        },
+        {
+        element: document.querySelector('#dash1'),
+        intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+        +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
+        },
+        {
+        element: document.querySelector('#dash7'),
+        intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V meniju se nahajajo tudi nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočila sms in obvestila na vašem pametnem telefonu. V meniju je tudi povezava do strani kjer lahko k uporabi aplikacije povabite tudi druge družinske člane."
+        },
+        ]
+      });
+      intro.start();
+  }
+
+  function startIntroDruzina(){
+    intro = introJs();
+      intro.setOptions({
+        nextLabel: 'Naprej &rarr;',
+        prevLabel: '&larr; Nazaj',
+        skipLabel: 'Zapri',
+        doneLabel: 'Konec',
+        tooltipPosition: "auto",
+        steps: [
+        { 
+        intro:"Trenutno ste na strani kjer lahko k uporabi aplikacije povabite tudi druge družinske člane. V polje E-mail napištite e-poštni naslov osebe, ki jo želite povabiti v vašo družino. Na naslov bo nekaj minutah prispelo elektronsko sporočilo z podrobnimi navodili za včlanitev v družino.",
+        },
+        {
+        element: document.querySelector('#dash1'),
+        intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+        +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
+        },
+        {
+        element: document.querySelector('#dash7'),
+        intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V meniju se nahajajo tudi nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočila sms in obvestila na vašem pametnem telefonu. V meniju je tudi povezava do strani kjer lahko k uporabi aplikacije povabite tudi druge družinske člane."
+        },
+        ]
+      });
+      intro.start();
   }
 
 
@@ -949,12 +1119,12 @@ function helpNaloga(){
             },
             {
                 element: '#targetZacetek',
-                hint: "Datum začetka naloge. Od takrat se lahko nalogo naredi.",
+                hint: "Datum začetka naloge. Naloga je v koledar postavljena glede na njen začetni datum. Če naloga nima izbranega začetnega datuma ne bo prikazan med opomniki in v koledarju.",
                 position: 'left'
             },
             {
                 element: '#targetKonec',
-                hint: "Datum konca naloge. Datum do kdaj je potrebno nalogo narediti oziroma kdaj je bila končana.",
+                hint: "Datum konca naloge. S tem datum določite do kdaj mora biti naloga opravljena, oziroma kdaj je bila opravljena. V primeru, da končni datum ni izbran je avtomatsko določen na isti dan kot začetni datum.",
                 position: 'left'
             },
             {
@@ -1063,9 +1233,12 @@ function helpNaloga(){
             setTimeout(function () { 
                 let element = $(".introjs-tooltipReferenceLayer");
                 element.appendTo($("#dialog"));
-                let pos = $(".introjs-hints").get(0).getBoundingClientRect();
+                let pos = $("#dialog").get(0).getBoundingClientRect();
                 element.addClass('notransition');
-                element.css({"top" : element.get(0).getBoundingClientRect().top - 2*pos.top, "left" : element.get(0).getBoundingClientRect().left - 2*pos.left});
+                let top = $(hintElement).offset().top - $(hintElement).parent().offset().top - $(hintElement).parent().scrollTop()
+                element.css({"color" : "black", "top" : top-5, "left" : hintElement.getBoundingClientRect().left - pos.left});
+
+                //element.css({"top" : element.get(0).getBoundingClientRect().top - 2*pos.top, "left" : element.get(0).getBoundingClientRect().left - 2*pos.left});
             }, 1);        
         });
         intro.addHints();
@@ -1098,9 +1271,6 @@ function moveHints(loc) {
     $(".introjs-hints").prependTo($(loc));     
     let pos = $(loc).get(0).getBoundingClientRect();           
     $( ".introjs-hint" ).each(function( index, element ) {            
-        //console.log(index, element);       
-        //console.log(element.getBoundingClientRect().left, element.getBoundingClientRect().top,"FIRST");  
-        //console.log(pos.left, pos.top,"FIRST");   
         let x = element.getBoundingClientRect().left - 2*pos.left;
         let y = element.getBoundingClientRect().top - 2*pos.top;   
         element.setAttribute("style", "left: "+x+"px;top: "+y+"px;");

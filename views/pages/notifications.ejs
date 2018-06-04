@@ -5,37 +5,39 @@
             <div class="mdl-card__title color-cyan krivulja-2">
                 <h2 class="mdl-card__title-text mdl-color-text--white">Nastavitve sporočanja</h2>
             </div>
-            <div class="mdl-card__supporting-text mdl-grid overflow-visible padding-top-16">
-                <form method="POST" action="/notifications" id="notif_sms_mail" class="middle-align">
-                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchSms" name="switchSms" <% if(currSession.trenutniUporabnik.notf_email) {  %> checked <% } %>>
-                        <input type="checkbox" id="switchSms" class="mdl-switch__input" >
-                        <span class="mdl-switch__label">Obveščanje preko SMS sporočil</span>
-                    </label>
-                    <div class="padding-top-16"></div>
-                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchMail">
-                        <input type="checkbox" id="switchMail" name="switchMail" class="mdl-switch__input" <% if(currSession.trenutniUporabnik.notf_email) {  %> checked <% } %> >
-                        <span class="mdl-switch__label">Obveščanje preko E-pošte</span>
-                    </label>
-                    <div class="padding-top-16"></div>
-                    <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="pushButton">
-                        <input disabled type="checkbox" id="pushButton" name="pushButton" class="mdl-switch__input">
-                        <span class="mdl-switch__label"><i class="material-icons">notifications</i>Vklopi obvestila v brskalniku</span>
-                    </label>                      
-                </form>
-                <!--
-                <div style="padding:20px;">
-                        <button disabled id="pushButton" class="js-push-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
-                            <i class="material-icons">notifications</i> Vklopi obvestila v brskalniku
-                        </button>
-                    </div>-->
-            </div>
-            <div class="mdl-card__actions mdl-card--border" align="center">
-                <div class="mdl-cell mdl-cell--12-col send-button" align="center">
-                    <button type="submit" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-cyan mdl-color-text--white" id="shraniNotif">
-                        Shrani spremembe
-                    </button>
+            <form method="POST" action="/notifications" id="notif_sms_mail">
+                <div class="mdl-card__supporting-text mdl-grid overflow-visible padding-top-16"> 
+                    <div class="middle-align">               
+                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchSms" name="switchSms" <% if(currSession.trenutniUporabnik.notf_telefon) {  %> checked <% } %>>
+                            <input type="checkbox" id="switchSms" class="mdl-switch__input" >
+                            <span class="mdl-switch__label">Obveščanje preko SMS sporočil</span>
+                        </label>
+                        <div class="padding-top-16"></div>
+                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchMail">
+                            <input type="checkbox" id="switchMail" name="switchMail" class="mdl-switch__input" <% if(currSession.trenutniUporabnik.notf_email) {  %> checked <% } %> >
+                            <span class="mdl-switch__label">Obveščanje preko E-pošte</span>
+                        </label>
+                        <div class="padding-top-16"></div>
+                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="pushButton">
+                            <input disabled type="checkbox" id="pushButton" name="pushButton" class="mdl-switch__input">
+                            <span class="mdl-switch__label"><i class="material-icons">notifications</i>Vklopi obvestila v brskalniku</span>
+                        </label>   
+                    </div>                    
+                    <!--
+                    <div style="padding:20px;">
+                            <button disabled id="pushButton" class="js-push-btn mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                                <i class="material-icons">notifications</i> Vklopi obvestila v brskalniku
+                            </button>
+                        </div>-->
                 </div>
-            </div>
+                <div class="mdl-card__actions mdl-card--border" align="center">
+                    <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                        <button type="submit" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-cyan mdl-color-text--white" id="shraniNotif">
+                            Shrani spremembe
+                        </button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>

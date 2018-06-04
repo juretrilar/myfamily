@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <%- include('../partials/head') -%>
-    <body>
+    <body class="body-prijava">
         <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header" >
             <%- include('../partials/nav') -%>
             <main class="mdl-layout__content">
@@ -43,7 +43,16 @@
                         </div>
                         <form method="POST" action="/registracija" id="registracijaForm" onsubmit="return validateRegistracija()">
                         <div class="mdl-card__supporting-text mdl-grid">
-                            <p class="margin-zero warning color-neutral mdl-typography--caption">Polja označena z * so obvezna!</p>
+                            <div class="mdl-list padding-zero help-list">
+                                <div class="mdl-list__item padding-zero">
+                                    <span class="mdl-list__item-primary-content">
+                                        <span class="margin-zero color-neutral mdl-typography--caption">Polja označena z * so obvezna!</span>
+                                    </span>
+                                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect button-help" onclick="addHintsReg()">
+                                        <i class="material-icons mdl-color-text--grey-400">help_outline</i>
+                                    </button>
+                                </div>                             
+                            </div>
                             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                                 <label class="mdl-textfield__label" for="reg_name">Ime*</label>
                                 <input class="mdl-textfield__input" type="text" id="reg_name" name="reg_name"/>

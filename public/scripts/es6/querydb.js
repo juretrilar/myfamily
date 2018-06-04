@@ -64,13 +64,15 @@ jQuery(function($) {
         $('#ciljSearch').val("").parent().removeClass("is-dirty");
     });
 
-    queryNaloge();    
+    queryNaloge();   
+    $("#menuDashboard").addClass("is-active");
+    $("#dashboard").addClass("is-active");
+    /* 
     if ($( "#menuNaloge" ).hasClass( "is-active" )) {
-        $("#menuDashboard").addClass("is-active");
-        $("#dashboard").addClass("is-active");
+
     }    
     $("#menuNaloge").removeClass("is-active");
-    $("#naloge").removeClass("is-active");
+    $("#naloge").removeClass("is-active");*/
     
 });
 
@@ -84,7 +86,7 @@ function clearField(i, chip) {
 function objaviStatus() {
     let curr = $("#trenutniUporabnik").val();
     if($("#currStatus").val() != "") {
-        $("#status"+curr).text($("#currStatus").val().removeClass("hide-element"));
+        $("#status"+curr).text($("#currStatus").val()).parent().removeClass("hide-element");
         let save = {"currStatus": $("#currStatus").val()};
         $.ajax({
             url: '/status',
@@ -161,9 +163,9 @@ function queryNaloge() {
                     posodobiNalogo();
                     //
                     $('#newDialog').val(card.getElementsByClassName("idNaloga")[0].value);
-                    $('#imeDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].previousElementSibling.innerHTML)
+                    $('#imeDialog').val(card.getElementsByClassName("queryIme")[0].innerHTML)
                         .parent().addClass("is-dirty");
-                    $('#opisDialog').val(card.getElementsByClassName("mdl-list__item-text-body")[0].innerHTML)
+                    $('#opisDialog').val(card.getElementsByClassName("queryOpis")[0].innerHTML)
                         .parent().addClass("is-dirty");
                     let dateZ,dateK;
                     try {
@@ -227,9 +229,10 @@ function queryNaloge() {
             }            
         },
         error: function (xhr, ajaxOptions, thrownError) {
-            alert(xhr.status);
-            alert(xhr.responseText);
-            alert(thrownError)
+            console.log(xhr.status,xhr.responseText,thrownError);
+            let data = {message: "Med nalaganjem nalog je prišlo do napake!"};
+            let snackbarContainer = document.querySelector('#mainToast');            
+            snackbarContainer.MaterialSnackbar.showSnackbar(data);
         }
     });
     updateItems();
