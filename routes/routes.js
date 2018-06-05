@@ -40,7 +40,7 @@ router.post('/api/save-subscription', subscriptionHandler.dodajObvestila);
 
 router.post('/api/disable-subscription', subscriptionHandler.odstraniObvestila);
 
-router.post('/api/trigger-push-msg', subscriptionHandler.posljiObvestila);
+//router.post('/api/trigger-push-msg', subscriptionHandler.posljiObvestila);
 
 
 module.exports = router;

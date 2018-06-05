@@ -638,11 +638,13 @@ function initializeUI() {
             isSubscribed = !(subscription === null);
 
             //updateSubscriptionOnServer(subscription);
-
+            //was commented
             if (isSubscribed) {
                 console.log('User IS subscribed.');
+                
             } else {
                 console.log('User is NOT subscribed.');
+                
             }
 
             updateBtn();
@@ -656,7 +658,7 @@ function subscribeUser() {
         applicationServerKey: applicationServerKey
     })
         .then(function(subscription) {
-            updateSubscriptionOnServer(subscription);
+            updateSubscriptionOnServer(subscription, '/api/save-subscription');
 
             console.log('User is subscribed.');
 
@@ -670,41 +672,49 @@ function subscribeUser() {
         });
 }
 
-function updateSubscriptionOnServer(subscription) {
-    return fetch('/api/save-subscription', {
+function updateSubscriptionOnServer(subscription, url) {
+    return fetch(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
-        body: JSON.stringify(subscription)
+        body: JSON.stringify({
+            subscription: subscription,
+            user_id: $("#trenutniUporabnik").val()
+        })
       })
       .then(function(response) {
         if (!response.ok) {
-          throw new Error('Bad status code from server.');
+            console.log(response);
+          throw new Error('Bad status code from server.', response);
          
         }    
         return response.json();
       })
       .then(function(responseData) {
         if (!(responseData.data && responseData.data.success)) {
-          throw new Error('Bad response from server.');
+          throw new Error('Bad response from server.', responseData);
         }
       });
 }
 
 function unsubscribeUser() {
+    let sub;
     swRegistration.pushManager.getSubscription()
         .then(function(subscription) {
+            sub = subscription;
             if (subscription) {
-                return subscription.unsubscribe();
+                return subscription.unsubscribe();                
             }
         })
         .catch(function(error) {
             console.log('Error unsubscribing', error);
         })
         .then(function() {
-            updateSubscriptionOnServer(null);
+            updateSubscriptionOnServer(sub, '/api/disable-subscription');
+            //console.log(subscription, "was null");
+            //updateSubscriptionOnServer(null, '/api/disable-subscription');
 
             console.log('User is unsubscribed.');
             isSubscribed = false;
@@ -730,7 +740,7 @@ function urlB64ToUint8Array(base64String) {
 
 function updateBtn() {
     if (Notification.permission === 'denied') {
-        pushButton.nextElementSibling.textContent = 'Obvestila so blokirana';
+        pushButton.nextElementSibling.textContent = 'Obvestila niso dovoljena';
         pushButton.disabled = true;
         $("#pushButton").parent().addClass("is-disabled");
         updateSubscriptionOnServer(null);
@@ -739,11 +749,13 @@ function updateBtn() {
     
     if (isSubscribed) {
         pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
+        $("#pushButton").parent().MaterialCheckbox.check();        
     } else {
+        if($('#pushButton').parent().is('.is-checked')) $("#pushButton").parent().MaterialCheckbox.uncheck();
         pushButton.nextElementSibling.textContent = 'Vklopi obvestila v brskalniku';
     }
-        $("#pushButton").removeAttr("disabled");
-        $("#pushButton").parent().removeClass("is-disabled");
+    $("#pushButton").removeAttr("disabled");
+    $("#pushButton").parent().removeClass("is-disabled");
 }
 
 function tockeUdelezencev(stCiljev, prg, razmerje) {
