@@ -477,6 +477,7 @@ module.exports.prikaziKoledar = function (req, res, next) {
 module.exports.prikaziNaloge = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;
     let where_search = {};
+    let query = {};
     where_search.druzina = mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina);
     if (req.body.avtor) where_search.avtor = req.body.avtor;
     if (req.body.kategorija) where_search.kategorija = req.body.kategorija;
@@ -484,15 +485,20 @@ module.exports.prikaziNaloge = function (req, res, next) {
     if (req.body.cilj) where_search.vezan_cilj = req.body.cilj;
     if (req.body.oseba) where_search.vezani_uporabniki = req.body.oseba;
     if (req.body.koledar) {
-        if (req.body.koledar == "Da") {
-            where_search.zacetek = { $ne: null };
-        } else {
-            where_search.zacetek = null;
+        if (req.body.koledar == "1") {
+            query = { zacetek: -1 };
+        } else if (req.body.koledar == "2"){
+            query = { zacetek: 1 };
+        }else if (req.body.koledar == "3"){
+            query = { konec: -1 };
+        }else if (req.body.koledar == "4"){
+            query = { konec: 1 };
         }
+        console.log(query);
     }
     //console.log(where_search);
     async.parallel({
-        docs: function (cb) { Naloge.find(where_search).exec(cb); },
+        docs: function (cb) { Naloge.find(where_search).sort(query).exec(cb); },
         kategorija: function (cb) { Kategorija.find().exec(cb); },
         cilji: function (cb) { Cilji.find({ druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina) }).select("ime").exec(cb); },
         uporabnik: function (cb) { Uporabnik.find({ druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina) }).select("slika ime").exec(cb); },
@@ -515,6 +521,7 @@ module.exports.prikaziNaloge = function (req, res, next) {
                 if (ime) { imeCilj.push(ime.ime); }
                 else { imeCilj.push("Samostojna naloga"); }
             }
+            console.log(results.docs);
             res.render("pages/nalogequery", { naloge: results.docs, moment: moment, kategorija: kat, slika: usr, imeCilj: imeCilj, shortId: shortId });
         });
 };
@@ -785,7 +792,7 @@ module.exports.povabiUporabnika = function (req, res, next) {
 };
 
 
-//** GET /api/:druzinaId
+//** GET /change/:druzinaId
 module.exports.spremeniDruzino = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;
     let druzina = mongoose.Types.ObjectId(req.params.druzinaId);

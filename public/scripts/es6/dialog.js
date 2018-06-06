@@ -321,21 +321,21 @@ function clearData() {
     $('#vezanCilj').get(0).placeholder = "";
     $("input[name='sampleCilj']").parent().removeClass("is-dirty").find("li").removeAttr('data-selected');
     getmdlSelect.init("#dialogCilj");
-    $('#statusNaloge').val("").removeAttr('placeholder').parent().removeClass("is-dirty");
     $('#kategorija').get(0).placeholder = "";
     $("input[name='sampleKategorija']").parent().removeClass("is-dirty").find("li").attr('data-selected','');
     getmdlSelect.init("#dialogKategorija");
+    /*
     $('#statusNaloge').get(0).placeholder = "";
     $("#statusNaloge").parent().removeClass("is-dirty")
         .find("li").attr('data-selected','');
-    getmdlSelect.init("#dialogStatus");
+    getmdlSelect.init("#dialogStatus");*/
     $('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
 }
 
 function fillNaloge() {
     $('#iDialog').html("Ime naloge*");
     $('#oDialog').html("Opis naloge*");
-    $('#tZacetek').html("Začetek naloge*");
+    $('#tZacetek').html("Začetek naloge");
     $('#tKonec').html("Konec naloge");
     $('#ciljiVsi').attr('style',"display: none!important");
     $('#dialogKategorija').attr('style',"display: block!important");
@@ -418,13 +418,13 @@ function dodajNovoNalogo() {
     $("#izbrisi").addClass("hide-element");
 }
 
-function dodajPredlog() {
+function dodajPredlog() {    
     clearData();
     fillNaloge();
     document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
     document.getElementById("ustvari").innerHTML = "Ustvari";
-    $('#newDialog').val("");
-    dialog.showModal();
+    $('#newDialog').val("");   
+    dialog.showModal(); 
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
     $("#izbrisi").addClass("hide-element");
     $('#imeDialog').val($("#ime_aktivnosti").text()).parent().addClass("is-dirty");
@@ -432,13 +432,15 @@ function dodajPredlog() {
     $('#xpNaloge').val("100").parent().addClass("is-dirty");
     $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val=5aeabcd8be609116280b4d9c]").get(0).textContent.trim();
     $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val=5aeabcd8be609116280b4d9c]").attr('data-selected','true');
-    getmdlSelect.init("#dialogKategorija");
+    getmdlSelect.init("#dialogKategorija");    
     $('#statusNaloge').get(0).placeholder = "Neopravljena";
-    $("#statusNaloge").parent().addClass("is-dirty")
-        .find("li[data-val=false]").attr('data-selected','true');
+    $("#dialogStatus").find("li[data-val=false]").attr('data-selected','true');
+    $("#statusNaloge").parent().addClass("is-dirty");
     $("input[name='oldStatus']").val("false");
-    $("input[name='newStatus']").val("false");
-    getmdlSelect.init("#dialogStatus");
+    $("input[name='newStatus']").val("false");     
+    getmdlSelect.init("#dialogStatus");  
+    
+
 }
 
 function validateNaloga(event, t) {
@@ -456,8 +458,8 @@ function validateNaloga(event, t) {
     if (t==0) {
         let dZac = document.forms["update_dialog"]["dateZacetek"].value;
         let dKon = document.forms["update_dialog"]["dateKonec"].value;
-        if (dZac != "") {
-            if (dKon != "" && dZac > dKon) {
+        if (dZac != "" && dKon != "") {
+            if (moment(dZac).isAfter(dKon)) {
                 $("#dateKonecErr").text("Datum konca mora biti po datumu začetka!").parent().addClass("is-invalid");
                 return false;
             }
@@ -746,17 +748,22 @@ function updateBtn() {
         updateSubscriptionOnServer(null);
         return;
       }
+
+    $("#pushButton").removeAttr("disabled");
+    $("#pushButton").parent().removeClass("is-disabled");
+
+    let label = document.querySelector("#prePush");
     
     if (isSubscribed) {
         pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
-        $("#pushButton").parent().MaterialCheckbox.check();        
+        label.MaterialSwitch.on();
+           
     } else {
-        if($('#pushButton').parent().is('.is-checked')) $("#pushButton").parent().MaterialCheckbox.uncheck();
+        if($('#pushButton').parent().is('.is-checked')) {label.MaterialSwitch.off();}
         pushButton.nextElementSibling.textContent = 'Vklopi obvestila v brskalniku';
     }
-    $("#pushButton").removeAttr("disabled");
-    $("#pushButton").parent().removeClass("is-disabled");
 }
+
 
 function tockeUdelezencev(stCiljev, prg, razmerje) {
     for(let i = 0; i <stCiljev; i++) {
@@ -900,36 +907,37 @@ function startIntroDashboard(){
         skipLabel: 'Zapri',
         doneLabel: 'Konec',
         tooltipPosition: "auto",
+        overlayOpacity: 0.5,
         steps: [
           { 
-            intro: "Pozdravljeni v aplikaciji MyFamily! Za vas smo pripravili kratko predstavitev aplikacije, s pomočjo katere boste lažje razumeli in uporabljali aplikacijo."
+            intro: "Pozdravljeni v aplikaciji MyFamily! Kliknili ste na gumb pomoč, ki se nahaja v spodnjem levem kotu. Ob kliku na gumb boste sprožili začetek predstavitve, ki vam bo razložila osnovne funkcionalnosti na strani kjer se nahajate. Če želite nadaljevati s predstavitvijo strani pregled pritisnite gumb naprej."
             +"Predstavitev lahko kadarkoli prekinete."
           },
           {
             element: document.querySelector('#dash1'),
-            intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+            intro: "Navigacijska vrstica s pomočjo katero se premikate po aplikaciji. Aplikacija je sestavljena iz 4 glavnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
             +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
           },
           {
             element: document.querySelector('#opomnikiList'),
-            intro: "Tukaj so prikazani opomniki za naloge na katerih sodelujete. Prihajajoče naloge imajo pred sabo zelen krog, naloge, ki se dogajajo"
-            +" na današnji dan imajo zelen krog, naloge, ki so se že začele pa rdeč krog. Ob kliku na opomnik se prikažejo podrobnosti naloge.",
+            intro: "Opomniki za naloge pri katerih sodelujete. Prihajajoče naloge imajo pred sabo zelen krog, naloge, ki se začnejo"
+            +" na današnji dan imajo rumen krog, naloge, ki so se že začele pa rdeč krog. Ob kliku na opomnik se prikažejo podrobnosti naloge.",
           },
           {
             element: '#dash3',
-            intro: 'Vaš trenutni status, s katerim lahko sporočite družini kaj počnete, kako se počutite, kdaj boste naredili nalogo...',
+            intro: 'Status, s katerim lahko sporočite družini kaj počnete, kako se počutite, kdaj boste naredili nalogo...',
           },
           {
             element: '#dash4',
-            intro: "Družinsko drevo, člani družine so urejeni glede na položaj v družini. Najvišje so pradedki in prababice, nato dedki in babice, starši in otroci. Če oseba nima izbranega položaja v družini je prikazana na vrhu. Z klikom na avatar lahko vidite status osebe, različne možnosti sporočanja in število točk, ki jih je ta oseba danes zbrala.",
+            intro: "Družinsko drevo, člani družine so urejeni glede na položaj v družini. Najvišje v drevesu so pradedki in prababice, nato dedki in babice, starši, otroci. Če oseba nima izbranega položaja v družini je prikazana na vrhu drevesa. S klikom na avatar lahko odprete okno kjer lahko vidite status osebe, različne možnosti sporočanja in število točk, ki jih je ta oseba danes zbrala.",
           },
           {
             element: '#dash5',
-            intro: "V tem oknu so prikazani skupni cilji družine, te cilje si družina izbere kot najpomembnejše in zato so prikazani na pregledu. Od leve proti desni so ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, ter točke prikazane za vsakega člana družine posebej."
+            intro: "Skupni cilji družine, te cilje si družina izbere kot najpomembnejše in zato so prikazani na pregledu. Od leve proti desni so ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, ter točke prikazane za vsakega člana družine posebej."
           },
           {
             element: '#dash6',
-            intro: "V tem oknu je prikazan predlog za novo nalogo, ki vam ga predlagamo mi. S klikom dodaj med nalogo se vam polja avtomatsko izpolnijo in lahko nalogo dodate pod svoj cilj."
+            intro: "Predlog za novo nalogo, ki je nakljčno generiran. S klikom na gumb DODAJ NALOGO se bodo polja avtomatsko izpolnila in nato lahko predlagano nalogo dodate med svoje naloge."
           },
           {
             element: document.querySelector('#dash7'),
@@ -950,6 +958,7 @@ function startIntroKoledar(){
         skipLabel: 'Zapri',
         doneLabel: 'Konec',
         tooltipPosition: "auto",
+        overlayOpacity: 0.5,
         steps: [
             {
             element: '#cal1',
@@ -961,7 +970,7 @@ function startIntroKoledar(){
             },
             {
             element: '#cal3',
-            intro: "Posamezni dnevi v katerih so prikazane naloge. Če kliknete na nalogo se vam bo odprl podroben opis naloge. Če pa kliknete na dan se vam bo odrl pogled z vsemi nalogami, ki poteakjo na današnji dan.",
+            intro: "Posamezni dnevi v katerih so prikazane naloge. Če kliknete na nalogo se vam bo odprl podroben opis naloge. Če pa kliknete na dan se vam bo odrl pogled z vsemi nalogami, ki potekajo na današnji dan.",
             }
         ]
     });
@@ -976,6 +985,7 @@ function startIntroNaloge(){
         prevLabel: '&larr; Nazaj',
         skipLabel: 'Zapri',
         doneLabel: 'Konec',
+        overlayOpacity: 0.5,
         steps: [
         {
             element: '#nal1',
@@ -1008,6 +1018,7 @@ function startIntroNaloge(){
         skipLabel: 'Zapri',
         doneLabel: 'Konec',
         tooltipPosition: "auto",
+        overlayOpacity: 0.5,
         steps: [
         {
             element: '#table-cilji',
@@ -1039,13 +1050,14 @@ function startIntroNaloge(){
         skipLabel: 'Zapri',
         doneLabel: 'Konec',
         tooltipPosition: "auto",
+        overlayOpacity: 0.5,
         steps: [
         { 
         intro:"Trenutno se nahajate na strani z osebnimi nastavitavami. Tukaj lahko spremenite svoje podatke o imenu, e-pošti, telefoni, svoj položaj v družini, prikazno sliko in svoje geslo za dostom do aplikacije. Za izhod iz osebnih nastavitev kliknite na izmed 4 strani v navigacijski vrstici.",
         },
         {
         element: document.querySelector('#dash1'),
-        intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+        intro: "Navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
         +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
         },
         {
@@ -1065,13 +1077,14 @@ function startIntroNaloge(){
         skipLabel: 'Zapri',
         doneLabel: 'Konec',
         tooltipPosition: "auto",
+        overlayOpacity: 0.5,
         steps: [
         { 
         intro:"Trenutno se nahajate na strani z nastavitvami sporočanja. Obvestila iz aplikacije lahko prejmete na tri različne načine: SMS, e-pošta in push obvestila v brskalniku ali na telefonu.",
         },
         {
         element: document.querySelector('#dash1'),
-        intro: "Tole je navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
+        intro: "Navigacijska vrstica. Aplikacija je sestavljena iz 4 različnih podstrani: PREGLED - pregled celotne aplikacije, KOLEDAR -"
         +" koledar kjer so prikazane naloge, NALOGE - stran, kjer lahko iščete po nalogah in CILJI - stran kjer so podrobneje prikazani cilji družine",
         },
         {
@@ -1091,6 +1104,7 @@ function startIntroNaloge(){
         skipLabel: 'Zapri',
         doneLabel: 'Konec',
         tooltipPosition: "auto",
+        overlayOpacity: 0.5,
         steps: [
         { 
         intro:"Trenutno ste na strani kjer lahko k uporabi aplikacije povabite tudi druge družinske člane. V polje E-mail napištite e-poštni naslov osebe, ki jo želite povabiti v vašo družino. Na naslov bo nekaj minutah prispelo elektronsko sporočilo z podrobnimi navodili za včlanitev v družino.",
@@ -1131,7 +1145,7 @@ function helpNaloga(){
             },
             {
                 element: '#targetZacetek',
-                hint: "Datum začetka naloge. Naloga je v koledar postavljena glede na njen začetni datum. Če naloga nima izbranega začetnega datuma ne bo prikazan med opomniki in v koledarju.",
+                hint: "Datum začetka naloge. Naloga je v koledar postavljena glede na njen začetni datum. Če naloga nima izbranega začetnega datuma, je njen začetni datum kadar je bila ustvarjena.",
                 position: 'left'
             },
             {
@@ -1153,7 +1167,7 @@ function helpNaloga(){
             {
                 element: '#xpNaloge',
                 hint: "Vrednost naloge, ko je opravljena se te naloge prištejejo k vezanemu cilju.",
-                position: 'left'
+                position: 'bottom'
             },
             {
                 element: '#statusNaloge',
@@ -1179,8 +1193,8 @@ function helpNaloga(){
                 let pos = $("#dialog").get(0).getBoundingClientRect();
                 element.addClass('notransition');
                 let top = $(hintElement).offset().top - $(hintElement).parent().offset().top - $(hintElement).parent().scrollTop()
-                element.css({"color" : "black", "top" : top+10, "left" : hintElement.getBoundingClientRect().left - pos.left});
-                
+                element.css({"color" : "black", "top" : top-5, "left" : hintElement.getBoundingClientRect().left - pos.left-2});
+                $('[data-step*="6"].introjs-tooltipReferenceLayer').css({"color" : "black", "top" : top+15, "left" : hintElement.getBoundingClientRect().left - pos.left-20});
             }, 1);
 
         });
@@ -1224,7 +1238,7 @@ function helpNaloga(){
             {
                 element: '#xpNaloge',
                 hint: "Število točk potrebnih za dosego cilja.",
-                position: "left"
+                position: "bottom"
             },
             {
                 element: '#ciljiVsi',
@@ -1248,8 +1262,8 @@ function helpNaloga(){
                 let pos = $("#dialog").get(0).getBoundingClientRect();
                 element.addClass('notransition');
                 let top = $(hintElement).offset().top - $(hintElement).parent().offset().top - $(hintElement).parent().scrollTop()
-                element.css({"color" : "black", "top" : top-5, "left" : hintElement.getBoundingClientRect().left - pos.left});
-
+                element.css({"color" : "black", "top" : top-20, "left" : hintElement.getBoundingClientRect().left - pos.left-2});
+                $('[data-step*="2"].introjs-tooltipReferenceLayer').css({"color" : "black", "top" : top, "left" : hintElement.getBoundingClientRect().left - pos.left-20})
                 //element.css({"top" : element.get(0).getBoundingClientRect().top - 2*pos.top, "left" : element.get(0).getBoundingClientRect().left - 2*pos.left});
             }, 1);        
         });
@@ -1298,4 +1312,19 @@ function deleteHints() {
     if (container)
         while (container.firstChild)
             container.removeChild(container.firstChild);
+}
+
+function validateSettings() {
+    if (document.forms["settingsForm"]["set_name"].value == "") {
+        $("#errIme").text("Polje je obvezno!").parent().addClass("is-invalid");
+        return false;
+    }
+    if (document.forms["settingsForm"]["set_password"].value != document.forms["settingsForm"]["set_password_confirm"].value) {
+        $("#errPass2").parent().addClass("is-invalid");
+        return false;
+    }
+    if (document.forms["settingsForm"]["set_phone"].value == "") {  
+        $("#errTel").text("Polje je obvezno!").parent().addClass("is-invalid");
+        return false;
+    }
 }

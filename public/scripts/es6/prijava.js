@@ -77,15 +77,15 @@ function addHintsReg() {
         hints: [
           {
             element: document.querySelector('#reg_name'),
-            hint: "V to polje vpišite vaše ime in priimek.",
+            hint: "V polje vpišite vaše ime in priimek.",
           },
           {
             element: document.querySelector('#reg_email'),
-            hint: "V to polje vpišite vaš elektronski naslov, na katerega boste prejemali obvestila.",
+            hint: "V to polje vpišite vaš elektronski naslov, ki ga boste uporabljali za prijavo v aplikacijo in nanj prejemali obvestila.",
           },
           {
             element: '#reg_password',
-            hint: 'V to polje vpišite geslo, dolgo vsaj 6 znakov. Geslo mora vsebovati velike začetnice in številke.',
+            hint: 'V to polje vpišite geslo, ki naj bo dolgo vsaj 6 znakov. Geslo mora vsebovati vsaj eno veliko črko in številko.',
           },
           {
             element: '#reg_password_confirm',
@@ -93,11 +93,11 @@ function addHintsReg() {
           },
           {
             element: '#reg_phone',
-            hint: "V to polje vpišite vašo telefonsko številko, nanjo boste prejemali sms sporočila.",
+            hint: "V to polje vpišite vašo telefonsko številko, na katero boste prejemali sms sporočila.",
           },
           {
             element: '#avatars',
-            hint: "Izberite si prikazno sliko v aplikaciji.",
+            hint: "Izberite si prikazno sliko v aplikaciji. Če slike ne izberete, vam bo določena s strani aplikacije.",
           },
         ]
     });

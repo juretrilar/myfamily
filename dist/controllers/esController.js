@@ -4,6 +4,7 @@ let Uporabnik = mongoose.model("Uporabnik");
 let Cilji = mongoose.model("Cilji");
 let Naloge = mongoose.model("Naloge");
 let Kategorija = mongoose.model("Kategroija");
+let Subscription = mongoose.model("Subscription");
 
 let express = require('express');
 let async = require('async');
@@ -18,10 +19,16 @@ let SMSAPI = require('smsapicom'), smsapi = new SMSAPI();
 let CronJob = require('cron').CronJob;
 let nodemailer = require('nodemailer');
 let shortId = require('short-mongo-id');
+let webpush = require('web-push');
 
 let color = { "5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3", "5aef78ab361f5244948ff58f": "#a3f7bf" };
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
+webpush.setVapidDetails(
+    'mailto:myFamilyAppMail@gmail.com',
+    'BGa5M248kds3Uw6AkR6igb3aq4OQw1zFmSBNuFj10kwdsqZ8DXoYtvLUPCMsUIpMKQiPzdOY-s-3mkVnPhRUiQg' || process.env.VAPID_PUBLIC_KEY,
+    'Ue3ZsN1R_48R17QCxR4vZHuNQu9gKspmVIVMwai-hPQ' || process.env.VAPID_PRIVATE_KEY
+  );
 
 let once = 0;
 
@@ -470,6 +477,7 @@ module.exports.prikaziKoledar = function (req, res, next) {
 module.exports.prikaziNaloge = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;
     let where_search = {};
+    let query = {};
     where_search.druzina = mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina);
     if (req.body.avtor) where_search.avtor = req.body.avtor;
     if (req.body.kategorija) where_search.kategorija = req.body.kategorija;
@@ -477,15 +485,20 @@ module.exports.prikaziNaloge = function (req, res, next) {
     if (req.body.cilj) where_search.vezan_cilj = req.body.cilj;
     if (req.body.oseba) where_search.vezani_uporabniki = req.body.oseba;
     if (req.body.koledar) {
-        if (req.body.koledar == "Da") {
-            where_search.zacetek = { $ne: null };
-        } else {
-            where_search.zacetek = null;
+        if (req.body.koledar == "1") {
+            query = { zacetek: -1 };
+        } else if (req.body.koledar == "2"){
+            query = { zacetek: 1 };
+        }else if (req.body.koledar == "3"){
+            query = { konec: -1 };
+        }else if (req.body.koledar == "4"){
+            query = { konec: 1 };
         }
+        console.log(query);
     }
     //console.log(where_search);
     async.parallel({
-        docs: function (cb) { Naloge.find(where_search).exec(cb); },
+        docs: function (cb) { Naloge.find(where_search).sort(query).exec(cb); },
         kategorija: function (cb) { Kategorija.find().exec(cb); },
         cilji: function (cb) { Cilji.find({ druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina) }).select("ime").exec(cb); },
         uporabnik: function (cb) { Uporabnik.find({ druzina: mongoose.Types.ObjectId(req.session.trenutniUporabnik.druzina) }).select("slika ime").exec(cb); },
@@ -508,6 +521,7 @@ module.exports.prikaziNaloge = function (req, res, next) {
                 if (ime) { imeCilj.push(ime.ime); }
                 else { imeCilj.push("Samostojna naloga"); }
             }
+            console.log(results.docs);
             res.render("pages/nalogequery", { naloge: results.docs, moment: moment, kategorija: kat, slika: usr, imeCilj: imeCilj, shortId: shortId });
         });
 };
@@ -578,6 +592,26 @@ module.exports.ustvariNalogo = function (req, res, next) {
             res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
             return;
         } else {
+            if (req.body.mode || req.body.newStatus == true) {
+                console.log(doc.vezani_uporabniki);
+                let arr = doc.vezani_uporabniki;
+                let index = arr.indexOf(req.session.trenutniUporabnik._id);
+                if (index !== -1) arr.splice(index, 1);
+                Subscription.find({ user_id: arr }, function (err, sub) {
+                    if (err) {
+                        throw err;
+                        return;
+                    }
+                    for(let m = 0; m < sub.length;m++) {
+                        const payload = JSON.stringify({
+                            title: 'Obvestilo',
+                            body: 'Naloga '+doc.ime+' je bila opravljena. Dobili ste '+doc.xp+' točk!',
+                            icon: 'images/f.ico'
+                        });
+                        triggerPushMsg(sub[m], payload);
+                    }
+                });         
+            }
             //Iščem cilj, pod katerega je bila dodana naloga, uporabnikom prištejem vrednost za naloge, ki so jih naredili
             if (vCilj) {
                 if (req.body.oldCilj != req.body.sampleCilj) {
@@ -758,7 +792,7 @@ module.exports.povabiUporabnika = function (req, res, next) {
 };
 
 
-//** GET /api/:druzinaId
+//** GET /change/:druzinaId
 module.exports.spremeniDruzino = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;
     let druzina = mongoose.Types.ObjectId(req.params.druzinaId);
@@ -959,4 +993,22 @@ function hash(inp) {
         hs |= 0; // Convert to 32bit integer
     }
     return hs;
+};
+
+function triggerPushMsg(subscription, payload) {
+    let options = {
+        TTL: 3600 // 1sec * 60 * 60 = 1h
+    };
+
+    return webpush.sendNotification(
+        subscription, 
+        payload,
+        options
+    ).catch((err) => {
+        if (err.statusCode === 410) {
+            return deleteSubscriptionFromDatabase(subscription._id);
+        } else {
+            console.log('Subscription is no longer valid: ', err);
+        }
+    });
 };

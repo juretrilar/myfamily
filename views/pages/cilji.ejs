@@ -15,11 +15,11 @@
                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji">
                     <thead>
                     <tr>
-                        <th style="text-align: left;">Ime in opis</th>
-                        <th style="text-align: center;">Trenutne/vse točke</th>
-                        <th style="text-align: center;" >Točke udeležencev</th>
-                        <th style="text-align: center;" >Ustvarjen</th>
-                        <th style="text-align: center;" >Posodobljen</th>
+                        <th class="naslov-table-left">Ime in opis</th>
+                        <th class="naslov-table-center">Trenutne/vse točke</th>
+                        <th class="naslov-table-center">Točke udeležencev</th>
+                        <th class="naslov-table-center">Ustvarjen</th>
+                        <th class="naslov-table-center">Posodobljen</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -31,7 +31,7 @@
                                     <!--<div class="circle-container-main mdl-color--grey"></div>-->
                                     <span class="mdl-list__item-primary-content">
                                         <span class="mdl-color-text--black">Primer cilja</span>
-                                        <span class="mdl-list__item-text-body mdl-color-text--grey">Tole je opis cilja</span>
+                                        <span class="mdl-list__item-text-body mdl-color-text--grey fit-list">Tole je opis cilja</span>
                                         <input type="hidden" value="100" name="maxXp">
                                         <input type="hidden" value="false" name="jeSkupen">
                                         <input type="hidden" value="default" name="idCilj">
@@ -55,14 +55,14 @@
                                     <!--<div class="circle-container-main mdl-color--grey"></div>-->
                                     <span class="mdl-list__item-primary-content">
                                         <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
-                                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= cilji[i].opis %></span>
+                                        <span class="mdl-list__item-text-body mdl-color-text--grey fit-list"><%= cilji[i].opis %></span>
                                         <input type="hidden" value="<%= cilji[i].maxXp %>" name="maxXp">
                                         <input type="hidden" value="<%= cilji[i].skupni_cilj %>" name="jeSkupen">
                                         <input type="hidden" value="<%= cilji[i]._id %>" name="idCilj">
                                     </span>
                                 </div>
                             </td>
-                            <td class="padding-zero" style="text-align: center;" id="razmZ<%= m %>"><%= cilji[i].xp %>/<%= cilji[i].maxXp %></td>
+                            <td class="padding-zero naslov-table-center" id="razmZ<%= m %>"><%= cilji[i].xp %>/<%= cilji[i].maxXp %></td>
                             <td class="mdl-data-table__cell--non-numeric cilji-xp">
                                 <div class="progress progZ<%= m %>" id="progZ<%= m %>" >
                                     <% for (var j = 0; j < cilji[i].vezani_uporabniki.length; j++) { %>
@@ -75,9 +75,9 @@
                                     <% } %>                                   
                                 </div>
                             </td>
-                            <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
+                            <td class="padding-zero naslov-table-center"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                             </td>
-                            <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
+                            <td class="padding-zero naslov-table-center"><%= moment(cilji[i].last_updated).format('DD-MM-YYYY')%>
                             </td>
                             <div class="mdl-tooltip overflow-visible mdl-tooltip--right mdl-cell--hide-phone" data-mdl-for="tr<%= i %>"><i class="material-icons">edit</i></div>
                         </tr>
@@ -99,11 +99,11 @@
                 <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-cilj" id="table-cilji-end">
                     <thead>
                     <tr>
-                        <th style="text-align: left;">Ime in opis</th>
-                        <th style="text-align: center;">Trenutne/vse točke</th>
-                        <th style="text-align: center;" >Točke udeležencev</th>
-                        <th style="text-align: center;" >Ustvarjen</th>
-                        <th style="text-align: center;" >Zaključen</th>
+                        <th class="naslov-table-left">Ime in opis</th>
+                        <th class="naslov-table-center">Trenutne/vse točke</th>
+                        <th class="naslov-table-center">Točke udeležencev</th>
+                        <th class="naslov-table-center">Ustvarjen</th>
+                        <th class="naslov-table-center">Zaključen</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -116,7 +116,7 @@
                                     <!--<div class="circle-container-main mdl-color--grey"></div>-->
                                     <span class="mdl-list__item-primary-content">
                                         <span class="mdl-color-text--black"><%= cilji[i].ime %></span>
-                                        <span class="mdl-list__item-text-body mdl-color-text--grey"><%= cilji[i].opis %></span>
+                                        <span class="mdl-list__item-text-body mdl-color-text--grey fit-list"><%= cilji[i].opis %></span>
                                         <input type="hidden" value="<%= cilji[i].maxXp %>" name="maxXp">
                                         <input type="hidden" value="<%= cilji[i].skupni_cilj %>" name="jeSkupen">
                                         <input type="hidden" value="<%= cilji[i]._id %>" name="idCilj">
@@ -136,9 +136,9 @@
                                     <% } %>                                   
                                  </div>
                             </td>
-                            <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
+                            <td class="padding-zero naslov-table-center"><%= moment(cilji[i].zacetek).format('DD-MM-YYYY')%>
                             </td>
-                            <td class="padding-zero" style="text-align: center;"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
+                            <td class="padding-zero naslov-table-center"><%= moment(cilji[i].konec).format('DD-MM-YYYY')%>
                             </td>
                             <div class="mdl-tooltip overflow-visible mdl-tooltip--right mdl-cell--hide-phone" data-mdl-for="t<%= i %>"><i class="material-icons">edit</i></div>
                         </tr>

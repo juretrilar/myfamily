@@ -255,6 +255,10 @@ margin: auto;
     transition: none !important;
   }
 
+.introjs-button {
+    border: 1px solid white;
+}
+
 /*        */
 
 /* DIALOG */
@@ -285,6 +289,10 @@ dialog .mdl-card__supporting-text {
     overflow: auto;
     width: auto;
     position: relative;
+}
+
+dialog .mdl-list__item {
+    color: inherit;
 }
 
 .delete {
@@ -785,6 +793,23 @@ dialog .mdl-card__supporting-text {
 .table-cilj {
     width: 100%;
 
+}
+
+.naslov-table-center {
+    text-align: center!important;
+}
+
+.naslov-table-left {
+    text-align: left!important;
+}
+
+.table-skupni .mdl-list__item--three-line {
+    height: auto;
+}
+
+.fit-list {
+    height: fit-content;
+    white-space: normal;
 }
 
 .cilji-xp {

@@ -156,7 +156,7 @@
             <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Skupni cilji družine</h2>
             <div class="mdl-card__actions">
                 <button id="dodajcilj" class="mdl-button mdl-js-button mdl-button--raised color-dark-blue align-right mdl-color-text--white" onclick="dodajNovCilj()">
-                    DODAJ NOV CILJ
+                    DODAJ CILJ
                     <i class="material-icons">add</i>
                 </button>
             </div>
@@ -165,9 +165,9 @@
             <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-skupni" id="table-skupni">
                 <thead>
                 <tr>
-                    <th style="text-align: left;">Ime in opis</th>
-                    <th style="text-align: center;">Trenutne/vse točke</th>
-                    <th style="text-align: center;" class="mdl-cell--hide-phone" >Točke udeležencev</th>
+                    <th class="naslov-table-left">Ime in opis</th>
+                    <th class="naslov-table-center">Trenutne/vse točke</th>
+                    <th class="naslov-table-center">Točke udeležencev</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -179,7 +179,7 @@
                                 <!--<div class="circle-container-main mdl-color--grey"></div>-->
                                 <span class="mdl-list__item-primary-content">
                                     <span class="mdl-color-text--black">Družina še nima skupnih ciljev</span>
-                                    <span class="mdl-list__item-text-body mdl-color-text--grey">Med dodajanjem cilja označi polje skupni cilj za prikaz na pregledu</span>
+                                    <span class="mdl-list__item-text-body mdl-color-text--grey fit-list">Med dodajanjem cilja označi polje skupni cilj za prikaz na pregledu</span>
                                 </span>
                             </div>
                         </td>
@@ -195,7 +195,7 @@
                             <!--<div class="circle-container-main mdl-color--grey"></div>-->
                             <span class="mdl-list__item-primary-content">
                                 <span class="mdl-color-text--black"><%= skupniCilji[i].ime %></span>
-                                <span class="mdl-list__item-text-body mdl-color-text--grey"><%= skupniCilji[i].opis %></span>
+                                <span class="mdl-list__item-text-body mdl-color-text--grey fit-list"><%= skupniCilji[i].opis %></span>
                                 <input type="hidden" value="<%= skupniCilji[i].maxXp %>" name="maxXp">
                                 <input type="hidden" value="true" name="jeSkupen">
                                 <input type="hidden" value="<%= skupniCilji[i]._id %>" name="idCilj">
@@ -226,7 +226,7 @@
             <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Predlog za aktivnost</h2>
             <div class="mdl-card__actions">
                 <button id="dodajnalogo" class="mdl-button mdl-js-button mdl-button--raised color-dark-red align-right mdl-color-text--white" onclick="dodajPredlog()">
-                    DODAJ MED NALOGE
+                    DODAJ NALOGO
                     <i class="material-icons">add</i>
                 </button>
             </div>

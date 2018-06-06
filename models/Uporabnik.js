@@ -8,7 +8,7 @@ let uporabnikSchema = new mongoose.Schema({
     geslo: {type: String, required: true },
     email: {type: String, required : true, unique: true},
     viber: String,
-    telefon: Number,
+    telefon: String,
     notf_telefon: Boolean,
     notf_email: Boolean,
     admin: Boolean,

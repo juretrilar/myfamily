@@ -34,13 +34,17 @@ router.post('/delete-cilj', mainHandler.izbrisiCilj);
 
 router.post('/delete-naloga', mainHandler.izbrisiNalogo);
 
-router.get('/api/:druzinaId', mainHandler.spremeniDruzino);
+router.get('/change/:druzinaId', mainHandler.spremeniDruzino);
 
 router.post('/api/save-subscription', subscriptionHandler.dodajObvestila);
 
 router.post('/api/disable-subscription', subscriptionHandler.odstraniObvestila);
 
-router.post('/api/trigger-push-msg', subscriptionHandler.posljiObvestila);
+router.get('/api/get-tasks/:kategorijaId', subscriptionHandler.posljiNaloge);
+
+
+
+//router.post('/api/trigger-push-msg', subscriptionHandler.posljiObvestila);
 
 
 module.exports = router;

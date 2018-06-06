@@ -1,6 +1,7 @@
 let mongoose = require('mongoose');
 
 let Subscription = mongoose.model("Subscription");
+let Naloge = mongoose.model("Naloge");
 
 
 //** POST /api/save-subscription
@@ -74,6 +75,23 @@ module.exports.odstraniObvestila = function (req, res) {
         });
     }
 };
+//** GET /api/get-tasks/:kategorijaId
+module.exports.posljiNaloge = function (req, res) {
+  let query = {};
+  if(req.params.kategorijaId) query = {kategorija: req.params.kategorijaId};
+  Naloge.find(query,{ ime: 1, opis: 1, kategorija: 1 }, function (err, doc) {
+    if (err) {
+        console.log(err);
+        res.status(404);
+      } else {
+        res.send(doc);
+      }
+  });
+};
+
+
+
+
 /*
 //** POST /api/trigger-push-msg
 module.exports.posljiObvestila = function (req, res) {

@@ -508,6 +508,8 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 		// Clicking an event within the list
 		$(document.body).on("click", parent + " .listed-event", function (event) {
 			let href = $(this).attr("href");
+			console.log(event, "2");
+			console.log($(this));
             if(href) {
                 $.ajax({
                     type: "GET",
@@ -519,14 +521,12 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 							window.location.reload();
 						} else {
 							$("#NalogaPopUp").html(response).css("display", "inline-flex");
-						}
-                        
-
+						}                       
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert(xhr.status);
-                        alert(xhr.responseText);
-                        alert(thrownError)
+                        console.log(xhr.status);
+                        console.log(xhr.responseText);
+                        console.log(thrownError)
                     }
                 });
             }
@@ -537,8 +537,8 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
 }(jQuery));
 
 function prikaziPodatke(url) {
-	let href = href="/koledar/"+url;	
-	if(url) {
+	let href = "/koledar/"+url;	
+	if(url.length == 24) {
 		$.ajax({
 			type: "GET",
 			url: href,

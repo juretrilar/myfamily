@@ -123,13 +123,17 @@ function updateItems() {
 }
 
 function queryNaloge() {
+    $("body").css("cursor", "progress");
+
     let post_data = {};
     if ($("input[name='osebaSearch']").val() != "") post_data.oseba = $("input[name='osebaSearch']").val();
     if ($("input[name='statusSearch']").val() != "") post_data.status = $("input[name='statusSearch']").val();
     if ($("input[name='kategorijaSearch']").val() != "") post_data.kategorija = $("input[name='kategorijaSearch']").val();
     if ($("input[name='avtorSearch']")  .val() != "") post_data.avtor = $("input[name='avtorSearch']").val();
-    if ($("input[name='koledarSearch']").val() != "") post_data.koledar = $('#koledarSearch').val();
-    if ($("input[name='ciljSearch']").val() != "") post_data.cilj =  $("#input[name='ciljSearch']").val();
+    if ($("input[name='koledarSearch']").val() != "") post_data.koledar = $("input[name='koledarSearch']").val();
+    if ($("input[name='ciljSearch']").val() != "") post_data.cilj =  $("input[name='ciljSearch']").val();
+
+    console.log(post_data);
 
     $.ajax({
         url: '/prikazi_naloge',
@@ -137,11 +141,10 @@ function queryNaloge() {
         //contentType: 'application/json',
         data: post_data,
         success: function (response, xhr) {
-            console.log(response.length);
+            $("body").css("cursor", "default");
             if (response.includes("<!doctype html>")) {
                 window.location.reload();
             } else if(response.length == 0) {
-                console.log(response, xhr);
                 let data = {message: "Nobena naloga ne ustreza iskalnim parametrom!"};
                 let snackbarContainer = document.querySelector('#mainToast');            
                 snackbarContainer.MaterialSnackbar.showSnackbar(data);
@@ -229,6 +232,7 @@ function queryNaloge() {
             }            
         },
         error: function (xhr, ajaxOptions, thrownError) {
+            $("body").css("cursor", "default");
             console.log(xhr.status,xhr.responseText,thrownError);
             let data = {message: "Med nalaganjem nalog je prišlo do napake!"};
             let snackbarContainer = document.querySelector('#mainToast');            
