@@ -160,7 +160,6 @@ jQuery(function($) {
         let action = "Ali res želite izbirisati nalogo? S pritiskom na gumb Izbriši bo naloga dokočno izbrisana in do nje ne boste mogli več dostopati!";
         if (document.getElementById("dialog-title").innerHTML == "Uredi cilj")action = "Ali res želite izbirisati cilj? S pritiskom na gumb Izbriši bo vaš cilj dokočno izbrisan in do njega ne boste mogli več dostopati!";     
         let m = confirm(action);
-        console.log(m);
         if(m) potrdiIzbris();
     }
 
@@ -188,14 +187,13 @@ jQuery(function($) {
                 return function () {
                     callback(row);
                 };
-                console.log(row, "row");
+                //console.log(row, "row");
             }(rows[i]);
         }
     }
 
     onOpomnikClick("opomnikiList", function (row){
         napolniNalogo(row);
-        console.log(row);
     });
 
     function onRowClick(tableId, callback) {
@@ -261,7 +259,6 @@ jQuery(function($) {
     });
 
     $("#dialogZacetek").click(function(e) {  
-        console.log("open");
         let pickerZac = $("#pickZac");   
         pickerZac.removeClass("hide-element");        
         $(document).mouseup(function(e) {            
@@ -274,7 +271,6 @@ jQuery(function($) {
     });
 
     $("#dialogKonec").click(function(e) {  
-        console.log("open");
         let pickerZac = $("#pickKon");   
         pickerZac.removeClass("hide-element");        
         $(document).mouseup(function(e) {            
@@ -324,11 +320,10 @@ function clearData() {
     $('#kategorija').get(0).placeholder = "";
     $("input[name='sampleKategorija']").parent().removeClass("is-dirty").find("li").attr('data-selected','');
     getmdlSelect.init("#dialogKategorija");
-    /*
     $('#statusNaloge').get(0).placeholder = "";
     $("#statusNaloge").parent().removeClass("is-dirty")
         .find("li").attr('data-selected','');
-    getmdlSelect.init("#dialogStatus");*/
+    getmdlSelect.init("#dialogStatus");
     $('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
 }
 
@@ -337,6 +332,7 @@ function fillNaloge() {
     $('#oDialog').html("Opis naloge*");
     $('#tZacetek').html("Začetek naloge");
     $('#tKonec').html("Konec naloge");
+    $('#tockeName').html("Vrednost naloge*");
     $('#ciljiVsi').attr('style',"display: none!important");
     $('#dialogKategorija').attr('style',"display: block!important");
     $('#dialogZacetek').attr('style',"display: block!important");
@@ -365,6 +361,7 @@ function fillCilji() {
     $('#ustvari').attr('onclick',"validateNaloga(event, 1)");
     $("#closeBtn").next().removeClass("color-red").addClass("color-cyan");
     $("#dialog-hint").attr('onclick',"helpCilji()");
+    $('#tockeName').html("Točke cilja*");
 }
 
 function posodobiCilj(row) {
@@ -482,7 +479,6 @@ function validateNaloga(event, t) {
     if(t == 0) {
         let save = $( "#update_dialog" ).serialize();
         event.preventDefault();
-        console.log(save);
         $.ajax({
             url: '/ustvari_nalogo',
             type: 'POST',
@@ -688,7 +684,7 @@ function updateSubscriptionOnServer(subscription, url) {
       })
       .then(function(response) {
         if (!response.ok) {
-            console.log(response);
+            //console.log(response);
           throw new Error('Bad status code from server.', response);
          
         }    
@@ -815,7 +811,7 @@ function distanceX(elem) {
 function napolniNalogo(elem) {
     deleteShowNaloga(elem);
     elem = elem.children[1];
-    console.log(elem);
+    //console.log(elem);
     $("#dashboardNaloga").removeClass("hide-element");
     $("#opomnikKategorija").text(elem.lastElementChild.children[0].value);
     let dz = elem.lastElementChild.children[1].value;
@@ -825,7 +821,7 @@ function napolniNalogo(elem) {
     
     $("#opomnikCilj").append(elem.lastElementChild.children[3].value);
     $("#opomnikId").val(elem.lastElementChild.children[4].value);
-    console.log(elem.lastElementChild.children[4].value);
+    //console.log(elem.lastElementChild.children[4].value);
 
     $("#opomnikIme").text(elem.children[0].children[0].innerHTML);
     $("#opomnikOpis").text(elem.children[0].children[2].innerHTML);  
@@ -890,13 +886,13 @@ function potrdiIzbris () {
 }
 
 function chooseHelp() {
-      if ($("#dashboard").hasClass("is-active")) {startIntroDashboard();console.log("dash");}
-      if ($("#koledar").hasClass("is-active"))  {startIntroKoledar();console.log("cal");}
-      if ($("#naloge").hasClass("is-active"))  {startIntroNaloge();console.log("nal");}
-      if ($("#cilj").hasClass("is-active"))  {startIntroCilj();console.log("cilj");}
-      if ($("#settings").hasClass("is-active"))  {startIntroSettings();console.log("set");}
-      if ($("#notifications").hasClass("is-active"))  {startIntroNotifications();console.log("notf");}
-      if ($("#druzina").hasClass("is-active"))  {startIntroDruzina();console.log("drz");}
+      if ($("#dashboard").hasClass("is-active")) {startIntroDashboard();}
+      if ($("#koledar").hasClass("is-active"))  {startIntroKoledar();}
+      if ($("#naloge").hasClass("is-active"))  {startIntroNaloge();}
+      if ($("#cilj").hasClass("is-active"))  {startIntroCilj();}
+      if ($("#settings").hasClass("is-active"))  {startIntroSettings();}
+      if ($("#notifications").hasClass("is-active"))  {startIntroNotifications();}
+      if ($("#druzina").hasClass("is-active"))  {startIntroDruzina();}
 }
 
 function startIntroDashboard(){
@@ -1203,7 +1199,6 @@ function helpNaloga(){
         });
         intro.addHints();
         
-        console.log("move 1");
     }
     else if (shown == 0) {
         intro.showHints();
@@ -1268,15 +1263,12 @@ function helpNaloga(){
             }, 1);        
         });
         intro.addHints();
-        console.log("move 1");
     }
     else if (shown == 0) {
-        console.log("show 1");
         intro.showHints();
         shown = 1;
     }
     else if (shown == 1) {
-        console.log("hide 1");
         intro.hideHints();
         shown = 0;
     }      

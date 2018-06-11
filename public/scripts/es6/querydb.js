@@ -185,7 +185,7 @@ function queryNaloge() {
                         $('#targetKonec') .val(dateK).parent().addClass("is-dirty");
                         $('#dateKonec').val(moment(dateK.replace(' ob ',' '), 'DD-MM-Y HH:mm').format('Y-MM-DD HH:mm'));
                     }
-                    let kat = card.getElementsByClassName("kategorijaNaloga")[0].value;
+                    let kat = card.getElementsByClassName("kategorijaNaloga")[0].value; 
                     $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val="+kat+"]").get(0).textContent.trim();
                     $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val="+kat+"]").attr('data-selected','true');
                     getmdlSelect.init("#dialogKategorija");
@@ -211,21 +211,26 @@ function queryNaloge() {
                     $('#xpNaloge').val(card.getElementsByClassName("xpNaloga")[0].innerHTML.match(/\d/g).join("")).parent().addClass("is-dirty");
                     let usr = card.getElementsByClassName("udelezenecNaloga");
                     let chckbox = $("input:checkbox[name='person']");
+                    let chckboxVal = [];
+                    for(let i=1;i<chckbox.length;i++) {
+                        chckboxVal.push($("#"+chckbox[i].id).val());
+                    }                    
                     $("#checkboxVsi").parent()[0].MaterialCheckbox.uncheck();
                     if(chckbox.length-1==usr.length) {
                         $("#checkboxVsi").parent()[0].MaterialCheckbox.check();
                     }
-                    let u=0;
-                    for(let i=1;i<chckbox.length;i++) {
-                        let curr = $("#"+chckbox[i].id).parent()[0].MaterialCheckbox;
-                        curr.uncheck();
-                        if(usr[u].value == chckbox[i].value) {
-                            //console.log(usr);
-                            curr.check();
+                    let u=0;                    
+                    for(let i=1;i<chckbox.length;i++) {                      
+                        $("#"+chckbox[i].id).parent()[0].MaterialCheckbox.uncheck();
+                    }                    
+                    while (u < usr.length) {
+                        let index = chckboxVal.indexOf(usr[u].value);
+                        if (index !== -1) {
+                            $("#"+chckbox[index+1].id).parent()[0].MaterialCheckbox.check();
                             u++;
-                            if(u => usr.length) break;
                         }
                     }
+
     
                     event.stopPropagation();
                 });
