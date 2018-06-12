@@ -50,7 +50,7 @@
                     <% for (var i = 0; i < cilji.length; i++) { %>
                         <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
                         <tr id="tr<%= i %>" class="clickable">
-                            <td class="mdl-data-table__cell--non-numeric padding-zero">
+                            <td class="mdl-data-table__cell--non-numeric padding-zero cilji-first">
                                 <div class="mdl-list__item mdl-list__item--three-line">
                                     <!--<div class="circle-container-main mdl-color--grey"></div>-->
                                     <span class="mdl-list__item-primary-content">
@@ -111,7 +111,7 @@
                     <% for (var i = 0; i < cilji.length; i++) { %>
                         <% if(cilji[i].maxXp <= cilji[i].xp) { %>
                         <tr id="t<%= i %>" class="clickable">
-                            <td class="mdl-data-table__cell--non-numeric padding-zero">
+                            <td class="mdl-data-table__cell--non-numeric padding-zero cilji-first">
                                 <div class="mdl-list__item mdl-list__item--three-line">
                                     <!--<div class="circle-container-main mdl-color--grey"></div>-->
                                     <span class="mdl-list__item-primary-content">

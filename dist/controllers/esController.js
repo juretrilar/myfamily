@@ -162,7 +162,7 @@ module.exports.naslovnaStran = function (req, res) {
                 if (usr) temp.push(usr.slika);
             }
             if (result.cilji[i].skupni_cilj == true) {
-                sCilji.push({ ime: result.cilji[i].ime, opis: result.cilji[i].opis, vezani_uporabniki: result.cilji[i].vezani_uporabniki, maxXp: result.cilji[i].maxXp, xp: result.cilji[i].xp, slika: temp });
+                sCilji.push({ ime: result.cilji[i].ime, opis: truncate(result.cilji[i].opis, 100), vezani_uporabniki: result.cilji[i].vezani_uporabniki, maxXp: result.cilji[i].maxXp, xp: result.cilji[i].xp, slika: temp });
 
             }
             result.cilji[i].slika = temp;
@@ -188,7 +188,7 @@ module.exports.naslovnaStran = function (req, res) {
             if (vcilj) opomnik[i].vezan_cilj = vcilj.ime;
         }
         posodobiJson(obj, req.session);
-        console.log(req.session.trenutniUporabnik.notf_email," status mail");
+        //console.log(req.session.trenutniUporabnik.notf_email," status mail");
         res.render("pages/index", { uporabniki: result.uporabniki, currSession: req.session, cilji: result.cilji, kategorija: result.kategorija, id: req.session.trenutniUporabnik.id, opomniki: opomnik, skupniCilji: sCilji, moment: moment });
     });
 };
@@ -791,6 +791,7 @@ module.exports.ustvariCilj = function (req, res, next) {
         }
     } else {
         novCilj.zacetek = updated;
+        novCilj.xp = 0;
     }
     Cilji.findOneAndUpdate(conditions, novCilj, { upsert: true, runValidators: true }, function (err, doc) { // callback
         if (err) {
@@ -1051,4 +1052,12 @@ function triggerPushMsg(subscription, payload) {
             console.log('Subscription is no longer valid: ', err);
         }
     });
+};
+
+
+function truncate(string, num){
+    if (string.length > num)
+        return string.substring(0,num)+'...';
+    else
+        return string;
 };

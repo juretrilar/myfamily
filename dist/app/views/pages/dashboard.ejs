@@ -57,7 +57,7 @@
         <div class="mdl-card section__text mdl-cell color-transparent mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet overflow-visible">
             <div class="flex-container" id="dash3">
                 <div class="mdl-textfield mdl-js-textfield mdl-color-text--white shadow-text mdl-textfield__status">
-                    <input class="mdl-textfield__input not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" maxlength="120" autocomplete="false">
+                    <input class="mdl-textfield__input not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" value="" maxlength="120" autocomplete="new-password">
                     <label class="mdl-textfield__label mdl-color-text--white shadow-text" for="currStatus">Status...</label>
                 </div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored color-dark-cyan button-objava" onclick="objaviStatus()">
@@ -190,7 +190,7 @@
                 <% } %>
                 <% for (var i = 0; i < skupniCilji.length; i++) { %>
                 <tr>
-                    <td class="mdl-data-table__cell--non-numeric padding-zero">
+                    <td class="mdl-data-table__cell--non-numeric padding-zero cilji-first">
                         <div class="mdl-list__item mdl-list__item--three-line">
                             <!--<div class="circle-container-main mdl-color--grey"></div>-->
                             <span class="mdl-list__item-primary-content">

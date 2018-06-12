@@ -815,6 +815,8 @@ dialog .mdl-list__item {
 .cilji-xp {
     padding: 0!important;
     font-size: 10px!important;
+    min-width: 200px;
+    width: 40%;
 }
 
 .table-skupni .cilji-xp {
@@ -822,8 +824,30 @@ dialog .mdl-list__item {
     width: 100%;
 }
 
-.table-skupni {
+.cilji-first {
+    width: 35%;
+    max-width: 400px;
+    min-width: 200px;
+}
+
+table .mdl-list__item--three-line .mdl-list__item-primary-content {
+    height: unset;
+}
+
+table {
     width: 100%;
+}
+
+table .mdl-list__item--three-line {
+    height: unset;
+}
+
+table .mdl-list__item {
+    padding-right: 0;
+}
+
+table .mdl-list__item--three-line .mdl-list__item-text-body {
+    height: unset;
 }
 
 .padding-zero {

@@ -40,6 +40,7 @@ app.use(session({
     secret : "THISISASECRETSTRING",
     saveUninitialized : true,
     resave : true,
+    rolling: true,
     name : "myfamily",
     store : new MongoStore({mongooseConnection : mongoose.connection}),
     autoRemove : "native",
@@ -72,7 +73,11 @@ app.use(function(err, req, res, next) {
 gulp.task('default', function() {
     // place code for your default task here
   });
-
+if(process.env.NODE_ENV === "production"){
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true
+}
+  
 app.listen(process.env.PORT || 3000);
 
 module.exports = app;
