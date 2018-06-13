@@ -10,11 +10,11 @@
         <% if (currSession) { %>
         <div class="mdl-layout-spacer"></div>
         <div id="dash7">
-        <h6 class="mdl-color-text--grey mdl-typography--font-light mdl-cell--hide-phone">Živjo,&nbsp</h6>
-        <h6 class="mdl-color-text--black mdl-typography--font-light"><%= currSession.trenutniUporabnik.ime %></h6>
+        <h6 class="mdl-color-text--grey mdl-typography--font-light mdl-cell--hide-phone">Pozdravljen,&nbsp</h6>
+        <h6 class="mdl-color-text--grey-700 mdl-typography--font-light"><%= currSession.trenutniUporabnik.ime %></h6>
         <input type="hidden" id="trenutniUporabnik" value="<%= currSession.trenutniUporabnik.id %>">
         <button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon color-dark-text">
-            <i class="material-icons">menu</i>
+            <i class="material-icons color-dark-text">menu</i>
         </button>
         <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
             for="menu-lower-right" id="dash7">

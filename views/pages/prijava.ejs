@@ -7,7 +7,7 @@
             <main class="mdl-layout__content">
                 <div class="mdl-grid text-main card-500">
                     <div class="mdl-card mdl-shadow--16dp util-center" id="prijava">
-                        <div class="mdl-card__title color-blue krivulja-2">
+                        <div class="mdl-card__title color-blue krivulja-2 header2">
                             <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Prijava v MyFamily</h2>
                         </div>
                         <form method="POST" action="/prijava" id="prijavaForm">
@@ -38,7 +38,7 @@
                         </form>
                     </div>
                     <div class="mdl-card mdl-shadow--16dp util-center" id="registracija" style="display: none;">
-                        <div class="mdl-card__title color-cyan krivulja-1">
+                        <div class="mdl-card__title color-cyan krivulja-1 header1">
                             <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Ustvarite nov račun</h2>
                         </div>
                         <form method="POST" action="/registracija" id="registracijaForm" onsubmit="return validateRegistracija()">
@@ -83,10 +83,10 @@
                             </div>
                             <div id="avatars">
                                 <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
-                                <% for(let i=1;i<8;i++) { %>
+                                <% for(let i=0;i<9;i++) { %>
                                 <label class="avatars">
-                                    <input type="radio" name="avatar" value="/uploads/<%= i %>.png" hidden/>
-                                    <img src="/uploads/<%= i %>.png" alt=""/>
+                                    <input type="radio" name="avatar" value="<%= i %>" hidden/>
+                                    <img src="<%= getPic(i)%>" alt=""/>
                                 </label>
                                 <% } %>
                             </div>

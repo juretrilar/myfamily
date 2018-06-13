@@ -2,6 +2,9 @@
   "name": "ekosmart",
   "version": "1.0.0",
   "description": "test app",
+  "engines": {
+    "node": "8.9.3"
+  },
   "main": "app.js",
   "dependencies": {
     "air-datepicker": "^2.2.3",
