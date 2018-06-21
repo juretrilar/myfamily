@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <%- include('../partials/head') -%>
-    <body class="body-prijava">
+    <body class="body-prijava header6">
         <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header" >
             <%- include('../partials/nav') -%>
             <main class="mdl-layout__content">
@@ -86,7 +86,7 @@
                                 <% for(let i=0;i<9;i++) { %>
                                 <label class="avatars">
                                     <input type="radio" name="avatar" value="<%= i %>" hidden/>
-                                    <img src="<%= tabelaSlik[0] %>" alt=""/>
+                                    <img class="img-64-<%= i %>" src="public/images/png.png" alt=""/>
                                 </label>
                                 <% } %>
                             </div>

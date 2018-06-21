@@ -114,7 +114,8 @@ jQuery(function($) {
     tockeUdelezencev($('#table-cilji-end').find('tr').length-1, "progK", "razmK");
     tockeUdelezencev($('#table-skupni').find('tr').length-1, "progS", "razmS");
 
-    onUserClick("container", function (img){      
+    onUserClick("container", function (img){ 
+        console.log("klik"+img);     
         let pos = img.getBoundingClientRect();
         let card = $(".card-info");        
         $("#userCard").text(img.nextElementSibling.value);
@@ -752,11 +753,22 @@ function updateBtn() {
     
     if (isSubscribed) {
         pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
-        label.MaterialSwitch.on();
+        try {
+            label.MaterialSwitch.on();
+        } catch (e) {
+            console.log("Element ne obstaja.", e);
+        }
+        
            
     } else {
-        if($('#pushButton').parent().is('.is-checked')) {label.MaterialSwitch.off();}
+        //if (label.classList.contains("is-checked")) {}
         pushButton.nextElementSibling.textContent = 'Vklopi obvestila v brskalniku';
+        try {
+            label.MaterialSwitch.off();
+        } catch (e) {
+            console.log("Element ne obstaja.", e);
+        }
+        
     }
 }
 

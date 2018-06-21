@@ -12,7 +12,7 @@ let uporabnikSchema = new mongoose.Schema({
     notf_telefon: Boolean,
     notf_email: Boolean,
     admin: Boolean,
-    slika: String,
+    slika: Number,
     status: String,
     dayXp: Number,
     created_at: Date,

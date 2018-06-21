@@ -50,10 +50,10 @@
                     </div>
                     <div id="avatars" class="mdl-cell mdl-cell--12-col">
                         <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
-                        <% for(let i=1;i<8;i++) { %>
+                        <% for(let i=0;i<9;i++) { %>
                         <label class="avatars">
-                            <input type="radio" name="avatar" value="public/uploads/<%= i %>.png" hidden/>
-                            <img src="public/uploads/<%= i %>.png" alt=""/>
+                            <input type="radio" name="avatar" value="<%= i %>" hidden/>
+                            <img class="img-64-<%= i %>" src="public/images/png.png" alt=""/>
                         </label>
                         <% } %>
                     </div>

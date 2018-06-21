@@ -68,8 +68,8 @@ gulp.task('useref', function(){
     .pipe(replace(/<%= opomniki\[i\]\.vezani_uporabniki\[j\]\.slika/g, 'public/<%= opomniki[i].vezani_uporabniki[j].slika'))
     .pipe(replace(/<%= opomniki\[i]\.vezani_uporabniki\[j]\[0] %>/g, 'public<%= opomniki[i].vezani_uporabniki[j][0] %>'))    
     .pipe(replace(/<%= opomniki\[i]\.avtor\[0] %>/g, 'public<%= opomniki[i].avtor[0] %>')) */
-    .pipe(replace(/\/uploads\/<%= i %>.png/g, 'public/uploads/<%= i %>.png'))
-    .pipe(replace(/\/images\/header/g, '../images/header'))  
+    //.pipe(replace(/\/uploads\/<%= i %>.png/g, 'public/uploads/<%= i %>.png'))
+    .pipe(replace(/\/images\//g, 'public/images/'))
     .pipe(gulp.dest('dist/app'))
 });
 
@@ -95,7 +95,7 @@ gulp.task('clean:dist', function() {
 
 gulp.task('build', function (callback) {
     runSequence('clean:dist',
-        ['useref', 'images', 'login', 'sw', 'models', 'routes', 'controllers', 'move'],    
+        ['useref', 'images', 'login', 'sw', 'models', 'routes', 'controllers', 'move-1', 'move-2'],    
         callback
     )
 })
@@ -115,10 +115,16 @@ gulp.task('controllers', function (callback) {
     .pipe(gulp.dest('dist/controllers'))
 })
 
-gulp.task('move', function (callback) {
+gulp.task('move-1', function (callback) {
     return gulp.src(['prod.js', 'package.json', 'package-lock.json', 'manifest.json', 'favicon.ico'])
     .pipe(replace(/node app\.js/g, 'node prod.js')) 
     .pipe(gulp.dest('dist/'))
+})
+
+gulp.task('move-2', function (callback) {
+    return gulp.src('bin/clearDayXp.js')
+
+    .pipe(gulp.dest('dist/bin'))
 })
 
 gulp.task('uglify', () => {

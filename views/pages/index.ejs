@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
 <%- include('../partials/head') -%>
-<body>
+<body class="header6">
     <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header">
         <%- include('../partials/nav') -%>
         <div class="mdl-card card-info mdl-shadow--2dp overflow-visible hide-element tri-card-no-status podatki-user">
@@ -159,7 +159,7 @@
                                 <% for (var i = 0; i < uporabniki.length; i++) { %>
                                 <li class="mdl-list__item mdl-list__item--no-padding">
                                     <span class="mdl-list__item-primary-content">
-                                    <img class="mdl-chip__contact author-chip" src="<%= uporabniki[i].slika %>">
+                                    <img class="mdl-chip__contact author-chip img-48-<%= uporabniki[i].slika %>" src="/images/png.png">
                                     <%= uporabniki[i].ime %>
                                     </span>
                                     <span class="mdl-list__item-secondary-action">

@@ -515,8 +515,6 @@ Monthly 2.2.2 by Kevin Thornbloom is licensed under a Creative Commons Attributi
                     type: "GET",
                     url: href,
                     success: function (response) {
-						//$('#nalogeGrid').html(response);
-						console.log(response);
 						if (response.includes("<!doctype html>")) {
 							window.location.reload();
 						} else {
@@ -543,7 +541,6 @@ function prikaziPodatke(url) {
 			type: "GET",
 			url: href,
 			success: function (response) {
-				//$('#nalogeGrid').html(response);
 				console.log(response);
 				if (response.includes("<!doctype html>")) {
 					window.location.reload();

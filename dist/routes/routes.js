@@ -40,7 +40,15 @@ router.post('/api/save-subscription', subscriptionHandler.dodajObvestila);
 
 router.post('/api/disable-subscription', subscriptionHandler.odstraniObvestila);
 
-router.get('/api/get-tasks/:kategorijaId', subscriptionHandler.posljiNaloge);
+router.post('/api/prijava', subscriptionHandler.posljiToken);
+
+router.post('/api/koraki', subscriptionHandler.prejmiKorake);
+
+router.post('/api/naloga', subscriptionHandler.prejmiNalogo);
+
+router.get('/api/naloge/:userId', subscriptionHandler.posljiNaloge);
+
+router.get('/api/cilji/:userId', subscriptionHandler.posljiCilje);
 
 
 

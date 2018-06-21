@@ -24,14 +24,14 @@
                 <span class="mdl-card__supporting-text mdl-color-text--grey padding-zero">Udeleženci naloge:</span>
                 <span class="mdl-list__item-text-body chip-no-margin">
                     <% for(let i=1;i< vezani.length;i++) { %>
-                    <img title="<%= vezani[i].ime %>" class="mdl-chip__contact author-chip" src="<%= vezani[i].slika %>"></img>
+                    <img title="<%= vezani[i].ime %>" class="mdl-chip__contact author-chip img-48-<%= vezani[0].slika %>" src="/images/png.png"></img>
                     <% } %>
                 </span>
             </span>
             <span class="mdl-list__item-primary-content">
                 <span class="mdl-card__supporting-text mdl-color-text--grey padding-zero">Avtor:</span>
                 <span class="mdl-list__item-text-body">
-                    <img title="<%= vezani[0].ime %>" class="mdl-chip__contact author-chip" src="<%= vezani[0].slika %>"></img>
+                    <img title="<%= vezani[0].ime %>" class="mdl-chip__contact author-chip img-48-<%= vezani[0].slika %>" src="/images/png.png"></img>
                 </span>
             </span>
         </div>

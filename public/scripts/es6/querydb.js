@@ -133,7 +133,7 @@ function queryNaloge() {
     if ($("input[name='koledarSearch']").val() != "") post_data.koledar = $("input[name='koledarSearch']").val();
     if ($("input[name='ciljSearch']").val() != "") post_data.cilj =  $("input[name='ciljSearch']").val();
 
-    console.log(post_data);
+    //console.log(post_data);
 
     $.ajax({
         url: '/prikazi_naloge',

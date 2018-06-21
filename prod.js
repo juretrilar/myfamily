@@ -41,6 +41,7 @@ app.use(session({
     secret : "THISISASECRETSTRING",
     saveUninitialized : true,
     resave : true,
+    rolling: true,
     name : "myfamily",
     store : new MongoStore({mongooseConnection : mongoose.connection}),
     autoRemove : "native",
@@ -73,6 +74,7 @@ app.use(function(err, req, res, next) {
 gulp.task('default', function() {
     // place code for your default task here
   });
+
 
 app.listen(process.env.PORT || 3000);
 
