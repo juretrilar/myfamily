@@ -5,4 +5,4 @@ let kategorijaSchema = new mongoose.Schema({
     ime: {type : String, unique : true}
 });
 
-let Kategroija = mongoose.model('Kategroija', kategorijaSchema, 'Kategorija');
+let Kategorija = mongoose.model('Kategorija', kategorijaSchema, 'Kategorija');

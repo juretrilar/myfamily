@@ -46,9 +46,11 @@ router.post('/api/koraki', subscriptionHandler.prejmiKorake);
 
 router.post('/api/naloga', subscriptionHandler.prejmiNalogo);
 
-router.get('/api/naloge/:userId', subscriptionHandler.posljiNaloge);
+router.get('/api/naloge/', subscriptionHandler.posljiNaloge);
 
-router.get('/api/cilji/:userId', subscriptionHandler.posljiCilje);
+router.get('/api/cilji/', subscriptionHandler.posljiCilje);
+
+router.get('/api/kategorije/', subscriptionHandler.posljiKategorije);
 
 
 

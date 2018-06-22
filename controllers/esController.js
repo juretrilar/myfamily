@@ -3,7 +3,7 @@ let mongoose = require('mongoose');
 let Uporabnik = mongoose.model("Uporabnik");
 let Cilji = mongoose.model("Cilji");
 let Naloge = mongoose.model("Naloge");
-let Kategorija = mongoose.model("Kategroija");
+let Kategorija = mongoose.model("Kategorija");
 let Subscription = mongoose.model("Subscription");
 
 let express = require('express');
@@ -23,6 +23,8 @@ let webpush = require('web-push');
 
 let color = { "5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3", "5aef78ab361f5244948ff58f": "#a3f7bf" };
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
+
+bcrypt = require('bcryptjs');
 
 webpush.setVapidDetails(
     'mailto:myFamilyAppMail@gmail.com',
@@ -186,8 +188,8 @@ module.exports.prijava = function (req, res, next) {
 //** POST /priava
 module.exports.prijaviUporabnika = function (req, res, next) {
     let email = req.body.email;
-    let geslo = hash(req.body.password);
-    console.log(hash(req.body.password));
+    let geslo = req.body.password;
+    console.log(geslo);
     Uporabnik.find(function (err, uporabniki) {
         if (err) {
             console.log(err);
@@ -203,7 +205,7 @@ module.exports.prijaviUporabnika = function (req, res, next) {
             req.session.trenutniUporabnik = null;
             for (i in uporabniki) {
                 //ce se email in geslo ujemata
-                if (uporabniki[i].email == email && uporabniki[i].geslo == geslo) {
+                if (uporabniki[i].email && bcrypt.compareSync(geslo,  uporabniki[i].geslo)) {
                     //shrani podatke v sejo
                     req.session.trenutniUporabnik = {
                         email: uporabniki[i].email,
@@ -214,7 +216,7 @@ module.exports.prijaviUporabnika = function (req, res, next) {
                         druzina: uporabniki[i].druzina,
                         admin: uporabniki[i].admin,
                         slika: uporabniki[i].slika,
-                        vrsta: uporabniki[i].vrsta,
+                        polozaj: uporabniki[i].polozaj,
                         notf_email: uporabniki[i].notf_email,
                         notf_telefon: uporabniki[i].notf_telefon
                     };
@@ -242,12 +244,12 @@ module.exports.ustvariUporabnika = function (req, res, next) {
         _id: new ObjectId(),
         ime: req.body.reg_name,
         druzina: new ObjectId(),
-        geslo: hash(req.body.reg_password),
+        geslo: bcrypt.hashSync(req.body.reg_password, 8),
         email: req.body.reg_email,
         telefon: req.body.reg_phone,
         notf_email: false,
         notf_telefon: false,
-        vrsta: 7,
+        polozaj: 7,
         admin: false,
         slika: req.body.avatar,
         created_at: Date.now()
@@ -266,9 +268,9 @@ module.exports.posodobiOsebnePodatke = function (req, res, next) {
         ime: req.body.set_name,
         email: req.body.set_email,
         telefon: req.body.set_phone,
-        vrsta: parseInt(req.body.izbranaVrsta),
+        polozaj: parseInt(req.body.izbranaVrsta),
     };
-    if (req.body.reg_password) updateUporabnik.geslo = hash(req.body.set_password);
+    if (req.body.reg_password) updateUporabnik.geslo = bcrypt.hashSync(req.body.reg_password, 8);
     if (req.body.avatar) updateUporabnik.slika = req.body.avatar;
     let conditions = { _id: req.session.trenutniUporabnik.id };
     Uporabnik.findOneAndUpdate(conditions, updateUporabnik, { upsert: true, runValidators: true }, function (err, doc) { // callback
@@ -276,7 +278,7 @@ module.exports.posodobiOsebnePodatke = function (req, res, next) {
             console.log(err);
             vrniNapako(res, err);
         } else {
-            req.session.trenutniUporabnik.vrsta = parseInt(req.body.izbranaVrsta);
+            req.session.trenutniUporabnik.polozaj = parseInt(req.body.izbranaVrsta);
             res.redirect('/')
         }
     });
@@ -1013,17 +1015,6 @@ function checkIfLogged(res, req) {
     }
     return 0;
 }
-
-
-function hash(inp) {
-    let hs = 0, i, chr;
-    for (i = 0; i < inp.length; i++) {
-        chr = inp.charCodeAt(i);
-        hs = ((hs << 5) - hs) + chr;
-        hs |= 0; // Convert to 32bit integer
-    }
-    return hs;
-};
 
 function triggerPushMsg(subscription, payload) {
     let options = {

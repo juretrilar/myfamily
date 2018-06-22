@@ -5,7 +5,12 @@ let Subscription = mongoose.model("Subscription");
 let Naloge = mongoose.model("Naloge");
 let Cilji = mongoose.model("Cilji");
 let Uporabnik = mongoose.model("Uporabnik");
+let Kategorija = mongoose.model("Kategorija");
 
+let jwt = require('jsonwebtoken');
+let bcrypt = require('bcryptjs');
+
+let config = require('../config');
 
 //** POST /api/save-subscription
 module.exports.dodajObvestila = function (req, res) {
@@ -74,57 +79,101 @@ module.exports.odstraniObvestila = function (req, res) {
             console.log('unsubscribed');
             res.setHeader('Content-Type', 'application/json');
             res.send(JSON.stringify({ data: { success: true } }));
-
         });
     }
 };
 
 //** POST /api/prijava
-module.exports.posljiToken = function (req, res) {
-  Uporabnik.find({email: req.body.email}, function (err, uporabniki) {
+module.exports.posljiToken = function (req, res) {  
+  if (req.headers.email && req.headers.password) {
+    Uporabnik.find({email: req.headers.email}, function (err, uporabniki) {
+      if (err) {
+        console.log(err);
+        res.status(404).send(err);
+      } else {
+        if (uporabniki[0].email == req.headers.email && bcrypt.compareSync(req.headers.password, uporabniki[0].geslo)) {
+          let user = {};
+          let token = jwt.sign({ id: uporabniki[0]._id }, config.secret, {    // create a token
+            expiresIn: 86400 // expires in 24 hours
+          });
+          user.auth = true;
+          user.token = token;
+          user._id  = uporabniki[0]._id;
+          user.email = uporabniki[0].email;
+          user.ime =  uporabniki[0].ime;
+          user.druzina = uporabniki[0].druzina;
+          user.telefon = uporabniki[0].telefon;
+          user.slika = uporabniki[0].slika;
+          res.status(200).send(user);
+        }
+      }
+    });
+  } else {
+    res.sendStatus(404);
+  }
+};
+
+//** GET /api/naloge/
+module.exports.posljiNaloge = function (req, res) {
+  let query = {};
+  let token = req.headers.token;
+  if (token) {
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+      query = { vezani_uporabniki: {$in: [mongoose.Types.ObjectId(decoded.id)]}};
+      Naloge.find(query, function (err, doc) {
+        if (err) {
+            console.log(err);
+            res.status(404).send(err);
+          } else {
+            res.status(200).send(doc);
+          }
+      });
+    });
+  } else {
+    res.status(401).send({ auth: false, message: 'No token provided.' });  
+  }
+};
+
+//** GET /api/cilji/
+module.exports.posljiCilje = function (req, res) {
+  let query = {};
+  let token = req.headers.token;
+  if (token) {
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+      query = { "vezani_uporabniki.id_user" : {$in: [mongoose.Types.ObjectId(decoded.id)]}};
+      Cilji.find(query, function (err, doc) {
+        if (err) {
+          console.log(err);
+          res.status(404).send(err);
+        } else {
+          res.status(200).send(doc);
+        }
+      });
+    });
+  } else {
+    res.status(401).send({ auth: false, message: 'No token provided.' });  
+  }
+};
+
+//** GET /api/kategorije
+module.exports.posljiKategorije = function (req, res) {
+  Kategorija.find(function (err, kat) {
     if (err) {
       console.log(err);
       res.status(404).send(err);
     } else {
-      if (uporabniki.email == req.body.email) {
-        console.log("created token", uporabniki._id);
-        res.status(200).send({ token: uporabniki._id});
-      }
+      console.log(kat)
+      res.status(200).send(kat);
     }
   });
 };
 
-//** GET /api/naloge/:userId
-module.exports.posljiNaloge = function (req, res) {
-
-  let query = {};
-  if(req.params.userId) query = { vezani_uporabniki: {$in: [req.params.userId]}};
-  Naloge.find(query, function (err, doc) {
-    if (err) {
-        console.log(err);
-        res.status(404).send(err);
-      } else {
-        res.status(200).send(doc);
-      }
-  });
-};
-
-//** GET /api/cilji/:userId
-module.exports.posljiCilje = function (req, res) {
-  let query = {};
-  if(req.params.userId) query = { "vezani_uporabniki.id_user" : {$in: [req.params.userId]}};
-  Cilji.find(query, function (err, doc) {
-    if (err) {
-        console.log(err);
-        res.status(404).send(err);
-      } else {
-        res.status(200).send(doc);
-      }
-  });
-};
 
 //** POST /api/koraki/
 module.exports.prejmiKorake = function (req, res) {
+  console.log(req.headers);
   console.log(req.body);
   console.log("koraki delajo")
   res.sendStatus(200);
@@ -141,22 +190,37 @@ module.exports.prejmiKorake = function (req, res) {
   */
 };
 
-//** POST /api/naloga/
+//** POST /api/naloga/:idNaloge
 module.exports.prejmiNalogo = function (req, res) {
-  console.log(req.body);
-  request.post(
-    'https://ekosmartweb.herokuapp.com/ustvari_nalogo',
-    { json: { mode: 'api', newDialog: req.body.idNaloge, } },
-    function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-          console.log("dela");
-          res.sendStatus(200);
-        } else {
-          console.log("ne dela");
-          res.sendStatus(404);
+  let token = req.headers.token;
+  if (token) {
+    jwt.verify(token, config.secret, function(err, decoded) {
+      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+      request.post('https://ekosmartweb.herokuapp.com/ustvari_nalogo').form({mode: 'api', newDialog: req.params.idNaloge});
+      res.sendStatus(200);
+      /*
+      request.post(
+        'localhost:3000/ustvari_nalogo',
+        { json: { mode: 'api', newDialog: req.params.idNaloge, } },
+        function (error, response, body) {
+            if (!error && response.statusCode == 200) {
+              res.sendStatus(200);
+            } else {
+              console.log(error, response);
+              res.sendStatus(404);
+            }
         }
-    }
-  );
+      );*/
+    });
+  } else {
+    res.status(401).send({ auth: false, message: 'No token provided.' });  
+  }
+
+
+
+
+  console.log(req.body);
+  
 };
 
 
@@ -217,17 +281,6 @@ function saveSubscriptionToDatabase(subscription) {
       });
     });
   };
-
-
-  function hash(inp) {
-    let hs = 0, i, chr;
-    for (i = 0; i < inp.length; i++) {
-        chr = inp.charCodeAt(i);
-        hs = ((hs << 5) - hs) + chr;
-        hs |= 0; // Convert to 32bit integer
-    }
-    return hs;
-};
 
 
 
