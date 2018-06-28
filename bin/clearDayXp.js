@@ -11,14 +11,10 @@ let SMSAPI = require('smsapicom'),smsapi = new SMSAPI({
     }
 });
 let nodemailer = require('nodemailer');
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: process.env.mailUser,
-        pass: process.env.mailPass
-    }
-});
-
+let sparkPostTransport = require('nodemailer-sparkpost-transport')
+let transporter = nodemailer.createTransport(sparkPostTransport({
+  'sparkPostApiKey': process.env.SPARKPOST_API_KEY
+}))
 
 console.log("Deleting daily xp");
 deleteXP();
@@ -123,12 +119,12 @@ function sendMail() {
                             "\nKonec: "+moment(temp[m].konec).format("D. M ob H:m")+"\nTočk: "+temp[m].xp+"\n\n";
                         }
                         mailOptions = {
-                            from: '"MyFamily mailer"'+process.env.mailUser,
-                            to: '"Usr"'+emailusers[j].email,
+                            from: 'MyFamily@'+process.env.SPARKPOST_DOMAIN,
+                            to: emailusers[j].email,
                             subject: "Opomnik " + moment(new Date()).format('M. D'),
                             text: vsebina,
                         }
-                        console.log("Sending mail");
+                        console.log("Sending mail", mailOptions);
                         transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error);

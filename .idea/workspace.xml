@@ -1,279 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/views/pages/index.ejs" line="135" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/views/pages/index.ejs" line="146" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="0385c574-b552-42e2-beda-6114b3d5017d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/public/calendar/5a6ef17bbd2dd22aa8cffa25/events.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/public/calendar/5a6ef17bbd2dd22aa8cffa25/events.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/controllers/esController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/esController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/calendar/5a6ef17bbd2dd22aa8cffa25/events.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/controllers/webpushController.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/webpushController.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/app/public/css/styles.min.css" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/public/css/styles.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/app/public/css/styles.min.css.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/public/css/styles.min.css.map" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/images/ic_keyboard_arrow_left_black_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/images/ic_keyboard_arrow_left_black_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/images/ic_keyboard_arrow_left_white_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/images/ic_keyboard_arrow_left_white_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/images/ic_keyboard_arrow_right_black_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/images/ic_keyboard_arrow_right_black_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/images/ic_keyboard_arrow_right_white_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/images/ic_keyboard_arrow_right_white_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/js/main.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/public/js/main.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/public/js/main.min.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/public/js/main.min.js.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/app/views/pages/cilji.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/views/pages/cilji.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/app/views/pages/dashboard.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/views/pages/dashboard.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/views/pages/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/views/pages/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/views/pages/nalogakoledar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/views/pages/nalogakoledar.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/views/pages/nalogequery.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/views/pages/nalogequery.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/app/views/pages/prijava.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/dist/app/views/pages/prijava.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/dist/controllers/esController.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/controllers/esController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/dist/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gulpfile.js" beforeDir="false" afterPath="$PROJECT_DIR$/gulpfile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/contributing.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/dist/draggabilly.pkgd.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/dist/draggabilly.pkgd.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/draggabilly.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/gulpfile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/sandbox/require-js/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/sandbox/require-js/main.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/sandbox/sandbox.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/sandbox/single.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/test/.jshintrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/test/jquery.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/test/test.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/test/unit/basics.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/test/unit/destroy.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/test/unit/jquery-basics.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/draggabilly/test/unit/jquery-destroy.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ev-emitter/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ev-emitter/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ev-emitter/ev-emitter.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ev-emitter/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ev-emitter/sandbox/1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/ev-emitter/test/test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/get-size.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/sandbox.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/test/iframe.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/test/iframe3.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/test/iframe4.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/test/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/test/tests.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/get-size/test/tests.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.babelrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.editorconfig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.eslintrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.github/CONTRIBUTING.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.github/ISSUE_TEMPLATE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.github/PULL_REQUEST_TEMPLATE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.hound.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/.scss-lint.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/LICENSE.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/amber/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/amber/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/blue-grey/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/blue-grey/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/blue/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/blue/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/brown/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/brown/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/cyan/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/cyan/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/deep-orange/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/deep-orange/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/deep-purple/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/deep-purple/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/green/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/green/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/grey/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/grey/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/indigo/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/indigo/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/light-blue/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/light-blue/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/light-green/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/light-green/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/lime/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/lime/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/orange/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/orange/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/pink/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/pink/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/purple/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/purple/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/red/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/red/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/teal/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/teal/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/yellow/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/dark/yellow/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/amber/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/amber/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/blue-grey/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/blue-grey/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/blue/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/blue/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/brown/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/brown/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/cyan/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/cyan/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/deep-orange/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/deep-orange/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/deep-purple/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/deep-purple/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/green/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/green/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/grey/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/grey/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/indigo/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/indigo/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/light-blue/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/light-blue/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/light-green/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/light-green/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/lime/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/lime/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/orange/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/orange/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/pink/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/pink/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/purple/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/purple/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/red/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/red/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/teal/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/teal/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/yellow/mdDateTimePicker.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/css/themes/light/yellow/mdDateTimePicker.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/demo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-Black.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-BlackItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-BoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-LightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-MediumItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-Thin.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/Roboto-ThinItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/RobotoCondensed-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/RobotoCondensed-BoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/RobotoCondensed-Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/RobotoCondensed-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/RobotoCondensed-LightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/fonts/RobotoTTF/RobotoCondensed-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/images/ic_keyboard_arrow_left_black_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/images/ic_keyboard_arrow_left_black_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/images/ic_keyboard_arrow_left_white_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/images/ic_keyboard_arrow_left_white_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/images/ic_keyboard_arrow_right_black_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/images/ic_keyboard_arrow_right_black_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/images/ic_keyboard_arrow_right_white_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/images/ic_keyboard_arrow_right_white_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/draggabilly.pkgd.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/lang/af.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/lang/de.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/lang/fr.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/lang/zh-cn.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/mdDateTimePicker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/mdDateTimePicker.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/moment.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/scroll-into-view-if-needed.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/dist/js/scroll-into-view-if-needed.min.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/browserSyncTask.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/bsReload.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/cleanDir.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/default.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/generateStylesheets.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/generateThemes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/images.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/initThemes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/scripts.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/styles.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulp/tasks/themes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/gulpfile.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-Black.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-BlackItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-BoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-LightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-Medium.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-MediumItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-Thin.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/Roboto-ThinItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/RobotoCondensed-Bold.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/RobotoCondensed-BoldItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/RobotoCondensed-Italic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/RobotoCondensed-Light.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/RobotoCondensed-LightItalic.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/fonts/RobotoTTF/RobotoCondensed-Regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/FB-f-Logo__blue_29.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/ic_keyboard_arrow_left_black_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/ic_keyboard_arrow_left_black_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/ic_keyboard_arrow_left_white_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/ic_keyboard_arrow_left_white_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/ic_keyboard_arrow_right_black_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/ic_keyboard_arrow_right_black_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/ic_keyboard_arrow_right_white_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/images/ic_keyboard_arrow_right_white_disabled_24px.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/js/mdDateTimePicker.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/js/scroll-into-view-if-needed.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/component.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/_color-definitions.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/_fonts.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/_global.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/_media-portrait.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/_mixins.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/_variables.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/shadow/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/shadow/_shadow.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/shadow/demo.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/src/scss/dependencies/shadow/demo.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/md-date-time-picker/yarn.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unidragger/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unidragger/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unidragger/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unidragger/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unidragger/unidragger.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unipointer/.npmignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unipointer/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unipointer/bower.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unipointer/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/node_modules/unipointer/unipointer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/scripts/dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/dialog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/controllers/webpushController.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/controllers/webpushController.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/models/Naloge.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/models/Naloge.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dist/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/dist/routes/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Naloge.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/Naloge.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/scripts/es6/dialog.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/es6/dialog.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/scripts/es6/querydb.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/es6/querydb.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/scripts/querydb.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/scripts/querydb.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/stylesheets/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/stylesheets/styles.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/routes.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/routes.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/views/pages/cilji.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/pages/cilji.ejs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/views/pages/dashboard.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/pages/dashboard.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/pages/index.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/pages/index.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/pages/nalogakoledar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/pages/nalogakoledar.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/pages/nalogequery.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/pages/nalogequery.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/head.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/head.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/partials/script.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/partials/script.ejs" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -299,8 +47,8 @@
       <file leaf-file-name="esController.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controllers/esController.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4352">
-              <caret line="256" column="36" selection-start-line="256" selection-start-column="36" selection-end-line="256" selection-end-column="36" />
+            <state relative-caret-position="4573">
+              <caret line="269" column="36" selection-start-line="269" selection-start-column="36" selection-end-line="269" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -308,17 +56,17 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="19" selection-start-column="19" selection-end-column="19" />
+            <state relative-caret-position="17">
+              <caret line="1" column="32" lean-forward="true" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datepicker.cs.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/node_modules/air-datepicker/dist/js/i18n/datepicker.cs.js">
+      <file leaf-file-name="cilji.ejs" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/views/pages/cilji.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+            <state relative-caret-position="255">
+              <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
             </state>
           </provider>
         </entry>
@@ -336,7 +84,7 @@
         <entry file="file://$PROJECT_DIR$/views/pages/notifications.ejs">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="98" selection-start-line="19" selection-start-column="98" selection-end-line="19" selection-end-column="98" />
+              <caret line="19" column="58" selection-start-line="19" selection-start-column="58" selection-end-line="19" selection-end-column="58" />
             </state>
           </provider>
         </entry>
@@ -353,8 +101,8 @@
       <file leaf-file-name="index.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="867">
-              <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+            <state relative-caret-position="884">
+              <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -362,8 +110,8 @@
       <file leaf-file-name="naloge.ejs" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1377">
-              <caret line="81" column="69" selection-start-line="81" selection-start-column="69" selection-end-line="81" selection-end-column="69" />
+            <state relative-caret-position="1411">
+              <caret line="83" column="69" selection-start-line="83" selection-start-column="69" selection-end-line="83" selection-end-column="69" />
             </state>
           </provider>
         </entry>
@@ -371,8 +119,8 @@
       <file leaf-file-name="styles.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1479">
-              <caret line="87" column="1" selection-start-line="87" selection-start-column="1" selection-end-line="87" selection-end-column="1" />
+            <state relative-caret-position="1683">
+              <caret line="99" column="1" selection-start-line="99" selection-start-column="1" selection-end-line="99" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -681,6 +429,7 @@
       <workItem from="1523533407234" duration="10000" />
       <workItem from="1527147839665" duration="14000" />
       <workItem from="1527487814001" duration="101000" />
+      <workItem from="1530195604336" duration="75000" />
     </task>
     <task id="LOCAL-00001" summary="Settings">
       <created>1522146003325</created>
@@ -707,7 +456,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="701305000" />
+    <option name="totallyTimeSpent" value="701380000" />
   </component>
   <component name="TodoView" selected-index="4">
     <todo-panel id="selected-file">
@@ -848,13 +597,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/md-date-time-picker/gulpfile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="15" column="41" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/md-date-time-picker/gulpfile.js" />
     <entry file="file://$PROJECT_DIR$/node_modules/getmdl-select/src/scss/getmdl-select.scss">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -874,13 +617,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="26">
           <caret line="394" column="12" selection-start-line="394" selection-start-column="12" selection-end-line="394" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/views/pages/cilji.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1508">
-          <caret line="58" column="133" selection-start-line="58" selection-start-column="34" selection-end-line="58" selection-end-column="133" />
         </state>
       </provider>
     </entry>
@@ -983,29 +719,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/public/stylesheets/styles.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1479">
-          <caret line="87" column="1" selection-start-line="87" selection-start-column="1" selection-end-line="87" selection-end-column="1" />
+        <state relative-caret-position="1683">
+          <caret line="99" column="1" selection-start-line="99" selection-start-column="1" selection-end-line="99" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/index.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="867">
-          <caret line="51" column="21" selection-start-line="51" selection-start-column="21" selection-end-line="51" selection-end-column="21" />
+        <state relative-caret-position="884">
+          <caret line="52" column="21" selection-start-line="52" selection-start-column="21" selection-end-line="52" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/notifications.ejs">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="19" column="98" selection-start-line="19" selection-start-column="98" selection-end-line="19" selection-end-column="98" />
+          <caret line="19" column="58" selection-start-line="19" selection-start-column="58" selection-end-line="19" selection-end-column="58" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/pages/naloge.ejs">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1377">
-          <caret line="81" column="69" selection-start-line="81" selection-start-column="69" selection-end-line="81" selection-end-column="69" />
+        <state relative-caret-position="1411">
+          <caret line="83" column="69" selection-start-line="83" selection-start-column="69" selection-end-line="83" selection-end-column="69" />
         </state>
       </provider>
     </entry>
@@ -1032,23 +768,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controllers/esController.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4352">
-          <caret line="256" column="36" selection-start-line="256" selection-start-column="36" selection-end-line="256" selection-end-column="36" />
+        <state relative-caret-position="4573">
+          <caret line="269" column="36" selection-start-line="269" selection-start-column="36" selection-end-line="269" selection-end-column="36" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/public/scripts/dialog.js" />
-    <entry file="file://$PROJECT_DIR$/app.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="19" selection-start-column="19" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/node_modules/air-datepicker/dist/js/i18n/datepicker.cs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
           <caret line="3" column="50" selection-start-line="3" selection-start-column="50" selection-end-line="3" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="32" lean-forward="true" selection-start-line="1" selection-start-column="32" selection-end-line="1" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/pages/cilji.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="27" lean-forward="true" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
         </state>
       </provider>
     </entry>

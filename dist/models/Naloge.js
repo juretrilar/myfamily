@@ -2,7 +2,7 @@ let mongoose = require("mongoose");
 
 let nalogeSchema = new mongoose.Schema({
     _id : {type : mongoose.Schema.Types.ObjectId, required : true},
-    ime: { type:String, required: true},
+    ime: String,
     opis: String,
     kategorija: {type : mongoose.Schema.Types.ObjectId, ref : "Kategorija"},
     zacetek: Date,
@@ -12,7 +12,7 @@ let nalogeSchema = new mongoose.Schema({
     avtor: {type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"},
     status: Boolean,
     vezani_uporabniki: [{type : mongoose.Schema.Types.ObjectId, ref : "Uporabnik"}],
-    druzina: {type: mongoose.Schema.Types.ObjectId},
+    druzina: mongoose.Schema.Types.ObjectId,
 });
 
 mongoose.model('Naloge', nalogeSchema, 'Naloge');

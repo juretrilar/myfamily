@@ -125,7 +125,9 @@ jQuery(function($) {
         $("#viberOpen").attr("href","viber://chats?number="+img.nextElementSibling.nextElementSibling.value);
         let val = img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.value;
         if(!val) val = 0;
-        $("#dayXp").text("+ "+val+" točk");
+        if (val < 0) $("#dayXp").text(val+" točk");
+        else $("#dayXp").text("+ "+val+" točk");
+        
         
         if(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling) {
             $("#status").html(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.children[0].innerHTML);
@@ -410,6 +412,12 @@ function dodajNovoNalogo() {
     fillNaloge();
     document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
     document.getElementById("ustvari").innerHTML = "Ustvari";
+    $('#statusNaloge').get(0).placeholder = "Neopravljena";
+    $("#dialogStatus").find("li[data-val=false]").attr('data-selected','true');
+    $("#statusNaloge").parent().addClass("is-dirty");
+    $("input[name='oldStatus']").val("false");
+    $("input[name='newStatus']").val("false");     
+    getmdlSelect.init("#dialogStatus");  
     $('#newDialog').val("");
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
@@ -941,15 +949,15 @@ function startIntroDashboard(){
           },
           {
             element: '#dash5',
-            intro: "Skupni cilji družine, te cilje si družina izbere kot najpomembnejše in zato so prikazani na pregledu. Od leve proti desni so ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, ter točke prikazane za vsakega člana družine posebej."
+            intro: "Skupni cilji družine. Te cilje ste označili kot skupne, zato so prikazani na pregledu. Od leve proti desni so: ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, ter točke prikazane za vsakega člana družine posebej."
           },
           {
             element: '#dash6',
-            intro: "Predlog za novo nalogo, ki je nakljčno generiran. S klikom na gumb DODAJ NALOGO se bodo polja avtomatsko izpolnila in nato lahko predlagano nalogo dodate med svoje naloge."
+            intro: "Predlog za novo nalogo, ki je naključno generiran. S klikom na gumb DODAJ NALOGO se bodo polja avtomatsko izpolnila in nato lahko predlagano nalogo dodate med svoje naloge."
           },
           {
             element: document.querySelector('#dash7'),
-            intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V menuju se nahajajo tud nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočil sms in obvestila na vašem pametnem telefonu. V meniju lahko k uporabi aplikacije povabite tudi druge družinske člane."
+            intro: "Tukaj se nahajajo osebne nastavitve, kjer lahko kadarkoli spremnite podatke, ki ste jih napisali ob registraciji. V meniju se nahajajo tudi nastanitve sporočanja, kjer lahko vklopite sporočila preko e-pošte, sporočila sms in obvestila na vašem pametnem telefonu. V meniju lahko k uporabi aplikacije povabite tudi druge družinske člane."
           },
         ]
       });
@@ -1030,7 +1038,7 @@ function startIntroNaloge(){
         steps: [
         {
             element: '#table-cilji',
-            intro: "V tem oknu so prikazani vsi nedoseženi cilji družine. Cilj lahko urejate z klikom na vrstico v tabeli. Od leve proti desni ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, točke prikazane za vsakega člana družine posebej, datum kdaj je bil cilj ustvarjen in kdaj je bil cilj nazadnje posodobljen."
+            intro: "Nedoseženi cilji družine. Cilj lahko urejate s klikom na vrstico v tabeli. Od leve proti desni so: ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, točke prikazane za vsakega člana družine posebej, datum kdaj je bil cilj ustvarjen in kdaj je bil cilj nazadnje posodobljen."
         },
         {
             element: '#table-cilji-end',
@@ -1061,7 +1069,7 @@ function startIntroNaloge(){
         overlayOpacity: 0.5,
         steps: [
         { 
-        intro:"Trenutno se nahajate na strani z osebnimi nastavitavami. Tukaj lahko spremenite svoje podatke o imenu, e-pošti, telefoni, svoj položaj v družini, prikazno sliko in svoje geslo za dostom do aplikacije. Za izhod iz osebnih nastavitev kliknite na izmed 4 strani v navigacijski vrstici.",
+        intro:"Osebne nastavitave. Tukaj lahko spremenite svoje podatke o imenu, e-pošti, telefonu, svoj položaj v družini, prikazno sliko ter svoje geslo za dostop do aplikacije. Za izhod iz osebnih nastavitev kliknite na eno izmed 4 strani v navigacijski vrstici.",
         },
         {
         element: document.querySelector('#dash1'),

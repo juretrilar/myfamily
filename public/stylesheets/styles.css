@@ -266,6 +266,11 @@ margin: auto;
     border: 1px solid white;
 }
 
+.card-overflow {
+    overflow: visible;
+    z-index: auto;
+}
+
 /*        */
 
 /* DIALOG */
@@ -911,6 +916,17 @@ table .mdl-list__item--three-line .mdl-list__item-text-body {
     background-color:#a3f7bf;
 }
 
+.jxnD5h {
+    background-color: #ffb8ff;
+}
+
+.wquD5h {
+    background-color: #a1a1f7;
+    /*mongo id: 5b34a34de6f1c623a8bcf8d8*/
+}
+
+
+
 
 /*         */
 
@@ -970,8 +986,8 @@ table .mdl-list__item--three-line .mdl-list__item-text-body {
 }
 
 .avatars > img{
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
 }
 
 .avatars > input:checked + img{
