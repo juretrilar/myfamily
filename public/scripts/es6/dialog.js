@@ -34,7 +34,6 @@ r(function(){
         snackbarContainer.MaterialSnackbar.showSnackbar({message: localStorage.getItem("Status")});
         localStorage.clear();
     }
-
 });
 function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
 
@@ -286,7 +285,7 @@ jQuery(function($) {
     });
 
     $("#nalogaDone").click(function(e) {  
-        let data = "newDialog="+$("#opomnikId").val()+"&status=true&mode=1";
+        let data = "newDialog="+$("#opomnikId").val()+"&newStatus=true&mode=1";
         $.ajax({
             url: '/ustvari_nalogo',
             type: 'POST',
@@ -459,12 +458,14 @@ function validateNaloga(event, t) {
         return false;
     }
     if(document.forms["update_dialog"]["xpNaloge"].value == "") {
+        $("#xpErr").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
     }
     if (t==0) {
         let dZac = document.forms["update_dialog"]["dateZacetek"].value;
         let dKon = document.forms["update_dialog"]["dateKonec"].value;
         if (dZac != "" && dKon != "") {
+            console.log(dZac,dKon);
             if (moment(dZac).isAfter(dKon)) {
                 $("#dateKonecErr").text("Datum konca mora biti po datumu začetka!").parent().addClass("is-invalid");
                 return false;
@@ -476,11 +477,11 @@ function validateNaloga(event, t) {
             return false;
         }*/
         if (document.forms["update_dialog"]["sampleKategorija"].value == "") {
-            alert("Kategorija mora biti izbrana.");
+            $("#kategorijaErr").text("Kategorija mora biti izbrana!").parent().addClass("is-invalid");
             return false;
         }
         if (document.forms["update_dialog"]["statusNaloge"].value == "") {
-            alert("Status naloge mora biti izbran.");
+            $("#kategorijaErr").text("Status naloge mora biti izbran!").parent().addClass("is-invalid");
             return false;
         }
         //console.log("cilj");
@@ -758,26 +759,27 @@ function updateBtn() {
     $("#pushButton").parent().removeClass("is-disabled");
 
     let label = document.querySelector("#prePush");
-    
-    if (isSubscribed) {
-        pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
-        try {
-            label.MaterialSwitch.on();
-        } catch (e) {
-            console.log("Element ne obstaja.", e);
+    setTimeout(function(){ 
+        if (isSubscribed) {
+            pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
+            try {
+                label.MaterialSwitch.on();
+            } catch (e) {
+                console.log("Element ne obstaja.", e);
+            }
+            
+            
+        } else {
+            //if (label.classList.contains("is-checked")) {}
+            pushButton.nextElementSibling.textContent = 'Vklopi obvestila v brskalniku';
+            try {
+                label.MaterialSwitch.off();
+            } catch (e) {
+                console.log("Element ne obstaja.", e);
+            }
+            
         }
-        
-           
-    } else {
-        //if (label.classList.contains("is-checked")) {}
-        pushButton.nextElementSibling.textContent = 'Vklopi obvestila v brskalniku';
-        try {
-            label.MaterialSwitch.off();
-        } catch (e) {
-            console.log("Element ne obstaja.", e);
-        }
-        
-    }
+    }, 1);
 }
 
 
@@ -846,6 +848,7 @@ function napolniNalogo(elem) {
     $("#opomnikIme").text(elem.children[0].children[0].innerHTML);
     $("#opomnikOpis").text(elem.children[0].children[2].innerHTML);  
     $("#opomnikXp").text("+"+elem.children[0].children[1].children[0].innerHTML);  
+    console.log("+"+elem.children[0].children[1].children[0].innerHTML);
 
     let m = elem.lastElementChild.children[5].cloneNode(true);
     let n = elem.lastElementChild.children[6].cloneNode(true);

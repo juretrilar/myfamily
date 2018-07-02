@@ -487,6 +487,10 @@ dialog .mdl-list__item {
     display: inherit;
 }
 
+#dash5 {
+    height: fit-content;
+}
+
 /*           */
 
 /* DASHBOARD */

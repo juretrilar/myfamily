@@ -98,12 +98,14 @@ module.exports.posljiToken = function (req, res) {
           let token = jwt.sign({ id: uporabniki[0]._id }, config.secret, {    // create a token
             expiresIn: 86400 // expires in 24 hours
           });
+          let obj = {3 : "Vnuk/Vnukinja", 4 : "Sin/Hči", 5: "Oče/Mati", 6: "Dedek/Babica", 7: "Pradedek/Prababica"};
           user.auth = true;
           user.token = token;
           user._id  = uporabniki[0]._id;
           user.email = uporabniki[0].email;
           user.ime =  uporabniki[0].ime;
           user.druzina = uporabniki[0].druzina;
+          user.polozaj = obj[uporabniki[0].polozaj];
           user.telefon = uporabniki[0].telefon;
           user.slika = uporabniki[0].slika;
           res.status(200).send(user);
@@ -121,7 +123,7 @@ module.exports.posljiNaloge = function (req, res) {
   let token = req.headers.token;
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
-      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+      if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
       query = { vezani_uporabniki: {$in: [mongoose.Types.ObjectId(req.params.userId)]}};
       Naloge.find(query, function (err, doc) {
         if (err) {
@@ -143,7 +145,7 @@ module.exports.posljiCilje = function (req, res) {
   let token = req.headers.token;
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
-      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+      if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
       query = { "vezani_uporabniki.id_user" : {$in: [mongoose.Types.ObjectId(req.params.userId)]}};
       Cilji.find(query, function (err, doc) {
         if (err) {
@@ -177,7 +179,7 @@ module.exports.prejmiKorake = function (req, res) {
   let token = req.headers.token;
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
-      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+      if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
       res.status(200).send(req.body);
     });
   } else {
@@ -191,17 +193,18 @@ module.exports.posljiDruzino = function (req, res) {
   let token = req.headers.token;
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
-      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+      if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
       Uporabnik.find({druzina: req.params.druzinaId},{ id: 1, ime: 1, druzina: 1, polozaj: 1, slika: 1}, function (err, uporabniki) {
         if (err) {
           console.log(err);
           res.status(404).send(err);
         } else {
-          let object = {3 : "Vnuk/Vnukinja", 4: "Sin/Hči", 5: "Oče/Mati", 6: "Dedek/Babica", 7: "Pradedek/Prababica"};
+          let newObj = [];
+          let obj = {3 : "Vnuk/Vnukinja", 4 : "Sin/Hči", 5: "Oče/Mati", 6: "Dedek/Babica", 7: "Pradedek/Prababica"};
           for (let i=0;i<uporabniki.length;i++) {
-              uporabniki[i].polozaj = object[""+uporabniki[i].polozaj+""];
+            newObj.push({_id : uporabniki[i]._id, ime : uporabniki[i].ime, druzina: uporabniki[i].druzina, polozaj: obj[uporabniki[i].polozaj], slika: uporabniki[i].slika});
           }
-          res.status(200).send(uporabniki);
+          res.status(200).send(newObj);
         }
       });
     });
@@ -211,17 +214,12 @@ module.exports.posljiDruzino = function (req, res) {
 };
 
 
-
-
-
-
-
 //** POST /api/naloga/:idNaloge
 module.exports.prejmiNalogo = function (req, res) {
   let token = req.headers.token;
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
-      if (err) return res.status(500).send({ auth: false, message: 'Failed to authenticate token.' });
+      if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
       let novaNaloga = {
         status: true,
       };
@@ -230,28 +228,7 @@ module.exports.prejmiNalogo = function (req, res) {
       if (err) {
           console.log(err);
           return res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
-          return;
-      } else {
-        if (doc) { //če je naloga opravljena pošljem obvestilo uporabnikom
-          let arr = doc.vezani_uporabniki;
-          let index = arr.indexOf(decoded._id);
-          if (index !== -1) arr.splice(index, 1);
-          Subscription.find({ user_id: arr }, function (err, sub) {
-              if (err) {
-                  console.log(err);
-                  return;
-              }
-              console.log(sub,"sub");
-              for(let m = 0; m < sub.length;m++) {
-                  const payload = JSON.stringify({
-                      title: 'Obvestilo',
-                      body: 'Naloga '+doc.ime+' je bila opravljena. Dobili ste '+doc.xp+' točk!',
-                      icon: 'images/f.ico'
-                  });
-                  triggerPushMsg(sub[m], payload);
-              }
-          });         
-        }     
+      } else {   
         let updt, upXp;
         if (doc) {
           updt = doc.vezani_uporabniki;
@@ -269,8 +246,8 @@ module.exports.prejmiNalogo = function (req, res) {
           let obj = {}, curObj = {};
         Cilji.findOne({ _id: doc.vezan_cilj }, function (err, cilj) {
           if (!err) {
-              obj = cilj.vezani_uporabniki.map(value => String(value.id_user));
-              curObj = doc.vezani_uporabniki.map(value => String(value));
+              if(cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user));
+              if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value));
               for (let i = 0; i < curObj.length; i++) {
                   let index = obj.indexOf(String(curObj[i]));
                   if (index > -1) { //prištejem točke                               

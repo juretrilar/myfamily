@@ -15,6 +15,7 @@ let uporabnikSchema = new mongoose.Schema({
     slika: Number,
     status: String,
     dayXp: Number,
+    koraki: Number,
     created_at: Date,
     last_login: Date
 });

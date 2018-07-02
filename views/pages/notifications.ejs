@@ -8,8 +8,8 @@
             <form method="POST" action="/notifications" id="notif_sms_mail">
                 <div class="mdl-card__supporting-text mdl-grid overflow-visible padding-top-16"> 
                     <div class="middle-align">               
-                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchSms" name="switchSms" <% if(currSession.trenutniUporabnik.notf_telefon) {  %> checked <% } %>>
-                            <input type="checkbox" id="switchSms" class="mdl-switch__input" >
+                        <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switchSms">
+                            <input type="checkbox" id="switchSms" name="switchSms" class="mdl-switch__input"  <% if(currSession.trenutniUporabnik.notf_telefon) {  %> checked <% } %>>
                             <span class="mdl-switch__label">Obveščanje preko SMS sporočil</span>
                         </label>
                         <div class="padding-top-16"></div>

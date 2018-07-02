@@ -15,26 +15,35 @@ let moment = require('moment');
 let fs = require('fs');
 let mkdirp = require('mkdirp');
 let validator = require('validator');
-//let SMSAPI = require('smsapicom'), smsapi = new SMSAPI();
-//let CronJob = require('cron').CronJob;
+
 let nodemailer = require('nodemailer');
 let shortId = require('short-mongo-id');
 let webpush = require('web-push');
 
 let sparkPostTransport = require('nodemailer-sparkpost-transport');
 
+/*
 let transporter = nodemailer.createTransport(sparkPostTransport({
   'sparkPostApiKey': process.env.SPARKPOST_API_KEY
-})) 
+}))*/
 
 
-let SMSAPI = require('smsapicom'),smsapi = new SMSAPI({
-    oauth: {
-        accessToken: process.env.SMSAPI_token
-    }
-});
+let latinize = require('latinize');
+let SMSAPI = require('smsapicom'),
+    smsapi = new SMSAPI({
+        oauth: {
+            accessToken:  process.env.SMSAPI_token
+        }
+    });
 
-let color = { "5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3", "5aef78ab361f5244948ff58f": "#a3f7bf" };
+let color = {"5a785125e7c9722aa0e1e8ac": "#FEC3BF",
+"5aeabcd8be609116280b4d9c": "#FFDDB9",
+"5aef78ab361f5244948ff58f": "#97EBED",
+"5a78505d19ac7744c8175d18": "#A5D8F3",
+"5b34a331e6512b13c0889d93": "#a3f7bf",
+"5a785178900a3b278c196667": "#ffb8ff"}
+
+//let color = { "5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3", "5aef78ab361f5244948ff58f": "#a3f7bf" };
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 bcrypt = require('bcryptjs');
@@ -44,19 +53,6 @@ webpush.setVapidDetails(
     'BGa5M248kds3Uw6AkR6igb3aq4OQw1zFmSBNuFj10kwdsqZ8DXoYtvLUPCMsUIpMKQiPzdOY-s-3mkVnPhRUiQg' || process.env.VAPID_PUBLIC_KEY,
     'Ue3ZsN1R_48R17QCxR4vZHuNQu9gKspmVIVMwai-hPQ' || process.env.VAPID_PRIVATE_KEY
   );
-
-let once = 0;
-
-
-//let jobsCounter = 0;
-//let jobs = {};
-
-/*
-smsapi.authentication
-    .login(process.env.SMSAPI_user, process.env.SMSAPI_pass)
-    .then(sendMessage)
-    .then(displayResult)
-    .catch(displayError); */
 
 function vrniNapako(res, err) {
     res.render("pages/error", { message: "Napaka pri poizvedbi /db", error: { status: 500, stack: err } });
@@ -231,7 +227,6 @@ module.exports.prijaviUporabnika = function (req, res, next) {
                     break;
                 }
             }
-            console.log(req.session.trenutniUporabnik);
             if (req.session.trenutniUporabnik) {
                 res.redirect("/");
             } else {
@@ -292,6 +287,7 @@ module.exports.posodobiOsebnePodatke = function (req, res, next) {
 //** POST /notifications
 module.exports.posodobiObvestila = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;
+    console.log(req.body);
     let mail = false, tel = false;
     req.session.trenutniUporabnik.notf_email = false;
     req.session.trenutniUporabnik.notf_telefon = false;
@@ -815,16 +811,15 @@ module.exports.povabiUporabnika = function (req, res, next) {
     if (!validator.isEmail(req.body.invite_email)) { vrniNapako(res, "Vpisan email ni ustrezen. " + req.body.invite_email); return false; }
     //console.log(req.body.invite_email);
     var mailOptions = {
-        from: process.env.mailUser,
+        from: 'MyFamily@'+process.env.SPARKPOST_DOMAIN,
         to: req.body.invite_email,
-        subject: 'MyFamily povabilo'
+        subject: "MyFamily vabilo",
     };
-    mailOptions.html = '<p><h1>Pozdravljen!</h1>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily.<br/><br/>Najprej se registriraj na ' +
+    mailOptions.html = '<p><h1>Pozdravljen!</h1><br/>Vabim te, da se mi pridužiš kot član družine v aplikaciji MyFamily.<br/><br/>Najprej se registriraj na ' +
         '<a href="https://ekosmartweb.herokuapp.com/prijava">spletni strani</a>, nato se prijavi v aplikacijo in klikni na spodnjo povezavo.<br/><br/>' +
         '<a href="https://ekosmartweb.herokuapp.com/change/' + req.session.trenutniUporabnik.druzina + '">' +
         'Pridruži se družini</a><br/><br/>Po uspešni včlanitvi si izberi svojo vlogo v družini. Najdeš jo v zgornjem desnem meniju pod možnostjo Osebne nastavitve.' +
         '<br/><br/>Lep pozdrav,<br/>' + req.session.trenutniUporabnik.ime + '</p>';
-    console.log(mailOptions.html);
     transporter.sendMail(mailOptions, function (error, info) {
         if (error) {
             console.log(error, "error");
@@ -948,7 +943,7 @@ module.exports.ustvariNalogo = function (req, res, next) {
             if (req.body.oldCilj) if (!validator.isMongoId(req.body.oldCilj)) { vrniNapako(res, "Napačena oblika mongoId cilja!" + req.body.oldCilj); return false; }
             if (!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short" });
             if (!req.body.dateKonec) req.body.dateKonec = new Date().toLocaleTimeString('sl-SI', { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short" });
-            if (req.body.dateZacetek > req.body.dateKonec) { vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. " + req.body.dateZacetek + " " + req.body.dateKone); return; }
+            if (moment(req.body.dateZacetek).isSameOrBefore(req.body.dateKonec) == false) { vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. " + req.body.dateZacetek + " " + req.body.dateKone); return; }
             if (req.body.dateZacetek == "") req.body.dateZacetek = dateNow();
             if (req.body.dateKonec == "") req.body.dateKonec = dateNow();
             novaNaloga.zacetek = req.body.dateZacetek;
@@ -990,11 +985,13 @@ module.exports.ustvariNalogo = function (req, res, next) {
             } else {
                 if (!req.body.newDialog && doc.status == false) {
                     if (!oldDoc && doc.vezani_uporabniki) {
-                        console.log(doc);
-                        sendMail(doc, doc.vezani_uporabniki);
-                        sendSms(doc,doc.vezani_uporabniki);
+                        console.log("posiljam obvestila");
+                        sendSms(doc, doc.vezani_uporabniki, req.session.trenutniUporabnik);
+                        //sendMail(doc, doc.vezani_uporabniki, req.session.trenutniUporabnik);     
+                        console.log("obvestila poslana");                   
                     }
                 }
+                if (doc.vezan_cilj) vCilj = doc.vezan_cilj;
                 if (oldDoc && req.body.mode || sprememba == 1) { //če je naloga opravljena pošljem obvestilo uporabnikom
                     let podatki = doc ? doc : oldDoc;
                     let arr = podatki.vezani_uporabniki;
@@ -1011,7 +1008,8 @@ module.exports.ustvariNalogo = function (req, res, next) {
                             const payload = JSON.stringify({
                                 title: 'Obvestilo',
                                 body: 'Naloga '+podatki.ime+' je bila opravljena. Dobili ste '+podatki.xp+' točk!',
-                                icon: 'public/images/f.ico'
+                                icon: '/public/images/f.ico',
+                                badge: '/public/images/f.ico'
                             });
                             triggerPushMsg(sub[m], payload);
                         }
@@ -1095,32 +1093,29 @@ module.exports.ustvariNalogo = function (req, res, next) {
                     Cilji.findOne({ _id: doc.vezan_cilj }, function (err, cilj) {
                         if (!err) {
                             currXp = doc.xp;
-                            // če je prejšenj cilj različen
                             if (req.body.oldCilj != req.body.sampleCilj) {
-                                currXp = (req.body.newStatus == "false") ? 0 : doc.xp;
+                                if (req.body.newStatus == "false") currXp =  0;
                             } else {
-                                if (req.body.newStatus == "false" && req.body.oldStatus == "true") currXp = 0;
-                                else if (req.body.oldStatus == "false" && req.body.newStatus == "false") currXp = oldDoc.xp-doc.xp;
+                                if (req.body.oldStatus == "true" && req.body.newStatus == "false") currXp = -oldDoc.xp;
+                                else if (req.body.oldStatus == "false" && req.body.newStatus == "false") currXp = 0;
                                 else if (req.body.oldStatus == "true" && req.body.newStatus == "true") currXp = doc.xp-oldDoc.xp;
                             }
                             let obj= {}, curObj= {}, ind;
                             if (cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user));// uporabniki že vezani na cilj
                             else cilj.vezani_uporabniki = [];
                             if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value)); //uporabniki vezani na nalogo
-                            console.log(curObj);
                             for (let i = 0; i < curObj.length; i++) {
                                 let index = obj.indexOf(String(curObj[i]));
                                 if (index > -1) { //prištejem točke                         
                                     cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) + parseInt(currXp);
                                 } else {  //Če uporabnik še ni v cilju, ga dodam                                 
                                     cilj.vezani_uporabniki.push({ "id_user": curObj[i], "xp_user": doc.status ? doc.xp : 0 });
-                                    console.log({ "id_user": curObj[i], "xp_user": doc.status ? doc.xp : 0 });
+                                    //console.log({ "id_user": curObj[i], "xp_user": doc.status ? doc.xp : 0 });
                                 }                          
                             }
                             let difference = obj.filter(x => !curObj.includes(x));                        
                             if (req.body.oldStatus) { //Uporabnikom, ki niso več pod nalogo odšetejem točke
                                 for(let i=0;i<difference.length;i++) {
-                                    console.log("odstevam tocke");
                                     let index = obj.indexOf(difference[i]);
                                     cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) - parseInt(doc.xp);
                                 }
@@ -1131,13 +1126,15 @@ module.exports.ustvariNalogo = function (req, res, next) {
                                 }
                             }
                             if (req.body.oldCilj == req.body.sampleCilj) {cilj.xp = parseInt(cilj.xp) + parseInt(currXp);}
-                            else if (doc.status) cilj.xp = parseInt(cilj.xp) + parseInt(doc.xp);
+                            else if (doc.status) {
+                                cilj.xp = parseInt(cilj.xp) + parseInt(doc.xp);
+                                console.log("naloga +"+doc.xp);
+                            }
                             obj = {};                       
                             if (cilj.vezane_naloge) obj = cilj.vezane_naloge.map(value => String(value.id_nal));
                             if (obj) {
-                               ind = obj.indexOf(doc._id);
+                               ind = obj.indexOf(String(doc._id));
                             }
-                            console.log(doc.status, "status");
                             if (ind > -1) {
                                 cilj.vezane_naloge[ind].stanje = doc.status;
                             } else {
@@ -1212,14 +1209,6 @@ function dateNow() {
     if (mm < 10) mm = '0' + mm;
     today = yyyy + '-' + mm + '-' + dd;
     return today;
-}
-
-function ustvariKljuc() {
-    return 121;
-}
-
-function poisciCilj() {
-    return new ObjectId();
 }
 
 function posodobiJson(obj, session) {
@@ -1336,20 +1325,20 @@ function truncate(string, num){
 };
 
 
-function sendMail(naloga, users) {
+function sendMail(naloga, users, avtor) {
     Uporabnik.find({ _id: { $in: users }, notf_email: true }, function (err, emailusers) {
         if (err) {
             console.log(error);
             return;
         }
         for(let j = 0; j < emailusers.length; j++) {                        
-            let vsebina = 'Nova naloga:\n\n';
-                vsebina += "Ime: "+naloga.ime+"\nOpis: "+naloga.opis+"\nZačetek: "+moment(naloga.zacetek).format("D. M ob H:m")+
-                "\nKonec: "+moment(naloga.konec).format("D. M ob H:m")+"\nTočk: "+naloga.xp+"\n\n";
+            let vsebina = 'Uporabnik '+avtor.ime+' je v aplikaciji ustvaril novo nalogo:\n\n';
+                vsebina += "Ime: "+naloga.ime+"\nOpis: "+naloga.opis+"\nZačetek: "+moment(naloga.zacetek).format("D. M ob H:mm")+
+                "\nKonec: "+moment(naloga.konec).format("D. M ob H:mm")+"\nVrednost naloge: "+naloga.xp+"\n\n";
             mailOptions = {
                 from: 'MyFamily@'+process.env.SPARKPOST_DOMAIN,
                 to: emailusers[j].email,
-                subject: "Nova naloga",
+                subject: "Nova naloga: "+naloga.ime,
                 text: vsebina,
             }
             console.log("Sending mail", mailOptions);
@@ -1364,17 +1353,23 @@ function sendMail(naloga, users) {
     });
 }
 
-function sendSms(naloga, users) {
+function sendSms(naloga, users, avtor) {
     Uporabnik.find({ _id: { $in: users }, notf_telefon: true }, function (err, phoneUsr) {
         if (err) {
             console.log(error);
             return;
         }
+        console.log(users, "users");
+        console.log(phoneUsr, "uporabniki");
         for(let j = 0; j < phoneUsr.length; j++) {                        
-            let vsebina = 'Nova naloga:\n\n';
-                vsebina += "Ime: "+naloga.ime+"\nOpis: "+naloga.opis+"\nZacetek: "+moment(naloga.zacetek).format("D. M ob H:m")+
-                "\nKonec: "+moment(naloga.konec).format("D. M ob H:m")+"\nTock: "+naloga.xp+"\n\n";
-            sendMessage("MyFamily", phoneUsr[i].telefon, vsebina).then(displayResult).then(displayError);
+            let vsebina = 'Uporabnik '+avtor.ime+' je v aplikaciji ustvaril novo nalogo:\n\n';
+            vsebina += "Ime: "+naloga.ime+"\nOpis: "+naloga.opis+"\nZačetek: "+moment(naloga.zacetek).format("D. M ob H:mm")+
+            "\nKonec: "+moment(naloga.konec).format("D. M ob H:mm")+"\nVrednost naloge: "+naloga.xp+"\n\n";
+            console.log(vsebina);
+            sendMessage("MyFamily", "386"+parseInt(phoneUsr[j].telefon), latinize(vsebina))
+                .then(displayResult)
+                .catch(displayError);
         }
+        console.log("smsSent");
     });
 }
