@@ -22,10 +22,10 @@ let webpush = require('web-push');
 
 let sparkPostTransport = require('nodemailer-sparkpost-transport');
 
-/*
+
 let transporter = nodemailer.createTransport(sparkPostTransport({
   'sparkPostApiKey': process.env.SPARKPOST_API_KEY
-}))*/
+}))
 
 
 let latinize = require('latinize');
@@ -36,12 +36,12 @@ let SMSAPI = require('smsapicom'),
         }
     });
 
-let color = {"5a785125e7c9722aa0e1e8ac": "#FEC3BF",
-"5aeabcd8be609116280b4d9c": "#FFDDB9",
-"5aef78ab361f5244948ff58f": "#97EBED",
-"5a78505d19ac7744c8175d18": "#A5D8F3",
-"5b34a331e6512b13c0889d93": "#a3f7bf",
-"5a785178900a3b278c196667": "#ffb8ff"}
+let color = {"5a785125e7c9722aa0e1e8ac": "#97EBED" ,
+"5aeabcd8be609116280b4d9c": "#A5D8F3",
+"5aef78ab361f5244948ff58f": "#a3f7bf",
+"5a78505d19ac7744c8175d18": "#FFDDB9",
+"5b34a331e6512b13c0889d93": "#ffb8ff",
+"5a785178900a3b278c196667": "#FEC3BF" }
 
 //let color = { "5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3", "5aef78ab361f5244948ff58f": "#a3f7bf" };
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -151,9 +151,22 @@ module.exports.naslovnaStran = function (req, res) {
                 if (usr) temp.push(usr.slika);
             }
             if (result.cilji[i].skupni_cilj == true) {
-                sCilji.push({ ime: result.cilji[i].ime, opis: truncate(result.cilji[i].opis, 100), vezani_uporabniki: result.cilji[i].vezani_uporabniki, maxXp: result.cilji[i].maxXp, xp: result.cilji[i].xp, slika: temp });
+                let usrs = [];
+                for (let c = 0;result.cilji[i].vezani_uporabniki>0;i++) {
+                    if (result.cilji[i].vezani_uporabniki[c].xp_user > 0) {
+                        usrs.push(result.cilji[i].vezani_uporabniki[c]);
+                    }
+                }
+                sCilji.push({ ime: result.cilji[i].ime, opis: truncate(result.cilji[i].opis, 100), vezani_uporabniki: usrs, maxXp: result.cilji[i].maxXp, xp: result.cilji[i].xp, slika: temp });
 
             }
+
+            for (let f = result.cilji[i].vezani_uporabniki.length-1; f >= 0; f--) { // Odstranim uporabnik z 0 xp
+                if (result.cilji[i].vezani_uporabniki[f].xp_user == 0 ) {
+                    result.cilji[i].vezani_uporabniki.splice(f,1);
+                }
+            }
+
             result.cilji[i].slika = temp;
             //console.log(result.cilji[i].vezani_uporabniki, "vezan"); 
         }
@@ -230,7 +243,7 @@ module.exports.prijaviUporabnika = function (req, res, next) {
             if (req.session.trenutniUporabnik) {
                 res.redirect("/");
             } else {
-                res.render("pages/prijava", { sporociloPrijava: "Napačen e-mail in/ali geslo!", uporabnik: "", currSession: "" });
+                res.render("pages/prijava", { sporociloPrijava: "Napačen elektronski naslov ali geslo!", uporabnik: "", currSession: "" });
             }
         }
     });
@@ -278,6 +291,9 @@ module.exports.posodobiOsebnePodatke = function (req, res, next) {
             vrniNapako(res, err);
         } else {
             req.session.trenutniUporabnik.polozaj = parseInt(req.body.izbranaVrsta);
+            req.session.trenutniUporabnik.ime = req.body.set_name;
+            req.session.trenutniUporabnik.email = req.body.set_email;
+            req.session.trenutniUporabnik.telefon = req.body.set_phone;
             res.redirect('/')
         }
     });
@@ -865,37 +881,77 @@ module.exports.shraniStatus = function (req, res, next) {
 //** POST /delete-naloga
 module.exports.izbrisiNalogo = function (req, res, next) {
     if (checkIfLogged(res, req) != 0) return;
-    //console.log(req.body);  
+    console.log("Brisem nalogo");  
     if (req.body.id) {
         Naloge.findOneAndRemove({ _id: req.body.id }, function (err, doc) {
             if (err) {
                 res.status(400).end("Napaka! Naloga ni bila izbrisana.");
             }
             else {
-                console.log(doc);
-                if (doc.status == true){
+                if (doc.vezan_cilj) {
                     Cilji.findOne({ _id: doc.vezan_cilj }, function (err, cilj) {
                         if (err) {
                             res.status(400).end("Napaka!");
                         }
                         else {
-                            let obj, curObj;
-                            if (cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user));// uporabniki vezani na cilj
-                            else cilj.vezani_uporabniki = [];
-                            if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value)); //uporabniki vezani na nalogo
-                            console.log(curObj);
-                            for (let i = 0; i < curObj.length; i++) {
-                                let index = obj.indexOf(String(curObj[i]));
-                                if (index > -1) { //prištejem točke                         
-                                    cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) - parseInt(doc.xp);
-                                }                         
-                            }
-                            for (let i = cilj.vezani_uporabniki.length-1; i >= 0; i--) { // Če uporabnik nima xp ga odstranim
-                                if (cilj.vezani_uporabniki[i].xp_user == 0 ) {
-                                    cilj.vezani_uporabniki.splice(i,1);
+                            if (doc.status == true){
+                                let obj, curObj;
+                                if (cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user));// uporabniki vezani na cilj
+                                else cilj.vezani_uporabniki = [];
+                                if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value)); //uporabniki vezani na nalogo
+                                console.log(curObj);
+                                for (let i = 0; i < curObj.length; i++) {
+                                    let index = obj.indexOf(String(curObj[i]));
+                                    if (index > -1) { //prištejem točke                         
+                                        cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) - parseInt(doc.xp);
+                                        cilj.vezani_uporabniki[index].stNal -= 1;
+                                    }                         
                                 }
-                            }  
-                            res.status(200).end("Naloga je bila uspešno izbrisana!");
+                                for (let i = cilj.vezani_uporabniki.length-1; i >= 0; i--) {
+                                    let index = doc.vezani_uporabniki.indexOf(cilj.vezani_uporabniki[i].id_user);
+                                    if (cilj.vezani_uporabniki[i].xp_user == 0 && cilj.vezani_uporabniki[i].stNal == 0 && index > -1) {
+                                        cilj.vezani_uporabniki.splice(i,1);
+                                    }
+                                }/*
+                                for (let i = cilj.vezani_uporabniki.length-1; i >= 0; i--) { // Če uporabnik nima xp ga odstranim
+                                    if (cilj.vezani_uporabniki[i].xp_user == 0 ) {
+                                        cilj.vezani_uporabniki.splice(i,1);
+                                    }
+                                }  */
+                                
+                            } else {
+                                let obj, curObj;
+                                if (cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user));// uporabniki vezani na cilj
+                                else cilj.vezani_uporabniki = [];
+                                if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value)); //uporabniki vezani na nalogo
+                                console.log(curObj);
+                                for (let i = 0; i < curObj.length; i++) {
+                                    let index = obj.indexOf(String(curObj[i]));
+                                    if (index > -1) { //prištejem točke                     
+                                        cilj.vezani_uporabniki[index].stNal -= 1;
+                                        console.log(cilj.vezani_uporabniki[index].stNal, index);
+                                    }                         
+                                }
+                                for (let i = cilj.vezani_uporabniki.length-1; i >= 0; i--) {
+                                    let index = doc.vezani_uporabniki.indexOf(cilj.vezani_uporabniki[i].id_user);
+                                    console.log(index, cilj.vezani_uporabniki[i].xp_user, cilj.vezani_uporabniki[i].stNal);
+                                    if (cilj.vezani_uporabniki[i].xp_user == 0 && cilj.vezani_uporabniki[i].stNal == 0 && index > -1) {
+                                        cilj.vezani_uporabniki.splice(i,1);
+                                    }
+                                }
+                            }
+                            let obj = cilj.vezane_naloge.map(value => String(value.id_nal));  
+                            let index = obj.indexOf(doc._id);
+                            cilj.vezane_naloge.splice(index,1);
+                            cilj.save(function (err) {
+                                if (!err) {
+                                    return res.status(200).end("Naloga je bila uspešno izbrisana!");
+                                }
+                                else {
+                                    console.log(err);
+                                    return res.status(400).end("Pri brisanju naloge je prišlo do napake!");
+                                }
+                            });
                         }
                     });
                 } else {
@@ -987,7 +1043,7 @@ module.exports.ustvariNalogo = function (req, res, next) {
                     if (!oldDoc && doc.vezani_uporabniki) {
                         console.log("posiljam obvestila");
                         sendSms(doc, doc.vezani_uporabniki, req.session.trenutniUporabnik);
-                        //sendMail(doc, doc.vezani_uporabniki, req.session.trenutniUporabnik);     
+                        sendMail(doc, doc.vezani_uporabniki, req.session.trenutniUporabnik);     
                         console.log("obvestila poslana");                   
                     }
                 }
@@ -1056,38 +1112,47 @@ module.exports.ustvariNalogo = function (req, res, next) {
                     if (req.body.oldCilj && req.body.oldCilj != req.body.sampleCilj) { // Stari in novi cilj nista enaka
                         let prevXp = oldDoc.xp;
                         if (req.body.oldStatus == "false") prevXp = 0;
-                        if (sprememba != 2) {
-                            Cilji.findOne({ _id: req.body.oldCilj }, function (err, cilj) { //poisci stari cilj
-                                if (!err) {
-                                    let obj = cilj.vezani_uporabniki.map(value => String(value.id_user)); //uporabniki pod starim ciljem
-                                    if (!obj) obj = {};
-                                    for (let i = 0; i < doc.vezani_uporabniki.length; i++) { 
-                                        let index = obj.indexOf(String(doc.vezani_uporabniki[i]));
-                                        if (index !== -1) {    
-                                            cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) - parseInt(prevXp);} // Odstranim točke naloge izpod vezanih uporabnikov
+                        Cilji.findOne({ _id: req.body.oldCilj }, function (err, cilj) { //poisci stari cilj
+                            if (!err) {
+                                let obj = cilj.vezani_uporabniki.map(value => String(value.id_user)); //uporabniki pod starim ciljem
+                                if (!obj) obj = {};
+                                for (let i = 0; i < doc.vezani_uporabniki.length; i++) { 
+                                    let index = obj.indexOf(String(doc.vezani_uporabniki[i]));
+                                    if (index > -1) {    
+                                        cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) - parseInt(prevXp);
+                                        cilj.vezani_uporabniki[index].stNal -=1;
+                                    } // Odstranim točke naloge izpod vezanih uporabnikov
+                                }
+                                for (let i = cilj.vezani_uporabniki.length-1; i >= 0; i--) {
+                                    let index = doc.vezani_uporabniki.indexOf(String(cilj.vezani_uporabniki[i].id_user));
+                                    if (cilj.vezani_uporabniki[i].xp_user == 0 && cilj.vezani_uporabniki[i].stNal == 0 && index > -1) {
+                                        cilj.vezani_uporabniki.splice(i,1);
                                     }
+                                }
+                                    /* UPORABNIKI Z 0 xp
                                     for (let i = cilj.vezani_uporabniki.length-1; i >= 0; i--) { // Če uporabnik nima xp ga odstranim
                                         if (cilj.vezani_uporabniki[i].xp_user == 0 ) {
                                             cilj.vezani_uporabniki.splice(i,1);
                                         }
-                                    }                            
-                                    cilj.xp = parseInt(cilj.xp) - parseInt(prevXp); // Odstranim točke iz cilja
-                                    obj = cilj.vezane_naloge.map(value => String(value.id_nal));   
-                                    let nalId = obj.indexOf(String(doc._id));
-                                    if (nalId !== -1) { cilj.vezane_naloge.splice(nalId, 1); /*Odstranim nalogo iz vezanih nalog*/}
-                                    cilj.save(function (err) {
-                                        if (!err) {}
-                                        else {
-                                            console.log(err);
-                                            return res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
-                                        }
-                                    });
-                                } else {
-                                    console.log(err);
-                                    return res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
-                                }
-                            });
-                        }
+                                    }   */                          
+                                cilj.xp = parseInt(cilj.xp) - parseInt(prevXp); // Odstranim točke iz cilja
+                                obj = cilj.vezane_naloge.map(value => String(value.id_nal));  
+                                let nalId = obj.indexOf(String(doc._id));
+                                if (nalId > -1) { cilj.vezane_naloge.splice(nalId, 1);/*Odstranim nalogo iz vezanih nalog*/}
+                                cilj.save(function (err) {
+                                    if (!err) {}
+                                    else {
+                                        console.log(err);
+                                        return res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
+                                    }
+                                });
+                                //}
+                            } else {
+                                console.log(err);
+                                return res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
+                            }
+                        });
+                    
                     }
                     //Iščem cilj, pod katerega je bila dodana naloga, uporabnikom prištejem vrednost za naloge, ki so jih naredili
                     Cilji.findOne({ _id: doc.vezan_cilj }, function (err, cilj) {
@@ -1108,27 +1173,33 @@ module.exports.ustvariNalogo = function (req, res, next) {
                                 let index = obj.indexOf(String(curObj[i]));
                                 if (index > -1) { //prištejem točke                         
                                     cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) + parseInt(currXp);
+                                    if (!oldDoc || oldDoc.vezani_uporabniki.indexOf(cilj.vezani_uporabniki[index].id_user.toString() > -1)) {cilj.vezani_uporabniki[index].stNal += 1; console.log("zvisujem st nal");}
                                 } else {  //Če uporabnik še ni v cilju, ga dodam                                 
-                                    cilj.vezani_uporabniki.push({ "id_user": curObj[i], "xp_user": doc.status ? doc.xp : 0 });
+                                    cilj.vezani_uporabniki.push({ "id_user": curObj[i], "xp_user": doc.status ? doc.xp : 0 , "stNal" : 1});
                                     //console.log({ "id_user": curObj[i], "xp_user": doc.status ? doc.xp : 0 });
                                 }                          
                             }
-                            let difference = obj.filter(x => !curObj.includes(x));                        
-                            if (req.body.oldStatus) { //Uporabnikom, ki niso več pod nalogo odšetejem točke
-                                for(let i=0;i<difference.length;i++) {
-                                    let index = obj.indexOf(difference[i]);
-                                    cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) - parseInt(doc.xp);
+                            difference = obj.filter(x => !curObj.includes(x));                        
+                            //if (req.body.oldStatus) { //Uporabnikom, ki niso več pod nalogo odšetejem točke
+                                let deleted=0;
+                                for(let i=0;i<difference.length-deleted;i++) {
+                                    let index = obj.indexOf(difference[i-deleted]);
+                                    if(sprememba == 0 || sprememba == 3) cilj.vezani_uporabniki[index-deleted].xp_user = parseInt(cilj.vezani_uporabniki[index-deleted].xp_user) - parseInt(doc.xp);
+                                    if (cilj.vezani_uporabniki[index-deleted].stNal == 0) {
+                                        cilj.vezani_uporabniki.splice(index-deleted,1);
+                                        deleted++;
+                                    }
                                 }
-                            }
+                            //}
+                            /*
                             for (let i = cilj.vezani_uporabniki.length-1; i >= 0; i--) { // Odstranim uporabnik z 0 xp
                                 if (cilj.vezani_uporabniki[i].xp_user == 0 ) {
                                     cilj.vezani_uporabniki.splice(i,1);
                                 }
-                            }
+                            }*/
                             if (req.body.oldCilj == req.body.sampleCilj) {cilj.xp = parseInt(cilj.xp) + parseInt(currXp);}
                             else if (doc.status) {
                                 cilj.xp = parseInt(cilj.xp) + parseInt(doc.xp);
-                                console.log("naloga +"+doc.xp);
                             }
                             obj = {};                       
                             if (cilj.vezane_naloge) obj = cilj.vezane_naloge.map(value => String(value.id_nal));

@@ -29,7 +29,7 @@
                             <div class="hide-element chip-no-margin">
                             <% for(let j=0;j<opomniki[i].vezani_uporabniki.length;j++) { %>
                                 <img class="mdl-chip__contact author-chip img-48-<%= opomniki[i].vezani_uporabniki[j][0] %>" src="public/images/png.png" title="<%= opomniki[i].vezani_uporabniki[j][1] %>">
-                            <% } %>  
+                            <% } %>
                             </div> 
                             <img class="mdl-chip__contact author-chip hide-element img-48-<%= opomniki[i].avtor[0] %>" src="public/images/png.png" title="<%= opomniki[i].avtor[1] %>">
                                                      <!--
@@ -47,9 +47,9 @@
         </div>
         <div class="mdl-card section__text mdl-cell color-transparent mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet overflow-visible">
             <div class="flex-container" id="dash3">
-                <div class="mdl-textfield mdl-js-textfield mdl-color-text--white shadow-text mdl-textfield__status">
+                <div class="mdl-textfield mdl-js-textfield mdl-color-text--white shadow-text mdl-textfield--floating-label mdl-textfield__status">
                     <input class="mdl-textfield__input not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" value="" maxlength="120" autocomplete="new-password">
-                    <label class="mdl-textfield__label mdl-color-text--white shadow-text" for="currStatus">Status...</label>
+                    <label class="mdl-textfield__label mdl-color-text--white shadow-text" for="currStatus">Stanje</label>
                 </div>
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored color-dark-cyan button-objava" onclick="objaviStatus()">
                 Objavi

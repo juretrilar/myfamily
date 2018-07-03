@@ -10,7 +10,7 @@ let ciljiSchema = new mongoose.Schema({
     xp: Number,
     maxXp: Number,
     vezane_naloge: [{_id : false, id_nal : mongoose.Schema.Types.ObjectId, stanje: Boolean }],
-    vezani_uporabniki: [{_id : false, id_user : mongoose.Schema.Types.ObjectId , xp_user : Number }],
+    vezani_uporabniki: [{_id : false, id_user : mongoose.Schema.Types.ObjectId , xp_user : Number, stNal: Number }],
     skupni_cilj: Boolean,
     druzina: {type: mongoose.Schema.Types.ObjectId}
 },  { usePushEach: true });

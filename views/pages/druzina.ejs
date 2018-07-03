@@ -6,7 +6,7 @@
                 <h2 class="mdl-card__title-text mdl-color-text--white">Dodaj družinskega člana</h2>
             </div>
             <div class="mdl-card__supporting-text mdl-grid overflow-visible padding-top-16">
-                <form method="POST" action="/invite" id="invite_druzina" class="middle-align">
+                <form method="POST" action="/invite" id="invite_druzina" class="middle-align" onsubmit="return checkMail()">
                     <div class="mdl-card__supporting-text">
                         <p class="mdl-typography--subtitle">V spodnje okno vnesite E-poštni naslov, na katerega želite poslati vabilo za pridružitev družini.</p>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">

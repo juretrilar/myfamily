@@ -34,6 +34,10 @@ function validateRegistracija() {
         $("#errEmail").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
     }
+    if (document.forms["registracijaForm"]["reg_password"].value == "") {
+        $("#errPass").text("Polje je obvezno").parent().addClass("is-invalid");
+        return false;
+    }
     if (document.forms["registracijaForm"]["reg_password"].value != document.forms["registracijaForm"]["reg_password_confirm"].value) {
         $("#errPass2").parent().addClass("is-invalid");
         return false;
@@ -113,3 +117,41 @@ function addHintsReg() {
     intro.addHints();
 }
 
+function introPrijava(){
+    intro = introJs();
+      intro.setOptions({
+        nextLabel: 'Naprej &rarr;',
+        prevLabel: '&larr; Nazaj',
+        skipLabel: 'Zapri',
+        doneLabel: 'Konec',
+        tooltipPosition: "auto",
+        overlayOpacity: 0.5,
+        steps: [
+        { 
+            intro:"Pozdravljeni v aplikaciji MyFamily, v primeru težav pri uporabi aplikacije, pošljite elektronsko sporočilo na naslov vid.cermelj@ltfe.org ali veronika.zavratnik@ltfe.org.",
+        },
+        {
+            intro: 'Če še niste registrirani, lahko to storite s klikom na gumb Registrirajte se.',
+        },
+        ]
+    });
+    intro.start();
+}
+
+
+function chooseHelp() {
+    introPrijava();
+}
+
+
+function validatePrijava() {
+    if (document.forms["prijavaForm"]["email"].value == "") {
+        $("#emailErr").text("Vpišite uporabniško ime!").parent().addClass("is-invalid");
+        return false;
+    }
+    if (document.forms["prijavaForm"]["password"].value == "") {
+        $("#passErr").text("Vpištite geslo!").parent().addClass("is-invalid");
+        return false;
+    }
+    
+}

@@ -74,7 +74,7 @@
                             <span class="mdl-textfield__error" id="imeDialogErr"></span>
                         </div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                            <input class="mdl-textfield__input" type="text" id="opisDialog" name="opisDialog"/>
+                            <input class="mdl-textfield__input" type="text" id="opisDialog" name="opisDialog" maxlength="160"/>
                             <label class="mdl-textfield__label" for="opisDialog" id="oDialog"></label>
                             <span class="mdl-textfield__error" id="opisDialogErr"></span>
                         </div>
@@ -99,7 +99,9 @@
                             <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
                             <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-cilj">
                                 <% for (var i = 0; i < cilji.length; i++) { %>
-                                <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
+                                    <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
+                                        <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
+                                    <% } %>
                                 <% } %>
                             </ul>
                         </div>
@@ -120,7 +122,7 @@
                             <li class="mdl-list__item padding-zero overflow-visible dialog-duo">
                                 <div class="mdl-list__item-primary-content" style="padding-right: 10px">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                                        <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge">
+                                        <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" maxlength="5">
                                         <label class="mdl-textfield__label" for="xpNaloge" id="tockeName"></label>
                                         <span class="mdl-textfield__error" id="xpErr" >Polje je obvezno!</span>
                                     </div>

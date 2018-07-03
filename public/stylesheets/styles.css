@@ -271,6 +271,13 @@ margin: auto;
     z-index: auto;
 }
 
+.introjs-tooltipReferenceLayer .introjs-helperNumberLayer {
+    top: unset;
+    bottom: -16px;
+    left: unset;
+    right: -2px;
+}
+
 /*        */
 
 /* DIALOG */
@@ -298,7 +305,7 @@ dialog .mdl-dialog__content {
 
 dialog .mdl-card__supporting-text {
     max-height: 60vh;
-    overflow: auto;
+    overflow-y: auto;
     width: auto;
     position: relative;
 }

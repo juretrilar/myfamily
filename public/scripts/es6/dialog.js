@@ -466,7 +466,7 @@ function validateNaloga(event, t) {
         let dKon = document.forms["update_dialog"]["dateKonec"].value;
         if (dZac != "" && dKon != "") {
             console.log(dZac,dKon);
-            if (moment(dZac).isAfter(dKon)) {
+            if (dZac != dKon && moment(dZac).isAfter(dKon)) {
                 $("#dateKonecErr").text("Datum konca mora biti po datumu začetka!").parent().addClass("is-invalid");
                 return false;
             }
@@ -759,16 +759,19 @@ function updateBtn() {
     $("#pushButton").parent().removeClass("is-disabled");
 
     let label = document.querySelector("#prePush");
-    setTimeout(function(){ 
+    
+    waitForElementToDisplay(10, label);
+}
+
+function waitForElementToDisplay(time, label) {
+    if(document.querySelector("#pushButton")!=null) {
         if (isSubscribed) {
-            pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
+        pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
             try {
                 label.MaterialSwitch.on();
             } catch (e) {
                 console.log("Element ne obstaja.", e);
-            }
-            
-            
+            }           
         } else {
             //if (label.classList.contains("is-checked")) {}
             pushButton.nextElementSibling.textContent = 'Vklopi obvestila v brskalniku';
@@ -779,7 +782,13 @@ function updateBtn() {
             }
             
         }
-    }, 1);
+        return;
+    }
+    else {
+        setTimeout(function() {
+            waitForElementToDisplay(time, label);
+        }, time);
+    }
 }
 
 
@@ -1185,7 +1194,7 @@ function helpNaloga(){
             
             {
                 element: '#xpNaloge',
-                hint: "Vrednost naloge, ko je opravljena se te naloge prištejejo k vezanemu cilju.",
+                hint: "Vrednost naloge, ko je naloga opravljena se točke prištejejo k vezanemu cilju.",
                 position: 'bottom'
             },
             {
@@ -1340,6 +1349,13 @@ function validateSettings() {
     }
     if (document.forms["settingsForm"]["set_phone"].value == "") {  
         $("#errTel").text("Polje je obvezno!").parent().addClass("is-invalid");
+        return false;
+    }
+}
+
+function checkMail() {
+    if (document.forms["invite_druzina"]["invite_email"].value == "") {
+        $("#invErrEmail").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
     }
 }

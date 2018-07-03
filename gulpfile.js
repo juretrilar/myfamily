@@ -122,7 +122,7 @@ gulp.task('move-1', function (callback) {
 })
 
 gulp.task('move-2', function (callback) {
-    return gulp.src('bin/clearDayXp.js')
+    return gulp.src(['bin/clearDayXp.js', 'bin/sendNotifications.js'])
 
     .pipe(gulp.dest('dist/bin'))
 })
