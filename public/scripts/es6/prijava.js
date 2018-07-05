@@ -150,8 +150,21 @@ function validatePrijava() {
         return false;
     }
     if (document.forms["prijavaForm"]["password"].value == "") {
-        $("#passErr").text("Vpištite geslo!").parent().addClass("is-invalid");
+        $("#passErr").text("Vpišite geslo!").parent().addClass("is-invalid");
         return false;
-    }
-    
+    }    
+}
+
+function checkMail(email) {
+    let testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+    if (testEmail.test(email.value)) {
+        email.setCustomValidity('');
+        email.parentElement.classList.remove("is-invalid");
+    // Do whatever if it passes.
+    } else {
+        // input is fine -- reset the error message
+        $("#emailErr").text("Vpisani email ni pravilen!");
+        $("#passErr").parent().removeClass("is-invalid");
+        email.setCustomValidity('Prosimo vključite '+"'@'"+'in '+"'.'"+' v email naslov!');
+   }
 }

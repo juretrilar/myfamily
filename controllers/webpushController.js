@@ -6,6 +6,7 @@ let Naloge = mongoose.model("Naloge");
 let Cilji = mongoose.model("Cilji");
 let Uporabnik = mongoose.model("Uporabnik");
 let Kategorija = mongoose.model("Kategorija");
+let Koraki = mongoose.model("Koraki");
 
 let jwt = require('jsonwebtoken');
 let bcrypt = require('bcryptjs');
@@ -13,6 +14,7 @@ let bcrypt = require('bcryptjs');
 let config = require('../config');
 
 let webpush = require('web-push');
+let moment = require('moment');
 
 //** POST /api/save-subscription
 module.exports.dodajObvestila = function (req, res) {
@@ -88,27 +90,36 @@ module.exports.odstraniObvestila = function (req, res) {
 //** POST /api/prijava
 module.exports.posljiToken = function (req, res) {  
   if (req.headers.email && req.headers.password) {
+    console.log(req.headers.email);
     Uporabnik.find({email: req.headers.email}, function (err, uporabniki) {
       if (err) {
         console.log(err);
         res.status(404).send(err);
       } else {
-        if (uporabniki[0].email == req.headers.email && bcrypt.compareSync(req.headers.password, uporabniki[0].geslo)) {
-          let user = {};
-          let token = jwt.sign({ id: uporabniki[0]._id }, config.secret, {    // create a token
-            expiresIn: 86400 // expires in 24 hours
-          });
-          let obj = {3 : "Vnuk/Vnukinja", 4 : "Sin/Hči", 5: "Oče/Mati", 6: "Dedek/Babica", 7: "Pradedek/Prababica"};
-          user.auth = true;
-          user.token = token;
-          user._id  = uporabniki[0]._id;
-          user.email = uporabniki[0].email;
-          user.ime =  uporabniki[0].ime;
-          user.druzina = uporabniki[0].druzina;
-          user.polozaj = obj[uporabniki[0].polozaj];
-          user.telefon = uporabniki[0].telefon;
-          user.slika = uporabniki[0].slika;
-          res.status(200).send(user);
+        if(uporabniki[0]) {
+          try {
+            if (uporabniki[0].email == req.headers.email && bcrypt.compareSync(req.headers.password, uporabniki[0].geslo)) {
+              let user = {};
+              let token = jwt.sign({ id: uporabniki[0]._id }, config.secret, {    // create a token
+                expiresIn: 86400 // expires in 24 hours
+              });
+              let obj = {3 : "Vnuk/Vnukinja", 4 : "Sin/Hči", 5: "Oče/Mati", 6: "Dedek/Babica", 7: "Pradedek/Prababica"};
+              user.auth = true;
+              user.token = token;
+              user._id  = uporabniki[0]._id;
+              user.email = uporabniki[0].email;
+              user.ime =  uporabniki[0].ime;
+              user.druzina = uporabniki[0].druzina;
+              user.polozaj = obj[uporabniki[0].polozaj];
+              user.telefon = uporabniki[0].telefon;
+              user.slika = uporabniki[0].slika;
+              res.status(200).send(user);
+            }
+          } catch (error) {
+            res.status(404).send(error);
+          }
+        } else {
+          res.status(404).send(err);
         }
       }
     });
@@ -180,8 +191,15 @@ module.exports.prejmiKorake = function (req, res) {
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
       if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
-      res.status(200).send(req.body);
-    });
+      Koraki.find(function (err) {
+        if (err) {
+          console.log(err);
+          res.status(404).send(err);
+        } else {
+          res.status(200).send(req.body);
+        }
+      });      
+    }); 
   } else {
     res.status(401).send({ auth: false, message: 'No token provided.' });  
   }
@@ -246,7 +264,7 @@ module.exports.prejmiNalogo = function (req, res) {
           let obj = {}, curObj = {};
         Cilji.findOne({ _id: doc.vezan_cilj }, function (err, cilj) {
           if (!err) {
-              if(cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user));
+              if(cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user)); //Error
               if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value));
               for (let i = 0; i < curObj.length; i++) {
                   let index = obj.indexOf(String(curObj[i]));

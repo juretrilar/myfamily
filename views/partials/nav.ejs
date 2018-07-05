@@ -27,7 +27,8 @@
         <% } %>
     </div>
     <%if (currSession) { %>
-    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--white" id="dash1">
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--white">
+        <div class="display-inh" id="dash1">
         <a id="menuDashboard" href="#dashboard" class="mdl-layout__tab mdl-color-text--black">Pregled</a>
         <a id="menuKoledar" href="#koledar" class="mdl-layout__tab mdl-color-text--black">Koledar</a>
         <a id="menuNaloge" href="#naloge" class="mdl-layout__tab mdl-color-text--black">Naloge</a>
@@ -35,6 +36,7 @@
         <a id="menuSettings" href="#settings"></a>
         <a id="menuNotifications" href="#notifications"></a>
         <a id="menuDruzina" href="#druzina"></a>
+        </div>
     </div>
     <% } %>
     <div class="mdl-layout__header-row"></div>

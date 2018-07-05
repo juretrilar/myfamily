@@ -132,11 +132,11 @@ gulp.task('uglify', () => {
     './public/scripts/es6/monthly.js',
     './public/scripts/es6/dialog-polyfill.js',
     './public/scripts/es6/querydb.js',
-    './public/scripts/es6/dialog.js',
     './public/scripts/es6/firebaseConfig.js',
     './public/scripts/es6/prijava.js',
     './public/scripts/es6/hotjar.js',
     './public/scripts/datepicker.js',
+    './public/scripts/es6/dialog.js'
 ])
         .pipe(babel({
             presets: ['env'],

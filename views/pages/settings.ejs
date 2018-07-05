@@ -16,12 +16,12 @@
                     <input type="hidden" name="action" value="register"/>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                         <label class="mdl-textfield__label" for="set_email">E-mail</label>
-                        <input class="mdl-textfield__input" type="email" id="set_email" name="set_email" value="<%= currSession.trenutniUporabnik.email %>"/>
+                        <input class="mdl-textfield__input" type="email" id="set_email" name="set_email" value="<%= currSession.trenutniUporabnik.email %>" oninput="checkMail(this)"/>
                         <span class="mdl-textfield__error" id="errEmail">Vpisani e-poštni naslov je napačen</span>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                         <label class="mdl-textfield__label" for="set_password">Novo geslo</label>
-                        <input class="mdl-textfield__input" type="password" id="reg_password" name="set_password"/>
+                        <input class="mdl-textfield__input" type="password" id="reg_password" name="set_password" pattern=".{6,}" oninvalid="this.setCustomValidity('Geslo mora vsebovati vsaj 6 znakov!')"/>
                     </div>
                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                         <label class="mdl-textfield__label" for="set_password_confirm">Ponovno vpišite novo geslo</label>

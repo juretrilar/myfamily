@@ -11,7 +11,8 @@ let async = require('async');
 let ObjectId = mongoose.Types.ObjectId;
 let bodyParser = require('body-parser');
 let ejs = require('ejs');
-let moment = require('moment');
+//let moment = require('moment');
+var moment = require('moment-timezone');
 let fs = require('fs');
 let mkdirp = require('mkdirp');
 let validator = require('validator');
@@ -24,9 +25,10 @@ let sparkPostTransport = require('nodemailer-sparkpost-transport');
 
 
 let transporter = nodemailer.createTransport(sparkPostTransport({
-  'sparkPostApiKey': process.env.SPARKPOST_API_KEY
+  'sparkPostApiKey': process.env.SPARKPOST_API_KEY || "stringkiniapikey"
 }))
 
+moment.tz.setDefault('Europe/Vienna');
 
 let latinize = require('latinize');
 let SMSAPI = require('smsapicom'),
@@ -37,11 +39,11 @@ let SMSAPI = require('smsapicom'),
     });
 
 let color = {"5a785125e7c9722aa0e1e8ac": "#97EBED" ,
-"5aeabcd8be609116280b4d9c": "#A5D8F3",
+"5aeabcd8be609116280b4d9c": "#FEC3BF",
 "5aef78ab361f5244948ff58f": "#a3f7bf",
 "5a78505d19ac7744c8175d18": "#FFDDB9",
 "5b34a331e6512b13c0889d93": "#ffb8ff",
-"5a785178900a3b278c196667": "#FEC3BF" }
+"5a785178900a3b278c196667":  "#A5D8F3"}
 
 //let color = { "5a78505d19ac7744c8175d18": "#FEC3BF", "5a785125e7c9722aa0e1e8ac": "#FFDDB9", "5aeabcd8be609116280b4d9c": "#97EBED", "5a785178900a3b278c196667": "#A5D8F3", "5aef78ab361f5244948ff58f": "#a3f7bf" };
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -152,7 +154,7 @@ module.exports.naslovnaStran = function (req, res) {
             }
             if (result.cilji[i].skupni_cilj == true) {
                 let usrs = [];
-                for (let c = 0;result.cilji[i].vezani_uporabniki>0;i++) {
+                for (let c = 0;result.cilji[i].vezani_uporabniki.length > c;c++) {
                     if (result.cilji[i].vezani_uporabniki[c].xp_user > 0) {
                         usrs.push(result.cilji[i].vezani_uporabniki[c]);
                     }
@@ -212,6 +214,7 @@ module.exports.prijaviUporabnika = function (req, res, next) {
                 uporabnik: "",
                 sporociloPrijava: "Uporabniško ime in geslo se ne ujemata!",
                 currSession: "",
+                email: "",
             });
         }
         else {
@@ -243,7 +246,7 @@ module.exports.prijaviUporabnika = function (req, res, next) {
             if (req.session.trenutniUporabnik) {
                 res.redirect("/");
             } else {
-                res.render("pages/prijava", { sporociloPrijava: "Napačen elektronski naslov ali geslo!", uporabnik: "", currSession: "" });
+                res.render("pages/prijava", { sporociloPrijava: "Napačen elektronski naslov ali geslo!", uporabnik: "", currSession: "", email: email });
             }
         }
     });
@@ -282,7 +285,8 @@ module.exports.posodobiOsebnePodatke = function (req, res, next) {
         telefon: req.body.set_phone,
         polozaj: parseInt(req.body.izbranaVrsta),
     };
-    if (req.body.reg_password) updateUporabnik.geslo = bcrypt.hashSync(req.body.reg_password, 8);
+    if (req.body.set_password) updateUporabnik.geslo = bcrypt.hashSync(req.body.set_password, 8);
+    console.log(updateUporabnik.geslo);
     if (req.body.avatar) updateUporabnik.slika = req.body.avatar;
     let conditions = { _id: req.session.trenutniUporabnik.id };
     Uporabnik.findOneAndUpdate(conditions, updateUporabnik, { upsert: true, runValidators: true }, function (err, doc) { // callback
@@ -918,7 +922,7 @@ module.exports.izbrisiNalogo = function (req, res, next) {
                                         cilj.vezani_uporabniki.splice(i,1);
                                     }
                                 }  */
-                                
+                                cilj.xp -= doc.xp;
                             } else {
                                 let obj, curObj;
                                 if (cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user));// uporabniki vezani na cilj
@@ -1000,8 +1004,6 @@ module.exports.ustvariNalogo = function (req, res, next) {
             if (!req.body.dateZacetek) req.body.dateZacetek = new Date().toLocaleTimeString('sl-SI', { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short" });
             if (!req.body.dateKonec) req.body.dateKonec = new Date().toLocaleTimeString('sl-SI', { year: "numeric", month: "numeric", day: "numeric", hour: "numeric", minute: "numeric", timeZoneName: "short" });
             if (moment(req.body.dateZacetek).isSameOrBefore(req.body.dateKonec) == false) { vrniNapako(res, "Datum konca ne sme biti pred datumom začetka. " + req.body.dateZacetek + " " + req.body.dateKone); return; }
-            if (req.body.dateZacetek == "") req.body.dateZacetek = dateNow();
-            if (req.body.dateKonec == "") req.body.dateKonec = dateNow();
             novaNaloga.zacetek = req.body.dateZacetek;
             novaNaloga.konec = req.body.dateKonec;
             if (req.body.xpNaloge) {
@@ -1109,7 +1111,7 @@ module.exports.ustvariNalogo = function (req, res, next) {
                     });    
                 }
                 if (vCilj) { //Naloga je vezana
-                    if (req.body.oldCilj && req.body.oldCilj != req.body.sampleCilj) { // Stari in novi cilj nista enaka
+                    if (oldDoc && req.body.oldCilj && req.body.oldCilj != req.body.sampleCilj) { // Stari in novi cilj nista enaka
                         let prevXp = oldDoc.xp;
                         if (req.body.oldStatus == "false") prevXp = 0;
                         Cilji.findOne({ _id: req.body.oldCilj }, function (err, cilj) { //poisci stari cilj
@@ -1363,6 +1365,7 @@ function checkIfLogged(res, req) {
             uporabnik: "",
             sporociloPrijava: "",
             currSession: "",
+            email: "",
         });
         return 1;
     }

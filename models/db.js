@@ -53,3 +53,4 @@ require("./Naloge");
 require("./Druzina");
 require("./Kategorija");
 require('./Subscription');
+require('./Koraki');

@@ -121,7 +121,7 @@ jQuery(function($) {
         $("#phoneCall").attr("href","tel:"+img.nextElementSibling.nextElementSibling.value);
         $("#smsSend").attr("href","sms:"+img.nextElementSibling.nextElementSibling.value);
         $("#mailSend").attr("href","mailto:"+img.nextElementSibling.nextElementSibling.nextElementSibling.value);
-        $("#viberOpen").attr("href","viber://chats?number="+img.nextElementSibling.nextElementSibling.value);
+        $("#viberOpen").attr("href","viber://contact?number=%2B386"+parseInt(img.nextElementSibling.nextElementSibling.value)+"");
         let val = img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.value;
         if(!val) val = 0;
         if (val < 0) $("#dayXp").text(val+" točk");
@@ -758,17 +758,15 @@ function updateBtn() {
     $("#pushButton").removeAttr("disabled");
     $("#pushButton").parent().removeClass("is-disabled");
 
-    let label = document.querySelector("#prePush");
-    
-    waitForElementToDisplay(10, label);
+    waitForElementToDisplay(1000);
 }
 
-function waitForElementToDisplay(time, label) {
-    if(document.querySelector("#pushButton")!=null) {
+function waitForElementToDisplay(time) {    
+    if(pushButton.parentNode.MaterialSwitch) {
         if (isSubscribed) {
         pushButton.nextElementSibling.textContent = 'Izklopi obvestila v brskalniku';
             try {
-                label.MaterialSwitch.on();
+                pushButton.parentNode.MaterialSwitch.on();
             } catch (e) {
                 console.log("Element ne obstaja.", e);
             }           
@@ -776,7 +774,7 @@ function waitForElementToDisplay(time, label) {
             //if (label.classList.contains("is-checked")) {}
             pushButton.nextElementSibling.textContent = 'Vklopi obvestila v brskalniku';
             try {
-                label.MaterialSwitch.off();
+                pushButton.parentNode.MaterialSwitch.off();
             } catch (e) {
                 console.log("Element ne obstaja.", e);
             }
@@ -786,7 +784,7 @@ function waitForElementToDisplay(time, label) {
     }
     else {
         setTimeout(function() {
-            waitForElementToDisplay(time, label);
+            waitForElementToDisplay(time);
         }, time);
     }
 }
@@ -979,7 +977,7 @@ function startIntroDashboard(){
 function startIntroKoledar(){
     intro = introJs();
     $('.monthly-header-title').attr('id', 'cal2');
-    $('.monthly-day-wrap').attr('id', 'cal3');
+    $('.monthly-day-wrap').first().first().attr('id', 'cal3');
         intro.setOptions({
         nextLabel: 'Naprej &rarr;',
         prevLabel: '&larr; Nazaj',
@@ -989,15 +987,15 @@ function startIntroKoledar(){
         overlayOpacity: 0.5,
         steps: [
             {
-            element: '#cal1',
-            intro: "Tole je okno z koledarjem. Na njem so prikazane naloge, glede na začetni datum naloge.",
+            element: document.querySelector('#mycalendar'),
+            intro: "Koledar. Na njem so prikazane naloge, glede na začetni datum naloge.",
             },
             {
             element: '#cal2',
-            intro: "Tole je navigacijska vrstica koledarja. S puščicama se lahko premikate po mesecih naprej ali nazaj. Gumb danes vrne pogled na današnji dan. Gumb mesec pa vrne pogled na mesec v katerem je dan na katerem se nahajate.",
+            intro: "Navigacijska vrstica koledarja. S puščicama se lahko premikate po mesecih naprej ali nazaj. Gumb danes vrne pogled na današnji dan. Gumb mesec pa vrne pogled na mesec v katerem je dan na katerem se nahajate.",
             },
             {
-            element: '#cal3',
+            element: document.querySelector('#cal3'),
             intro: "Posamezni dnevi v katerih so prikazane naloge. Če kliknete na nalogo se vam bo odprl podroben opis naloge. Če pa kliknete na dan se vam bo odrl pogled z vsemi nalogami, ki potekajo na današnji dan.",
             }
         ]
@@ -1049,11 +1047,11 @@ function startIntroNaloge(){
         overlayOpacity: 0.5,
         steps: [
         {
-            element: '#table-cilji',
+            element: '#cilj-1',
             intro: "Nedoseženi cilji družine. Cilj lahko urejate s klikom na vrstico v tabeli. Od leve proti desni so: ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, točke prikazane za vsakega člana družine posebej, datum kdaj je bil cilj ustvarjen in kdaj je bil cilj nazadnje posodobljen."
         },
         {
-            element: '#table-cilji-end',
+            element: '#cilj-2',
             intro: "V tem oknu so prikazani vsi cilji družine, ki so že zaključeni. Cilj lahko urejate z klikom na vrstico v tabeli. Od leve proti desni ime in opis cilja, razmerje med dosedaj zbranimi točkami in točkami potrebnimi za izpolnitev cilja, točke prikazane za vsakega člana družine posebej, datum kdaj je bil cilj ustvarjen in kdaj je bil cilj nazadnje posodobljen."
         },
         {
@@ -1353,9 +1351,23 @@ function validateSettings() {
     }
 }
 
-function checkMail() {
-    if (document.forms["invite_druzina"]["invite_email"].value == "") {
-        $("#invErrEmail").text("Polje je obvezno!").parent().addClass("is-invalid");
+function checkMail(email) {
+    if(!email.value) {
+        $("#invErrEmail").text("Prosimo vpišite email naslov!").parent().addClass("is-invalid");        
         return false;
+
     }
+    let testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
+    if (testEmail.test(email.value)) {
+        email.setCustomValidity('');
+        email.parentElement.classList.remove("is-invalid");
+    // Do whatever if it passes.
+    } else {
+        // input is fine -- reset the error message
+        email.setCustomValidity('Prosimo vključite '+"'@'"+'in '+"'.'"+' v email naslov!');
+        return false;
+   }
+   console.log("test");
 }
+
+//function checkMailEmpty(t){/^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i.test(t.value)?(t.setCustomValidity(""),t.parentElement.classList.remove("is-invalid")):t.setCustomValidity("Prosimo vključite '@'in '.' v email naslov!")}

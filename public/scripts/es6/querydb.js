@@ -186,24 +186,24 @@ function queryNaloge() {
                         $('#dateKonec').val(moment(dateK.replace(' ob ',' '), 'DD-MM-Y HH:mm').format('Y-MM-DD HH:mm'));
                     }
                     let kat = card.getElementsByClassName("kategorijaNaloga")[0].value; 
-                    $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val="+kat+"]").get(0).textContent.trim();
-                    $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val="+kat+"]").attr('data-selected','true');
+                    $('#kategorija').get(0).placeholder = $(".list-kategorija").find("[data-val='"+kat+"']").get(0).textContent.trim();
+                    $("input[name='sampleKategorija']").parent().addClass("is-dirty").find("li[data-val='"+kat+"']").attr('data-selected','true');
                     getmdlSelect.init("#dialogKategorija");
                     let cl = card.getElementsByClassName("ciljNaloga")[0].value;
-                    $('#vezanCilj').get(0).placeholder = $(".list-cilj").find("[data-val="+cl+"]").get(0).textContent.trim();
-                    $("input[name='sampleCilj']").parent().addClass("is-dirty").find("li[data-val="+cl+"]").attr('data-selected','true');
+                    $('#vezanCilj').get(0).placeholder = $(".list-cilj").find("[data-val='"+cl+"']").get(0).textContent.trim();
+                    $("input[name='sampleCilj']").parent().addClass("is-dirty").find("li[data-val='"+cl+"']").attr('data-selected','true');
                     $("input[name='oldCilj']").val(cl);
                     getmdlSelect.init("#dialogCilj");
                     let status = card.getElementsByClassName("statusNaloga")[0].innerHTML;
                     $('#statusNaloge').get(0).placeholder = status;
                     if(status == "Neopravljena") {
                         $("#statusNaloge").parent().addClass("is-dirty")
-                            .find("li[data-val=false]").attr('data-selected','true');
+                            .find("li[data-val='false']").attr('data-selected','true');
                         $("input[name='oldStatus']").val("false");
                         $("input[name='newStatus']").val("false");
                     } else {
                         $("#statusNaloge").parent().addClass("is-dirty")
-                            .find("li[data-val=true]").attr('data-selected','true');
+                            .find("li[data-val='true']").attr('data-selected','true');
                         $("input[name='oldStatus']").val("true");
                         $("input[name='newStatus']").val("true");
                     }
