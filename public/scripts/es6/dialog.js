@@ -32,46 +32,47 @@ r(function(){
     if(localStorage.getItem("Status")) {
         let snackbarContainer = document.querySelector('#mainToast');            
         snackbarContainer.MaterialSnackbar.showSnackbar({message: localStorage.getItem("Status")});
-        localStorage.clear();
+        localStorage.removeItem("Status");
     }
 });
 function r(f){/in/.test(document.readyState)?setTimeout('r('+f+')',9):f()}
 
-jQuery(function($) {
+jQuery(function($) {    
     if(localStorage.getItem("Stran")) {
-        let page = localStorage.getItem("Stran");
-        switch(page) {
-            case 0:
+        let page = localStorage.getItem("Stran");  
+        cleanNav();
+        switch(parseInt(page)) {
+        case 0:
             $("#menuDashboard").addClass("is-active");
             $("#dashboard").addClass("is-active");    
         break;
-            case 1:
+        case 1:
             $("#menuKoledar").addClass("is-active");
-            $("#koledar").addClass("is-active");   
+            $("#koledar").addClass("is-active");  
         break;
-            case 2:
+        case 2:
             $("#menuNaloge").addClass("is-active");
             $("#naloge").addClass("is-active");   
         break;
-            case 3:
+        case 3:
             $("#menuCilj").addClass("is-active");
-            $("#cilj").addClass("is-active");   
+            $("#cilj").addClass("is-active"); 
         break;
-            case 4:
+        case 4:
             $("#menuSettings").addClass("is-active");
-            $("#settings").addClass("is-active");   
+            $("#settings").addClass("is-active");  
         break;
-            case 5:
+        case 5:
             $("#menuNotifications").addClass("is-active");
-            $("#notifications").addClass("is-active");   
+            $("#notifications").addClass("is-active"); 
         break;
-            case 6:
+        case 6:
             $("#menuDruzina").addClass("is-active");
-            $("#druzina").addClass("is-active");   
+            $("#druzina").addClass("is-active"); 
         break;
         default:
             $("#menuDashboard").addClass("is-active");
-            $("#dashboard").addClass("is-active");        
+            $("#dashboard").addClass("is-active");      
         }
         localStorage.removeItem("Stran");
     }
@@ -383,6 +384,7 @@ function posodobiCilj(row) {
     $("#dialog-div").attr('style', 'height: auto');
     $("#izbrisi").removeClass("hide-element");
     currentElement = row;
+    $("#update_dialog").removeAttr('onsubmit');
 }
 
 function posodobiNalogo() {    
@@ -393,9 +395,10 @@ function posodobiNalogo() {
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
     $("#izbrisi").removeClass("hide-element");
+    $("#update_dialog").removeAttr('onsubmit');
 }
 
-function dodajNovCilj() {
+function dodajNovCilj(str) {
     clearData();
     fillCilji();    
     document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
@@ -404,9 +407,11 @@ function dodajNovCilj() {
     dialog.showModal();
     //$("#dialog-div").attr('style', 'height: auto');
     $("#izbrisi").addClass("hide-element");
+    localStorage.setItem("Stran", str);
+    console.log(str);
 }
 
-function dodajNovoNalogo() {
+function dodajNovoNalogo(str) {
     clearData();
     fillNaloge();
     document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
@@ -421,6 +426,9 @@ function dodajNovoNalogo() {
     dialog.showModal();
     $("#dialog-div").attr('style', 'height: '+$("#dialog").height() + 'px;');
     $("#izbrisi").addClass("hide-element");
+    localStorage.setItem("Stran", str);
+    console.log(str);
+    
 }
 
 function dodajPredlog() {    
@@ -1208,24 +1216,26 @@ function helpNaloga(){
             ]
         });
         intro.onhintsadded(function() {
-            console.log('all hints added');
+            //console.log('all hints added');
             if (move == 0) moveHints("#hintNal");
+            //console.log(move);
         });
         intro.onhintclick(function(hintElement, item, stepId) {
-            //console.log('hint clicked', hintElement, item, stepId);
+            console.log('hint clicked', hintElement, item, stepId);
             setTimeout(function () { 
+                console.log("here");
                 let element = $(".introjs-tooltipReferenceLayer");
                 element.appendTo($("#hintNal"));
                 let pos = $("#dialog").get(0).getBoundingClientRect();
                 element.addClass('notransition');
-                let top = $(hintElement).offset().top - $(hintElement).parent().offset().top - $(hintElement).parent().scrollTop()
-                element.css({"color" : "black", "top" : top-5, "left" : hintElement.getBoundingClientRect().left - pos.left-2});
+                let top = $(hintElement).offset().top - $(hintElement).parent().offset().top - $(hintElement).parent().scrollTop();
+                element.css({"color" : "black", "top" : top+10, "left" : hintElement.getBoundingClientRect().left - pos.left-2});
                 $('[data-step*="6"].introjs-tooltipReferenceLayer').css({"color" : "black", "top" : top+15, "left" : hintElement.getBoundingClientRect().left - pos.left-20});
             }, 1);
 
         });
         intro.onhintclose(function (stepId) {
-            console.log('hint closed', stepId);
+            //console.log('hint closed', stepId);
         });
         intro.addHints();
         
@@ -1287,7 +1297,7 @@ function helpNaloga(){
                 let pos = $("#dialog").get(0).getBoundingClientRect();
                 element.addClass('notransition');
                 let top = $(hintElement).offset().top - $(hintElement).parent().offset().top - $(hintElement).parent().scrollTop()
-                element.css({"color" : "black", "top" : top-20, "left" : hintElement.getBoundingClientRect().left - pos.left-2});
+                element.css({"color" : "black", "top" : top-5, "left" : hintElement.getBoundingClientRect().left - pos.left-2});
                 $('[data-step*="2"].introjs-tooltipReferenceLayer').css({"color" : "black", "top" : top, "left" : hintElement.getBoundingClientRect().left - pos.left-20})
                 //element.css({"top" : element.get(0).getBoundingClientRect().top - 2*pos.top, "left" : element.get(0).getBoundingClientRect().left - 2*pos.left});
             }, 1);        
@@ -1315,6 +1325,7 @@ function pregled() {
 }
 
 function moveHints(loc) {
+
     shown = 1;
     $(".introjs-hints").prependTo($(loc));     
     let pos = $(loc).get(0).getBoundingClientRect();           
@@ -1323,7 +1334,9 @@ function moveHints(loc) {
         let y = element.getBoundingClientRect().top - 2*pos.top;   
         element.setAttribute("style", "left: "+x+"px;top: "+y+"px;");
         //console.log(element.getBoundingClientRect().left, element.getBoundingClientRect().top, "LAST"); 
-    });   
+        //console.log(x,y) ;
+    }); 
+
 }
 
 
@@ -1367,7 +1380,6 @@ function checkMail(email) {
         email.setCustomValidity('Prosimo vključite '+"'@'"+'in '+"'.'"+' v email naslov!');
         return false;
    }
-   console.log("test");
 }
 
 //function checkMailEmpty(t){/^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i.test(t.value)?(t.setCustomValidity(""),t.parentElement.classList.remove("is-invalid")):t.setCustomValidity("Prosimo vključite '@'in '.' v email naslov!")}

@@ -212,7 +212,7 @@ module.exports.posljiDruzino = function (req, res) {
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
       if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
-      Uporabnik.find({druzina: req.params.druzinaId},{ id: 1, ime: 1, druzina: 1, polozaj: 1, slika: 1}, function (err, uporabniki) {
+      Uporabnik.find({druzina: req.params.druzinaId},{ id: 1, ime: 1, druzina: 1, polozaj: 1, slika: 1, telefon: 1, email: 1}, function (err, uporabniki) {
         if (err) {
           console.log(err);
           res.status(404).send(err);
@@ -220,7 +220,7 @@ module.exports.posljiDruzino = function (req, res) {
           let newObj = [];
           let obj = {3 : "Vnuk/Vnukinja", 4 : "Sin/Hči", 5: "Oče/Mati", 6: "Dedek/Babica", 7: "Pradedek/Prababica"};
           for (let i=0;i<uporabniki.length;i++) {
-            newObj.push({_id : uporabniki[i]._id, ime : uporabniki[i].ime, druzina: uporabniki[i].druzina, polozaj: obj[uporabniki[i].polozaj], slika: uporabniki[i].slika});
+            newObj.push({_id : uporabniki[i]._id, ime : uporabniki[i].ime, email: uporabniki[i].email, telefon: uporabniki[i].telefon, druzina: uporabniki[i].druzina, polozaj: obj[uporabniki[i].polozaj], slika: uporabniki[i].slika});
           }
           res.status(200).send(newObj);
         }

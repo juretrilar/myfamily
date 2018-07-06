@@ -98,10 +98,8 @@
                             <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
                             <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
                             <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-cilj">
-                                <% for (var i = 0; i < cilji.length; i++) { %>
-                                    <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
+                                <% for (var i = 0; i < cilji.length; i++) { %>                                   
                                         <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
-                                    <% } %>
                                 <% } %>
                             </ul>
                         </div>
