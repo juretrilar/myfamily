@@ -78,7 +78,7 @@ jQuery(function($) {
     }
     setTimeout(function(){ 
         alert("Vaša seja je potekla, za nadaljevanje se morate ponovno prijaviti!");  
-        window.open('https://ekosmartweb.herokuapp.com/','_blank');  
+        window.location.reload(true);  
     }, 3600000);
     if ('serviceWorker' in navigator && 'PushManager' in window) {
         console.log('Service Worker and Push is supported');
@@ -126,7 +126,7 @@ jQuery(function($) {
         let val = img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling.value;
         if(!val) val = 0;
         if (val < 0) $("#dayXp").text(val+" točk");
-        else $("#dayXp").text("+ "+val+" točk");
+        else $("#dayXp").text(val+" točk");
         
         
         if(img.nextElementSibling.nextElementSibling.nextElementSibling.nextElementSibling) {
@@ -310,21 +310,22 @@ jQuery(function($) {
 
 function clearData() {
     $('#newDialog').val("");
-    $('#imeDialog').val("").parent().removeClass("is-dirty");
-    $('#opisDialog').val("").parent().removeClass("is-dirty");
-    $('#targetZacetek').val("").parent().removeClass("is-dirty");
-    $('#targetKonec').val("").parent().removeClass("is-dirty");
+    $('#imeDialog').val("").parent().removeClass("is-dirty is-invalid");
+    $('#opisDialog').val("").parent().removeClass("is-dirty is-invalid");
+    $('#targetZacetek').val("").parent().removeClass("is-dirty is-invalid");
+    $('#targetKonec').val("").parent().removeClass("is-dirty is-invalid");
     $('#oldStatus').val("");
     $('#newStatus').val("");
-    $('#xpNaloge').val("").parent().removeClass("is-dirty");
+    $('#xpNaloge').val("").parent().removeClass("is-dirty is-invalid");
     $('#vezanCilj').get(0).placeholder = "";
-    $("input[name='sampleCilj']").parent().removeClass("is-dirty").find("li").removeAttr('data-selected');
+    $('#vezanCilj').val("");
+    $("input[name='sampleCilj']").parent().removeClass("is-dirty is-invalid").find("li").removeAttr('data-selected');
     getmdlSelect.init("#dialogCilj");
     $('#kategorija').get(0).placeholder = "";
-    $("input[name='sampleKategorija']").parent().removeClass("is-dirty").find("li").attr('data-selected','');
+    $("input[name='sampleKategorija']").parent().removeClass("is-dirty is-invalid").find("li").attr('data-selected','');
     getmdlSelect.init("#dialogKategorija");
     $('#statusNaloge').get(0).placeholder = "";
-    $("#statusNaloge").parent().removeClass("is-dirty")
+    $("#statusNaloge").parent().removeClass("is-dirty is-invalid")
         .find("li").attr('data-selected','');
     getmdlSelect.init("#dialogStatus");
     $('#listClani').find("input[type='checkbox']").parent().removeClass('is-checked');
@@ -457,17 +458,18 @@ function dodajPredlog() {
 }
 
 function validateNaloga(event, t) {
+    let m = 0;
     if (document.forms["update_dialog"]["imeDialog"].value == "") {
         $("#imeDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
-        return false;
+        m = 1;
     }
     if (document.forms["update_dialog"]["opisDialog"].value == "") {
         $("#opisDialogErr").text("Polje je obvezno!").parent().addClass("is-invalid");
-        return false;
+        m = 1;
     }
     if(document.forms["update_dialog"]["xpNaloge"].value == "") {
         $("#xpErr").text("Polje je obvezno!").parent().addClass("is-invalid");
-        return false;
+        m = 1;
     }
     if (t==0) {
         let dZac = document.forms["update_dialog"]["dateZacetek"].value;
@@ -476,7 +478,7 @@ function validateNaloga(event, t) {
             console.log(dZac,dKon);
             if (dZac != dKon && moment(dZac).isAfter(dKon)) {
                 $("#dateKonecErr").text("Datum konca mora biti po datumu začetka!").parent().addClass("is-invalid");
-                return false;
+                m = 1;
             }
         }
         /*
@@ -486,14 +488,15 @@ function validateNaloga(event, t) {
         }*/
         if (document.forms["update_dialog"]["sampleKategorija"].value == "") {
             $("#kategorijaErr").text("Kategorija mora biti izbrana!").parent().addClass("is-invalid");
-            return false;
+            m = 1;
         }
         if (document.forms["update_dialog"]["statusNaloge"].value == "") {
             $("#kategorijaErr").text("Status naloge mora biti izbran!").parent().addClass("is-invalid");
-            return false;
+            m = 1;
         }
         //console.log("cilj");
     }
+    if (m != 0) return false;
     if(t == 0) {
         let save = $( "#update_dialog" ).serialize();
         event.preventDefault();
@@ -877,7 +880,7 @@ function napolniNalogo(elem) {
     }    
 }
 
-function deleteShowNaloga(elem) {
+function deleteShowNaloga() {
     $("#opomnikKategorija").text("");
     $("#opomnikXp").text("");
     $("#opomnikIme").text("");
@@ -1318,9 +1321,9 @@ function helpNaloga(){
 
 
 function pregled() {
-    let clean_uri = location.protocol + "//" + location.host + location.pathname;
+    let clean_uri = location.protocol + "//" + location.host;
     window.history.replaceState({}, document.title, clean_uri);
-    localStorage.setItem("Stran", 1);
+    localStorage.setItem("Stran", 0);
     window.location.reload(true);
 }
 
@@ -1364,22 +1367,49 @@ function validateSettings() {
     }
 }
 
-function checkMail(email) {
-    if(!email.value) {
+function checkMail() {
+    let email = $('input[name=invite_email]');
+    if(email.val() == "") {
         $("#invErrEmail").text("Prosimo vpišite email naslov!").parent().addClass("is-invalid");        
         return false;
-
     }
     let testEmail = /^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i;
-    if (testEmail.test(email.value)) {
-        email.setCustomValidity('');
-        email.parentElement.classList.remove("is-invalid");
+    if (testEmail.test(email.val())) {
+        return true;
     // Do whatever if it passes.
     } else {
         // input is fine -- reset the error message
-        email.setCustomValidity('Prosimo vključite '+"'@'"+'in '+"'.'"+' v email naslov!');
+        $("#invErrEmail").text("Vpisani email naslov ni veljaven!").parent().addClass("is-invalid");        
         return false;
-   }
+   }   
 }
 
-//function checkMailEmpty(t){/^[A-Z0-9._%+-]+@([A-Z0-9-]+\.)+[A-Z]{2,4}$/i.test(t.value)?(t.setCustomValidity(""),t.parentElement.classList.remove("is-invalid")):t.setCustomValidity("Prosimo vključite '@'in '.' v email naslov!")}
+$('#settingsForm').submit(function(){
+    $.ajax({
+        url: $('#settingsForm').attr('action'),
+        type: 'POST',
+        data : $('#settingsForm').serialize(),
+        success: function(response){
+            localStorage.setItem("Status",response);
+            window.location.reload(true);
+        },
+        error: function(response){         
+            $("#errEmail").text("Napaka! Račun s tem E-mail naslovom že obstaja!").parent().addClass("is-invalid");
+            localStorage.setItem("Status",response);
+        }
+    });
+    return false;
+});
+
+function checkSpecial(input, i) {
+    let yourInput = input.value;
+    let re = /[^A-ZČĆŽŠĐ0-9.,\s]/gi
+    let isSplChar = re.test(input.value);
+		if(isSplChar)
+		{
+            var no_spl_char = yourInput.replace(/[^A-ZČĆŽŠĐ0-9.,\s]/gi, '');
+            if (i == 1) $("#imeDialogErr").text("Posebni znaki niso dovoljeni!").parent().addClass("is-invalid");
+            else $("#opisDialogErr").text("Posebni znaki niso dovoljeni!").parent().addClass("is-invalid");
+			$(input).val(no_spl_char);
+		}
+}

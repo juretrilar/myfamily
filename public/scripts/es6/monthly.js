@@ -551,6 +551,13 @@ function prikaziPodatke(url) {
 					window.location.reload();
 				} else {
 					$("#NalogaPopUp").html(response).css("display", "inline-flex");
+					$("body").click(function(e) {
+						if (e.target.id == "NalogaPopUp" || $(e.target).parents("#NalogaPopUp").length) {						  
+						} else {
+							$("#NalogaPopUp").hide();
+							$("#NalogaPopUp").unbind();
+						}
+					  });
 				}
 				
 

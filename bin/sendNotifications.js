@@ -4,6 +4,7 @@ require( '../models/db' );
 
 var mongoose = require( 'mongoose' );
 let Uporabnik = mongoose.model("Uporabnik");
+let Naloge = mongoose.model("Naloge");
 let moment = require('moment');
 let latinize = require('latinize');
 let SMSAPI = require('smsapicom'),smsapi = new SMSAPI({
@@ -31,42 +32,34 @@ console.log("Daily emails sent");
 function sendSMS() {
     Uporabnik.find({ notf_telefon: true }, function (err, smsusers) {
         if (err) {
-            console.log(error);
-            return;
+            return res.status(404).end();
         }
         for(let j = 0; j < smsusers.length; j++) {
             Naloge.find({ vezani_uporabniki: smsusers[j]._id }, function (err, naloga) {
                 if (err) {
-                    console.log(err);
-                    return;
+                    return res.status(404).end();
                 }
-                let temp = [];
                 if (naloga.length == 0) {
                 } else {
                     for (let i = 0; i < naloga.length; i++) {
                         let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
-                        let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
                         let now = moment(Date.now()).format('MM-DD-YYYY');
-                        if (dateCheck(zac,kon,now) && naloga[i].status == false) { // Če naloga neopravljena jo dodaj med opomnike
-                            temp.push({
-                                ime: naloga[i].ime,
-                                opis: naloga[i].opis,
-                                zacetek: naloga[i].zacetek,
-                                konec: naloga[i].konec,
-                                xp: naloga[i].xp,
-                            });
+                        if (zac && naloga[i].status == false) { // Če je naloga na današnji dan jo dodaj v opomnike
+                            idx[Math.abs(moment.duration(moment(zac).diff(moment(now))))] = naloga[i];
                         }
                     }
-                    if (temp) {                           
-                        let vsebina = 'Opomniki za nedokoncane naloge:\n\n';
-                        for (let m=0;m<temp.length;m++) {
-                            vsebina += "Ime: "+temp[m].ime+"\nOpis: "+temp[m].opis+"\nZacetek: "+moment(temp[m].zacetek).format("D. M ob H:m")+
-                            "\nKonec: "+moment(temp[m].konec).format("D. M ob H:m")+"\nTočk: "+temp[m].xp+"\n\n";
+                    let length = (Object.values(idx).length > 5) ? 5 : Object.values(idx).length;
+                    if (Object.values(idx)) {                              
+                        let vsebina = 'Opomniki za nedokončane naloge:\n\n';
+                        for (let i=0; i<length; i++) {
+                            vsebina += "Ime: "+Object.values(idx)[i].ime+"\nOpis: "+Object.values(idx)[i].opis+"\nZačetek: "+moment(Object.values(idx)[i].zacetek).format("D. M ob HH:mm")+
+                            "\nKonec: "+moment(Object.values(idx)[i].konec).format("D. M ob HH:mm")+"\nTočk: "+Object.values(idx)[i].xp+"\n\n";
                         }
                         sendMessage(smsusers[j].telefon, latinize(vsebina))
                         .then(displayResult)
                         .catch(displayError);
-                    }
+                    }                    
+                    res.status(200).end();
                 }
             });
         }
@@ -77,52 +70,47 @@ function sendSMS() {
 function sendMail() {
     Uporabnik.find({ notf_email: true }, function (err, emailusers) {
         if (err) {
-            console.log(error);
-            return;
+            return res.status(404).end();
         }
         for(let j = 0; j < emailusers.length; j++) {
             Naloge.find({ vezani_uporabniki: emailusers[j]._id }, function (err, naloga) {
                 if (err) {
-                    throw err;
-                    return;
+                  res.status(404).end();
                 }
-                let temp = [];
+                let idx = {};
                 if (naloga.length == 0) {
                 } else {
                     for (let i = 0; i < naloga.length; i++) {
                         let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
-                        let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
+                        //let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
                         let now = moment(Date.now()).format('MM-DD-YYYY');
-                        if (dateCheck(zac,kon,now) && naloga[i].status == false) { // Če naloga neopravljena jo dodaj med opomnike
-                            temp.push({
-                                ime: naloga[i].ime,
-                                opis: naloga[i].opis,
-                                zacetek: naloga[i].zacetek,
-                                konec: naloga[i].konec,
-                                xp: naloga[i].xp,
-                            });
+                        if (zac && naloga[i].status == false) { // Če je naloga na današnji dan jo dodaj v opomnike
+                            idx[Math.abs(moment.duration(moment(zac).diff(moment(now))))] = naloga[i];
                         }
                     }
-                    if (temp) {                              
-                        let vsebina = 'Opomniki za nedokončane naloge:\n\n';
-                        for (let m=0; m<temp.length; m++) {
-                            vsebina += "Ime: "+temp[m].ime+"\nOpis: "+temp[m].opis+"\nZačetek: "+moment(temp[m].zacetek).format("D. M ob H:m")+
-                            "\nKonec: "+moment(temp[m].konec).format("D. M ob H:m")+"\nTočk: "+temp[m].xp+"\n\n";
+                    let length = (Object.values(idx).length > 5) ? 5 : Object.values(idx).length;
+                    if (Object.values(idx)) {                              
+                      let vsebina = 'Opomniki za nedokončane naloge:\n\n';
+                      for (let i=0; i<length; i++) {
+                          vsebina += "Ime: "+Object.values(idx)[i].ime+"\nOpis: "+Object.values(idx)[i].opis+"\nZačetek: "+moment(Object.values(idx)[i].zacetek).format("D. M ob HH:mm")+
+                          "\nKonec: "+moment(Object.values(idx)[i].konec).format("D. M ob HH:mm")+"\nTočk: "+Object.values(idx)[i].xp+"\n\n";
+                      }
+                      mailOptions = {
+                          from: 'MyFamily@'+process.env.SPARKPOST_DOMAIN,
+                          to: emailusers[j].email,
+                          subject: "Opomnik " + moment(new Date()).format('M. D'),
+                          text: vsebina,
+                      }
+                      console.log("Sending mail to user", mailOptions);
+                      transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log(error);
+                            return res.status(404).end();
+                        } else {
+                            console.log('Email sent: ' + info.response);
+                            return res.status(200).end();
                         }
-                        mailOptions = {
-                            from: 'MyFamily@'+process.env.SPARKPOST_DOMAIN,
-                            to: emailusers[j].email,
-                            subject: "Opomnik " + moment(new Date()).format('M. D'),
-                            text: vsebina,
-                        }
-                        console.log("Sending mail", mailOptions);
-                        transporter.sendMail(mailOptions, function (error, info) {
-                            if (error) {
-                                console.log(error);
-                            } else {
-                                console.log('Email sent: ' + info.response);
-                            }
-                        });
+                      });
                     }
                 }
             });

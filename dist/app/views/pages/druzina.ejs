@@ -6,12 +6,12 @@
                 <h2 class="mdl-card__title-text mdl-color-text--white">Dodaj družinskega člana</h2>
             </div>
             <div class="mdl-card__supporting-text mdl-grid overflow-visible padding-top-16">
-                <form method="POST" action="/invite" id="invite_druzina" class="middle-align" onsubmit="return checkMail(this)">
+                <form method="POST" action="/invite" id="invite_druzina" class="middle-align" onsubmit=" return checkMail()">
                     <div class="mdl-card__supporting-text">
                         <p class="mdl-typography--subtitle">V spodnje okno vnesite E-poštni naslov, na katerega želite poslati vabilo za pridružitev družini.</p>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
                             <label class="mdl-textfield__label" for="invite_email">E-mail</label>
-                            <input class="mdl-textfield__input" type="email" id="invite_email" name="invite_email" autocomplete="new-password"/>
+                            <input class="mdl-textfield__input" type="email" id="invite_email" name="invite_email" autocomplete="new-password" oninvalid="this.setCustomValidity('Prosimo vključite `@` in `.` v email naslov!')" oninput="this.setCustomValidity('')"/>
                             <span class="mdl-textfield__error" id="invErrEmail">Vpisani email naslov je napačen!</span>
                         </div>
                     </div>              

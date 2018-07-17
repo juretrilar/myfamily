@@ -16,6 +16,12 @@ let config = require('../config');
 let webpush = require('web-push');
 let moment = require('moment');
 
+let nodemailer = require('nodemailer');
+let sparkPostTransport = require('nodemailer-sparkpost-transport')
+let transporter = nodemailer.createTransport(sparkPostTransport({
+  'sparkPostApiKey': process.env.SPARKPOST_API_KEY || "this is a false api"
+}))
+
 //** POST /api/save-subscription
 module.exports.dodajObvestila = function (req, res) {
     let isValidSaveRequest = (req, res) => {
@@ -114,6 +120,8 @@ module.exports.posljiToken = function (req, res) {
               user.telefon = uporabniki[0].telefon;
               user.slika = uporabniki[0].slika;
               res.status(200).send(user);
+            } else {
+              res.sendStatus(401);
             }
           } catch (error) {
             res.status(404).send(error);
@@ -245,7 +253,7 @@ module.exports.prejmiNalogo = function (req, res) {
     Naloge.findOneAndUpdate(conditions, novaNaloga, { upsert: true,new: true, runVlidators: true}, function (err, doc) { // callback
       if (err) {
           console.log(err);
-          return res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
+          return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
       } else {   
         let updt, upXp;
         if (doc) {
@@ -256,7 +264,7 @@ module.exports.prejmiNalogo = function (req, res) {
           Uporabnik.update({ _id: { $in: updt } }, { $inc: { dayXp: upXp } }, { multi: true }, function (err, docs) {
               if (err) {
                   console.log(err);
-                  return res.status(400).end("Pri shranjevanju točk je prišlo do napake!");
+                  return res.status(400).send("Pri shranjevanju točk je prišlo do napake!");
               }
           });
         }
@@ -288,33 +296,182 @@ module.exports.prejmiNalogo = function (req, res) {
               cilj.save(function (err) {
                 if (!err) {
                     if (doc) {
-                      return res.status(200).end("Naloga je bila uspešno posodobljena!");
+                      return res.status(200).send("Naloga je bila uspešno posodobljena!");
                     } else {
-                      return res.status(200).end("Naloga je bila uspešno ustvarjena!");
+                      return res.status(200).send("Naloga je bila uspešno ustvarjena!");
                     }
                 }
                 else {
                   console.log(err);
-                  return res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
+                  return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
                 }
               });
             } else {
                 console.log(err);
-                return res.status(400).end("Pri shranjevanju naloge je prišlo do napake!");
+                return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
             }
           });
         }
         if (doc) {
-          return res.status(200).end("Naloga je bila uspešno posodobljena!");
+          return res.status(200).send("Naloga je bila uspešno posodobljena!");
         } else {
-          return res.status(200).end("Naloga je bila uspešno ustvarjena!");
+          return res.status(200).send("Naloga je bila uspešno ustvarjena!");
         }      
       });
     });
   } else {
-    res.status(401).send({ auth: false, message: 'No token provided.' });  
+    res.status(401).send('No token provided.');  
   }  
 };
+
+/** GET /api/change/ */
+module.exports.changePassword = function (req,res) {
+  if (req.query.token) {
+    jwt.verify(req.query.token, config.secret, function(err, decoded) {
+      if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
+      res.render("pages/prijava", {isLoggedIn: false,
+        uporabniki: 0,
+        uporabnik: "",
+        sporociloPrijava: "",
+        currSession: "",
+        email: "",
+        changePass: true,
+      });
+    });  
+  } else {
+    res.status(401).send('No token provided.' );  
+  }    
+}
+
+/** POST /api/confirm/ */
+module.exports.confirmPassword = function (req,res) {
+  if (req.query.token && req.body.password) {
+    jwt.verify(req.query.token, config.secret, function(err, decoded) {
+      if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
+      Uporabnik.findOne({email: decoded.email}, function (err, uporabnik) {
+        if (err) {
+          console.log(err);
+          res.status(404).send("Uporabnik s tem e-mail naslovom ne obstaja!");
+        } else {
+          uporabnik.geslo = bcrypt.hashSync(req.body.password, 8);
+          uporabnik.save(function (err) {
+            if (!err) {
+                return res.status(200).send("Geslo je bilo uspešno posodobljeno!");
+            }
+            else {
+                console.log(err);
+                return res.status(400).send("Pri posodabljanju gesla je prišlo do napake!");
+            }
+        });
+          res.status(200).send("Geslo je bilo uspešno posodobljeno!"); 
+        }
+      });
+    });  
+  } else {
+    res.status(401).send('No token provided.' );  
+  }    
+}
+
+
+
+/** POST /api/reset_password/ */
+module.exports.resetPassword = function (req,res) {
+  Uporabnik.findOne({email: req.body.email}, function (err, uporabniki) {
+    if (err) {
+      console.log(err);
+      res.status(404).send(err);
+    } else {
+      if(uporabniki) {
+        let token = jwt.sign({ email: req.body.email }, config.secret, {    // create a token
+          expiresIn: 3600 // expires in 1 hour
+        });
+        let vsebina = '<p>Nekdo (predvidoma vi) je zahteval ponastavitev gesla za uporabniški račun '+req.body.email+' v aplikaciji MyFamily. Do sedaj v računu ni bilo sprememb.'+
+        '<br/><br/>'+
+        'Če želite ponastaviti geslo, kliknite na spodnjo povezavo in si izberite novo geslo.'+
+        '<br/>'+
+        '<a href="https://ekosmartweb.herokuapp.com/api/change?token='+token+'">Ponastavi geslo</a>'+
+        '<br/><br/>'+
+        'Če niste vi zahtevali novega gesla, oziroma ga ne želite spremeniti, potem to sporočilo ignorirajte. Povezava bo po 1 uri deaktivirana.'+
+        '<br/><br/>'+
+        'Lep pozdrav,'+
+        '<br/>'+
+        'Ekipa MyFamily</p>';    
+        mailOptions = {
+            from: 'MyFamily@'+process.env.SPARKPOST_DOMAIN,
+            to: req.body.email,
+            subject: "Zahteva za ponastavitev gesla",
+            html: vsebina,
+        }
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+        res.status(200).send("Zahtevek za ponastavitev gesla je bil poslan na vaš naslov!")
+      } else {
+        res.status(404).send("Uporabnik s tem e-mail naslovom ne obstaja!");
+      }
+    }
+  });
+}
+
+
+
+/** GET /api/send_mail/ */
+module.exports.posljiMail = function (req,res) {
+  Uporabnik.find({ notf_email: true }, function (err, emailusers) {
+      if (err) {
+          console.log(error);
+          return;
+      }
+      for(let j = 0; j < emailusers.length; j++) {
+          Naloge.find({ vezani_uporabniki: emailusers[j]._id }, function (err, naloga) {
+              if (err) {
+                res.status(404).end();
+              }
+              let idx = {};
+              if (naloga.length == 0) {
+              } else {
+                  for (let i = 0; i < naloga.length; i++) {
+                      let zac = moment(naloga[i].zacetek).format('MM-DD-YYYY');
+                      //let kon = moment(naloga[i].konec).format('MM-DD-YYYY');
+                      let now = moment(Date.now()).format('MM-DD-YYYY');
+                      if (zac && naloga[i].status == false) { // Če je naloga na današnji dan jo dodaj v opomnike
+                          //console.log(zac, now, moment.duration(moment(zac).diff(moment(now))));
+                          idx[Math.abs(moment.duration(moment(zac).diff(moment(now))))] = naloga[i];
+                      }
+                  }
+                  let length = (Object.values(idx).length > 5) ? 5 : Object.values(idx).length;
+                  if (Object.values(idx)) {                              
+                    let vsebina = 'Opomniki za nedokončane naloge:\n\n';
+                    for (let i=0; i<length; i++) {
+                        vsebina += "Ime: "+Object.values(idx)[i].ime+"\nOpis: "+Object.values(idx)[i].opis+"\nZačetek: "+moment(Object.values(idx)[i].zacetek).format("D. M ob HH:mm")+
+                        "\nKonec: "+moment(Object.values(idx)[i].konec).format("D. M ob HH:mm")+"\nTočk: "+Object.values(idx)[i].xp+"\n\n";
+                    }
+                    mailOptions = {
+                        from: 'MyFamily@'+process.env.SPARKPOST_DOMAIN,
+                        to: emailusers[j].email,
+                        subject: "Opomnik " + moment(new Date()).format('M. D'),
+                        text: vsebina,
+                    }
+                    console.log("Sending mail to user", mailOptions);
+                    transporter.sendMail(mailOptions, function (error, info) {
+                      if (error) {
+                          console.log(error);
+                          res.status(404).end();
+                      } else {
+                          console.log('Email sent: ' + info.response);
+                          res.status(200).end();
+                      }
+                    });
+                  }
+              }
+          });
+      }
+  });
+}
 
 
 /*
@@ -394,3 +551,5 @@ function triggerPushMsg(subscription, payload) {
       }
   });
 };
+
+

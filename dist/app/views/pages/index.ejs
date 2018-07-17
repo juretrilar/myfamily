@@ -69,14 +69,14 @@
                     <input type="hidden" name="newDialog" id="newDialog">
                     <div class="mdl-dialog__content relative">
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                            <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog" maxlength="32"/>
+                            <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog" maxlength="32" onkeyup="checkSpecial(this,1)"/>
                             <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
-                            <span class="mdl-textfield__error" id="imeDialogErr"></span>
+                            <span class="mdl-textfield__error" id="imeDialogErr">Ime vsebuje posebne znake!</span>
                         </div>
                         <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                            <input class="mdl-textfield__input" type="text" id="opisDialog" name="opisDialog" maxlength="160"/>
+                            <input class="mdl-textfield__input" type="text" id="opisDialog" name="opisDialog" maxlength="160" onkeyup="checkSpecial(this,2)"/>
                             <label class="mdl-textfield__label" for="opisDialog" id="oDialog"></label>
-                            <span class="mdl-textfield__error" id="opisDialogErr"></span>
+                            <span class="mdl-textfield__error" id="opisDialogErr">Opis vsebuje posebne znake!</span>
                         </div>
                         <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
                             <input class="mdl-textfield__input" type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
@@ -120,9 +120,9 @@
                             <li class="mdl-list__item padding-zero overflow-visible dialog-duo">
                                 <div class="mdl-list__item-primary-content" style="padding-right: 10px">
                                     <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
-                                        <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" maxlength="5">
+                                        <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" min="0" max="9999" oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);">
                                         <label class="mdl-textfield__label" for="xpNaloge" id="tockeName"></label>
-                                        <span class="mdl-textfield__error" id="xpErr" >Polje je obvezno!</span>
+                                        <span class="mdl-textfield__error" id="xpErr" ></span>
                                     </div>
                                 </div>
                                 <div class="mdl-list__item-primary-content" style="padding-left: 10px">
