@@ -24,29 +24,6 @@
                     </thead>
                     <tbody>
                     <% var m = 0 %>
-                    <% if (cilji.length == 0) { %>
-                        <tr>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero">
-                                <div class="mdl-list__item mdl-list__item--three-line">
-                                    <!--<div class="circle-container-main mdl-color--grey"></div>-->
-                                    <span class="mdl-list__item-primary-content">
-                                        <span class="mdl-color-text--black">Primer cilja</span>
-                                        <span class="mdl-list__item-text-body mdl-color-text--grey fit-list">Tole je opis cilja</span>
-                                        <input type="hidden" value="100" name="maxXp">
-                                        <input type="hidden" value="false" name="jeSkupen">
-                                        <input type="hidden" value="default" name="idCilj">
-                                    </span>
-                                </div>
-                            </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;" id="razmerjeDef">0/100</td>
-                            <td class="mdl-data-table__cell--non-numeric cilji-xp">
-                            </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(Date.now()).format('DD-MM-YYYY')%>
-                            </td>
-                            <td class="mdl-data-table__cell--non-numeric padding-zero" style="text-align: center;"><%= moment(Date.now()).format('DD-MM-YYYY')%>
-                            </td>
-                        </tr>
-                    <% } %>
                     <% for (var i = 0; i < cilji.length; i++) { %>
                         <% if(cilji[i].maxXp > cilji[i].xp || !cilji[i].xp || cilji[i].xp == 0) { %>
                         <tr id="tr<%= i %>" class="clickable">

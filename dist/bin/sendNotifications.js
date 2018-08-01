@@ -32,13 +32,14 @@ console.log("Daily emails sent");
 function sendSMS() {
     Uporabnik.find({ notf_telefon: true }, function (err, smsusers) {
         if (err) {
-            return res.status(404).end();
+            throw err;
         }
         for(let j = 0; j < smsusers.length; j++) {
             Naloge.find({ vezani_uporabniki: smsusers[j]._id }, function (err, naloga) {
                 if (err) {
-                    return res.status(404).end();
+                    throw err;
                 }
+                let idx = {};
                 if (naloga.length == 0) {
                 } else {
                     for (let i = 0; i < naloga.length; i++) {
@@ -55,11 +56,10 @@ function sendSMS() {
                             vsebina += "Ime: "+Object.values(idx)[i].ime+"\nOpis: "+Object.values(idx)[i].opis+"\nZačetek: "+moment(Object.values(idx)[i].zacetek).format("D. M ob HH:mm")+
                             "\nKonec: "+moment(Object.values(idx)[i].konec).format("D. M ob HH:mm")+"\nTočk: "+Object.values(idx)[i].xp+"\n\n";
                         }
-                        sendMessage(smsusers[j].telefon, latinize(vsebina))
+                        sendMessage("MyFamily", "386"+parseInt(smsusers[j].telefon), latinize(vsebina))
                         .then(displayResult)
                         .catch(displayError);
                     }                    
-                    res.status(200).end();
                 }
             });
         }
@@ -70,12 +70,12 @@ function sendSMS() {
 function sendMail() {
     Uporabnik.find({ notf_email: true }, function (err, emailusers) {
         if (err) {
-            return res.status(404).end();
+            throw err;
         }
         for(let j = 0; j < emailusers.length; j++) {
             Naloge.find({ vezani_uporabniki: emailusers[j]._id }, function (err, naloga) {
                 if (err) {
-                  res.status(404).end();
+                    throw err;
                 }
                 let idx = {};
                 if (naloga.length == 0) {
@@ -105,10 +105,9 @@ function sendMail() {
                       transporter.sendMail(mailOptions, function (error, info) {
                         if (error) {
                             console.log(error);
-                            return res.status(404).end();
+                            throw err;
                         } else {
                             console.log('Email sent: ' + info.response);
-                            return res.status(200).end();
                         }
                       });
                     }
@@ -118,10 +117,10 @@ function sendMail() {
     });
 }
 
-function sendMessage(number, text){
+function sendMessage(name, number, text) {
     return smsapi.message
         .sms()
-        .from('MyFamilyApp')
+        .from(name)
         .to(number)
         .message(text)
         .execute(); // return Promise
@@ -133,15 +132,4 @@ function displayResult(result){
 
 function displayError(err){
     console.error(err);
-}
-
-function dateCheck(from, to, check) {
-    let fDate, lDate, cDate;
-    fDate = Date.parse(from);
-    lDate = Date.parse(to);
-    cDate = Date.parse(check);
-    if ((cDate <= lDate && cDate >= fDate)) {
-        return true;
-    }
-    return false;
 }

@@ -272,7 +272,7 @@ module.exports.prejmiNalogo = function (req, res) {
           let obj = {}, curObj = {};
         Cilji.findOne({ _id: doc.vezan_cilj }, function (err, cilj) {
           if (!err) {
-              if(cilj.vezani_uporabniki) obj = cilj.vezani_uporabniki.map(value => String(value.id_user)); //Error
+              if(cilj && cilj.vezani_uporabniki != null) obj = cilj.vezani_uporabniki.map(value => String(value.id_user)); //Error
               if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value));
               for (let i = 0; i < curObj.length; i++) {
                   let index = obj.indexOf(String(curObj[i]));
