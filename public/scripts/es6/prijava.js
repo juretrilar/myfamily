@@ -45,15 +45,15 @@ function isImage(file) {
 }
 
 function validateRegistracija() {
-    if (document.forms["registracijaForm"]["reg_name"].value == "") {
+    if (document.forms["registracijaForm"]["reg_name"].value === "") {
         $("#errIme").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
     }
-    if (document.forms["registracijaForm"]["reg_email"].value == "") {
+    if (document.forms["registracijaForm"]["reg_email"].value === "") {
         $("#errEmail").text("Polje je obvezno!").parent().addClass("is-invalid");
         return false;
     }
-    if (document.forms["registracijaForm"]["reg_password"].value == "") {
+    if (document.forms["registracijaForm"]["reg_password"].value === "") {
         $("#errPass").text("Polje je obvezno").parent().addClass("is-invalid");
         return false;
     }
@@ -79,6 +79,7 @@ function validateRegistracija() {
             return false;
         }
     } */
+    return true;
 }
 
 function updatePic(pic) { //update picture name, if action is canceled leave blank
@@ -209,18 +210,20 @@ function checkMail(email) {
 
 
 $('#registracijaForm').submit(function(){
-    $.ajax({
-        url: $('#registracijaForm').attr('action'),
-        type: 'POST',
-        data : $('#registracijaForm').serialize(),
-        success: function(){
-            window.location.reload(true);
-        },
-        error: function(response, jqXhr, textStatus, errorThrown){  
-            console.log(response);          
-            $("#errEmail").text(response.responseText).parent().addClass("is-invalid");
-        }
-    });
+    if (validateRegistracija()===true) {
+        $.ajax({
+            url: $('#registracijaForm').attr('action'),
+            type: 'POST',
+            data : $('#registracijaForm').serialize(),
+            success: function(){
+                window.location.reload(true);
+            },
+            error: function(response, jqXhr, textStatus, errorThrown){  
+                console.log(response);          
+                $("#errEmail").text(response.responseText).parent().addClass("is-invalid");
+            }
+        });
+    }
     return false;
 });
 

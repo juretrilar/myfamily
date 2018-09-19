@@ -101,7 +101,6 @@ function sendMail() {
                           subject: "Opomnik " + moment(new Date()).format('M. D'),
                           text: vsebina,
                       }
-                      console.log("Sending mail to user", mailOptions);
                       transporter.sendMail(mailOptions, function (error, info) {
                         if (error) {
                             console.log(error);

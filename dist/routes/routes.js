@@ -62,6 +62,8 @@ router.get('/api/change/', subscriptionHandler.changePassword);
 
 router.get('/api/send_mail/', subscriptionHandler.posljiMail);
 
+router.get('/api/get_koraki/', subscriptionHandler.posljiKorake);
+
 //router.post('/api/trigger-push-msg', subscriptionHandler.posljiObvestila);
 
 module.exports = router;

@@ -60,7 +60,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].polozaj == 7) { %>
                         <div class="item">
-                        <img class="img-64-<%= uporabniki[j].slika %> level7 user" src="public/images/png.png" alt="" width="64" height="64">  
+                        <img class="img-64-<%= uporabniki[j].slika %> level7 user clickable" src="public/images/png.png" alt="" width="64" height="64">  
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">                        
@@ -76,7 +76,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].polozaj == 6) { %>
                         <div class="item">
-                        <img class="img-64-<%= uporabniki[j].slika %> level6 user" src="public/images/png.png" alt="" width="64" height="64">
+                        <img class="img-64-<%= uporabniki[j].slika %> level6 user clickable" src="public/images/png.png" alt="" width="64" height="64">
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -92,7 +92,7 @@
                 <% for(let j=0; j<uporabniki.length;j++) {%>
                     <% if(uporabniki[j].polozaj == 5) { %>
                         <div class="item">
-                        <img class="img-64-<%= uporabniki[j].slika %> level5 user" src="public/images/png.png" alt="" width="64" height="64" >
+                        <img class="img-64-<%= uporabniki[j].slika %> level5 user clickable" src="public/images/png.png" alt="" width="64" height="64" >
                         <input type="hidden" value="<%= uporabniki[j].ime %>">
                         <input type="hidden" value="<%= uporabniki[j].telefon %>">
                         <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -108,7 +108,7 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].polozaj == 4) { %>
                             <div class="item">
-                            <img class="img-64-<%= uporabniki[j].slika %> level4 user" src="public/images/png.png" alt="" width="64" height="64">
+                            <img class="img-64-<%= uporabniki[j].slika %> level4 user clickable" src="public/images/png.png" alt="" width="64" height="64">
                             <input type="hidden" value="<%= uporabniki[j].ime %>">
                             <input type="hidden" value="<%= uporabniki[j].telefon %>">
                             <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -124,7 +124,7 @@
                     <% for(let j=0; j<uporabniki.length;j++) {%>
                         <% if(uporabniki[j].polozaj == 3) { %>
                             <div class="item">
-                            <img class="img-64-<%= uporabniki[j].slika %> level3 user" src="public/images/png.png" alt="" width="64" height="64">
+                            <img class="img-64-<%= uporabniki[j].slika %> level3 user clickable" src="public/images/png.png" alt="" width="64" height="64">
                             <input type="hidden" value="<%= uporabniki[j].ime %>">
                             <input type="hidden" value="<%= uporabniki[j].telefon %>">
                             <input type="hidden" value="<%= uporabniki[j].email %>">
@@ -225,15 +225,15 @@
         <div class="mdl-card__supporting-text">
             <div class="mdl-list">
                 <div class="mdl-list__item">
-                            <span class="mdl-list__item-primary-content">
-                                <span class="mdl-color-text--black mdl-typography--font-bold" id="ime_aktivnosti">Moški večer</span>
-                                    <span class="mdl-chip color-red mdl-color-text--white mdl-chip-small">
-                                        <span class="mdl-chip__text">100 točk</span>
-                                    </span>
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--black mdl-typography--font-bold" id="ime_aktivnosti"><%= predlogIme %></span>
+                            <span class="mdl-chip color-red mdl-color-text--white mdl-chip-small">
+                                <span class="mdl-chip__text"><%= predlogTock %> točk</span>
                             </span>
+                    </span>
                 </div>
             </div>
-            <p style="padding-left: 16px;" id="opis_aktivnosti">Druženje očetov in sinov vseh generacij. Pohod med vinogradi.</p>
+            <p style="padding-left: 16px;" id="opis_aktivnosti"><%= predlogOpis %></p>
             <!--<h6 class="mdl-color-text--black" id="clani_aktivnosti" style="padding-left: 16px;">Za: moški del družine (Janez, Jan, Janko)</h6>-->
         </div>
     </div>

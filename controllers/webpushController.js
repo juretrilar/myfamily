@@ -199,6 +199,7 @@ module.exports.prejmiKorake = function (req, res) {
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
       if (err) return res.status(401).send({ auth: false, message: 'Failed to authenticate token.' });
+      console.log(req.body);
       Koraki.find(function (err) {
         if (err) {
           console.log(err);
@@ -213,9 +214,21 @@ module.exports.prejmiKorake = function (req, res) {
   }
 };
 
+//** GET /api/get_koraki/
+module.exports.posljiKorake = function (req, res) {
+  Koraki.find(req.session.trenutniUporabnik.druzina, function(err, koraki) {
+    let sum = [];
+    for(let i=0;i<Object.keys(koraki).length;i++) {
+      for(let j=0;j<Object.keys(koraki).length;j++) {
+        sum[i] += koraki[j].koraki[i];
+      }
+    }
+  });
+  return res.status(200).send(sum);
+}
+
 //** GET /api/druzina/:druzinaId
 module.exports.posljiDruzino = function (req, res) {
-  
   let token = req.headers.token;
   if (token) {
     jwt.verify(token, config.secret, function(err, decoded) {
@@ -250,73 +263,82 @@ module.exports.prejmiNalogo = function (req, res) {
         status: true,
       };
       let conditions = { _id: req.params.idNaloge };
-    Naloge.findOneAndUpdate(conditions, novaNaloga, { upsert: true,new: true, runVlidators: true}, function (err, doc) { // callback
-      if (err) {
-          console.log(err);
-          return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
-      } else {   
-        let updt, upXp;
-        if (doc) {
-          updt = doc.vezani_uporabniki;
-          upXp = doc.xp;
-        }
-        if (updt && upXp) {
-          Uporabnik.update({ _id: { $in: updt } }, { $inc: { dayXp: upXp } }, { multi: true }, function (err, docs) {
-              if (err) {
-                  console.log(err);
-                  return res.status(400).send("Pri shranjevanju točk je prišlo do napake!");
-              }
-          });
-        }
-          //Iščem cilj, pod katerega je bila dodana naloga, uporabnikom prištejem vrednost za naloge, ki so jih naredili
-          let obj = {}, curObj = {};
-        Cilji.findOne({ _id: doc.vezan_cilj }, function (err, cilj) {
-          if (!err) {
-              if(cilj && cilj.vezani_uporabniki != null) obj = cilj.vezani_uporabniki.map(value => String(value.id_user)); //Error
-              if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value));
-              for (let i = 0; i < curObj.length; i++) {
-                  let index = obj.indexOf(String(curObj[i]));
-                  if (index > -1) { //prištejem točke                               
-                      cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) + doc.xp;
-                  } else {  //Če uporabnik še ni v cilju, ga dodam                 
-                        cilj.vezani_uporabniki.push({ "id_user": doc.vezani_uporabniki[i], "xp_user": doc.xp });
-                  }                          
-              }
-              //console.log("Osvežim točke cilja");               
-              obj = cilj.vezane_naloge.map(value => String(value.id_nal));
-              let nalId = req.params.idNaloge;
-              if (obj) {
-                  let index = obj.indexOf(nalId);
-                  if (index > -1) {
-                      cilj.vezane_naloge[index].stanje = true;
-                  } else {
-                      cilj.vezane_naloge.push({ "id_nal": nalId, "stanje": true });
-                  }
-              }
-              cilj.save(function (err) {
-                if (!err) {
-                    if (doc) {
-                      return res.status(200).send("Naloga je bila uspešno posodobljena!");
-                    } else {
-                      return res.status(200).send("Naloga je bila uspešno ustvarjena!");
+      Naloge.findOneAndUpdate(conditions, novaNaloga, { upsert: true, runVlidators: true}, function (err, doc) { // callback
+        if (err) {
+            console.log(err);
+            return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
+        } else {   
+          let updt = [], upXp;
+          if (doc) {
+            updt = doc.vezani_uporabniki;
+            upXp = doc.xp;
+            if (updt && upXp) {
+              if (doc.status == false) {
+                Uporabnik.update({ _id: { $in: updt } }, { $inc: { dayXp: upXp } }, { multi: true }, function (err, docs) {
+                    if (err) {
+                        console.log(err);
+                        return res.status(400).send("Pri shranjevanju točk je prišlo do napake!");
                     }
+                });
+                let obj = {}, curObj = {};
+                if (doc.vezan_cilj) {
+                  Cilji.findOne({ _id: doc.vezan_cilj }, function (err, cilj) {
+                    if (!err) {
+                      if(cilj && cilj.vezani_uporabniki != null) obj = cilj.vezani_uporabniki.map(value => String(value.id_user)); //Error
+                      if(doc.vezani_uporabniki) curObj = doc.vezani_uporabniki.map(value => String(value));
+                      for (let i = 0; i < curObj.length; i++) {
+                          let index = obj.indexOf(String(curObj[i]));
+                          if (index > -1) { //prištejem točke                               
+                              cilj.vezani_uporabniki[index].xp_user = parseInt(cilj.vezani_uporabniki[index].xp_user) + doc.xp;
+                          } else {  //Če uporabnik še ni v cilju, ga dodam                 
+                                cilj.vezani_uporabniki.push({ "id_user": doc.vezani_uporabniki[i], "xp_user": doc.xp });
+                          }                          
+                      }
+                      //console.log("Osvežim točke cilja");               
+                      obj = cilj.vezane_naloge.map(value => String(value.id_nal));
+                      let nalId = req.params.idNaloge;
+                      if (obj) {
+                          let index = obj.indexOf(nalId);
+                          if (index > -1) {
+                              cilj.vezane_naloge[index].stanje = true;
+                          } else {
+                              cilj.vezane_naloge.push({ "id_nal": nalId, "stanje": true });
+                          }
+                      }
+                      cilj.save(function (err) {
+                        if (!err) {
+                          return res.status(200).send("Naloga je bila uspešno posodobljena!");
+                        } else {
+                          console.log(err);
+                          return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
+                        }
+                      });
+                    } else {
+                        console.log(err);
+                        return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
+                    }
+                  });
+                } else {
+                  return res.status(200).send("Naloga je bila uspešno posodobljena!");
                 }
-                else {
-                  console.log(err);
-                  return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
-                }
-              });
+              } else {
+                return res.status(304).send("Naloga je že opravljena!");
+              }
             } else {
-                console.log(err);
-                return res.status(400).send("Pri shranjevanju naloge je prišlo do napake!");
+              return res.status(404).send("Naloga ni bila najdena!");
             }
-          });
-        }
+          } else {
+            return res.status(404).send("Naloga ni bila najdena!");
+          }
+        } 
+          //Iščem cilj, pod katerega je bila dodana naloga, uporabnikom prištejem vrednost za naloge, ki so jih naredili
+          
+        /*
         if (doc) {
           return res.status(200).send("Naloga je bila uspešno posodobljena!");
         } else {
           return res.status(200).send("Naloga je bila uspešno ustvarjena!");
-        }      
+        }    */  
       });
     });
   } else {

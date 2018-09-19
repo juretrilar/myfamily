@@ -11,6 +11,7 @@ let intro = introJs();
 
 let move = 0;
 let shown = 0;
+let mode = 0;
 
 let colors = ["#FEC3BF","#FFDDB9","#A5D8F3","#97EBED","#FEC3BF","#FFDDB9","#A5D8F3","#FEC3BF","#FFDDB9","#A5D8F3"];
 
@@ -266,7 +267,7 @@ jQuery(function($) {
         pickerZac.removeClass("hide-element");        
         $(document).mouseup(function(e) {            
             // if the target of the click isn't the container nor a descendant of the container
-            if (!pickerZac.is(e.target) && pickerZac.has(e.target).length === 0) 
+            if ($("#closePicker").attr("id") == e.target.id || !pickerZac.is(e.target) && pickerZac.has(e.target).length === 0) 
             {
                 pickerZac.addClass("hide-element");
             }
@@ -276,9 +277,9 @@ jQuery(function($) {
     $("#dialogKonec").click(function(e) {  
         let pickerZac = $("#pickKon");   
         pickerZac.removeClass("hide-element");        
-        $(document).mouseup(function(e) {            
+        $(document).mouseup(function(e) {    
             // if the target of the click isn't the container nor a descendant of the container
-            if (!pickerZac.is(e.target) && pickerZac.has(e.target).length === 0) 
+            if ($("#closePicker").attr("id") == e.target.id || !pickerZac.is(e.target) && pickerZac.has(e.target).length === 0) 
             {
                 pickerZac.addClass("hide-element");
             }
@@ -287,25 +288,27 @@ jQuery(function($) {
 
     $("#nalogaDone").click(function(e) {  
         let data = "newDialog="+$("#opomnikId").val()+"&newStatus=true&mode=1";
-        $.ajax({
-            url: '/ustvari_nalogo',
-            type: 'POST',
-            contentType: 'application/x-www-form-urlencoded',
-            data: data,
-            success: function(response){
-                localStorage.setItem("Status",response);
-                localStorage.setItem("Stran",0);
-                window.location.reload(true);
-            },
-            error: function(response, jqXhr, textStatus, errorThrown){            
-                let snackbarContainer = document.querySelector('#mainToast');             
-                snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
-                console.log(jqXhr, textStatus, errorThrown, response);
-            }
-            
-        });
-
+        if (validateNaloga(e, mode) === true) {
+            $.ajax({
+                url: '/ustvari_nalogo',
+                type: 'POST',
+                contentType: 'application/x-www-form-urlencoded',
+                data: data,
+                success: function(response){
+                    localStorage.setItem("Status",response);
+                    localStorage.setItem("Stran",0);
+                    window.location.reload(true);
+                },
+                error: function(response, jqXhr, textStatus, errorThrown){            
+                    let snackbarContainer = document.querySelector('#mainToast');             
+                    snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
+                    console.log(jqXhr, textStatus, errorThrown, response);
+                }
+                
+            });
+        }
     });
+    let okButton = '<span class="datepicker--button" data-action="hide" id="closePicker">Ok</span>'; $('.datepicker--button[data-action="clear"]').each(function( index ) { $(okButton).insertBefore($(this)); });
 });
 
 function clearData() {
@@ -332,6 +335,7 @@ function clearData() {
 }
 
 function fillNaloge() {
+    mode = 0;
     $('#iDialog').html("Ime naloge*");
     $('#oDialog').html("Opis naloge*");
     $('#tZacetek').html("Začetek naloge");
@@ -350,6 +354,7 @@ function fillNaloge() {
 }
 
 function fillCilji() {
+    mode = 1;
     $('#iDialog').html("Ime cilja*");
     $('#oDialog').html("Opis cilja*");
     /*
@@ -369,6 +374,7 @@ function fillCilji() {
 }
 
 function posodobiCilj(row) {
+    mode = 1;
     clearData();
     fillCilji();    
     document.getElementById("dialog-title").innerHTML = "Uredi cilj";
@@ -388,7 +394,8 @@ function posodobiCilj(row) {
     $("#update_dialog").removeAttr('onsubmit');
 }
 
-function posodobiNalogo() {    
+function posodobiNalogo() {   
+    mode = 0; 
     clearData();
     fillNaloge();    
     document.getElementById("dialog-title").innerHTML = "Uredi nalogo";
@@ -400,6 +407,7 @@ function posodobiNalogo() {
 }
 
 function dodajNovCilj(str) {
+    mode = 1;
     clearData();
     fillCilji();    
     document.getElementById("dialog-title").innerHTML = "Dodaj nov cilj";
@@ -413,6 +421,7 @@ function dodajNovCilj(str) {
 }
 
 function dodajNovoNalogo(str) {
+    mode = 0;
     clearData();
     fillNaloge();
     document.getElementById("dialog-title").innerHTML = "Dodaj novo nalogo";
@@ -974,7 +983,7 @@ function startIntroDashboard(){
           },
           {
             element: '#dash6',
-            intro: "Predlog za novo nalogo, ki je naključno generiran. S klikom na gumb DODAJ NALOGO se bodo polja avtomatsko izpolnila in nato lahko predlagano nalogo dodate med svoje naloge."
+            intro: "Predlog za novo nalogo, ki je naključno generiran. Predlagane naloge lahko dodate med svoje naloge."
           },
           {
             element: document.querySelector('#dash7'),
@@ -1280,7 +1289,7 @@ function helpNaloga(){
             },
             {
                 element: '#ciljiVsi',
-                hint: "Če je to okno obkljukano se bo cilj vsem članom družine prikazal na prvi strani med skupnimi cilji.",
+                hint: "Če je to okno obkljukano, se bo cilj prikazal vsem članom družine na prvi strani med skupnimi cilji.",
                 position: "left"
             }
             ]
