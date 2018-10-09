@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+    <%- include('../partials/head') -%>
+    <body class="body-prijava header6">
+        <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header" >
+            <%- include('../partials/nav') -%>
+            <main class="mdl-layout__content">
+                <div class="mdl-grid text-main card-500">
+                    <% if (!changePass) { %>
+                    <div class="mdl-card mdl-shadow--16dp util-center" id="prijava">
+                        <div class="mdl-card__title color-blue krivulja-2 header2">
+                            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Prijava v MyFamily</h2>
+                        </div>
+                        <form method="POST" action="/prijava" id="prijavaForm" onsubmit="return validatePrijava()">
+                            <div class="mdl-card__supporting-text mdl-grid">                          
+                                <input type="hidden" name="action" value="login"/>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col <% if (sporociloPrijava) { %>is-invalid<% } %>">
+                                    <label class="mdl-textfield__label" for="textfield_email">E-mail</label>
+                                    <input class="mdl-textfield__input" type="email" id="textfield_email" name="email" autocomplete="on" oninput="checkMail(this)" <% if (email) { %> value="<%= email %>" <%  } %> />
+                                    <span class="mdl-textfield__error" id="emailErr"> <% if(sporociloPrijava != "") { %><%= sporociloPrijava %><% } else { %>Vpisani email ni pravilen!<% } %></span>
+                                </div>
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col <% if (sporociloPrijava) { %>is-invalid<% } %>">
+                                    <label class="mdl-textfield__label" for="textfield_password">Geslo</label>
+                                    <input class="mdl-textfield__input" type="password" id="textfield_password" name="password" autocomplete="current-password"/>
+                                    <span class="mdl-textfield__error" id="passErr"></span>
+                                </div>                               
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border" align="center">
+                                <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                                    <button type="submit" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-blue mdl-color-text--white">
+                                        Prijava
+                                    </button>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col mdl-typography--body-1" align="center">  
+                                Še nimate svojega računa? <a href="javascript:void(0);" onclick="prikaziRegistracija()">Registrirajte se »</a>
+                                <br/>Ste pozabili geslo? <a href="javascript:void(0);" onclick="prikaziPass()">Pozabljeno geslo »</a>    
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="mdl-card mdl-shadow--16dp util-center" id="registracija" style="display: none;">
+                        <div class="mdl-card__title color-cyan krivulja-1 header1">
+                            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Ustvarite nov račun</h2>
+                        </div>
+                        <form method="POST" action="/registracija" id="registracijaForm" onsubmit="return validateRegistracija()">
+                        <div class="mdl-card__supporting-text mdl-grid">
+                            <div class="mdl-list padding-zero help-list">
+                                <div class="mdl-list__item padding-zero">
+                                    <span class="mdl-list__item-primary-content">
+                                        <span class="margin-zero color-neutral mdl-typography--caption">Polja označena z * so obvezna!</span>
+                                    </span>
+                                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect button-help" onclick="addHintsReg()">
+                                        <i class="material-icons mdl-color-text--grey-400">help_outline</i>
+                                    </button>
+                                </div>                             
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_name">Ime*</label>
+                                <input class="mdl-textfield__input" type="text" id="reg_name" name="reg_name"/>
+                                <span class="mdl-textfield__error" id="errIme">Polje mora biti izpolnjeno</span>
+                            </div>
+                            <input type="hidden" name="action" value="register"/>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_email">E-mail*</label>
+                                <input class="mdl-textfield__input" type="email" id="reg_email" name="reg_email" oninput="checkMail(this)"/>
+                                <span class="mdl-textfield__error" id="errEmail">Vpisani email ne ustreza formatu!</span>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_password">Geslo*</label>
+                                <input class="mdl-textfield__input" type="password" id="reg_password" name="reg_password" pattern=".{6,}"/>
+                                <span class="mdl-textfield__error" id="errPass">Geslo mora vsebovati vsaj 6 znakov!</span>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_password_confirm">Potrditev gesla*</label>
+                                <input class="mdl-textfield__input" type="password" id="reg_password_confirm" name="reg_password_confirm"/>
+                                <span class="mdl-textfield__error" id="errPass2">Gesli se ne ujemata!</span>
+                            </div>
+                            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                <label class="mdl-textfield__label" for="reg_phone">Telefon*</label>
+                                <input class="mdl-textfield__input" type="tel" id="reg_phone" name="reg_phone" pattern="^(?:\d){9}$" title="Primer: 123456789"/>
+                                <!--^(?:\+\d{1,3}|0\d{1,3}|00\d{1,2})?(?:\s?\(\d+\))?(?:[-\/\s.]|\d)+$-->
+                                <span class="mdl-textfield__error" id="errTel">Telefonska številka je zapisana v napačnem formatu! Primer: 012345678</span>
+                            </div>
+                            <div id="avatars">
+                                <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
+                                <% for(let i=0;i<9;i++) { %>
+                                <label class="avatars">
+                                    <input type="radio" name="avatar" value="<%= i %>" hidden/>
+                                    <img class="img-64-<%= i %>" src="publicpublic/images/png.png" alt=""/>
+                                </label>
+                                <% } %>
+                            </div>
+                        </div>
+                        <div class="mdl-card__actions mdl-card--border" align="center">
+                            <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-cyan mdl-color-text--white" id="login">
+                                    Ustvari nov račun
+                                </button>
+                            </div>
+                            <div class="mdl-cell mdl-cell--12-col mdl-typography--body-1" align="center">
+                            Že imate svoj račun? <a href="javascript:void(0);" onclick="prikaziPrijava()">Prijava »</a>
+                            </div>
+                        </div>
+                    </form>
+                    </div>
+                    <div class="mdl-card mdl-shadow--16dp util-center" id="lostPass" style="display: none;">
+                        <div class="mdl-card__title color-orange krivulja-2 header2">
+                            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Pozabljeno geslo</h2>
+                        </div>
+                        <form method="POST" action="/api/reset_password" id="passForm" onsubmit="return validatePassword()">
+                            <div class="mdl-card__supporting-text mdl-grid"> 
+                                    <p class="mdl-typography--subtitle">V spodnje okno vpišite vaš E-poštni naslov, na katerega vam bomo poslali zahtevek za ponastavitev gesla.</p>                         
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                    <label class="mdl-textfield__label" for="textfield_email">E-mail</label>
+                                    <input class="mdl-textfield__input" type="email" id="email_password" name="email" autocomplete="on" oninput="checkMail(this)"/>
+                                    <span class="mdl-textfield__error" id="emailResetErr">Prosimo vpišite vaš E-poštni naslov!</span>
+                                </div>                          
+                            </div>
+                            <div class="mdl-card__actions mdl-card--border" align="center">
+                                <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                                    <button type="submit" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-blue mdl-color-text--white">
+                                        Pošlji
+                                    </button>
+                                </div>
+                                <div class="mdl-cell mdl-cell--12-col mdl-typography--body-1" align="center">  
+                                Še nimate svojega računa? <a href="javascript:void(0);" onclick="prikaziRegistracija()">Registrirajte se »</a>
+                                <br/>Že imate svoj račun? <a href="javascript:void(0);" onclick="prikaziPrijava()">Prijava »</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <% } else if (changePass) { %>
+                    <div class="mdl-card mdl-shadow--16dp util-center" id="changePass">
+                            <div class="mdl-card__title color-orange krivulja-2 header2">
+                                <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Ponastavitev gesla</h2>
+                            </div>
+                            <form method="POST" id="changeForm" onsubmit="return validateChange()">
+                                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                        <label class="mdl-textfield__label" for="password">Novo geslo*</label>
+                                        <input class="mdl-textfield__input" type="password" name="password" pattern=".{6,}"/>
+                                        <span class="mdl-textfield__error" id="errChange">Geslo mora vsebovati vsaj 6 znakov!</span>
+                                    </div>
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                                        <label class="mdl-textfield__label" for="password_confirm">Potrditev gesla*</label>
+                                        <input class="mdl-textfield__input" type="password" name="password_confirm"/>
+                                        <span class="mdl-textfield__error" id="errChange2">Gesli se ne ujemata!</span>
+                                    </div>
+                                <div class="mdl-card__actions mdl-card--border" align="center">
+                                    <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                                        <button type="submit" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-blue mdl-color-text--white">
+                                            Pošlji
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    <% } %>
+                </div>
+                <%- include('../partials/footer') -%>
+            </main>
+        </div>
+        <div id="mainToast" class="mdl-js-snackbar mdl-snackbar">
+                <div class="mdl-snackbar__text"></div>
+                <button class="mdl-snackbar__action" type="button"></button>
+            </div>
+        <%- include('../partials/scriptp') -%>
+        <script src="/public/js/prijava.js"></script>
+    </body>
+</html>

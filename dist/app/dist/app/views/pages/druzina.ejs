@@ -1,0 +1,29 @@
+<div id="callDruzina" class="text-container mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+    <div  class="mdl-cell mdl-cell--10-col card-500 text-main">
+        <div class="mdl-card mdl-shadow--16dp util-center overflow-visible">
+            <div class="mdl-card__title color-red krivulja-3 header3">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Dodaj družinskega člana</h2>
+            </div>
+            <div class="mdl-card__supporting-text mdl-grid overflow-visible padding-top-16">
+                <form method="POST" action="/invite" id="invite_druzina" class="middle-align" onsubmit=" return checkMail()">
+                    <div class="mdl-card__supporting-text">
+                        <p class="mdl-typography--subtitle">V spodnje okno vnesite E-poštni naslov, na katerega želite poslati vabilo za pridružitev družini.</p>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                            <label class="mdl-textfield__label" for="invite_email">E-mail</label>
+                            <input class="mdl-textfield__input" type="email" id="invite_email" name="invite_email" autocomplete="new-password" oninvalid="this.setCustomValidity('Prosimo vključite `@` in `.` v email naslov!')" oninput="this.setCustomValidity('')"/>
+                            <span class="mdl-textfield__error" id="invErrEmail">Vpisani email naslov je napačen!</span>
+                        </div>
+                    </div>              
+                    <div class="mdl-card__actions mdl-card--border" align="center">
+                        <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                            <button type="submit" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-red mdl-color-text--white" id="sendInvite">
+                                Pošlji vabilo
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

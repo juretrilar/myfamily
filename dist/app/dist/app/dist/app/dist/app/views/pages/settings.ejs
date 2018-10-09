@@ -1,0 +1,71 @@
+<div id="callSettings" class="text-container mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+    <div  class="mdl-cell mdl-cell--10-col card-500 text-main">
+        <div class="mdl-card mdl-shadow--16dp util-center overflow-visible">
+            <div class="mdl-card__title color-blue krivulja-1 header1">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Osebne nastavitve</h2>
+            </div>
+            <div class="mdl-card__supporting-text mdl-grid overflow-visible">
+                <b class="mdl-color-text--accent"></b>
+                <form method="POST" action="/settings" id="settingsForm" onsubmit="return validateSettings()">
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                        <label class="mdl-textfield__label" for="set_name">Ime</label>
+                        <input class="mdl-textfield__input" type="text" id="set_name" name="set_name" value="<%= currSession.trenutniUporabnik.ime %>"/>
+                        <span class="mdl-textfield__error" id="errIme">Polje mora biti izpolnjeno</span>
+                    </div>
+                    <input type="hidden" name="action" value="register"/>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                        <label class="mdl-textfield__label" for="set_email">E-mail</label>
+                        <input class="mdl-textfield__input" type="email" id="set_email" name="set_email" value="<%= currSession.trenutniUporabnik.email %>" oninput="checkMail(this)"/>
+                        <span class="mdl-textfield__error" id="errEmail">Vpisani e-poštni naslov je napačen</span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                        <label class="mdl-textfield__label" for="set_password">Novo geslo</label>
+                        <input class="mdl-textfield__input" type="password" id="reg_password" name="set_password" pattern=".{6,}" oninvalid="this.setCustomValidity('Geslo mora vsebovati vsaj 6 znakov!')"/>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                        <label class="mdl-textfield__label" for="set_password_confirm">Ponovno vpišite novo geslo</label>
+                        <input class="mdl-textfield__input" type="password" id="set_password_confirm" name="set_password_confirm"/>
+                        <span class="mdl-textfield__error" id="errPass2">Gesli se ne ujemata!</span>
+                    </div>
+                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-cell mdl-cell--12-col">
+                        <label class="mdl-textfield__label" for="set_phone">Telefon</label>
+                        <input class="mdl-textfield__input" value="<%= currSession.trenutniUporabnik.telefon %>" type="tel" id="set_phone" name="set_phone" pattern="[0-9]{9}"/>
+                        <span class="mdl-textfield__error" id="errTel">Telefonska številka vsebuje napačne znake!</span>
+                    </div>
+                    <div id="dialogVrsta" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select mdl-cell mdl-cell--12-col">
+                        <input type="text" class="mdl-textfield__input" id="vrsta" readonly required/>
+                        <input type="hidden" name="izbranaVrsta" id="izbranaVrsta">
+                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                        <label for="vrsta" class="mdl-textfield__label">Položaj v družini</label>
+                        <ul for="vrsta" class="mdl-menu mdl-menu--bottom-left mdl-js-menu" data-selected="true">
+                            <li class="mdl-menu__item" data-val="3" <% if(currSession.trenutniUporabnik.polozaj == 3 ) { %> data-selected="true" <% } %>>Vnuk/Vnukinja</li>
+                            <li class="mdl-menu__item" data-val="4" <% if(currSession.trenutniUporabnik.polozaj == 4) { %> data-selected="true" <% } %>>Sin/Hči</li>
+                            <li class="mdl-menu__item" data-val="5" <% if(currSession.trenutniUporabnik.polozaj == 5 ) { %> data-selected="true" <% } %>>Oče/Mati</li>
+                            <li class="mdl-menu__item" data-val="6" <% if(currSession.trenutniUporabnik.polozaj == 6 ) { %> data-selected="true" <% } %>>Dedek/Babica</li>
+                            <li class="mdl-menu__item" data-val="7" <% if(currSession.trenutniUporabnik.polozaj == 7 ) { %> data-selected="true" <% } %>>Pradedek/Prababica</li>
+                        </ul>
+                    </div>
+                    <div id="avatars" class="mdl-cell mdl-cell--12-col">
+                        <h4 class="mdl-typography--subhead dialog-sub">Prikazna slika</h4>
+                        <% for(let i=0;i<9;i++) { %>
+                        <label class="avatars">
+                            <input type="radio" name="avatar" value="<%= i %>" hidden/>
+                            <img class="img-64-<%= i %>" src="publicpublicpublicpublic/images/png.png" alt=""/>
+                        </label>
+                        <% } %>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border" align="center">
+                        <div class="mdl-cell mdl-cell--12-col send-button" align="center">
+                            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised color-blue mdl-color-text--white" id="shraniSettings">
+                                Shrani spremembe
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,289 @@
+<div class="text-container mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+    <div class="text-main text-content color-cyan krivulja-6 header6 mdl-shadow--4dp content mdl-color-text--grey-800 mdl-cell mdl-cell--10-col mdl-grid">
+        <div class="mdl-cell mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet mdl-grid--no-spacing">
+            <div class="mdl-card section__text color-transparent" style="width: 100%">
+                <div class="mdl-card__title">
+                    <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Opomniki</h2>
+                </div>
+                <ul class=" mdl-list margin-zero padding-zero" id="opomnikiList">
+                    <% for(let i=0;i<opomniki.length;i++) { %>
+                    <li id="opomnikiDashboard" class="mdl-list__item mdl-list__item--two-line">
+                        <% if(moment().isBefore(opomniki[i].zacetek, 'day')) { %><div class="circle-container-main color-bright-green mdl-cell--hide-phone"><i class="material-icons xpOpomnik mdl-color-text--grey-700">event</i></div><% } %>
+                        <% if(moment().isSame(opomniki[i].zacetek, 'day')) { %><div class="circle-container-main color-orange mdl-cell--hide-phone"><i class="material-icons xpOpomnik mdl-color-text--grey-700">event</i></div><% } %>
+                        <% if(moment().isAfter(opomniki[i].zacetek, 'day')) { %><div class="circle-container-main color-bright-red mdl-cell--hide-phone"><i class="material-icons xpOpomnik mdl-color-text--grey-700">event</i></div> <% } %>
+                        <a href="javascript:void(0);">
+                        <span class="mdl-list__item-primary-content">
+                            <span class="mdl-color-text--white shadow-text"><%= opomniki[i].ime %></span>
+                            <span class="mdl-chip mdl-chip-small">
+                                <span class="mdl-chip__text mdl-color-text--grey-700"> <%= opomniki[i].xp %> točk</span>
+                            </span>
+                            <span class="mdl-list__item-sub-title color-dark-text">Začetek: <%= moment(opomniki[i].zacetek).format("DD. MM. YYYY") %></span>
+                        </span>
+                        <span class="mdl-list__item-secondary-content">
+                            <input type="hidden" value="<%= opomniki[i].kategorija %>">
+                            <input type="hidden" value="<%= opomniki[i].zacetek %>">
+                            <input type="hidden" value="<%= opomniki[i].konec %>">
+                            <input type="hidden" value="<%= opomniki[i].vezan_cilj %>">
+                            <input type="hidden" value="<%= opomniki[i].id %>">
+                            <div class="hide-element chip-no-margin">
+                            <% for(let j=0;j<opomniki[i].vezani_uporabniki.length;j++) { %>
+                                <img class="mdl-chip__contact author-chip img-48-<%= opomniki[i].vezani_uporabniki[j][0] %>" src="publicpublicpublic/images/png.png" title="<%= opomniki[i].vezani_uporabniki[j][1] %>">
+                            <% } %>
+                            </div> 
+                            <img class="mdl-chip__contact author-chip hide-element img-48-<%= opomniki[i].avtor[0] %>" src="publicpublicpublic/images/png.png" title="<%= opomniki[i].avtor[1] %>">
+                                                     <!--
+                            <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="opomnik<%= i %>">
+                                <input type="checkbox" id="opomnik<%= i %>" name="checkbox" class="mdl-checkbox__input" <% if (opomniki[i].status == true) { %>checked="checked" <% } %>/>
+                            </label>
+                            -->
+                        </span>
+                        </a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        
+        </div>
+        <div class="mdl-card section__text mdl-cell color-transparent mdl-cell--5-col mdl-cell--6-col-desktop mdl-cell--8-col-tablet overflow-visible">
+            <div class="flex-container" id="dash3">
+                <div class="mdl-textfield mdl-js-textfield mdl-color-text--white shadow-text mdl-textfield--floating-label mdl-textfield__status">
+                    <input class="mdl-textfield__input not-empty" id="currStatus" type="text" id="currStatus" name="currStatus" value="" maxlength="120" autocomplete="new-password">
+                    <label class="mdl-textfield__label mdl-color-text--white shadow-text" for="currStatus">Stanje</label>
+                </div>
+                <button class="mdl-button mdl-js-button mdl-button--raised mdl-button--colored color-dark-cyan button-objava" onclick="objaviStatus()">
+                Objavi
+                </button>
+            </div>           
+            <div class="container" id="dash4">
+                <div class="row">
+                <% for(let j=0; j<uporabniki.length;j++) {%>
+                    <% if(uporabniki[j].polozaj == 7) { %>
+                        <div class="item">
+                        <img class="img-64-<%= uporabniki[j].slika %> level7 user clickable" src="publicpublicpublic/images/png.png" alt="" width="64" height="64">  
+                        <input type="hidden" value="<%= uporabniki[j].ime %>">
+                        <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                        <input type="hidden" value="<%= uporabniki[j].email %>">                        
+                        <span class="mdl-chip caption<% if(!uporabniki[j].status) { %> hide-element <% } %>">
+                            <span class="mdl-chip__text mdl-color-text--grey-700" id="status<%= uporabniki[j].id %>"><% if(uporabniki[j].status) { %><%= uporabniki[j].status %><% } %></span>
+                        </span>
+                        <input type="hidden" value="<%= uporabniki[j].dayXp %>">                        
+                    </div>
+                    <% } %>
+                <% } %>
+                </div>
+                <div class="row">
+                <% for(let j=0; j<uporabniki.length;j++) {%>
+                    <% if(uporabniki[j].polozaj == 6) { %>
+                        <div class="item">
+                        <img class="img-64-<%= uporabniki[j].slika %> level6 user clickable" src="publicpublicpublic/images/png.png" alt="" width="64" height="64">
+                        <input type="hidden" value="<%= uporabniki[j].ime %>">
+                        <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                        <input type="hidden" value="<%= uporabniki[j].email %>">
+                        <span class="mdl-chip caption<% if(!uporabniki[j].status) { %> hide-element <% } %>">
+                            <span class="mdl-chip__text mdl-color-text--grey-700" id="status<%= uporabniki[j].id %>"><% if(uporabniki[j].status) { %><%= uporabniki[j].status %><% } %></span>
+                        </span>
+                        <input type="hidden" value="<%= uporabniki[j].dayXp %>">   
+                    </div>
+                    <% } %>
+                <% } %>
+                </div>
+                <div class="row">
+                <% for(let j=0; j<uporabniki.length;j++) {%>
+                    <% if(uporabniki[j].polozaj == 5) { %>
+                        <div class="item">
+                        <img class="img-64-<%= uporabniki[j].slika %> level5 user clickable" src="publicpublicpublic/images/png.png" alt="" width="64" height="64" >
+                        <input type="hidden" value="<%= uporabniki[j].ime %>">
+                        <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                        <input type="hidden" value="<%= uporabniki[j].email %>">
+                        <span class="mdl-chip caption<% if(!uporabniki[j].status) { %> hide-element <% } %>">
+                            <span class="mdl-chip__text mdl-color-text--grey-700" id="status<%= uporabniki[j].id %>"><% if(uporabniki[j].status) { %><%= uporabniki[j].status %><% } %></span>
+                        </span>
+                        <input type="hidden" value="<%= uporabniki[j].dayXp %>">   
+                    </div>
+                    <% } %>
+                <% } %>
+                </div>
+                <div class="row">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].polozaj == 4) { %>
+                            <div class="item">
+                            <img class="img-64-<%= uporabniki[j].slika %> level4 user clickable" src="publicpublicpublic/images/png.png" alt="" width="64" height="64">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
+                            <span class="mdl-chip caption<% if(!uporabniki[j].status) { %> hide-element <% } %>">
+                                <span class="mdl-chip__text mdl-color-text--grey-700" id="status<%= uporabniki[j].id %>"><% if(uporabniki[j].status) { %><%= uporabniki[j].status %><% } %></span>
+                            </span>
+                            <input type="hidden" value="<%= uporabniki[j].dayXp %>">   
+                        </div>
+                        <% } %>
+                    <% } %>
+                </div>
+                <div class="row">
+                    <% for(let j=0; j<uporabniki.length;j++) {%>
+                        <% if(uporabniki[j].polozaj == 3) { %>
+                            <div class="item">
+                            <img class="img-64-<%= uporabniki[j].slika %> level3 user clickable" src="publicpublicpublic/images/png.png" alt="" width="64" height="64">
+                            <input type="hidden" value="<%= uporabniki[j].ime %>">
+                            <input type="hidden" value="<%= uporabniki[j].telefon %>">
+                            <input type="hidden" value="<%= uporabniki[j].email %>">
+                            <span class="mdl-chip caption<% if(!uporabniki[j].status) { %> hide-element <% } %>">
+                                <span class="mdl-chip__text mdl-color-text--grey-700" id="status<%= uporabniki[j].id %>"><% if(uporabniki[j].status) { %><%= uporabniki[j].status %><% } %></span>
+                            </span>
+                            <input type="hidden" value="<%= uporabniki[j].dayXp %>">   
+                        </div>
+                        <% } %>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-container mdl-grid">
+    <div class="mdl-cell mdl-cell--1-col mdl-cell--hide-tablet mdl-cell--hide-phone"></div>
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet card-overflow" id="dash5">
+        <div class="mdl-card__title color-blue krivulja-2 header2">
+            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Skupni cilji družine</h2>
+            <div class="mdl-card__actions">
+                <button id="dodajcilj" class="mdl-button mdl-js-button mdl-button--raised color-dark-blue align-right mdl-color-text--white" onclick="dodajNovCilj(0)">
+                    DODAJ CILJ
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </div>
+        <div class="mdl-card__supporting-text padding-zero table-wrapper">
+            <table class="mdl-data-table mdl-js-data-table mdl-shadow--2dp table-skupni" id="table-skupni">
+                <thead>
+                <tr>
+                    <th class="naslov-table-left">Ime in opis</th>
+                    <th class="naslov-table-center">Trenutne/vse točke</th>
+                    <th class="naslov-table-center">Točke udeležencev</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% var m = 0 %>
+                <% if (cilji.length == 0) { %>
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric padding-zero">
+                            <div class="mdl-list__item mdl-list__item--three-line">
+                                <!--<div class="circle-container-main mdl-color--grey"></div>-->
+                                <span class="mdl-list__item-primary-content">
+                                    <span class="mdl-color-text--black">Družina še nima skupnih ciljev</span>
+                                    <span class="mdl-list__item-text-body mdl-color-text--grey fit-list">Med dodajanjem cilja označi polje skupni cilj za prikaz na pregledu</span>
+                                </span>
+                            </div>
+                        </td>
+                        <td class="padding-zero" style="text-align: center;">0/100</td>
+                        <td class="cilji-xp">
+                        </td>
+                    </tr>
+                <% } %>
+                <% for (var i = 0; i < skupniCilji.length; i++) { %>
+                <tr>
+                    <td class="mdl-data-table__cell--non-numeric padding-zero cilji-first">
+                        <div class="mdl-list__item mdl-list__item--three-line">
+                            <!--<div class="circle-container-main mdl-color--grey"></div>-->
+                            <span class="mdl-list__item-primary-content">
+                                <span class="mdl-color-text--black"><%= skupniCilji[i].ime %></span>
+                                <span class="mdl-list__item-text-body mdl-color-text--grey fit-list"><%= skupniCilji[i].opis %></span>
+                                <input type="hidden" value="<%= skupniCilji[i].maxXp %>" name="maxXp">
+                                <input type="hidden" value="true" name="jeSkupen">
+                                <input type="hidden" value="<%= skupniCilji[i]._id %>" name="idCilj">
+                            </span>
+                        </div>
+                    </td>
+                    <td class="padding-zero" style="text-align: center;" id="razmS<%= m %>"><%= skupniCilji[i].xp %>/<%= skupniCilji[i].maxXp %></td>
+                    <td class="cilji-xp mdl-cell--hide-phone">
+                        <div class="progress progS<%= m %>" id="progS<%= m %>" >
+                            <% for (var j = 0; j < skupniCilji[i].vezani_uporabniki.length; j++) { %>
+                            <span class="spanCilji"><%= skupniCilji[i].vezani_uporabniki[j].xp_user %></span>
+                            <% } %>
+                        </div>
+                        <div class="mdl-tooltip clani-naloge" data-mdl-for="progS<%= m++ %>">
+                            <% for (var j = 0; j < skupniCilji[i].slika.length; j++) { %>
+                                <img class="mdl-chip__contact img-32-<%= skupniCilji[i].slika[j] %>" src="publicpublicpublic/images/png.png">
+                            <% } %>                                   
+                        </div>
+                    </td>
+                </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--5-col mdl-cell--8-col-tablet" id="dash6">
+        <div class="mdl-card__title color-red krivulja-1 header1">
+            <h2 class="mdl-card__title-text mdl-color-text--white shadow-text">Predlog za aktivnost</h2>
+            <div class="mdl-card__actions">
+                <button id="dodajnalogo" class="mdl-button mdl-js-button mdl-button--raised color-dark-red align-right mdl-color-text--white" onclick="dodajNovoNalogo(0)">
+                    DODAJ NALOGO
+                    <i class="material-icons">add</i>
+                </button>
+            </div>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <div class="mdl-list">
+                <div class="mdl-list__item">
+                    <span class="mdl-list__item-primary-content">
+                        <span class="mdl-color-text--black mdl-typography--font-bold" id="ime_aktivnosti"><%= predlogIme %></span>
+                            <span class="mdl-chip color-red mdl-color-text--white mdl-chip-small">
+                                <span class="mdl-chip__text"><%= predlogTock %> točk</span>
+                            </span>
+                    </span>
+                </div>
+            </div>
+            <p style="padding-left: 16px;" id="opis_aktivnosti"><%= predlogOpis %></p>
+            <!--<h6 class="mdl-color-text--black" id="clani_aktivnosti" style="padding-left: 16px;">Za: moški del družine (Janez, Jan, Janko)</h6>-->
+        </div>
+    </div>
+</div>
+<div id="dashboardNaloga" class="mdl-card mdl-shadow--2dp overflow-visible hide-element naloge-okno">
+        <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab color-dark closeX closeDialog">
+            <i class="material-icons mdl-color-text--white" role="presentation">close</i>
+            <span class="visuallyhidden">add</span>
+        </button>
+        <div class="mdl-card__title color-red krivulja-3 header3 padding-10">
+            <div class="naloge-title_type">
+                <div class="mdl-card__subtitle-text mdl-color-text--black" id="opomnikKategorija"></div>
+                <div class="mdl-card__title-text mdl-color-text--white" style="display: block;">
+                    <span class="shadow-text" id="opomnikIme"></span>
+                    <span class="mdl-chip mdl-color--white mdl-color-text--black mdl-chip-naloge mdl-chip-small">
+                        <span class="mdl-chip__text" id="opomnikXp"></span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="mdl-card__supporting-text padding-zero overflow-visible">
+            <p class="mdl-card__supporting-text mdl-color-text--grey padding-10lr padding-top-16 margin-zero">Opis:</p>            
+            <p class="mdl-color-text--grey-700 mdl-typography--subhead margin-zero padding-10lr" id="opomnikOpis"></p>
+            <p class="mdl-card__supporting-text mdl-color-text--grey padding-10lr padding-top-16 margin-zero">Cilj:</p>            
+            <p class="mdl-color-text--grey-700 mdl-typography--subhead margin-zero padding-10lr" id="opomnikCilj" ></p>
+            <div class="mdl-list__item mdl-list__item--three-line clani-naloge--container">
+                <span class="mdl-list__item-primary-content">
+                    <span class="mdl-card__supporting-text mdl-color-text--grey padding-zero">Udeleženci naloge:</span>
+                    <span class="mdl-list__item-text-body chip-no-margin" id="opomnikVezani">
+                    </span>
+                </span>
+                <span class="mdl-list__item-primary-content">
+                    <span class="mdl-card__supporting-text mdl-color-text--grey padding-zero">Avtor:</span>
+                    <span class="mdl-list__item-text-body" id="opomnikAvtor">
+                    </span>
+                </span>
+            </div>
+            <ul class="'mdl-list padding-zero margin-zero">
+                <li class="mdl-list__item padding-10">
+                    <img class="mdl-icon-toggle__label unclickable" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjMsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI0IDI0IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik01LDE5aDE0VjhINVYxOXogTTEyLDEyaDV2NWgtNVYxMnoiLz4NCgk8cGF0aCBkPSJNMTksM2gtMVYxaC0ydjJIOFYxSDZ2Mkg1QzMuODksMywzLjAxLDMuOSwzLjAxLDVMMywxOWMwLDEuMSwwLjg5LDIsMiwyaDE0YzEuMSwwLDItMC45LDItMlY1QzIxLDMuOSwyMC4xLDMsMTksM3ogTTE5LDE5DQoJCUg1VjhoMTRWMTl6Ii8+DQo8L2c+DQo8cGF0aCBmaWxsPSJub25lIiBkPSJNMCwwaDI0djI0SDBWMHoiLz4NCjxnPg0KCTxwYXRoIGQ9Ik0xMiw5LjQ0N2MwLDAtMS44NjYsMS44NTctMS44NjYsNC43NmMwLDAuMTMzLDAuMDEyLDAuMjY2LDAuMDM1LDAuMzk1Yy0wLjI3OCwwLjIzNi0wLjY2MywwLjYzNy0wLjY2NCwxLjAzOQ0KCQljMC4wMDEsMC45NDEsMC42MjgsMS44ODMsMC42MjgsMS44ODNsMC44ODgtMS4xODZsMC4zNTUsMC4zNTVoMS4yNDVsMC4zNTQtMC4zNTVsMC44ODksMS4xODZjMCwwLDAuNjI5LTAuOTQxLDAuNjI5LTEuODgzDQoJCWMwLTAuNDAyLTAuMzg3LTAuODAzLTAuNjYyLTEuMDM5YzAuMDIxLTAuMTI5LDAuMDMzLTAuMjYyLDAuMDMzLTAuMzk1QzEzLjg2NSwxMS4zMDQsMTIsOS40NDcsMTIsOS40NDd6IE0xMS41ODYsMTMuMTcNCgkJYy0wLjIyOS0wLjIyOS0wLjIyOS0wLjYsMC0wLjgyOWMwLjIyOS0wLjIzLDAuNi0wLjIzLDAuODMsMGMwLjIyOSwwLjIyOSwwLjIyOSwwLjYsMCwwLjgyOQ0KCQlDMTIuMTg2LDEzLjM5OCwxMS44MTUsMTMuMzk4LDExLjU4NiwxMy4xN3oiLz4NCgk8cGF0aCBkPSJNMTIuNDA1LDE3LjEzNUMxMi40MDQsMTcuNTM5LDEyLDE3Ljc0LDEyLDE3Ljc0cy0wLjQwNC0wLjIwMS0wLjQwNC0wLjYwNWMwLTAuMDI1LDAuMDEtMC4wNDUsMC4wMTQtMC4wNjhsLTAuMTg5LDAuMDAyDQoJCWMtMC4wNTgsMC4wOTgtMC4wOTQsMC4yMTMtMC4wOTQsMC4zMzZjMCwwLjU2NiwwLjY3NCwxLjE0OCwwLjY3NCwxLjE0OHMwLjY3NC0wLjU3NCwwLjY3NC0xLjE0OGMwLTAuMTI1LTAuMDM1LTAuMjM4LTAuMDk0LTAuMzM4DQoJCWwtMC4xOSwwLjAwMkMxMi4zOTQsMTcuMDg4LDEyLjQwNSwxNy4xMDksMTIuNDA1LDE3LjEzNXoiLz4NCjwvZz4NCjwvc3ZnPg0K" title="Začetek">
+                    <span class="mdl-color-text--grey-700 mdl-typography--subhead padding-10 dateNaloga" id="opomnikZacetek"></span>
+                    <img class="mdl-icon-toggle__label unclickable" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4wLjMsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIGVuYWJsZS1iYWNrZ3JvdW5kPSJuZXcgMCAwIDI0IDI0IiB4bWw6c3BhY2U9InByZXNlcnZlIj4NCjxnPg0KCTxwYXRoIGZpbGw9Im5vbmUiIGQ9Ik01LDE5aDE0VjhINVYxOXogTTEyLDEyaDV2NWgtNVYxMnoiLz4NCgk8cGF0aCBkPSJNMTksM2gtMVYxaC0ydjJIOFYxSDZ2Mkg1QzMuODksMywzLjAxLDMuOSwzLjAxLDVMMywxOWMwLDEuMSwwLjg5LDIsMiwyaDE0YzEuMSwwLDItMC45LDItMlY1QzIxLDMuOSwyMC4xLDMsMTksM3ogTTE5LDE5DQoJCUg1VjhoMTRWMTl6Ii8+DQo8L2c+DQo8Zz4NCgk8cGF0aCBkPSJNMTEuNjE5LDExLjV2MS40MDJjMC4yODIsMC4wNSwwLjU4MSwwLjEzNywwLjg4MSwwLjI3NWMwLjMxMywwLjE0NiwwLjYwOSwwLjIzNywwLjg4MSwwLjI5NHYtMS40MDkNCgkJYy0wLjI4My0wLjA1MS0wLjU4OS0wLjE0LTAuOTA0LTAuMjgxQzEyLjE3MSwxMS42NDMsMTEuODgzLDExLjU1NCwxMS42MTksMTEuNXoiLz4NCgk8cGF0aCBkPSJNMTIuNSwxMC4wMTdjLTEuNzcxLTAuNzg4LTMuMTA0LDAuMDE5LTMuMTA0LDAuMDE5djIuODE5djQuOTkxbDAuMDIyLTAuMDAxYzAuMDI2LDAuMDk4LDAuMTAxLDAuMTc3LDAuMjA4LDAuMTc3DQoJCWMwLjExMywwLDAuMTk1LTAuMDg2LDAuMjE1LTAuMTkzbDAuMDE3LTAuMDAxVjE0Ljc5YzAuNDg1LTAuMTc1LDEuNDM4LTAuMzY0LDIuNjQzLDAuMTZjMS43NzEsMC43NzEsMi45OTUsMCwyLjk5NSwwdi00LjkzNA0KCQlDMTUuNDk1LDEwLjAxNywxNC4yNzEsMTAuODA1LDEyLjUsMTAuMDE3eiBNMTUuMTQ5LDEzLjM1N2gtMC4wMDZjMCwwLTAuNzQ0LDAuMjk4LTEuNzYzLDAuMTE0djEuNDA4djAuMDAzDQoJCWMtMC4yNzEtMC4wNTYtMC41NjUtMC4xNDctMC44NzgtMC4yOTFjLTAuMzAyLTAuMTM4LTAuNjAxLTAuMjI0LTAuODg0LTAuMjc0di0xLjQwOGMtMS4wNzItMC4yMjEtMS43NjIsMC4xMjktMS43NjIsMC4xMjl2LTEuNDY1DQoJCWMwLDAsMC43ODUtMC4yNTYsMS43NjItMC4wODJ2LTEuMzkzYzAuMjY1LDAuMDU0LDAuNTU0LDAuMTQzLDAuODYsMC4yOGMwLjMxNSwwLjE0MSwwLjYxOCwwLjIyOCwwLjkwMSwwLjI3OXYxLjQwMg0KCQljMS4wNjYsMC4yMTgsMS43NjMtMC4xMzcsMS43NjMtMC4xMzdsMC4wMDYtMC4wMDVWMTMuMzU3eiIvPg0KPC9nPg0KPHBhdGggZmlsbD0ibm9uZSIgZD0iTTAsMGgyNHYyNEgwVjB6Ii8+DQo8L3N2Zz4NCg==" title="Konec">
+                    <span class="mdl-color-text--grey-700 mdl-typography--subhead padding-10 dateNaloga" id="opomnikKonec"></span>
+                    <span class="mdl-color-text--grey-700 mdl-typography--subhead hide-element" id="opomnikBrezDatuma">Datum za to nalogo ni definiran.</span>
+                </li>
+            </ul>
+        </div>
+        <div class="mdl-card__supporting-text mdl-color-text--grey padding-10">
+            Status naloge:<br/><span class="mdl-color-text--grey-700 mdl-typography--subhead">NEOPRAVLJENA</span></span>
+            <button id="nalogaDone" type="button" value="submit" class="mdl-button color-dark-cyan buttonDone mdl-color-text--white">Opravljena</button>
+            <input type="hidden" id="opomnikId">
+        </div>
+    </div>

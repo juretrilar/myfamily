@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<%- include('../partials/head') -%>
+<body class="header6">
+    <div class="text-layout mdl-header mdl-layout mdl-js-layout mdl-layout--fixed-header">
+        <%- include('../partials/nav') -%>
+        <div class="mdl-card card-info mdl-shadow--2dp overflow-visible hide-element tri-card-no-status podatki-user">
+            <div class="mdl-dialog__content padding-10 align-center">
+                <h4 id="userCard" class="align-center margin-zero"></h4>
+                <span class="mdl-chip mdl-color--green mdl-color-text--white mdl-chip-small">
+                    <span class="mdl-chip__text" id="dayXp"></span>
+                </span>
+                <p id="status" style="margin: 0"></p>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <a id="phoneCall"class="button-action mdl-js-button"><i class="icon material-icons">phone</i></a>
+                <a id="smsSend" class="button-action mdl-js-button"><i class="icon material-icons">message</i></a>
+                <a id="mailSend"  class="button-action mdl-js-button"><i class="icon material-icons">email</i></a>
+                <a id="viberOpen" class="button-action mdl-js-button"><img  align="middle" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSIgd2lkdGg9IjUxMnB4IiBoZWlnaHQ9IjUxMnB4Ij4KPGNpcmNsZSBzdHlsZT0iZmlsbDojNkYzRkFBOyIgY3g9IjI1NiIgY3k9IjI1NiIgcj0iMjU2Ii8+CjxwYXRoIHN0eWxlPSJmaWxsOiM1MTJEODQ7IiBkPSJNMzY3LjA2MSwxNDAuNDQzYy02Mi4zMTItMTUuMDUtMTI0LjczNS0zMi42NTQtMTg4LjYzNy0xMC4yODggIGMtNDEuMzc0LDE1LjUxNS00MS4zNzQsNjAuMzM3LTM5LjY1LDk4LjI2M2MwLDEwLjM0My0xMi4wNjcsMjQuMTM1LTYuODk2LDM2LjIwMmMxMC4zNDMsMzQuNDc4LDE4Ljk2Myw2OC45NTYsNTUuMTY1LDg2LjE5NSAgYzUuMTcyLDMuNDQ4LDAsMTAuMzQzLDMuNDQ4LDE1LjUxNWMtMS43MjQsMC01LjE3MiwxLjcyNC01LjE3MiwzLjQ0OGMwLDguMjYzLDMuNzA4LDIwLjkwMiwxLjI0NSwyOS4wNUwyOTYuNTcsNTA4Ljc4OCAgYzExMy4wOS0xOC4wMSwyMDEuNDc4LTExMC4wNjgsMjEzLjkxNC0yMjQuOTIxTDM2Ny4wNjEsMTQwLjQ0M3oiLz4KPGc+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTM5MS40MjcsMTc5LjkyNGwtMC4wODQtMC4zMzhjLTYuODQtMjcuNjUzLTM3LjY3OC01Ny4zMjUtNjUuOTk4LTYzLjQ5OGwtMC4zMTktMC4wNjYgICBjLTQ1LjgwNi04LjczOC05Mi4yNTEtOC43MzgtMTM4LjA0NywwbC0wLjMyOSwwLjA2NmMtMjguMzEsNi4xNzMtNTkuMTQ5LDM1Ljg0Ny02NS45OTgsNjMuNDk4bC0wLjA3NiwwLjMzOCAgIGMtOC40NTYsMzguNjE3LTguNDU2LDc3Ljc4MSwwLDExNi4zOThsMC4wNzYsMC4zMzhjNi41NTgsMjYuNDcyLDM1LjA5OSw1NC43ODIsNjIuMzYyLDYyLjU2N3YzMC44NjggICBjMCwxMS4xNzMsMTMuNjE1LDE2LjY2LDIxLjM1Nyw4LjU5N2wzMS4yNzUtMzIuNTA5YzYuNzg0LDAuMzc5LDEzLjU3MSwwLjU5MSwyMC4zNTYsMC41OTFjMjMuMDU3LDAsNDYuMTI1LTIuMTgxLDY5LjAyMy02LjU0OSAgIGwwLjMxOS0wLjA2NmMyOC4zMi02LjE3Myw1OS4xNTgtMzUuODQ3LDY1Ljk5OC02My40OThsMC4wODQtMC4zMzhDMzk5Ljg4MiwyNTcuNzA1LDM5OS44ODIsMjE4LjU0MywzOTEuNDI3LDE3OS45MjR6ICAgIE0zNjYuNjc2LDI5MC43MjNjLTQuNTY3LDE4LjA0MS0yNy45ODEsNDAuNDY5LTQ2LjU4NSw0NC42MTNjLTI0LjM1NSw0LjYzMi00OC45MDQsNi42MTEtNzMuNDI4LDUuOTMyICAgYy0wLjQ4OC0wLjAxNC0wLjk1NywwLjE3Ni0xLjI5NiwwLjUyNmMtMy40ODEsMy41NzItMjIuODM1LDIzLjQ0Mi0yMi44MzUsMjMuNDQybC0yNC4yODgsMjQuOTI4ICAgYy0xLjc3NiwxLjg1Mi00Ljg5NiwwLjU5MS00Ljg5Ni0xLjk2NHYtNTEuMTM2YzAtMC44NDUtMC42MDMtMS41NjItMS40MzMtMS43MjZjLTAuMDA1LTAuMDAyLTAuMDA5LTAuMDAyLTAuMDE0LTAuMDAzICAgYy0xOC42MDQtNC4xNDQtNDIuMDEtMjYuNTcyLTQ2LjU4NS00NC42MTNjLTcuNjExLTM0LjkwNi03LjYxMS03MC4yOTIsMC0xMDUuMTk4YzQuNTc1LTE4LjA0MSwyNy45ODEtNDAuNDY5LDQ2LjU4NS00NC42MTMgICBjNDIuNTM2LTguMDksODUuNjY0LTguMDksMTI4LjE5MSwwYzE4LjYxMyw0LjE0NCw0Mi4wMTgsMjYuNTcyLDQ2LjU4NSw0NC42MTNDMzc0LjI5NiwyMjAuNDMxLDM3NC4yOTYsMjU1LjgxNywzNjYuNjc2LDI5MC43MjN6Ii8+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTI5Ni40NywzMTQuMzI3Yy0yLjg2LTAuODY5LTUuNTg1LTEuNDUyLTguMTE4LTIuNTAxYy0yNi4yMzEtMTAuODgzLTUwLjM3MS0yNC45MjMtNjkuNDkyLTQ2LjQ0NCAgIGMtMTAuODc0LTEyLjIzOC0xOS4zODUtMjYuMDU1LTI2LjU3OS00MC42NzdjLTMuNDEyLTYuOTM0LTYuMjg3LTE0LjEzOS05LjIxOC0yMS4yOTljLTIuNjcyLTYuNTI4LDEuMjY0LTEzLjI3Miw1LjQwOC0xOC4xOTIgICBjMy44ODktNC42MTcsOC44OTQtOC4xNDksMTQuMzE0LTEwLjc1NGM0LjIzLTIuMDMyLDguNDAyLTAuODYsMTEuNDkyLDIuNzI1YzYuNjc4LDcuNzUyLDEyLjgxNCwxNS45LDE3Ljc4LDI0Ljg4NiAgIGMzLjA1NSw1LjUyNywyLjIxNywxMi4yODMtMy4zMiwxNi4wNDRjLTEuMzQ2LDAuOTE0LTIuNTcyLDEuOTg4LTMuODI1LDMuMDJjLTEuMSwwLjkwNS0yLjEzNCwxLjgxOS0yLjg4OCwzLjA0NCAgIGMtMS4zNzcsMi4yNDEtMS40NDMsNC44ODYtMC41NTcsNy4zMjNjNi44MjcsMTguNzYxLDE4LjMzNCwzMy4zNTEsMzcuMjE5LDQxLjIxYzMuMDIyLDEuMjU3LDYuMDU2LDIuNzIsOS41MzgsMi4zMTUgICBjNS44My0wLjY4MSw3LjcxOC03LjA3NywxMS44MDQtMTAuNDE4YzMuOTkzLTMuMjY1LDkuMDk3LTMuMzA4LDEzLjM5OC0wLjU4NmM0LjMwMywyLjcyNCw4LjQ3Myw1LjY0NiwxMi42MTksOC42MDEgICBjNC4wNywyLjksOC4xMjEsNS43MzUsMTEuODc0LDkuMDQyYzMuNjEsMy4xNzksNC44NTMsNy4zNDksMi44MiwxMS42NjJjLTMuNzIsNy45MDEtOS4xMzUsMTQuNDcyLTE2Ljk0NCwxOC42NjggICBDMzAxLjU5LDMxMy4xNzgsMjk4Ljk1NiwzMTMuNTYxLDI5Ni40NywzMTQuMzI3QzI5My42MSwzMTMuNDU4LDI5OC45NTYsMzEzLjU2MSwyOTYuNDcsMzE0LjMyN3oiLz4KCTxwYXRoIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBkPSJNMjU2LjA3MSwxNjUuNDI2YzM0LjMwOSwwLjk2Miw2Mi40OSwyMy43MzEsNjguNTI5LDU3LjY1MWMxLjAyOSw1Ljc4LDEuMzk1LDExLjY4OCwxLjg1MywxNy41NTUgICBjMC4xOTMsMi40NjctMS4yMDUsNC44MTEtMy44NjcsNC44NDRjLTIuNzUsMC4wMzMtMy45ODctMi4yNjktNC4xNjctNC43MzRjLTAuMzUzLTQuODgyLTAuNTk4LTkuNzg3LTEuMjcxLTE0LjYyNyAgIGMtMy41NTEtMjUuNTU5LTIzLjkzMS00Ni43MDQtNDkuMzcxLTUxLjI0MWMtMy44MjktMC42ODMtNy43NDUtMC44NjItMTEuNjI0LTEuMjY5Yy0yLjQ1MS0wLjI1Ny01LjY2MS0wLjQwNS02LjIwNC0zLjQ1MyAgIGMtMC40NTUtMi41NTUsMS43MDEtNC41ODksNC4xMzQtNC43MkMyNTQuNzQyLDE2NS4zOTMsMjU1LjQwNywxNjUuNDI0LDI1Ni4wNzEsMTY1LjQyNiAgIEMyOTAuMzgyLDE2Ni4zODgsMjU1LjQwNywxNjUuNDI0LDI1Ni4wNzEsMTY1LjQyNnoiLz4KCTxwYXRoIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBkPSJNMzA4LjIxMiwyMzMuMDE5Yy0wLjA1NywwLjQyOS0wLjA4NiwxLjQzNi0wLjMzOCwyLjM4NGMtMC45MSwzLjQ0NC02LjEzNCwzLjg3NS03LjMzNSwwLjQgICBjLTAuMzU3LTEuMDMxLTAuNDEtMi4yMDUtMC40MTItMy4zMTVjLTAuMDEyLTcuMjY2LTEuNTkxLTE0LjUyNi01LjI1Ni0yMC44NDljLTMuNzY3LTYuNDk5LTkuNTIzLTExLjk2LTE2LjI3Mi0xNS4yNjcgICBjLTQuMDgyLTEuOTk4LTguNDk1LTMuMjQxLTEyLjk2OS0zLjk4Yy0xLjk1NS0wLjMyNC0zLjkzMS0wLjUxOS01Ljg5Ni0wLjc5M2MtMi4zODEtMC4zMzEtMy42NTMtMS44NDgtMy41MzktNC4xOTQgICBjMC4xMDUtMi4xOTgsMS43MTItMy43ODEsNC4xMDgtMy42NDRjNy44NzMsMC40NDYsMTUuNDc5LDIuMTUsMjIuNDgsNS44NTZjMTQuMjM0LDcuNTM5LDIyLjM2NiwxOS40MzcsMjQuNzQsMzUuMzI2ICAgYzAuMTA3LDAuNzIxLDAuMjc5LDEuNDMzLDAuMzM0LDIuMTU1QzMwNy45OTEsMjI4Ljg4LDMwOC4wNzYsMjMwLjY2NSwzMDguMjEyLDIzMy4wMTkgICBDMzA4LjE1NSwyMzMuNDQ2LDMwOC4wNzYsMjMwLjY2NSwzMDguMjEyLDIzMy4wMTl6Ii8+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTI4Ni44NzIsMjMyLjE4OGMtMi44NywwLjA1Mi00LjQwNi0xLjUzOC00LjcwMy00LjE2OGMtMC4yMDUtMS44MzQtMC4zNjktMy42OTQtMC44MDctNS40OCAgIGMtMC44NjItMy41MTctMi43MzEtNi43NzUtNS42ODktOC45M2MtMS4zOTYtMS4wMTctMi45NzktMS43NTgtNC42MzYtMi4yMzhjLTIuMTA1LTAuNjA5LTQuMjkzLTAuNDQxLTYuMzkyLTAuOTU1ICAgYy0yLjI4MS0wLjU1OS0zLjU0My0yLjQwNy0zLjE4NC00LjU0NmMwLjMyNi0xLjk0OCwyLjIyLTMuNDY4LDQuMzQ5LTMuMzEzYzEzLjMwMiwwLjk2LDIyLjgwOSw3LjgzNywyNC4xNjYsMjMuNDk3ICAgYzAuMDk3LDEuMTA1LDAuMjA5LDIuMjcyLTAuMDM2LDMuMzMxQzI4OS41MTgsMjMxLjE5MywyODguMTc4LDIzMi4xLDI4Ni44NzIsMjMyLjE4OCAgIEMyODQuMDAxLDIzMi4yMzksMjg4LjE3OCwyMzIuMSwyODYuODcyLDIzMi4xODh6Ii8+CjwvZz4KPHBhdGggc3R5bGU9ImZpbGw6I0QxRDFEMTsiIGQ9Ik0zOTEuNDI3LDE3OS45MjRsLTAuMDg0LTAuMzM4Yy0zLjgzNC0xNS41MDEtMTUuMjEyLTMxLjYzNS0yOS40NTgtNDMuOTExbC0xOS4yNTksMTcuMDY4ICBjMTEuNDUyLDkuMTI1LDIxLjI2NCwyMS43NjYsMjQuMDUyLDMyLjc4YzcuNjIsMzQuOTA3LDcuNjIsNzAuMjkyLDAsMTA1LjJjLTQuNTY3LDE4LjA0MS0yNy45ODIsNDAuNDY5LTQ2LjU4NSw0NC42MTMgIGMtMjQuMzU1LDQuNjMyLTQ4LjkwNCw2LjYxMS03My40MjgsNS45MzJjLTAuNDg4LTAuMDE0LTAuOTU3LDAuMTc2LTEuMjk2LDAuNTI2Yy0zLjQ4MSwzLjU3Mi0yMi44MzUsMjMuNDQyLTIyLjgzNSwyMy40NDIgIGwtMjQuMjg4LDI0LjkyOGMtMS43NzYsMS44NTItNC44OTYsMC41OTMtNC44OTYtMS45NjR2LTUxLjEzNmMwLTAuODQ1LTAuNjAzLTEuNTYyLTEuNDMzLTEuNzI2Yy0wLjAwNSwwLTAuMDA5LTAuMDAyLTAuMDE0LTAuMDAyICBjLTEwLjU3My0yLjM1NS0yMi42OTItMTAuNjE4LTMyLjAyOC0yMC42MjFsLTE5LjAzLDE2Ljg2M2MxMS44ODUsMTIuOTI5LDI3LjIxNCwyMy4zODEsNDIuMTY4LDI3LjY1MXYzMC44NjggIGMwLDExLjE3MywxMy42MTUsMTYuNjYsMjEuMzU3LDguNTk3bDMxLjI3NS0zMi41MDljNi43ODQsMC4zNzksMTMuNTY5LDAuNTkxLDIwLjM1NiwwLjU5MWMyMy4wNTcsMCw0Ni4xMjUtMi4xODEsNjkuMDIzLTYuNTQ5ICBsMC4zMTktMC4wNjVjMjguMzItNi4xNzMsNTkuMTU4LTM1Ljg0NSw2NS45OTgtNjMuNDk4bDAuMDg0LTAuMzM4QzM5OS44ODIsMjU3LjcwNSwzOTkuODgyLDIxOC41NDMsMzkxLjQyNywxNzkuOTI0eiIvPgo8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTI5Ni40NywzMTQuMzI3QzI5OC45NTYsMzEzLjU2MSwyOTMuNjEsMzEzLjQ1OCwyOTYuNDcsMzE0LjMyN0wyOTYuNDcsMzE0LjMyN3oiLz4KPHBhdGggc3R5bGU9ImZpbGw6I0QxRDFEMTsiIGQ9Ik0zMTcuOTIxLDI4MS42NjRjLTMuNzUzLTMuMzA1LTcuODA2LTYuMTQyLTExLjg3NC05LjA0MmMtNC4xNDYtMi45NTUtOC4zMTYtNS44NzctMTIuNjE5LTguNjAxICBjLTQuMzAxLTIuNzIyLTkuNDA0LTIuNjc5LTEzLjM5OCwwLjU4NmMtNC4wODYsMy4zNDEtNS45NzMsOS43MzctMTEuODA0LDEwLjQxOGMtMy40ODEsMC40MDUtNi41MTYtMS4wNTktOS41MzgtMi4zMTUgIGMtMTEuNjE5LTQuODM0LTIwLjQzNS0xMi4yMjYtMjcuMDk4LTIxLjU1OWwtMTQuMTYsMTIuNTVjMC40ODEsMC41NTcsMC45NCwxLjEyOSwxLjQyOSwxLjY3OSAgYzE5LjEyMiwyMS41MjEsNDMuMjYzLDM1LjU2MSw2OS40OTIsNDYuNDQ0YzIuNTMxLDEuMDUsNS4yNTgsMS42MzQsOC4xMTgsMi41MDFjLTIuODYtMC44NjksMi40ODgtMC43NjUsMCwwICBjMi40ODgtMC43NjUsNS4xMi0xLjE1LDcuMzI3LTIuMzMyYzcuODExLTQuMTk2LDEzLjIyNC0xMC43NjgsMTYuOTQ0LTE4LjY2OEMzMjIuNzc0LDI4OS4wMTMsMzIxLjUzMSwyODQuODQzLDMxNy45MjEsMjgxLjY2NHoiLz4KPGc+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTI1Ni4xNTksMTY1LjQzMWMtMC4wMjksMC0wLjA1Ny0wLjAwMy0wLjA4Ni0wLjAwMyAgIEMyNTYuMDQ1LDE2NS40MjYsMjU2LjA4MSwxNjUuNDI4LDI1Ni4xNTksMTY1LjQzMXoiLz4KCTxwYXRoIHN0eWxlPSJmaWxsOiNGRkZGRkY7IiBkPSJNMjU2LjA3MiwxNjUuNDI2YzAuMDI5LDAsMC4wNTcsMC4wMDMsMC4wODYsMC4wMDNDMjU4LjA2MiwxNjUuNDk3LDI4OS4wMywxNjYuMzUsMjU2LjA3MiwxNjUuNDI2eiIvPgo8L2c+CjxnPgoJPHBhdGggc3R5bGU9ImZpbGw6I0QxRDFEMTsiIGQ9Ik0zMDUuMjg1LDE4NS44MzdsLTYuMDM3LDUuMzUxYzkuNDg3LDkuMjMsMTYuMDI5LDIxLjQ2MywxNy44OTksMzQuOTI1ICAgYzAuNjcyLDQuODQyLDAuOTE5LDkuNzQ1LDEuMjcyLDE0LjYyN2MwLjE3OSwyLjQ2NywxLjQxNSw0Ljc2OCw0LjE2Nyw0LjczNmMyLjY2My0wLjAzMyw0LjA2LTIuMzc2LDMuODY3LTQuODQ0ICAgYy0wLjQ1OS01Ljg2Ni0wLjgyNC0xMS43NzYtMS44NTMtMTcuNTU1QzMyMS45NTcsMjA4LjIyOSwzMTUuMDcsMTk1LjUxOCwzMDUuMjg1LDE4NS44Mzd6Ii8+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRDFEMUQxOyIgZD0iTTMwNy41MjEsMjI0LjkzOWMtMS43MjktMTEuNTc4LTYuNTMyLTIxLjAyNi0xNC41MS0yOC4yMjRsLTYuMDIsNS4zMzUgICBjMy4xMTMsMi43NjMsNS44MDYsNi4wMDgsNy44OCw5LjU4N2MzLjY2NSw2LjMyMyw1LjI0NCwxMy41ODMsNS4yNTYsMjAuODQ5YzAuMDAyLDEuMTEsMC4wNTUsMi4yODQsMC40MTIsMy4zMTcgICBjMS4yMDMsMy40NzcsNi40MjUsMy4wNDYsNy4zMzUtMC40YzAuMjUyLTAuOTUsMC4yODEtMS45NTcsMC4zMzgtMi4zODRjLTAuMDU3LDAuNDI5LTAuMTM4LTIuMzUzLDAsMCAgIGMtMC4xMzgtMi4zNTMtMC4yMjItNC4xMzktMC4zNTctNS45MjNDMzA3LjgwMiwyMjYuMzcxLDMwNy42MjksMjI1LjY1OSwzMDcuNTIxLDIyNC45Mzl6Ii8+CjwvZz4KPGc+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTMwOC4yMTIsMjMzLjAxOUMzMDguMDc2LDIzMC42NjUsMzA4LjE1NSwyMzMuNDQ2LDMwOC4yMTIsMjMzLjAxOUwzMDguMjEyLDIzMy4wMTl6Ii8+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTI4Ni44NzIsMjMyLjE4OGMwLjA0NS0wLjAwMywwLjA4OC0wLjAyNiwwLjEzMS0wLjAzMWMtMC4xMjEsMC0wLjMwNywwLjAwMy0wLjQ5OCwwLjAxICAgQzI4Ni42MjksMjMyLjE3LDI4Ni43NDIsMjMyLjE4OSwyODYuODcyLDIzMi4xODh6Ii8+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTI4Ni44NzIsMjMyLjE4OGMtMC4xMjksMC4wMDItMC4yNDMtMC4wMTctMC4zNjctMC4wMjEgICBDMjg1Ljg4NCwyMzIuMTg0LDI4NS4yNDMsMjMyLjIxNywyODYuODcyLDIzMi4xODh6Ii8+Cgk8cGF0aCBzdHlsZT0iZmlsbDojRkZGRkZGOyIgZD0iTTI4Ny4wMDMsMjMyLjE1N2MtMC4wNDUsMC4wMDUtMC4wODgsMC4wMjgtMC4xMzEsMC4wMzEgICBDMjg3LjIwOCwyMzIuMTY1LDI4Ny4xNzksMjMyLjE1NywyODcuMDAzLDIzMi4xNTd6Ii8+CjwvZz4KPHBhdGggc3R5bGU9ImZpbGw6I0QxRDFEMTsiIGQ9Ik0yODAuODE0LDIwNy41MjVsLTYuMTI4LDUuNDMyYzAuMzM4LDAuMjA1LDAuNjY5LDAuNDE5LDAuOTksMC42NTIgIGMyLjk1OCwyLjE1NSw0LjgyNyw1LjQxMyw1LjY4OSw4LjkzYzAuNDM4LDEuNzg2LDAuNiwzLjY0NCwwLjgwNyw1LjQ4YzAuMjgzLDIuNTEzLDEuNzEsNC4wNTgsNC4zMzYsNC4xNDggIGMwLjE5MS0wLjAwNSwwLjM3OS0wLjAwOSwwLjQ5OC0wLjAxYzEuMjY0LTAuMTQsMi41MzEtMS4wMjYsMi45MzYtMi43NzRjMC4yNDUtMS4wNTcsMC4xMzMtMi4yMjYsMC4wMzYtMy4zMzEgIEMyODkuMjE2LDIxNy4yOTcsMjg1LjkwNiwyMTEuMjksMjgwLjgxNCwyMDcuNTI1eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K" /></a>
+            </div>
+        </div>
+        <main class="mdl-layout__content">
+            <section id="dashboard" class="mdl-layout__tab-panel">
+                <%- include('../pages/dashboard') -%>
+            </section>
+            <section id="koledar" class="mdl-layout__tab-panel">
+                <%- include('../pages/koledar') -%>
+            </section>
+            <section id="naloge" class="mdl-layout__tab-panel">
+                <%- include('../pages/naloge') -%>
+            </section>
+            <section id="cilj" class="mdl-layout__tab-panel">
+                <%- include('../pages/cilji') -%>
+            </section>
+            <section id="settings" class="mdl-layout__tab-panel">
+                <%- include('../pages/settings') -%>
+            </section>
+            <section id="notifications" class="mdl-layout__tab-panel">
+                <%- include('../pages/notifications') -%>
+            </section>
+            <section id="druzina" class="mdl-layout__tab-panel">
+                <%- include('../pages/druzina') -%>
+            </section>
+            <%- include('../partials/footer') -%>
+        </main>        
+    </div>
+    <div id="NalogaPopUp"></div>
+    <dialog id="dialog" class="mdl-dialog dialog-main ">
+        <div class="mdl-card mdl-shadow--2dp">
+            <button id="closeBtn" class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--fab color-dark close closeDialog">
+                <i class="material-icons mdl-color-text--grey-200" role="presentation">close</i>
+                <span class="visuallyhidden">add</span>
+            </button>
+            <div class="mdl-card__title krivulja-3 header3" >
+                <h3 id="dialog-title" class="mdl-card__title-text mdl-color-text--white"></h2>
+            </div>
+            <div class="mdl-card__supporting-text" id="hintNal">
+                <div class="mdl-list padding-zero help-list">
+                        <div class="mdl-list__item padding-zero">
+                            <span class="mdl-list__item-primary-content">
+                                <span class="margin-zero color-neutral mdl-typography--caption">Polja označena z * so obvezna!</span>
+                            </span>
+                            <button class="mdl-button mdl-js-button mdl-button--icon mdl-js-ripple-effect" id="dialog-hint" onclick="">
+                                <i class="material-icons mdl-color-text--grey-400">help_outline</i>
+                            </button>
+                        </div>                             
+                    </div>
+                <form id="update_dialog">
+                    <input type="hidden" name="newDialog" id="newDialog">
+                    <div class="mdl-dialog__content relative">
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input" type="text" id="imeDialog" name="imeDialog" maxlength="32" onkeyup="checkSpecial(this,1)"/>
+                            <label class="mdl-textfield__label" for="imeDialog" id="iDialog"></label>
+                            <span class="mdl-textfield__error" id="imeDialogErr">Ime vsebuje posebne znake!</span>
+                        </div>
+                        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input" type="text" id="opisDialog" name="opisDialog" maxlength="160" onkeyup="checkSpecial(this,2)"/>
+                            <label class="mdl-textfield__label" for="opisDialog" id="oDialog"></label>
+                            <span class="mdl-textfield__error" id="opisDialogErr">Opis vsebuje posebne znake!</span>
+                        </div>
+                        <div id="dialogZacetek" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input" type="text" id="targetZacetek" name="targetZacetek" title="Izberite dan, ko je bil cilj postavljen" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
+                            <label class="mdl-textfield__label" for="targetZacetek" id="tZacetek"></label>
+                            <input type="hidden" name="dateZacetek" id="dateZacetek" >
+                            <span class="mdl-textfield__error">Zapis datuma je napačen.</span>                         
+                        </div>
+                        <div id="pickZac" class="datepicker-here hide-element" data-timepicker="true"></div>   
+                        <div id="dialogKonec" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                            <input class="mdl-textfield__input " type="text" id="targetKonec" name="targetKonec" title="Izberite dan, ko je bil cilj končan" pattern="^[0-9]{2}-[0-9]{2}-[0-9]{4}\sob\s[0-9]{2}:[0-9]{2}" readonly>
+                            <label class="mdl-textfield__label" for="targetKonec" id="tKonec"> </label>
+                            <input type="hidden" name="dateKonec" id="dateKonec">
+                            <span class="mdl-textfield__error" id="dateKonecErr">Zapis datuma je napačen.</span>
+                        </div>
+                        <div id="pickKon" class="datepicker-here hide-element" data-timepicker="true"></div>
+                        <div id="dialogCilj" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
+                            <input type="text" class="mdl-textfield__input" id="vezanCilj" readonly required/>
+                            <input type="hidden" name="sampleCilj">
+                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            <label for="vezanCilj" class="mdl-textfield__label">Vezano na cilj</label>
+                            <ul for="vezanCilj" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-cilj">
+                                <% for (var i = 0; i < cilji.length; i++) { %>                                   
+                                        <li class="mdl-menu__item" data-val="<%= cilji[i].id %>"><%= cilji[i].ime %></li>
+                                <% } %>
+                            </ul>
+                        </div>
+                        <input type="hidden" name="oldCilj">
+                        <div id="dialogKategorija" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal" hidden>
+                            <input type="text" class="mdl-textfield__input" id="kategorija" readonly required/>
+                            <input type="hidden" name="sampleKategorija" id="sampleKategorija">
+                            <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                            <label for="kategorija" class="mdl-textfield__label">Kategorija*</label>
+                            <ul for="kategorija" class="mdl-menu mdl-menu--bottom-left mdl-js-menu list-kategorija" data-selected="true">
+                                <% for (var i = 0; i < kategorija.length; i++) { %>
+                                <li class="mdl-menu__item" data-val="<%= kategorija[i].id %>"><%= kategorija[i].ime %></li>
+                                <% } %>
+                            </ul>
+                            <span class="mdl-textfield__error" id="kategorijaErr">Polje je obvezno!</span>
+                        </div>
+                        <ul class="mdl-list margin-zero padding-zero" id="xpStatus">
+                            <li class="mdl-list__item padding-zero overflow-visible dialog-duo">
+                                <div class="mdl-list__item-primary-content" style="padding-right: 10px">
+                                    <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label textfield-modal">
+                                        <input class="mdl-textfield__input" type="number" id="xpNaloge" name="xpNaloge" min="0" max="9999" oninput="javascript: if (this.value.length > 4) this.value = this.value.slice(0, 4);">
+                                        <label class="mdl-textfield__label" for="xpNaloge" id="tockeName"></label>
+                                        <span class="mdl-textfield__error" id="xpErr" ></span>
+                                    </div>
+                                </div>
+                                <div class="mdl-list__item-primary-content" style="padding-left: 10px">
+                                    <div id="ciljiVsi">
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="skupnaNaloga">
+                                            <input type="checkbox" id="skupnaNaloga" name="skupnaNaloga" class="mdl-checkbox__input">
+                                            <span class="mdl-checkbox__label" id="vsiCiljiLabel">Skupni cilj&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</span>
+                                        </label>
+                                    </div>
+                                    <div id="dialogStatus" class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select textfield-modal">
+                                        <input type="text" value="" class="mdl-textfield__input" id="statusNaloge" readonly>
+                                        <input type="hidden" value="" name="newStatus">
+                                        <input type="hidden" value="false" name="oldStatus">
+                                        <i class="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
+                                        <label for="statusNaloge" class="mdl-textfield__label">Status naloge*</label>
+                                        <ul for="statusNaloge" class="mdl-menu mdl-menu--bottom-left mdl-js-menu">
+                                            <li class="mdl-menu__item" data-val="true">Opravljena</li>
+                                            <li class="mdl-menu__item" data-val="false" data-selected="true" >Neopravljena</li>
+                                        </ul>
+                                        <span class="mdl-textfield__error" id="statusErr">Polje je obvezno!</span>
+                                    </div>
+                                </div>    
+                            </li>
+                        </ul>
+                        <div id="claniNaloge">
+                            <h4 class="mdl-typography--subhead dialog-sub">Člani naloge</h4>
+                            <ul class="mdl-list" style="margin: 0;" id="listClani">
+                                <li class="mdl-list__item mdl-list__item--no-padding">
+                                    <span class="mdl-list__item-primary-content">Označi/odznači vse člane družine</span>
+                                    <span class="mdl-list__item-secondary-action">
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="checkboxVsi">
+                                            <input type="checkbox" id="checkboxVsi" name="person" class="mdl-checkbox__input checkbox-modal"/>
+                                        </label>
+                                    </span>
+                                </li>
+                                <% for (var i = 0; i < uporabniki.length; i++) { %>
+                                <li class="mdl-list__item mdl-list__item--no-padding">
+                                    <span class="mdl-list__item-primary-content">
+                                    <img class="mdl-chip__contact author-chip img-48-<%= uporabniki[i].slika %>" src="publicpublic/images/png.png">
+                                    <%= uporabniki[i].ime %>
+                                    </span>
+                                    <span class="mdl-list__item-secondary-action">
+                                        <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect label-modal" for="person<%= i %>">
+                                            <input type="checkbox" id="person<%= i %>" name="person" value="<%= uporabniki[i].id %>" class="mdl-checkbox__input checkbox-modal"/>
+                                        </label>
+                                    </span>
+                                </li>
+                                <% } %>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="mdl-card__actions mdl-card--border">
+                <button id="izbrisi" type="button" class="mdl-button color-red delete mdl-color-text--white">Izbriši</button>
+                <button id="ustvari" type="button" value="submit" class="mdl-button color-dark-cyan create mdl-color-text--white"></button>
+            </div>
+        </div>
+    </dialog>
+    <div id="mainToast" class="mdl-js-snackbar mdl-snackbar">
+        <div class="mdl-snackbar__text"></div>
+        <button class="mdl-snackbar__action" type="button"></button>
+    </div>
+    <%- include('../partials/script') -%>
+</body>
+</html>

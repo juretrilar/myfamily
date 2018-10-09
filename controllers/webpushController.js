@@ -192,6 +192,17 @@ module.exports.posljiKategorije = function (req, res) {
   });
 };
 
+module.exports.vrniKategorije = function (req, res) {
+  Kategorija.find(function (err, kat) {
+    if (err) {
+      console.log(err);
+      res.status(404).send(err);
+    } else {
+      res.status(200).send(kat);
+    }
+  });
+};
+
 
 //** POST /api/koraki/
 module.exports.prejmiKorake = function (req, res) {

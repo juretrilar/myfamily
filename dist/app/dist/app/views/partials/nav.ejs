@@ -1,0 +1,43 @@
+<header class="mdl-grid mdl-layout__header mdl-layout__header--scroll mdl-color--white">
+    <div class="mdl-layout__header-row">
+        <!--<div class="circle-container mdl-color--primary mdl-cell--hide-phone"></div>-->
+        <div class="display-inh">
+            <a href="javascript:void(0)" class="display-inh" onclick="pregled()">
+                <h3 class="mdl-color-text--grey mdl-typography--font-light">My</h3>
+                <h3 class="mdl-color-text--black mdl-typography--font-light">Family</h3>
+            </a>
+        </div>
+        <% if (currSession) { %>
+        <div class="mdl-layout-spacer"></div>
+        <div id="dash7">
+        <h6 class="mdl-color-text--grey mdl-typography--font-light mdl-cell--hide-phone">Pozdravljen,&nbsp</h6>
+        <h6 class="mdl-color-text--grey-700 mdl-typography--font-light"><%= currSession.trenutniUporabnik.ime %></h6>
+        <input type="hidden" id="trenutniUporabnik" value="<%= currSession.trenutniUporabnik.id %>">
+        <button id="menu-lower-right" class="mdl-button mdl-js-button mdl-button--icon color-dark-text">
+            <i class="material-icons color-dark-text">menu</i>
+        </button>
+        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+            for="menu-lower-right" id="dash7">
+            <li onclick="openSettings()" class="mdl-menu__item"><i class="material-icons">settings</i>Osebne nastavitve</li>
+            <li onclick="openNotifications()" class="mdl-menu__item"><i class="material-icons">notifications</i>Nastavitve sporočanja</li>
+            <li onclick="openDruzina()" class="mdl-menu__item"><i class="material-icons">add_circle</i>Dodaj družinskega člana</li>
+            <li onclick="location.href='/odjava'" class="mdl-menu__item"><i class="material-icons">exit_to_app</i>Odjava</li>
+        </ul>
+    </div>
+        <% } %>
+    </div>
+    <%if (currSession) { %>
+    <div class="mdl-layout__tab-bar mdl-js-ripple-effect mdl-color--white">
+        <div class="display-inh" id="dash1">
+        <a id="menuDashboard" href="#dashboard" class="mdl-layout__tab mdl-color-text--black">Pregled</a>
+        <a id="menuKoledar" href="#koledar" class="mdl-layout__tab mdl-color-text--black">Koledar</a>
+        <a id="menuNaloge" href="#naloge" class="mdl-layout__tab mdl-color-text--black">Naloge</a>
+        <a id="menuCilj" href="#cilj" class="mdl-layout__tab mdl-color-text--black">Cilji</a>
+        <a id="menuSettings" href="#settings"></a>
+        <a id="menuNotifications" href="#notifications"></a>
+        <a id="menuDruzina" href="#druzina"></a>
+        </div>
+    </div>
+    <% } %>
+    <div class="mdl-layout__header-row"></div>
+</header>

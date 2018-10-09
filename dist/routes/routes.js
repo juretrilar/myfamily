@@ -52,6 +52,8 @@ router.get('/api/cilji/:userId', subscriptionHandler.posljiCilje);
 
 router.get('/api/kategorije/', subscriptionHandler.posljiKategorije);
 
+router.get('/data/kategorije/', subscriptionHandler.vrniKategorije);
+
 router.get('/api/druzina/:druzinaId', subscriptionHandler.posljiDruzino);
 
 router.post('/api/reset_password/', subscriptionHandler.resetPassword);

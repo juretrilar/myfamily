@@ -286,9 +286,12 @@ jQuery(function($) {
         });
     });
 
-    $("#nalogaDone").click(function(e) {  
+    $("#nalogaDone").click(function(e) {
+        console.log("clicked");
+        console.log(e , mode); 
         let data = "newDialog="+$("#opomnikId").val()+"&newStatus=true&mode=1";
-        if (validateNaloga(e, mode) === true) {
+        if (validateNaloga(e, 1) === true) {
+            console.log(data);
             $.ajax({
                 url: '/ustvari_nalogo',
                 type: 'POST',
@@ -303,8 +306,7 @@ jQuery(function($) {
                     let snackbarContainer = document.querySelector('#mainToast');             
                     snackbarContainer.MaterialSnackbar.showSnackbar({message: response});
                     console.log(jqXhr, textStatus, errorThrown, response);
-                }
-                
+                }                
             });
         }
     });
